@@ -1,1839 +1,355 @@
-								<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#ffffff">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>Student Portal — EduManage</title>
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
 <script src="js/config.js"></script>
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-  background: var(--gray-50);
-  font-family: var(--font-body);
-  color: var(--black);
-  padding-bottom: 80px;
-}
-
-/* MOBILE TOPBAR */
-.mobile-topbar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: var(--white);
-  border-bottom: 1px solid var(--gray-200);
-  padding: 14px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.topbar-logo {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 700;
-  color: var(--black);
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.topbar-logo-mark {
-  width: 28px;
-  height: 28px;
-  background: var(--black);
-  color: var(--white);
-  border-radius: 7px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-  font-weight: 700;
-}
-
-.topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.lang-selector-sm {
-  display: flex;
-  gap: 2px;
-  background: var(--gray-100);
-  border-radius: 100px;
-  padding: 2px;
-}
-
-.lang-btn-sm {
-  padding: 4px 9px;
-  border-radius: 100px;
-  border: none;
-  background: transparent;
-  font-family: var(--font-body);
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--gray-400);
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.lang-btn-sm.active {
-  background: var(--white);
-  color: var(--black);
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-}
-
-.btn-logout-sm {
-  background: none;
-  border: 1px solid var(--gray-200);
-  border-radius: 7px;
-  padding: 6px 10px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--gray-500);
-  cursor: pointer;
-  font-family: var(--font-body);
-  transition: var(--transition);
-}
-
-.btn-logout-sm:hover {
-  background: var(--red);
-  color: var(--white);
-  border-color: var(--red);
-}
-
-/* CONTENT */
-.content {
-  padding: 0;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-/* HOME HEADER */
-.home-header {
-  background: var(--black);
-  color: var(--white);
-  padding: 24px 20px 28px;
-  position: relative;
-  overflow: hidden;
-}
-
-.home-header-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-
-.home-header-content { position: relative; z-index: 1; }
-
-.home-greeting {
-  font-size: 12px;
-  color: rgba(255,255,255,0.4);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 6px;
-  font-weight: 600;
-}
-
-.home-name {
-  font-family: var(--font-display);
-  font-size: 28px;
-  font-weight: 700;
-  line-height: 1.15;
-  margin-bottom: 8px;
-}
-
-.home-meta {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.home-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 10px;
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 100px;
-  font-size: 11px;
-  color: rgba(255,255,255,0.7);
-  font-weight: 500;
-}
-
-/* PHOTO SECTION */
-.photo-section {
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-  margin-bottom: 12px;
-}
-
-.student-photo {
-  width: 64px;
-  height: 64px;
-  border-radius: 50%;
-  background: rgba(255,255,255,0.1);
-  border: 2px solid rgba(255,255,255,0.2);
-  overflow: hidden;
-  flex-shrink: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display);
-  font-size: 24px;
-  color: rgba(255,255,255,0.7);
-}
-
-.student-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* QUICK STATS */
-.quick-stats {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-  padding: 16px 20px;
-}
-
-.qs-card {
-  background: var(--white);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius);
-  padding: 14px;
-  transition: var(--transition);
-}
-
-.qs-card:active { transform: scale(0.98); }
-
-.qs-icon {
-  width: 32px;
-  height: 32px;
-  background: var(--gray-100);
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-
-.qs-icon svg {
-  width: 16px;
-  height: 16px;
-  stroke: var(--black);
-}
-
-.qs-value {
-  font-family: var(--font-display);
-  font-size: 26px;
-  font-weight: 700;
-  line-height: 1;
-  margin-bottom: 3px;
-}
-
-.qs-label {
-  font-size: 10px;
-  color: var(--gray-400);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-/* SECTION */
-.section {
-  padding: 0 20px;
-  margin-bottom: 20px;
-}
-
-.section-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-
-.section-title {
-  font-family: var(--font-display);
-  font-size: 17px;
-  font-weight: 600;
-  color: var(--black);
-}
-
-.section-link {
-  font-size: 12px;
-  color: var(--gray-400);
-  text-decoration: none;
-  font-weight: 500;
-}
-
-/* MARKS CARD */
-.marks-card {
-  background: var(--white);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius);
-  padding: 16px;
-}
-
-.mark-item {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--gray-100);
-}
-
-.mark-item:last-child { border-bottom: none; }
-
-.mark-subject-name {
-  font-size: 13px;
-  font-weight: 600;
-  min-width: 80px;
-  color: var(--black);
-}
-
-.mark-progress {
-  flex: 1;
-  height: 4px;
-  background: var(--gray-100);
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.mark-progress-fill {
-  height: 100%;
-  background: var(--black);
-  border-radius: 2px;
-  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.mark-score-val {
-  font-family: var(--font-mono);
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--gray-600);
-  min-width: 40px;
-  text-align: right;
-}
-
-/* ATTENDANCE CARD */
-.att-card {
-  background: var(--white);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius);
-  padding: 20px;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.att-donut {
-  width: 80px;
-  height: 80px;
-  position: relative;
-  flex-shrink: 0;
-}
-
-.att-donut svg { transform: rotate(-90deg); }
-
-.att-donut-text {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.att-pct {
-  font-family: var(--font-mono);
-  font-size: 16px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.att-sub-text {
-  font-size: 8px;
-  color: var(--gray-400);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.att-details { flex: 1; }
-
-.att-detail-row {
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-  padding: 4px 0;
-}
-
-.att-detail-label { color: var(--gray-500); }
-.att-detail-val { font-weight: 600; }
-
-/* FEES CARD */
-.fees-card {
-  background: var(--white);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius);
-  padding: 16px;
-}
-
-.fees-status-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 14px;
-}
-
-.fees-amount {
-  font-family: var(--font-display);
-  font-size: 24px;
-  font-weight: 700;
-}
-
-.fees-remaining {
-  font-size: 12px;
-  color: var(--gray-400);
-  margin-top: 2px;
-}
-
-.pay-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  width: 100%;
-  padding: 13px;
-  background: var(--black);
-  color: var(--white);
-  border: none;
-  border-radius: var(--radius);
-  font-family: var(--font-body);
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  justify-content: center;
-  transition: var(--transition);
-  text-decoration: none;
-}
-
-.pay-btn:active { transform: scale(0.98); }
-
-.pay-btn svg {
-  width: 16px;
-  height: 16px;
-  stroke: var(--white);
-}
-
-/* TEACHER CARD */
-.teacher-card {
-  background: var(--white);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius);
-  padding: 16px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-.teacher-avatar {
-  width: 44px;
-  height: 44px;
-  background: var(--gray-100);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display);
-  font-size: 18px;
-  color: var(--gray-600);
-  flex-shrink: 0;
-}
-
-.teacher-name {
-  font-size: 15px;
-  font-weight: 600;
-  margin-bottom: 2px;
-}
-
-.teacher-sub {
-  font-size: 12px;
-  color: var(--gray-400);
-}
-
-/* REMARKS CARD */
-.remarks-card {
-  background: var(--white);
-  border: 1px solid var(--gray-200);
-  border-left: 3px solid var(--black);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-}
-
-.remarks-label {
-  font-size: 10px;
-  font-weight: 700;
-  color: var(--gray-400);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 6px;
-}
-
-.remarks-text {
-  font-size: 14px;
-  color: var(--gray-700);
-  line-height: 1.6;
-}
-
-/* TIMETABLE */
-.timetable-card {
-  background: var(--white);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius);
-  overflow: hidden;
-}
-
-.tt-row {
-  display: flex;
-  border-bottom: 1px solid var(--gray-100);
-}
-
-.tt-row:last-child { border-bottom: none; }
-
-.tt-day-col {
-  width: 80px;
-  padding: 10px 12px;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--gray-500);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  background: var(--gray-50);
-  border-right: 1px solid var(--gray-100);
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-}
-
-.tt-periods {
-  display: flex;
-  flex: 1;
-  overflow-x: auto;
-  padding: 8px;
-  gap: 6px;
-}
-
-.tt-period {
-  flex-shrink: 0;
-  padding: 6px 10px;
-  background: var(--gray-50);
-  border: 1px solid var(--gray-100);
-  border-radius: 6px;
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--gray-700);
-  white-space: nowrap;
-}
-
-/* NOTIFICATIONS */
-.notif-list { display: flex; flex-direction: column; gap: 8px; }
-
-.notif-card {
-  background: var(--white);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  animation: fadeIn 0.4s ease;
-}
-
-.notif-dot-wrap {
-  width: 8px;
-  height: 8px;
-  background: var(--black);
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-top: 5px;
-}
-
-.notif-title {
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 3px;
-}
-
-.notif-msg {
-  font-size: 12px;
-  color: var(--gray-500);
-  line-height: 1.5;
-}
-
-.notif-time {
-  font-size: 10px;
-  color: var(--gray-300);
-  margin-top: 4px;
-}
-
-/* CLASS GROUP */
-.post-list { display: flex; flex-direction: column; gap: 10px; }
-
-.post-item {
-  background: var(--white);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  animation: fadeIn 0.4s ease;
-}
-
-.post-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-
-.post-author-name {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--black);
-}
-
-.post-timestamp {
-  font-size: 10px;
-  color: var(--gray-300);
-}
-
-.post-content {
-  font-size: 14px;
-  color: var(--gray-700);
-  line-height: 1.6;
-  margin-bottom: 8px;
-}
-
-.post-image {
-  width: 100%;
-  border-radius: 8px;
-  margin-top: 8px;
-  max-height: 250px;
-  object-fit: cover;
-}
-
-.post-video-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 14px;
-  background: var(--gray-50);
-  border: 1px solid var(--gray-200);
-  border-radius: 8px;
-  margin-top: 8px;
-  font-size: 13px;
-  color: var(--black);
-  text-decoration: none;
-  font-weight: 500;
-  transition: var(--transition);
-}
-
-.post-video-btn:active { background: var(--gray-100); }
-
-.post-video-btn svg {
-  width: 16px;
-  height: 16px;
-  stroke: var(--black);
-}
-
-/* PAYMENT MODAL */
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.6);
-  z-index: 200;
-  display: none;
-  align-items: flex-end;
-  animation: fadeIn 0.3s ease;
-}
-
-.modal-overlay.show { display: flex; }
-
-.modal-sheet {
-  background: var(--white);
-  border-radius: 20px 20px 0 0;
-  padding: 24px 20px 40px;
-  width: 100%;
-  animation: slideUp 0.3s ease;
-}
-
-@keyframes slideUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
-}
-
-.modal-handle {
-  width: 36px;
-  height: 4px;
-  background: var(--gray-200);
-  border-radius: 2px;
-  margin: 0 auto 20px;
-}
-
-.modal-title {
-  font-family: var(--font-display);
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.modal-sub {
-  font-size: 13px;
-  color: var(--gray-400);
-  margin-bottom: 20px;
-}
-
-.upi-id-box {
-  background: var(--gray-50);
-  border: 1px solid var(--gray-200);
-  border-radius: var(--radius);
-  padding: 14px 16px;
-  margin-bottom: 16px;
-}
-
-.upi-id-label {
-  font-size: 10px;
-  color: var(--gray-400);
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-
-.upi-id-value {
-  font-family: var(--font-mono);
-  font-size: 16px;
-  font-weight: 700;
-  color: var(--black);
-}
-
-.upi-apps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.upi-app-btn {
-  padding: 12px 8px;
-  background: var(--gray-50);
-  border: 1.5px solid var(--gray-200);
-  border-radius: var(--radius);
-  font-family: var(--font-body);
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--black);
-  cursor: pointer;
-  text-align: center;
-  transition: var(--transition);
-  text-decoration: none;
-  display: block;
-}
-
-.upi-app-btn:active {
-  background: var(--black);
-  color: var(--white);
-  border-color: var(--black);
-}
-
-.divider-text {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  color: var(--gray-300);
-  font-size: 11px;
-  margin-bottom: 16px;
-}
-
-.divider-text::before,
-.divider-text::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: var(--gray-200);
-}
-
-.form-group { margin-bottom: 14px; }
-
-.form-group label {
-  display: block;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--gray-500);
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  margin-bottom: 6px;
-}
-
-.input {
-  width: 100%;
-  padding: 12px 14px;
-  background: var(--gray-50);
-  border: 1.5px solid var(--gray-200);
-  border-radius: var(--radius);
-  font-family: var(--font-mono);
-  font-size: 14px;
-  color: var(--black);
-  outline: none;
-  transition: var(--transition);
-}
-
-.input:focus {
-  border-color: var(--black);
-  background: var(--white);
-}
-
-/* SCREENSHOT UPLOAD */
-.upload-area {
-  border: 2px dashed var(--gray-300);
-  border-radius: var(--radius);
-  padding: 20px;
-  text-align: center;
-  cursor: pointer;
-  transition: var(--transition);
-  margin-bottom: 14px;
-}
-
-.upload-area:active { border-color: var(--black); }
-
-.upload-icon {
-  width: 32px;
-  height: 32px;
-  stroke: var(--gray-300);
-  margin: 0 auto 8px;
-}
-
-.upload-text {
-  font-size: 13px;
-  color: var(--gray-400);
-}
-
-.upload-preview {
-  width: 100%;
-  max-height: 150px;
-  object-fit: cover;
-  border-radius: 8px;
-  display: none;
-}
-
-/* BOTTOM NAV */
-.bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: var(--white);
-  border-top: 1px solid var(--gray-200);
-  display: flex;
-  z-index: 100;
-  padding: 6px 0 8px;
-}
-
-.bn-btn {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 3px;
-  padding: 6px 4px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: var(--transition);
-}
-
-.bn-icon {
-  width: 22px;
-  height: 22px;
-  stroke: var(--gray-300);
-  transition: var(--transition);
-}
-
-.bn-label {
-  font-size: 9px;
-  font-weight: 600;
-  color: var(--gray-300);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-.bn-btn.active .bn-icon { stroke: var(--black); }
-.bn-btn.active .bn-label { color: var(--black); }
-
-/* LOADING */
-.loading-screen {
-  min-height: 60vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-}
-
-.loading-spinner {
-  width: 28px;
-  height: 28px;
-  border: 2px solid var(--gray-200);
-  border-top-color: var(--black);
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-.loading-text {
-  font-size: 13px;
-  color: var(--gray-400);
-}
-
-/* EMPTY */
-.empty-box {
-  text-align: center;
-  padding: 32px 20px;
-  color: var(--gray-300);
-}
-
-.empty-box svg {
-  width: 36px;
-  height: 36px;
-  stroke: var(--gray-200);
-  margin: 0 auto 10px;
-  display: block;
-}
-
-.empty-box p {
-  font-size: 13px;
-}
-
-/* TOAST */
-.toast {
-  position: fixed;
-  bottom: 90px;
-  left: 50%;
-  transform: translateX(-50%) translateY(20px);
-  background: var(--black);
-  color: var(--white);
-  padding: 10px 20px;
-  border-radius: 100px;
-  font-size: 13px;
-  font-weight: 600;
-  opacity: 0;
-  transition: all 0.3s ease;
-  z-index: 999;
-  white-space: nowrap;
-}
-
-.toast.show {
-  opacity: 1;
-  transform: translateX(-50%) translateY(0);
-}
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--white:#fff;--black:#0a0a0a;--gray-50:#fafafa;--gray-100:#f5f5f5;--gray-200:#eee;--gray-300:#e0e0e0;--gray-400:#bdbdbd;--gray-500:#9e9e9e;--gray-600:#757575;--gray-700:#616161;--green:#1a7a4a;--green-light:#e8f5ee;--red:#c0392b;--red-light:#fdf0ef;--gold:#b8860b;--gold-light:#fdf8e8;--font-display:'Playfair Display',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;--radius:12px;--transition:all .3s cubic-bezier(.4,0,.2,1)}
+body{font-family:var(--font-body);background:var(--gray-50);color:var(--black);padding-bottom:80px;min-height:100vh}
+.topbar{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:1px solid var(--gray-200);padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
+.tl{font-family:var(--font-display);font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
+.lm{width:28px;height:28px;background:var(--black);color:var(--white);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.tr{display:flex;align-items:center;gap:8px}
+.ls{display:flex;gap:2px;background:var(--gray-100);border-radius:100px;padding:2px}
+.lb{padding:4px 9px;border-radius:100px;border:none;background:transparent;font-family:var(--font-body);font-size:10px;font-weight:700;color:var(--gray-400);cursor:pointer}
+.lb.active{background:var(--white);color:var(--black);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.ob{background:none;border:1px solid var(--gray-200);border-radius:7px;padding:6px 10px;font-size:11px;font-weight:600;color:var(--gray-500);cursor:pointer;font-family:var(--font-body)}
+.cnt{max-width:600px;margin:0 auto}
+.hdr{background:var(--black);color:var(--white);padding:20px 16px 24px;position:relative;overflow:hidden}
+.hg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:32px 32px}
+.hc{position:relative;z-index:1}
+.prow{display:flex;align-items:flex-start;gap:14px;margin-bottom:10px}
+.sphoto{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:22px;color:rgba(255,255,255,.8);flex-shrink:0;overflow:hidden}
+.sphoto img{width:100%;height:100%;object-fit:cover}
+.grt{font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:600}
+.snm{font-family:var(--font-display);font-size:24px;font-weight:700;line-height:1.1;margin-bottom:6px}
+.cps{display:flex;gap:6px;flex-wrap:wrap}
+.cp{padding:3px 10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-radius:100px;font-size:10px;color:rgba(255,255,255,.7);font-weight:500}
+.qs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:14px 16px}
+.qs{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:14px;cursor:pointer}
+.qsi{width:30px;height:30px;background:var(--gray-100);border-radius:7px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
+.qsi svg{width:15px;height:15px;stroke:var(--black)}
+.qsv{font-family:var(--font-display);font-size:24px;font-weight:700;line-height:1;margin-bottom:2px}
+.qsl{font-size:10px;color:var(--gray-400);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.sec{padding:0 16px;margin-bottom:18px}
+.stt{font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:10px}
+.card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:14px;margin-bottom:10px}
+.mr{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--gray-100)}
+.mr:last-child{border-bottom:none}
+.ms{font-size:13px;font-weight:600;min-width:80px}
+.mb{flex:1;height:4px;background:var(--gray-100);border-radius:2px;overflow:hidden}
+.mf{height:100%;background:var(--black);border-radius:2px;transition:width 1s ease}
+.msc{font-family:var(--font-mono);font-size:12px;font-weight:600;min-width:45px;text-align:right;color:var(--gray-600)}
+.ac{display:flex;align-items:center;gap:16px;padding:16px}
+.ad{width:72px;height:72px;position:relative;flex-shrink:0}
+.ad svg{transform:rotate(-90deg)}
+.at{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ap{font-family:var(--font-mono);font-size:15px;font-weight:700;line-height:1}
+.as{font-size:8px;color:var(--gray-400);text-transform:uppercase}
+.ar{display:flex;justify-content:space-between;font-size:13px;padding:4px 0}
+.al{color:var(--gray-500)}
+.av{font-weight:600}
+.fc{padding:14px}
+.fr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.fa{font-family:var(--font-display);font-size:22px;font-weight:700}
+.fs{font-size:11px;color:var(--gray-400)}
+.pb{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;background:var(--black);color:var(--white);border:none;border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer}
+.pb svg{width:15px;height:15px;stroke:var(--white)}
+.tr2{display:flex;align-items:center;gap:12px}
+.tav{width:40px;height:40px;background:var(--gray-100);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:16px;color:var(--gray-600);flex-shrink:0}
+.tn{font-size:14px;font-weight:600}
+.ts{font-size:11px;color:var(--gray-400)}
+.rmc{border-left:3px solid var(--black);border-radius:0 var(--radius) var(--radius) 0}
+.rl{font-size:10px;color:var(--gray-400);text-transform:uppercase;letter-spacing:.8px;font-weight:600;margin-bottom:4px}
+.rt{font-size:13px;color:var(--gray-700);line-height:1.6}
+.ttc{overflow:hidden}
+.ttr{display:flex;border-bottom:1px solid var(--gray-100)}
+.ttr:last-child{border-bottom:none}
+.ttd{width:72px;padding:8px 10px;font-size:10px;font-weight:700;color:var(--gray-500);text-transform:uppercase;background:var(--gray-50);border-right:1px solid var(--gray-100);display:flex;align-items:center;flex-shrink:0}
+.ttp{display:flex;flex:1;overflow-x:auto;padding:6px;gap:5px}
+.ttpi{flex-shrink:0;padding:5px 9px;background:var(--gray-50);border:1px solid var(--gray-100);border-radius:6px;font-size:11px;font-weight:500;color:var(--gray-700);white-space:nowrap}
+.ni{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--gray-100)}
+.ni:last-child{border-bottom:none}
+.nd{width:7px;height:7px;background:var(--black);border-radius:50%;flex-shrink:0;margin-top:4px}
+.ntl{font-size:13px;font-weight:600;margin-bottom:2px}
+.nm{font-size:12px;color:var(--gray-500);line-height:1.5}
+.nti{font-size:10px;color:var(--gray-300);margin-top:3px}
+.pi{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:12px;margin-bottom:8px}
+.ph{display:flex;justify-content:space-between;margin-bottom:6px}
+.pau{font-size:12px;font-weight:700}
+.ptm{font-size:10px;color:var(--gray-300)}
+.ptxt{font-size:13px;color:var(--gray-700);line-height:1.6}
+.pimg{width:100%;border-radius:8px;margin-top:8px;max-height:220px;object-fit:cover}
+.vb{display:flex;align-items:center;gap:6px;margin-top:8px;padding:8px 12px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:8px;font-size:12px;color:var(--black);text-decoration:none;font-weight:500}
+.vb svg{width:14px;height:14px;stroke:var(--black)}
+.pfhd{background:var(--black);color:var(--white);border-radius:var(--radius);padding:20px;text-align:center;margin-bottom:12px;position:relative;overflow:hidden}
+.pfg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:32px 32px}
+.pfav{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:26px;overflow:hidden;position:relative;z-index:1}
+.pfav img{width:100%;height:100%;object-fit:cover}
+.pfnm{font-family:var(--font-display);font-size:22px;font-weight:700;position:relative;z-index:1}
+.pfcd{font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.4);margin-top:2px;position:relative;z-index:1}
+.pfcp{display:flex;gap:6px;justify-content:center;margin-top:8px;position:relative;z-index:1}
+.pfcpi{background:rgba(255,255,255,.1);padding:3px 10px;border-radius:100px;font-size:10px}
+.il{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;margin-bottom:10px}
+.ir{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-bottom:1px solid var(--gray-100)}
+.ir:last-child{border-bottom:none}
+.irlab{font-size:12px;color:var(--gray-400);font-weight:500}
+.irval{font-size:13px;font-weight:600;text-align:right;max-width:60%}
+.mo{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:none;align-items:flex-end}
+.mo.show{display:flex}
+.msh{background:var(--white);border-radius:20px 20px 0 0;padding:20px 16px 40px;width:100%;animation:su .3s ease}
+@keyframes su{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.mh{width:36px;height:4px;background:var(--gray-200);border-radius:2px;margin:0 auto 16px}
+.mttl{font-family:var(--font-display);font-size:20px;font-weight:700;margin-bottom:4px}
+.msub{font-size:13px;color:var(--gray-400);margin-bottom:16px}
+.ub{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius);padding:12px 14px;margin-bottom:14px}
+.ul{font-size:10px;color:var(--gray-400);text-transform:uppercase;letter-spacing:.8px;font-weight:600;margin-bottom:3px}
+.uv{font-family:var(--font-mono);font-size:15px;font-weight:700}
+.ua{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+.uab{padding:11px 6px;background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:12px;font-weight:700;color:var(--black);cursor:pointer;text-align:center;display:block;text-decoration:none}
+.uab:active{background:var(--black);color:var(--white)}
+.dv{display:flex;align-items:center;gap:10px;color:var(--gray-300);font-size:11px;margin-bottom:14px}
+.dv::before,.dv::after{content:'';flex:1;height:1px;background:var(--gray-200)}
+.fi{width:100%;padding:11px 13px;background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:13px;color:var(--black);outline:none;margin-bottom:12px}
+.fi:focus{border-color:var(--black);background:var(--white)}
+.sbt{width:100%;padding:13px;background:var(--black);color:var(--white);border:none;border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer;margin-bottom:8px}
+.cbt{width:100%;padding:11px;background:none;border:1px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:13px;color:var(--gray-500);cursor:pointer}
+.bn{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--gray-200);display:flex;padding:6px 0 8px;z-index:100}
+.bb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 4px;background:none;border:none;cursor:pointer}
+.bi{width:21px;height:21px;stroke:var(--gray-300)}
+.bla{font-size:9px;font-weight:600;color:var(--gray-300);text-transform:uppercase;letter-spacing:.5px}
+.bb.active .bi{stroke:var(--black)}
+.bb.active .bla{color:var(--black)}
+.ls2{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:12px}
+.sp{width:26px;height:26px;border:2px solid var(--gray-200);border-top-color:var(--black);border-radius:50%;animation:spin .8s linear infinite}
+.lt{font-size:13px;color:var(--gray-400);text-align:center}
+.eb{text-align:center;padding:28px;color:var(--gray-300)}
+.eb svg{width:32px;height:32px;stroke:var(--gray-200);margin:0 auto 8px;display:block}
+.eb p{font-size:13px}
+.toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--black);color:var(--white);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:999;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.retry-btn{margin-top:12px;padding:10px 20px;background:var(--black);color:var(--white);border:none;border-radius:8px;cursor:pointer;font-family:var(--font-body);font-weight:600}
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
-
-<!-- TOPBAR -->
-<div class="mobile-topbar">
-  <div class="topbar-logo">
-    <div class="topbar-logo-mark">E</div>
-    EduManage
-  </div>
-  <div class="topbar-right">
-    <div class="lang-selector-sm">
-      <button class="lang-btn-sm active" onclick="setLang('en')">EN</button>
-      <button class="lang-btn-sm" onclick="setLang('hi')">HI</button>
-      <button class="lang-btn-sm" onclick="setLang('mr')">MR</button>
+<div class="topbar">
+  <div class="tl"><div class="lm">E</div>EduManage</div>
+  <div class="tr">
+    <div class="ls">
+      <button class="lb active" onclick="setLang('en')">EN</button>
+      <button class="lb" onclick="setLang('hi')">HI</button>
+      <button class="lb" onclick="setLang('mr')">MR</button>
     </div>
-    <button class="btn-logout-sm" onclick="doLogout()" data-i18n="logout">Logout</button>
+    <button class="ob" onclick="doLogout()">Logout</button>
   </div>
 </div>
-
-<!-- CONTENT -->
-<div class="content" id="mainContent">
-  <div class="loading-screen">
-    <div class="loading-spinner"></div>
-    <div class="loading-text" data-i18n="loading">Loading your data...</div>
-  </div>
+<div class="cnt" id="mainContent">
+  <div class="ls2"><div class="sp"></div><div class="lt">Loading your data...</div></div>
 </div>
-
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-  <button class="bn-btn active" onclick="showPage('home', this)">
-    <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-      <polyline points="9 22 9 12 15 12 15 22"/>
-    </svg>
-    <span class="bn-label" data-i18n="nav_home">Home</span>
+<nav class="bn">
+  <button class="bb active" onclick="showPage('home',this)">
+    <svg class="bi" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    <span class="bla">Home</span>
   </button>
-  <button class="bn-btn" onclick="showPage('marks', this)">
-    <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>
-    </svg>
-    <span class="bn-label" data-i18n="nav_marks">Marks</span>
+  <button class="bb" onclick="showPage('marks',this)">
+    <svg class="bi" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+    <span class="bla">Marks</span>
   </button>
-  <button class="bn-btn" onclick="showPage('group', this)">
-    <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-    </svg>
-    <span class="bn-label" data-i18n="nav_group">Group</span>
+  <button class="bb" onclick="showPage('group',this)">
+    <svg class="bi" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    <span class="bla">Group</span>
   </button>
-  <button class="bn-btn" onclick="showPage('notifications', this)">
-    <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-    </svg>
-    <span class="bn-label" data-i18n="nav_notif">Alerts</span>
+  <button class="bb" onclick="showPage('notifications',this)">
+    <svg class="bi" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    <span class="bla">Alerts</span>
   </button>
-  <button class="bn-btn" onclick="showPage('profile', this)">
-    <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
-    </svg>
-    <span class="bn-label" data-i18n="nav_profile">Profile</span>
+  <button class="bb" onclick="showPage('profile',this)">
+    <svg class="bi" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span class="bla">Profile</span>
   </button>
 </nav>
-
-<!-- PAYMENT MODAL -->
-<div class="modal-overlay" id="payModal">
-  <div class="modal-sheet">
-    <div class="modal-handle"></div>
-    <div class="modal-title" data-i18n="pay_title">Pay Fees</div>
-    <div class="modal-sub" id="payAmountText">Amount due: Rs. 0</div>
-
-    <div class="upi-id-box">
-      <div class="upi-id-label" data-i18n="school_upi">School UPI ID</div>
-      <div class="upi-id-value" id="upiIdDisplay">Loading...</div>
+<div class="mo" id="payModal">
+  <div class="msh">
+    <div class="mh"></div>
+    <div class="mttl">Pay Fees</div>
+    <div class="msub" id="payTxt">Amount due: Rs. 0</div>
+    <div class="ub"><div class="ul">School UPI ID</div><div class="uv" id="upiId">Loading...</div></div>
+    <div class="ua">
+      <a class="uab" id="ppBtn" href="#">PhonePe</a>
+      <a class="uab" id="gpBtn" href="#">GPay</a>
+      <a class="uab" id="ptBtn" href="#">Paytm</a>
     </div>
-
-    <div class="upi-apps">
-      <a class="upi-app-btn" id="phonepeBtn" href="#">PhonePe</a>
-      <a class="upi-app-btn" id="gpayBtn" href="#">GPay</a>
-      <a class="upi-app-btn" id="paytmBtn" href="#">Paytm</a>
+    <div class="dv">After payment enter details</div>
+    <div style="margin-bottom:10px">
+      <label style="font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:5px">UPI Transaction ID</label>
+      <input type="text" class="fi" id="upiRef" placeholder="e.g. 123456789012">
     </div>
-
-    <div class="divider-text" data-i18n="after_pay">After payment</div>
-
-    <div class="form-group">
-      <label data-i18n="upi_ref">UPI Transaction ID</label>
-      <input type="text" class="input" id="upiRefInput" placeholder="e.g. 123456789012">
-    </div>
-
-    <div class="form-group">
-      <label data-i18n="screenshot">Screenshot (Optional)</label>
-      <div class="upload-area" onclick="document.getElementById('screenshotInput').click()">
-        <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke-width="2">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-          <polyline points="17 8 12 3 7 8"/>
-          <line x1="12" y1="3" x2="12" y2="15"/>
-        </svg>
-        <div class="upload-text" data-i18n="upload_text">Tap to upload screenshot</div>
-        <img class="upload-preview" id="screenshotPreview">
-      </div>
-      <input type="file" id="screenshotInput" accept="image/*" style="display:none" onchange="previewScreenshot(this)">
-    </div>
-
-    <button class="pay-btn" onclick="submitPayment()">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="20 6 9 17 4 12"/>
-      </svg>
-      <span data-i18n="submit_pay">Submit Payment</span>
-    </button>
-
-    <button onclick="closePayModal()" style="width:100%;margin-top:10px;padding:12px;background:none;border:1px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:14px;color:var(--gray-500);cursor:pointer" data-i18n="cancel">Cancel</button>
+    <button class="sbt" onclick="submitPay()">Submit Payment</button>
+    <button class="cbt" onclick="closePay()">Cancel</button>
   </div>
 </div>
-
 <div class="toast" id="toast"></div>
-
 <script>
-const API = 'https://edumanage-backend-xi.vercel.app/api';
+const API = (typeof CONFIG !== 'undefined' && CONFIG.API) ? CONFIG.API : 'https://edumanage-backend-xi.vercel.app/api';
 
-// ============ AUTH ============
-function getToken() {
-  return localStorage.getItem('edu_token') || sessionStorage.getItem('edu_token');
-}
+function getToken(){return localStorage.getItem('edu_token')||sessionStorage.getItem('edu_token')}
+function getUser(){try{return JSON.parse(localStorage.getItem('edu_user')||sessionStorage.getItem('edu_user')||'{}')}catch(e){return{}}}
 
-function getUser() {
-  const u = localStorage.getItem('edu_user') || sessionStorage.getItem('edu_user');
-  return u ? JSON.parse(u) : null;
-}
+if(!getToken()){window.location.href='login.html'}
+const user=getUser();
+if(user.role&&user.role!=='student'){window.location.href='login.html'}
 
-// Auth check
-if (!getToken()) window.location.href = 'login.html';
-const user = getUser();
-if (!user || user.role !== 'student') window.location.href = 'login.html';
-
-// ============ TRANSLATIONS ============
-const T = {
-  en: {
-    logout: 'Logout', loading: 'Loading...', nav_home: 'Home',
-    nav_marks: 'Marks', nav_group: 'Group', nav_notif: 'Alerts',
-    nav_profile: 'Profile', greeting: 'Good day,',
-    marks_title: 'My Marks', att_title: 'Attendance',
-    fees_title: 'Fees', teacher_title: 'Class Teacher',
-    remarks_title: 'Teacher Remarks', tt_title: 'Timetable',
-    bus_yes: 'Bus Available', bus_no: 'No Bus',
-    pay_fees: 'Pay Fees', paid_label: 'Paid',
-    pending_label: 'Pending', partial_label: 'Partial',
-    present: 'Present', absent: 'Absent', total: 'Total Days',
-    avg_label: 'Average', grade_label: 'Grade',
-    pay_title: 'Pay Fees', school_upi: 'School UPI ID',
-    after_pay: 'After payment, enter details below',
-    upi_ref: 'UPI Transaction ID', screenshot: 'Screenshot',
-    upload_text: 'Tap to upload screenshot',
-    submit_pay: 'Submit Payment', cancel: 'Cancel',
-    pay_success: 'Payment submitted! Admin will verify soon.',
-    group_title: 'Class Group', notif_title: 'Notifications',
-    profile_title: 'My Profile', no_posts: 'No posts yet',
-    no_notif: 'No notifications yet', view_video: 'Watch Video',
-    fees_paid: 'Fees fully paid', amount_due: 'Amount Due',
-    amount_paid: 'Amount Paid'
-  },
-  hi: {
-    logout: 'लॉगआउट', loading: 'लोड हो रहा है...', nav_home: 'होम',
-    nav_marks: 'अंक', nav_group: 'ग्रुप', nav_notif: 'सूचना',
-    nav_profile: 'प्रोफाइल', greeting: 'नमस्ते,',
-    marks_title: 'मेरे अंक', att_title: 'उपस्थिति',
-    fees_title: 'फीस', teacher_title: 'कक्षा शिक्षक',
-    remarks_title: 'शिक्षक की टिप्पणी', tt_title: 'टाइमटेबल',
-    bus_yes: 'बस उपलब्ध', bus_no: 'बस नहीं',
-    pay_fees: 'फीस भरें', paid_label: 'भुगतान हुआ',
-    pending_label: 'बाकी है', partial_label: 'आंशिक',
-    present: 'उपस्थित', absent: 'अनुपस्थित', total: 'कुल दिन',
-    avg_label: 'औसत', grade_label: 'ग्रेड',
-    pay_title: 'फीस भरें', school_upi: 'स्कूल UPI ID',
-    after_pay: 'भुगतान के बाद नीचे विवरण दर्ज करें',
-    upi_ref: 'UPI ट्रांजेक्शन ID', screenshot: 'स्क्रीनशॉट',
-    upload_text: 'स्क्रीनशॉट अपलोड करें',
-    submit_pay: 'भुगतान जमा करें', cancel: 'रद्द करें',
-    pay_success: 'भुगतान जमा हुआ! एडमिन जल्द सत्यापित करेंगे।',
-    group_title: 'क्लास ग्रुप', notif_title: 'सूचनाएं',
-    profile_title: 'मेरी प्रोफाइल', no_posts: 'अभी कोई पोस्ट नहीं',
-    no_notif: 'अभी कोई सूचना नहीं', view_video: 'वीडियो देखें',
-    fees_paid: 'फीस पूरी तरह भुगतान हुई', amount_due: 'बाकी राशि',
-    amount_paid: 'भुगतान की गई राशि'
-  },
-  mr: {
-    logout: 'लॉगआउट', loading: 'लोड होत आहे...', nav_home: 'होम',
-    nav_marks: 'गुण', nav_group: 'गट', nav_notif: 'सूचना',
-    nav_profile: 'प्रोफाइल', greeting: 'नमस्कार,',
-    marks_title: 'माझे गुण', att_title: 'हजेरी',
-    fees_title: 'शुल्क', teacher_title: 'वर्ग शिक्षक',
-    remarks_title: 'शिक्षकांची टिप्पणी', tt_title: 'वेळापत्रक',
-    bus_yes: 'बस उपलब्ध', bus_no: 'बस नाही',
-    pay_fees: 'शुल्क भरा', paid_label: 'भरले',
-    pending_label: 'बाकी आहे', partial_label: 'अंशतः',
-    present: 'उपस्थित', absent: 'अनुपस्थित', total: 'एकूण दिवस',
-    avg_label: 'सरासरी', grade_label: 'श्रेणी',
-    pay_title: 'शुल्क भरा', school_upi: 'शाळा UPI ID',
-    after_pay: 'पैसे भरल्यानंतर खालील तपशील भरा',
-    upi_ref: 'UPI व्यवहार ID', screenshot: 'स्क्रीनशॉट',
-    upload_text: 'स्क्रीनशॉट अपलोड करा',
-    submit_pay: 'पेमेंट सबमिट करा', cancel: 'रद्द करा',
-    pay_success: 'पेमेंट सबमिट झाले! प्रशासक लवकरच सत्यापित करतील.',
-    group_title: 'वर्ग गट', notif_title: 'सूचना',
-    profile_title: 'माझी प्रोफाइल', no_posts: 'अद्याप कोणतीही पोस्ट नाही',
-    no_notif: 'अद्याप कोणतीही सूचना नाही', view_video: 'व्हिडिओ पाहा',
-    fees_paid: 'शुल्क पूर्णपणे भरले', amount_due: 'बाकी रक्कम',
-    amount_paid: 'भरलेली रक्कम'
-  }
+const T={
+  en:{greeting:'Good day,',avg:'Average',grade:'Grade',att:'Attendance',fees:'Fees',teacher:'Class Teacher',remarks:'Remarks',timetable:'Timetable',paid:'Paid',pending:'Pending',partial:'Partial',present:'Present',absent:'Absent',total:'Total Days',no_marks:'No marks uploaded yet',no_posts:'No posts yet',no_notif:'No notifications yet',pay:'Pay Fees',fees_paid:'Fees fully paid',pay_ok:'Payment submitted!',bus_yes:'Bus Available',bus_no:'No Bus',due:'Amount Due',paid2:'Amount Paid'},
+  hi:{greeting:'नमस्ते,',avg:'औसत',grade:'ग्रेड',att:'उपस्थिति',fees:'फीस',teacher:'कक्षा शिक्षक',remarks:'टिप्पणी',timetable:'टाइमटेबल',paid:'भुगतान हुआ',pending:'बाकी है',partial:'आंशिक',present:'उपस्थित',absent:'अनुपस्थित',total:'कुल दिन',no_marks:'अभी कोई अंक नहीं',no_posts:'अभी कोई पोस्ट नहीं',no_notif:'अभी कोई सूचना नहीं',pay:'फीस भरें',fees_paid:'फीस पूरी तरह भुगतान हुई',pay_ok:'भुगतान जमा हुआ!',bus_yes:'बस उपलब्ध',bus_no:'बस नहीं',due:'बाकी राशि',paid2:'भुगतान राशि'},
+  mr:{greeting:'नमस्कार,',avg:'सरासरी',grade:'श्रेणी',att:'हजेरी',fees:'शुल्क',teacher:'वर्ग शिक्षक',remarks:'टिप्पणी',timetable:'वेळापत्रक',paid:'भरले',pending:'बाकी आहे',partial:'अंशतः',present:'उपस्थित',absent:'अनुपस्थित',total:'एकूण दिवस',no_marks:'अद्याप गुण नाहीत',no_posts:'अद्याप पोस्ट नाही',no_notif:'अद्याप सूचना नाही',pay:'शुल्क भरा',fees_paid:'शुल्क पूर्णपणे भरले',pay_ok:'पेमेंट सबमिट झाले!',bus_yes:'बस उपलब्ध',bus_no:'बस नाही',due:'बाकी रक्कम',paid2:'भरलेली रक्कम'}
 };
-
-let lang = localStorage.getItem('edu-lang') || 'en';
-
-function t(key) { return T[lang][key] || T.en[key] || key; }
-
-function setLang(l) {
-  lang = l;
-  localStorage.setItem('edu-lang', l);
-  document.querySelectorAll('.lang-btn-sm').forEach(b => {
-    b.classList.toggle('active', b.textContent.toLowerCase() === l);
-  });
-  document.querySelectorAll('[data-i18n]').forEach(el => {
-    const k = el.getAttribute('data-i18n');
-    if (T[l][k]) el.textContent = T[l][k];
-  });
-  showPage(currentPage);
-}
-
+let lang=localStorage.getItem('edu-lang')||'en';
+function t(k){return T[lang][k]||T.en[k]||k}
+function setLang(l){lang=l;localStorage.setItem('edu-lang',l);document.querySelectorAll('.lb').forEach(b=>{b.classList.toggle('active',b.textContent.toLowerCase()===l)});showPage(cp)}
 setLang(lang);
 
-// ============ DATA ============
-let studentData = null;
-let upiDetails = null;
-let currentPage = 'home';
-let screenshotBase64 = null;
+let sd=null,ud=null,cp='home';
 
-async function fetchData() {
-  try {
-    const res = await fetch(`${API}/students/me`, {
-      headers: { Authorization: `Bearer ${getToken()}` }
-    });
-    if (res.status === 401) {
-      localStorage.removeItem('edu_token');
-      localStorage.removeItem('edu_user');
-      window.location.href = 'login.html';
-      return;
-    }
-    const data = await res.json();
-    studentData = data;
-    showPage('home');
-  } catch (err) {
-    document.getElementById('mainContent').innerHTML = `
-      <div class="loading-screen">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="2">
-          <circle cx="12" cy="12" r="10"/>
-          <line x1="12" y1="8" x2="12" y2="12"/>
-          <line x1="12" y1="16" x2="12.01" y2="16"/>
-        </svg>
-        <div class="loading-text">Could not connect. Check your internet.</div>
-      </div>
-    `;
+async function load(){
+  document.getElementById('mainContent').innerHTML='<div class="ls2"><div class="sp"></div><div class="lt">Loading your data...</div></div>';
+  try{
+    const r=await fetch(API+'/students/me',{headers:{Authorization:'Bearer '+getToken()}});
+    if(r.status===401){localStorage.removeItem('edu_token');localStorage.removeItem('edu_user');window.location.href='login.html';return}
+    const d=await r.json();
+    if(d.error){document.getElementById('mainContent').innerHTML='<div class="ls2"><div class="lt">'+d.error+'</div><button class="retry-btn" onclick="load()">Retry</button></div>';return}
+    sd=d;showPage('home')
+  }catch(e){
+    document.getElementById('mainContent').innerHTML='<div class="ls2"><div class="lt">Could not load data.<br>Check internet.</div><button class="retry-btn" onclick="load()">Retry</button></div>'
   }
 }
 
-async function fetchUpiDetails() {
-  try {
-    const res = await fetch(`${API}/fees/upi-details`, {
-      headers: { Authorization: `Bearer ${getToken()}` }
-    });
-    upiDetails = await res.json();
-  } catch (e) {}
+function showPage(p,btn){
+  cp=p;
+  if(btn){document.querySelectorAll('.bb').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}
+  if(!sd){load();return}
+  const c=document.getElementById('mainContent');
+  if(p==='home')c.innerHTML=rHome();
+  else if(p==='marks')c.innerHTML=rMarks();
+  else if(p==='group'){rGroup();return}
+  else if(p==='notifications'){rNotifs();return}
+  else if(p==='profile')c.innerHTML=rProfile();
+  setTimeout(()=>{document.querySelectorAll('.mf[data-w]').forEach(b=>{b.style.width=b.dataset.w+'%'})},100)
 }
 
-// ============ PAGES ============
-function showPage(page, btn) {
-  currentPage = page;
-  if (btn) {
-    document.querySelectorAll('.bn-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-  }
-  if (!studentData) { fetchData(); return; }
-
-  const c = document.getElementById('mainContent');
-
-  if (page === 'home') c.innerHTML = renderHome();
-  else if (page === 'marks') c.innerHTML = renderMarks();
-  else if (page === 'group') renderGroup();
-  else if (page === 'notifications') renderNotifications();
-  else if (page === 'profile') c.innerHTML = renderProfile();
-
-  // Animate bars after render
-  setTimeout(() => {
-    document.querySelectorAll('.mark-progress-fill').forEach(bar => {
-      bar.style.width = bar.dataset.width + '%';
-    });
-  }, 100);
+function rHome(){
+  const s=sd.student,marks=sd.marks||[],att=sd.attendance||{},fees=sd.fees,tt=sd.timetable||[];
+  const avg=marks.length?Math.round(marks.reduce((a,m)=>a+parseFloat(m.marks_obtained||0),0)/marks.length):0;
+  const tot=parseInt(att.total||0),pres=parseInt(att.present||0);
+  const ap=tot>0?Math.round((pres/tot)*100):0;
+  const fs=fees?.status||'not set';
+  const fc=fs==='paid'?'var(--green)':fs==='partial'?'var(--gold)':'var(--red)';
+  const fl=fs==='paid'?t('paid'):fs==='partial'?t('partial'):t('pending');
+  const ac=ap>=75?'var(--black)':'var(--red)';
+  setTimeout(()=>{if(s.id)loadPh(s.id,'hpel')},200);
+  return`<div class="hdr"><div class="hg"></div><div class="hc"><div class="prow"><div class="sphoto" id="hpel">${s.name?s.name[0].toUpperCase():'S'}</div><div><div class="grt">${t('greeting')}</div><div class="snm">${s.name}</div><div class="cps"><span class="cp">${s.standard?(isNaN(s.standard)?s.standard:'Class '+s.standard):'N/A'}</span><span class="cp">Roll ${s.roll_no||'N/A'}</span>${s.has_bus?'<span class="cp">'+t('bus_yes')+'</span>':''}</div></div></div></div></div>
+  <div class="qs-grid">
+    <div class="qs" onclick="showPage('marks',document.querySelectorAll('.bb')[1])"><div class="qsi"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div><div class="qsv" style="color:${avg>=75?'var(--green)':avg>=50?'var(--gold)':'var(--red)'}">${avg}%</div><div class="qsl">${t('avg')}</div></div>
+    <div class="qs"><div class="qsi"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="qsv">${grade(avg)}</div><div class="qsl">${t('grade')}</div></div>
+    <div class="qs"><div class="qsi"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="qsv" style="color:${ac}">${ap}%</div><div class="qsl">${t('att')}</div></div>
+    <div class="qs" onclick="${fs!=='paid'?'openPay()':''}"><div class="qsi"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><div class="qsv" style="font-size:15px;margin-top:4px;color:${fc}">${fl}</div><div class="qsl">${t('fees')}</div></div>
+  </div>
+  ${s.teacher_name?`<div class="sec"><div class="stt">${t('teacher')}</div><div class="card"><div class="tr2"><div class="tav">${s.teacher_name[0]}</div><div><div class="tn">${s.teacher_name}</div><div class="ts">${s.teacher_phone||''}</div></div></div></div></div>`:''}
+  ${s.remarks?`<div class="sec"><div class="stt">${t('remarks')}</div><div class="card rmc"><div class="rl">Teacher</div><div class="rt">${s.remarks}</div></div></div>`:''}
+  ${marks.length>0?`<div class="sec"><div class="stt">${t('marks')}</div><div class="card">${marks.slice(0,4).map(m=>`<div class="mr"><div class="ms">${m.subject}</div><div class="mb"><div class="mf" data-w="${m.marks_obtained}" style="width:0%;background:${m.marks_obtained>=75?'var(--black)':m.marks_obtained>=50?'var(--gold)':'var(--red)'}"></div></div><div class="msc">${m.marks_obtained}/${m.total_marks}</div></div>`).join('')}</div></div>`:''}
+  ${fees?`<div class="sec"><div class="stt">${t('fees')}</div><div class="card fc"><div class="fr"><div><div class="fa" style="color:${fc}">Rs. ${fees.remaining_amount||0}</div><div class="fs">${t('due')}</div></div><div style="text-align:right"><div style="font-size:14px;font-weight:600;color:var(--green)">Rs. ${fees.paid_amount||0}</div><div style="font-size:11px;color:var(--gray-400)">${t('paid2')}</div></div></div>${fees.status!=='paid'?`<button class="pb" onclick="openPay()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>${t('pay')}</button>`:`<div style="text-align:center;padding:8px;font-size:13px;color:var(--green);font-weight:600">${t('fees_paid')}</div>`}</div></div>`:''}
+  ${tt.length>0?`<div class="sec"><div class="stt">${t('timetable')}</div><div class="card ttc" style="padding:0">${tt.slice(0,3).map(x=>`<div class="ttr"><div class="ttd">${x.day?.slice(0,3)||''}</div><div class="ttp">${[x.period_1,x.period_2,x.period_3,x.period_4,x.period_5,x.period_6,x.period_7].filter(Boolean).map(p=>`<div class="ttpi">${p}</div>`).join('')}</div></div>`).join('')}</div></div>`:''}`;
 }
 
-// ============ HOME ============
-function renderHome() {
-  const s = studentData.student;
-  const marks = studentData.marks || [];
-  const att = studentData.attendance || {};
-  const fees = studentData.fees;
-  const timetable = studentData.timetable || [];
-
-  const avgMark = marks.length
-    ? Math.round(marks.reduce((a, m) => a + parseFloat(m.marks_obtained), 0) / marks.length)
-    : 0;
-
-  const attPct = att.total > 0
-    ? Math.round((att.present / att.total) * 100)
-    : 0;
-
-  const grade = getGrade(avgMark);
-  const feesStatus = fees ? fees.status : 'pending';
-  const feesColor = feesStatus === 'paid' ? 'var(--green)' : feesStatus === 'partial' ? 'var(--gold)' : 'var(--red)';
-  const feesLabel = feesStatus === 'paid' ? t('paid_label') : feesStatus === 'partial' ? t('partial_label') : t('pending_label');
-
-  const attRadius = 34;
-  const attCirc = 2 * Math.PI * attRadius;
-  const attDash = (attPct / 100) * attCirc;
-  const attColor = attPct >= 75 ? 'var(--black)' : 'var(--red)';
-
-  return `
-    <!-- HEADER -->
-    <div class="home-header">
-      <div class="home-header-grid"></div>
-      <div class="home-header-content">
-        <div class="photo-section">
-          <div class="student-photo" id="studentPhotoEl">
-            ${s.name ? s.name[0].toUpperCase() : 'S'}
-          </div>
-          <div>
-            <div class="home-greeting">${t('greeting')}</div>
-            <div class="home-name">${s.name}</div>
-            <div class="home-meta">
-              <span class="home-chip">Class ${s.standard || ''} ${s.section || ''}</span>
-              <span class="home-chip">Roll ${s.roll_no}</span>
-              ${s.has_bus ? `<span class="home-chip">${t('bus_yes')}</span>` : ''}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- QUICK STATS -->
-    <div class="quick-stats">
-      <div class="qs-card" onclick="showPage('marks', document.querySelectorAll('.bn-btn')[1])">
-        <div class="qs-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
-            <line x1="18" y1="20" x2="18" y2="10"/>
-            <line x1="12" y1="20" x2="12" y2="4"/>
-            <line x1="6" y1="20" x2="6" y2="14"/>
-          </svg>
-        </div>
-        <div class="qs-value" style="color:${avgMark >= 75 ? 'var(--green)' : avgMark >= 50 ? 'var(--gold)' : 'var(--red)'}">${avgMark}%</div>
-        <div class="qs-label">${t('avg_label')}</div>
-      </div>
-
-      <div class="qs-card">
-        <div class="qs-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-            <circle cx="9" cy="7" r="4"/>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-          </svg>
-        </div>
-        <div class="qs-value" style="color:${attColor}">${attPct}%</div>
-        <div class="qs-label">${t('att_title')}</div>
-      </div>
-
-      <div class="qs-card">
-        <div class="qs-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
-            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-          </svg>
-        </div>
-        <div class="qs-value">${grade}</div>
-        <div class="qs-label">${t('grade_label')}</div>
-      </div>
-
-      <div class="qs-card" onclick="${feesStatus !== 'paid' ? 'openPayModal()' : ''}">
-        <div class="qs-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
-            <rect x="2" y="5" width="20" height="14" rx="2"/>
-            <line x1="2" y1="10" x2="22" y2="10"/>
-          </svg>
-        </div>
-        <div class="qs-value" style="font-size:16px;margin-top:4px;color:${feesColor}">${feesLabel}</div>
-        <div class="qs-label">${t('fees_title')}</div>
-      </div>
-    </div>
-
-    <!-- TEACHER -->
-    <div class="section">
-      <div class="section-header">
-        <div class="section-title">${t('teacher_title')}</div>
-      </div>
-      <div class="teacher-card">
-        <div class="teacher-avatar">${s.teacher_name ? s.teacher_name[0] : 'T'}</div>
-        <div>
-          <div class="teacher-name">${s.teacher_name || 'Not assigned'}</div>
-          <div class="teacher-sub">${s.teacher_phone || ''}</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- REMARKS -->
-    ${s.remarks ? `
-    <div class="section">
-      <div class="section-header">
-        <div class="section-title">${t('remarks_title')}</div>
-      </div>
-      <div class="remarks-card">
-        <div class="remarks-label">Teacher</div>
-        <div class="remarks-text">${s.remarks}</div>
-      </div>
-    </div>` : ''}
-
-    <!-- MARKS PREVIEW -->
-    ${marks.length > 0 ? `
-    <div class="section">
-      <div class="section-header">
-        <div class="section-title">${t('marks_title')}</div>
-        <a class="section-link" onclick="showPage('marks', document.querySelectorAll('.bn-btn')[1])">View all</a>
-      </div>
-      <div class="marks-card">
-        ${marks.slice(0, 4).map(m => `
-          <div class="mark-item">
-            <div class="mark-subject-name">${m.subject}</div>
-            <div class="mark-progress">
-              <div class="mark-progress-fill" data-width="${m.marks_obtained}" style="width:0%;background:${m.marks_obtained >= 75 ? 'var(--black)' : m.marks_obtained >= 50 ? 'var(--gold)' : 'var(--red)'}"></div>
-            </div>
-            <div class="mark-score-val">${m.marks_obtained}/${m.total_marks}</div>
-          </div>
-        `).join('')}
-      </div>
-    </div>` : ''}
-
-    <!-- TIMETABLE PREVIEW -->
-    ${timetable.length > 0 ? `
-    <div class="section">
-      <div class="section-header">
-        <div class="section-title">${t('tt_title')}</div>
-      </div>
-      <div class="timetable-card">
-        ${timetable.slice(0, 3).map(tt => `
-          <div class="tt-row">
-            <div class="tt-day-col">${tt.day?.slice(0,3)}</div>
-            <div class="tt-periods">
-              ${[tt.period_1, tt.period_2, tt.period_3, tt.period_4, tt.period_5, tt.period_6, tt.period_7]
-                .filter(Boolean)
-                .map(p => `<div class="tt-period">${p}</div>`)
-                .join('')}
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    </div>` : ''}
-
-    <!-- FEES -->
-    ${fees ? `
-    <div class="section">
-      <div class="section-header">
-        <div class="section-title">${t('fees_title')}</div>
-      </div>
-      <div class="fees-card">
-        <div class="fees-status-row">
-          <div>
-            <div class="fees-amount" style="color:${feesColor}">Rs. ${fees.remaining_amount || 0}</div>
-            <div class="fees-remaining">${t('amount_due')}</div>
-          </div>
-          <div style="text-align:right">
-            <div style="font-size:14px;font-weight:600;color:var(--green)">Rs. ${fees.paid_amount || 0}</div>
-            <div style="font-size:11px;color:var(--gray-400)">${t('amount_paid')}</div>
-          </div>
-        </div>
-        ${fees.status !== 'paid' ? `
-        <button class="pay-btn" onclick="openPayModal()">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="2" y="5" width="20" height="14" rx="2"/>
-            <line x1="2" y1="10" x2="22" y2="10"/>
-          </svg>
-          ${t('pay_fees')}
-        </button>` : `
-        <div style="text-align:center;padding:10px;font-size:13px;color:var(--green);font-weight:600">${t('fees_paid')}</div>
-        `}
-      </div>
-    </div>` : ''}
-  `;
-
-  // Load photo
-  if (s.id) loadStudentPhoto(s.id);
+function rMarks(){
+  const marks=sd.marks||[],att=sd.attendance||{};
+  const avg=marks.length?Math.round(marks.reduce((a,m)=>a+parseFloat(m.marks_obtained||0),0)/marks.length):0;
+  const tot=parseInt(att.total||0),pres=parseInt(att.present||0);
+  const ap=tot>0?Math.round((pres/tot)*100):0;
+  const R=34,C=2*Math.PI*R,D=(ap/100)*C,ac=ap>=75?'var(--black)':'var(--red)';
+  return`<div style="padding:16px"><div class="stt" style="margin-bottom:12px">${t('marks')}</div>
+  <div style="background:var(--black);color:var(--white);border-radius:var(--radius);padding:18px;text-align:center;margin-bottom:14px"><div style="font-family:var(--font-display);font-size:44px;font-weight:700;line-height:1">${avg}%</div><div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:4px">${t('avg')} — Grade ${grade(avg)}</div></div>
+  <div class="card">${marks.length>0?marks.map(m=>`<div class="mr"><div style="min-width:90px"><div class="ms">${m.subject}</div><div style="font-size:10px;color:var(--gray-400)">${m.exam_type||''}</div></div><div class="mb"><div class="mf" data-w="${m.marks_obtained}" style="width:0%;background:${m.marks_obtained>=75?'var(--black)':m.marks_obtained>=50?'var(--gold)':'var(--red)'}"></div></div><div><div class="msc">${m.marks_obtained}/${m.total_marks}</div><div style="font-size:10px;text-align:right;color:${m.marks_obtained>=75?'var(--green)':m.marks_obtained>=50?'var(--gold)':'var(--red)'}">${grade(parseInt(m.marks_obtained))}</div></div></div>`).join(''):`<div class="eb"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><p>${t('no_marks')}</p></div>`}</div>
+  <div class="stt" style="margin:14px 0 10px">${t('att')}</div>
+  <div class="card ac"><div class="ad"><svg width="72" height="72" viewBox="0 0 72 72"><circle cx="36" cy="36" r="${R}" fill="none" stroke="var(--gray-100)" stroke-width="7"/><circle cx="36" cy="36" r="${R}" fill="none" stroke="${ac}" stroke-width="7" stroke-dasharray="${D} ${C}" stroke-linecap="round"/></svg><div class="at"><div class="ap" style="color:${ac}">${ap}%</div><div class="as">att.</div></div></div><div style="flex:1"><div class="ar"><span class="al">${t('present')}</span><span class="av" style="color:var(--green)">${pres}</span></div><div class="ar"><span class="al">${t('absent')}</span><span class="av" style="color:var(--red)">${att.absent||0}</span></div><div class="ar"><span class="al">${t('total')}</span><span class="av">${tot}</span></div><div style="margin-top:6px;font-size:12px;font-weight:600;color:${ap>=75?'var(--green)':'var(--red)'}">${ap>=75?'Good Standing':'Below 75%'}</div></div></div></div>`;
 }
 
-// ============ MARKS ============
-function renderMarks() {
-  const marks = studentData.marks || [];
-  const avgMark = marks.length
-    ? Math.round(marks.reduce((a, m) => a + parseFloat(m.marks_obtained), 0) / marks.length)
-    : 0;
-
-  return `
-    <div style="padding:20px">
-      <div class="section-title" style="margin-bottom:16px">${t('marks_title')}</div>
-
-      <!-- OVERALL -->
-      <div style="background:var(--black);color:var(--white);border-radius:var(--radius);padding:20px;margin-bottom:20px;text-align:center">
-        <div style="font-family:var(--font-display);font-size:48px;font-weight:700;line-height:1">${avgMark}%</div>
-        <div style="font-size:13px;color:rgba(255,255,255,0.4);margin-top:6px">${t('avg_label')} — Grade ${getGrade(avgMark)}</div>
-      </div>
-
-      <!-- SUBJECT MARKS -->
-      <div class="marks-card">
-        ${marks.length > 0 ? marks.map(m => `
-          <div class="mark-item">
-            <div style="min-width:90px">
-              <div class="mark-subject-name">${m.subject}</div>
-              <div style="font-size:10px;color:var(--gray-400)">${m.exam_type || ''}</div>
-            </div>
-            <div class="mark-progress">
-              <div class="mark-progress-fill" data-width="${m.marks_obtained}" style="width:0%;background:${m.marks_obtained >= 75 ? 'var(--black)' : m.marks_obtained >= 50 ? 'var(--gold)' : 'var(--red)'}"></div>
-            </div>
-            <div>
-              <div class="mark-score-val">${m.marks_obtained}/${m.total_marks}</div>
-              <div style="font-size:10px;text-align:right;color:${m.marks_obtained >= 75 ? 'var(--green)' : m.marks_obtained >= 50 ? 'var(--gold)' : 'var(--red)'}">${getGrade(m.marks_obtained)}</div>
-            </div>
-          </div>
-        `).join('') : `
-          <div class="empty-box">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
-              <line x1="18" y1="20" x2="18" y2="10"/>
-              <line x1="12" y1="20" x2="12" y2="4"/>
-              <line x1="6" y1="20" x2="6" y2="14"/>
-            </svg>
-            <p>No marks uploaded yet</p>
-          </div>
-        `}
-      </div>
-
-      <!-- ATTENDANCE -->
-      <div class="section-title" style="margin:20px 0 12px">${t('att_title')}</div>
-      ${renderAttendanceCard()}
-    </div>
-  `;
+async function rGroup(){
+  const s=sd.student,c=document.getElementById('mainContent');
+  c.innerHTML=`<div style="padding:16px"><div class="stt" style="margin-bottom:12px">Class Group</div><div id="pl"><div class="ls2" style="min-height:200px"><div class="sp"></div></div></div></div>`;
+  if(!s.class_id){document.getElementById('pl').innerHTML=`<div class="eb"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><p>${t('no_posts')}</p></div>`;return}
+  try{
+    const r=await fetch(API+'/posts/'+s.class_id,{headers:{Authorization:'Bearer '+getToken()}});
+    const d=await r.json();const posts=d.posts||[];
+    document.getElementById('pl').innerHTML=posts.length>0?posts.map(p=>`<div class="pi"><div class="ph"><span class="pau">${p.posted_by_name||'Teacher'}</span><span class="ptm">${fmtDate(p.created_at)}</span></div>${p.text_content?`<div class="ptxt">${p.text_content}</div>`:''} ${p.file_url&&p.file_type?.startsWith('image')?`<img class="pimg" src="${p.file_url}" loading="lazy">`:''} ${p.video_link?`<a class="vb" href="${p.video_link}" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Watch Video</a>`:''}</div>`).join(''):`<div class="eb"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><p>${t('no_posts')}</p></div>`
+  }catch(e){document.getElementById('pl').innerHTML=`<div class="eb"><p>Could not load</p></div>`}
 }
 
-function renderAttendanceCard() {
-  const att = studentData.attendance || {};
-  const pct = att.total > 0 ? Math.round((att.present / att.total) * 100) : 0;
-  const radius = 34;
-  const circ = 2 * Math.PI * radius;
-  const dash = (pct / 100) * circ;
-  const color = pct >= 75 ? 'var(--black)' : 'var(--red)';
-
-  return `
-    <div class="att-card">
-      <div class="att-donut">
-        <svg width="80" height="80" viewBox="0 0 80 80">
-          <circle cx="40" cy="40" r="${radius}" fill="none" stroke="var(--gray-100)" stroke-width="8"/>
-          <circle cx="40" cy="40" r="${radius}" fill="none" stroke="${color}" stroke-width="8"
-            stroke-dasharray="${dash} ${circ}" stroke-linecap="round"/>
-        </svg>
-        <div class="att-donut-text">
-          <div class="att-pct" style="color:${color}">${pct}%</div>
-          <div class="att-sub-text">att.</div>
-        </div>
-      </div>
-      <div class="att-details">
-        <div class="att-detail-row">
-          <span class="att-detail-label">${t('present')}</span>
-          <span class="att-detail-val" style="color:var(--green)">${att.present || 0}</span>
-        </div>
-        <div class="att-detail-row">
-          <span class="att-detail-label">${t('absent')}</span>
-          <span class="att-detail-val" style="color:var(--red)">${att.absent || 0}</span>
-        </div>
-        <div class="att-detail-row">
-          <span class="att-detail-label">${t('total')}</span>
-          <span class="att-detail-val">${att.total || 0}</span>
-        </div>
-        <div style="margin-top:8px;font-size:12px;font-weight:600;color:${pct >= 75 ? 'var(--green)' : 'var(--red)'}">
-          ${pct >= 75 ? 'Good Standing' : 'Below 75% — Attendance Low'}
-        </div>
-      </div>
-    </div>
-  `;
+async function rNotifs(){
+  const c=document.getElementById('mainContent');
+  c.innerHTML=`<div style="padding:16px"><div class="stt" style="margin-bottom:12px">Notifications</div><div id="nl"><div class="ls2" style="min-height:200px"><div class="sp"></div></div></div></div>`;
+  try{
+    const r=await fetch(API+'/notifications',{headers:{Authorization:'Bearer '+getToken()}});
+    const d=await r.json();const n=d.notifications||[];
+    document.getElementById('nl').innerHTML=n.length>0?`<div class="card" style="padding:0 14px">${n.map(x=>`<div class="ni"><div class="nd"></div><div><div class="ntl">${x.title}</div><div class="nm">${x.message}</div><div class="nti">${fmtDate(x.created_at)}</div></div></div>`).join('')}</div>`:`<div class="eb"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/></svg><p>${t('no_notif')}</p></div>`
+  }catch(e){document.getElementById('nl').innerHTML=`<div class="eb"><p>Could not load</p></div>`}
 }
 
-// ============ GROUP ============
-async function renderGroup() {
-  const s = studentData.student;
-  const c = document.getElementById('mainContent');
-
-  c.innerHTML = `
-    <div style="padding:20px">
-      <div class="section-title" style="margin-bottom:16px">${t('group_title')}</div>
-      <div class="post-list" id="postList">
-        <div class="loading-screen" style="min-height:200px">
-          <div class="loading-spinner"></div>
-        </div>
-      </div>
-    </div>
-  `;
-
-  try {
-    const res = await fetch(`${API}/posts/${s.class_id}`, {
-      headers: { Authorization: `Bearer ${getToken()}` }
-    });
-    const data = await res.json();
-    const posts = data.posts || [];
-
-    document.getElementById('postList').innerHTML = posts.length > 0
-      ? posts.map(p => `
-          <div class="post-item">
-            <div class="post-head">
-              <div class="post-author-name">${p.posted_by_name}</div>
-              <div class="post-timestamp">${formatTime(p.created_at)}</div>
-            </div>
-            ${p.text_content ? `<div class="post-content">${p.text_content}</div>` : ''}
-            ${p.file_url && p.file_type?.startsWith('image') ? `<img class="post-image" src="${p.file_url}" loading="lazy">` : ''}
-            ${p.file_url && p.file_type === 'application/pdf' ? `
-              <a class="post-video-btn" href="${p.file_url}" target="_blank">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-                  <polyline points="14 2 14 8 20 8"/>
-                </svg>
-                Open PDF
-              </a>
-            ` : ''}
-            ${p.video_link ? `
-              <a class="post-video-btn" href="${p.video_link}" target="_blank">
-                <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
-                  <polygon points="5 3 19 12 5 21 5 3"/>
-                </svg>
-                ${t('view_video')}
-              </a>
-            ` : ''}
-          </div>
-        `).join('')
-      : `<div class="empty-box">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-          </svg>
-          <p>${t('no_posts')}</p>
-        </div>`;
-
-  } catch (e) {
-    document.getElementById('postList').innerHTML = `<div class="empty-box"><p>Could not load posts</p></div>`;
-  }
+function rProfile(){
+  const s=sd.student;
+  setTimeout(()=>{if(s.id)loadPh(s.id,'pfavel')},200);
+  return`<div style="padding:16px"><div class="pfhd"><div class="pfg"></div><div class="pfav" id="pfavel">${s.name?s.name[0].toUpperCase():'S'}</div><div class="pfnm">${s.name}</div><div class="pfcd">${user.code||''}</div><div class="pfcp"><span class="pfcpi">${s.standard?(isNaN(s.standard)?s.standard:'Class '+s.standard):'N/A'}</span><span class="pfcpi">Roll ${s.roll_no||'N/A'}</span></div></div>
+  <div class="il">${irow('Date of Birth',s.dob||'N/A')}${irow('Gender',s.gender||'N/A')}${irow('Parent',s.parent_name||'N/A')}${irow('Parent Phone',s.parent_phone||'N/A')}${irow('Address',s.address||'N/A')}${irow('Blood Group',s.blood_group||'N/A')}${irow('Bus',s.has_bus?t('bus_yes'):t('bus_no'))}${irow('Teacher',s.teacher_name||'N/A')}</div>
+  <button onclick="doLogout()" style="width:100%;padding:12px;background:var(--white);border:1.5px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--red);cursor:pointer">Logout</button></div>`;
 }
 
-// ============ NOTIFICATIONS ============
-async function renderNotifications() {
-  const c = document.getElementById('mainContent');
+function irow(l,v){return`<div class="ir"><span class="irlab">${l}</span><span class="irval">${v}</span></div>`}
 
-  c.innerHTML = `
-    <div style="padding:20px">
-      <div class="section-title" style="margin-bottom:16px">${t('notif_title')}</div>
-      <div id="notifList">
-        <div class="loading-screen" style="min-height:200px">
-          <div class="loading-spinner"></div>
-        </div>
-      </div>
-    </div>
-  `;
-
-  try {
-    const res = await fetch(`${API}/notifications`, {
-      headers: { Authorization: `Bearer ${getToken()}` }
-    });
-    const data = await res.json();
-    const notifs = data.notifications || [];
-
-    document.getElementById('notifList').innerHTML = notifs.length > 0
-      ? notifs.map(n => `
-          <div class="notif-card">
-            <div class="notif-dot-wrap"></div>
-            <div>
-              <div class="notif-title">${n.title}</div>
-              <div class="notif-msg">${n.message}</div>
-              <div class="notif-time">${formatTime(n.created_at)}</div>
-            </div>
-          </div>
-        `).join('')
-      : `<div class="empty-box">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
-            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
-          </svg>
-          <p>${t('no_notif')}</p>
-        </div>`;
-
-  } catch (e) {
-    document.getElementById('notifList').innerHTML = `<div class="empty-box"><p>Could not load notifications</p></div>`;
-  }
+async function loadPh(sid,eid){
+  try{const r=await fetch(API+'/upload/photo/'+sid,{headers:{Authorization:'Bearer '+getToken()}});if(r.ok){const d=await r.json();if(d.url){const el=document.getElementById(eid);if(el)el.innerHTML=`<img src="${d.url}" alt="photo">`;}}
+  }catch(e){}
 }
 
-// ============ PROFILE ============
-function renderProfile() {
-  const s = studentData.student;
-
-  return `
-    <div style="padding:20px">
-      <div class="section-title" style="margin-bottom:16px">${t('profile_title')}</div>
-
-      <!-- PROFILE HEADER -->
-      <div style="background:var(--black);color:var(--white);border-radius:var(--radius);padding:24px;text-align:center;margin-bottom:16px;position:relative;overflow:hidden">
-        <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);background-size:32px 32px"></div>
-        <div style="position:relative;z-index:1">
-          <div id="profilePhotoWrap" style="width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,0.1);border:2px solid rgba(255,255,255,0.2);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:28px;overflow:hidden">
-            ${s.name ? s.name[0].toUpperCase() : 'S'}
-          </div>
-          <div style="font-family:var(--font-display);font-size:24px;font-weight:700;margin-bottom:4px">${s.name}</div>
-          <div style="font-family:var(--font-mono);font-size:12px;color:rgba(255,255,255,0.4)">${user.code}</div>
-          <div style="display:flex;gap:8px;justify-content:center;margin-top:10px">
-            <span style="background:rgba(255,255,255,0.1);padding:4px 12px;border-radius:100px;font-size:11px">Class ${s.standard || ''}</span>
-            <span style="background:rgba(255,255,255,0.1);padding:4px 12px;border-radius:100px;font-size:11px">Roll ${s.roll_no}</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- INFO -->
-      <div style="background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;margin-bottom:16px">
-        ${infoRow('Date of Birth', s.dob || 'N/A')}
-        ${infoRow('Gender', s.gender || 'N/A')}
-        ${infoRow('Parent Name', s.parent_name || 'N/A')}
-        ${infoRow('Parent Phone', s.parent_phone || 'N/A')}
-        ${infoRow('Address', s.address || 'N/A')}
-        ${infoRow('Blood Group', s.blood_group || 'N/A')}
-        ${infoRow('Bus', s.has_bus ? t('bus_yes') : t('bus_no'))}
-        ${infoRow('Bus Route', s.bus_route || 'N/A')}
-      </div>
-
-      <!-- LOGOUT -->
-      <button onclick="doLogout()" style="width:100%;padding:13px;background:var(--white);border:1.5px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--red);cursor:pointer;transition:var(--transition)">
-        ${t('logout')}
-      </button>
-    </div>
-  `;
+async function openPay(){
+  try{const r=await fetch(API+'/fees/upi-details',{headers:{Authorization:'Bearer '+getToken()}});ud=await r.json()}catch(e){}
+  const fees=sd.fees,amt=fees?.remaining_amount||0;
+  document.getElementById('payTxt').textContent='Amount due: Rs. '+amt;
+  document.getElementById('payTxt').setAttribute('data-amt',amt);
+  if(ud?.upi_id){const id=ud.upi_id,nm=ud.name||'School',base=`upi://pay?pa=${id}&pn=${encodeURIComponent(nm)}&am=${amt}&cu=INR`;document.getElementById('upiId').textContent=id;document.getElementById('ppBtn').href=base;document.getElementById('gpBtn').href=base;document.getElementById('ptBtn').href=base}
+  document.getElementById('payModal').classList.add('show')
 }
 
-function infoRow(label, value) {
-  return `
-    <div style="display:flex;justify-content:space-between;align-items:center;padding:13px 16px;border-bottom:1px solid var(--gray-100)">
-      <span style="font-size:12px;color:var(--gray-400);font-weight:500">${label}</span>
-      <span style="font-size:13px;font-weight:600;color:var(--black);text-align:right;max-width:60%">${value}</span>
-    </div>
-  `;
+function closePay(){document.getElementById('payModal').classList.remove('show');document.getElementById('upiRef').value=''}
+
+async function submitPay(){
+  const ref=document.getElementById('upiRef').value.trim();
+  const amt=parseFloat(document.getElementById('payTxt').getAttribute('data-amt')||0);
+  if(!ref){toast('Please enter UPI Transaction ID');return}
+  try{
+    const r=await fetch(API+'/fees/submit-payment',{method:'POST',headers:{Authorization:'Bearer '+getToken(),'Content-Type':'application/json'},body:JSON.stringify({amount:amt,upi_ref:ref})});
+    const d=await r.json();
+    if(d.success){closePay();toast(t('pay_ok'));await load()}else toast(d.error||'Error')
+  }catch(e){toast('Could not submit')}
 }
 
-// ============ PHOTO ============
-async function loadStudentPhoto(studentId) {
-  try {
-    const res = await fetch(`${API}/upload/photo/${studentId}`, {
-      headers: { Authorization: `Bearer ${getToken()}` }
-    });
-    if (res.ok) {
-      const data = await res.json();
-      if (data.url) {
-        const els = document.querySelectorAll('#studentPhotoEl, #profilePhotoWrap');
-        els.forEach(el => {
-          el.innerHTML = `<img src="${data.url}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
-        });
-      }
-    }
-  } catch (e) {}
-}
+document.getElementById('payModal').addEventListener('click',e=>{if(e.target===document.getElementById('payModal'))closePay()});
 
-// ============ PAYMENT ============
-async function openPayModal() {
-  await fetchUpiDetails();
-  const fees = studentData.fees;
-  const amount = fees?.remaining_amount || 0;
+function grade(s){if(s>=90)return'A+';if(s>=80)return'A';if(s>=70)return'B+';if(s>=60)return'B';if(s>=50)return'C';return'F'}
+function fmtDate(ts){if(!ts)return'';try{return new Date(ts).toLocaleDateString('en-IN',{day:'numeric',month:'short'})}catch(e){return''}}
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),3000)}
+function doLogout(){localStorage.removeItem('edu_token');localStorage.removeItem('edu_user');window.location.href='login.html'}
 
-  document.getElementById('payAmountText').textContent = `Amount due: Rs. ${amount}`;
-  document.getElementById('payAmountText').setAttribute('data-amount', amount);
-
-  if (upiDetails) {
-    const upiId = upiDetails.upi_id || '';
-    const name = upiDetails.name || 'School';
-    document.getElementById('upiIdDisplay').textContent = upiId;
-
-    const upiBase = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR`;
-    document.getElementById('phonepeBtn').href = upiBase;
-    document.getElementById('gpayBtn').href = upiBase;
-    document.getElementById('paytmBtn').href = upiBase;
-  }
-
-  document.getElementById('payModal').classList.add('show');
-}
-
-function closePayModal() {
-  document.getElementById('payModal').classList.remove('show');
-  document.getElementById('upiRefInput').value = '';
-  screenshotBase64 = null;
-  document.getElementById('screenshotPreview').style.display = 'none';
-}
-
-function previewScreenshot(input) {
-  const file = input.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    const preview = document.getElementById('screenshotPreview');
-    preview.src = e.target.result;
-    preview.style.display = 'block';
-    screenshotBase64 = e.target.result.split(',')[1];
-  };
-  reader.readAsDataURL(file);
-}
-
-async function submitPayment() {
-  const ref = document.getElementById('upiRefInput').value.trim();
-  const amount = parseFloat(document.getElementById('payAmountText').getAttribute('data-amount') || 0);
-
-  if (!ref) {
-    showToast('Please enter UPI Transaction ID');
-    return;
-  }
-
-  try {
-    const body = { amount, upi_ref: ref };
-    if (screenshotBase64) body.screenshot_base64 = screenshotBase64;
-
-    const res = await fetch(`${API}/fees/submit-payment`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${getToken()}`,
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
-    });
-
-    const data = await res.json();
-    if (data.success) {
-      closePayModal();
-      showToast(t('pay_success'));
-      await fetchData();
-    } else {
-      showToast(data.error || 'Error submitting payment');
-    }
-  } catch (e) {
-    showToast('Could not submit payment. Try again.');
-  }
-}
-
-// ============ HELPERS ============
-function getGrade(score) {
-  if (score >= 90) return 'A+';
-  if (score >= 80) return 'A';
-  if (score >= 70) return 'B+';
-  if (score >= 60) return 'B';
-  if (score >= 50) return 'C';
-  return 'F';
-}
-
-function formatTime(ts) {
-  if (!ts) return '';
-  const d = new Date(ts);
-  return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
-}
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
-}
-
-function doLogout() {
-  localStorage.removeItem('edu_token');
-  localStorage.removeItem('edu_user');
-  window.location.href = 'login.html';
-}
-
-// Close modal on overlay click
-document.getElementById('payModal').addEventListener('click', e => {
-  if (e.target === document.getElementById('payModal')) closePayModal();
-});
-
-// PWA
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(() => {});
-}
-
-// ============ INIT ============
-fetchData();
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}
+load();
 </script>
 </body>
 </html>
