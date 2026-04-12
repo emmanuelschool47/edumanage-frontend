@@ -1,0 +1,1724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Teacher Panel — EduManage</title>
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--gray-50);
+  font-family: var(--font-body);
+  color: var(--black);
+  padding-bottom: 80px;
+}
+
+.mobile-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--white);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.topbar-logo {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--black);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.topbar-logo-mark {
+  width: 28px;
+  height: 28px;
+  background: var(--black);
+  color: var(--white);
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.lang-selector-sm {
+  display: flex;
+  gap: 2px;
+  background: var(--gray-100);
+  border-radius: 100px;
+  padding: 2px;
+}
+
+.lang-btn-sm {
+  padding: 4px 9px;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--gray-400);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.lang-btn-sm.active {
+  background: var(--white);
+  color: var(--black);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.btn-logout-sm {
+  background: none;
+  border: 1px solid var(--gray-200);
+  border-radius: 7px;
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gray-500);
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: var(--transition);
+}
+
+.btn-logout-sm:hover {
+  background: var(--red);
+  color: var(--white);
+  border-color: var(--red);
+}
+
+.content {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* CLASS HEADER */
+.class-header {
+  background: var(--black);
+  color: var(--white);
+  padding: 24px 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.class-header-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.class-header-content {
+  position: relative;
+  z-index: 1;
+}
+
+.class-greeting {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.class-name {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.class-chips {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.class-chip {
+  padding: 4px 10px;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 100px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.7);
+  font-weight: 500;
+}
+
+/* STATS */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 16px 20px;
+}
+
+.stat-mini {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 14px 12px;
+  text-align: center;
+}
+
+.stat-mini-val {
+  font-family: var(--font-display);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.stat-mini-label {
+  font-size: 10px;
+  color: var(--gray-400);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* SECTION */
+.section {
+  padding: 0 20px;
+  margin-bottom: 20px;
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: 17px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/* STUDENT LIST */
+.student-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.student-item {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.student-item:active {
+  background: var(--gray-50);
+  transform: scale(0.99);
+}
+
+.student-avatar {
+  width: 40px;
+  height: 40px;
+  background: var(--gray-100);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 16px;
+  color: var(--gray-600);
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.student-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.student-info { flex: 1; min-width: 0; }
+
+.student-name {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 2px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.student-meta {
+  font-size: 11px;
+  color: var(--gray-400);
+}
+
+.student-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.att-badge {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 100px;
+}
+
+.att-good { background: var(--green-light); color: var(--green); }
+.att-bad { background: var(--red-light); color: var(--red); }
+
+/* ATTENDANCE SHEET */
+.att-sheet {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.att-date-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.att-date-label {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.date-input {
+  padding: 6px 10px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--black);
+  outline: none;
+  transition: var(--transition);
+}
+
+.date-input:focus { border-color: var(--black); }
+
+.att-student-row {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--gray-100);
+  gap: 12px;
+}
+
+.att-student-row:last-child { border-bottom: none; }
+
+.att-roll {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--gray-400);
+  min-width: 28px;
+}
+
+.att-student-name {
+  font-size: 13px;
+  font-weight: 500;
+  flex: 1;
+}
+
+.att-toggle {
+  display: flex;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.att-toggle-btn {
+  padding: 6px 14px;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  background: transparent;
+  color: var(--gray-400);
+}
+
+.att-toggle-btn.present-active {
+  background: var(--green);
+  color: var(--white);
+}
+
+.att-toggle-btn.absent-active {
+  background: var(--red);
+  color: var(--white);
+}
+
+.att-save-btn {
+  width: calc(100% - 32px);
+  margin: 16px;
+  padding: 13px;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.att-save-btn:active { transform: scale(0.98); }
+
+/* MARKS FORM */
+.marks-sheet {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.marks-student-section {
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.marks-student-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.marks-student-header:active { background: var(--gray-50); }
+
+.marks-expand-icon {
+  width: 16px;
+  height: 16px;
+  stroke: var(--gray-300);
+  transition: transform 0.2s;
+}
+
+.marks-expand-icon.open { transform: rotate(180deg); }
+
+.marks-fields {
+  padding: 0 16px 14px;
+  display: none;
+}
+
+.marks-fields.open { display: block; }
+
+.marks-subject-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.marks-subject-label {
+  font-size: 13px;
+  font-weight: 500;
+  min-width: 90px;
+  color: var(--gray-700);
+}
+
+.marks-input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 8px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--black);
+  outline: none;
+  transition: var(--transition);
+  text-align: center;
+}
+
+.marks-input:focus { border-color: var(--black); }
+
+.marks-total {
+  font-size: 12px;
+  color: var(--gray-400);
+  min-width: 40px;
+  text-align: right;
+}
+
+.marks-save-btn {
+  padding: 8px 16px;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 4px;
+  width: 100%;
+  transition: var(--transition);
+}
+
+.marks-save-btn:active { transform: scale(0.98); }
+
+/* POST COMPOSER */
+.composer {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.composer-textarea {
+  width: 100%;
+  min-height: 100px;
+  padding: 12px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--black);
+  resize: none;
+  outline: none;
+  transition: var(--transition);
+  margin-bottom: 12px;
+}
+
+.composer-textarea:focus { border-color: var(--black); }
+
+.composer-options {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.composer-opt-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 8px;
+  background: var(--gray-50);
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-600);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.composer-opt-btn.active {
+  border-color: var(--black);
+  background: var(--black);
+  color: var(--white);
+}
+
+.composer-opt-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+}
+
+.composer-file-input {
+  display: none;
+}
+
+.composer-preview {
+  margin-bottom: 12px;
+  display: none;
+}
+
+.composer-preview img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--gray-200);
+}
+
+.video-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--black);
+  outline: none;
+  transition: var(--transition);
+  margin-bottom: 12px;
+  display: none;
+}
+
+.video-input.show { display: block; }
+.video-input:focus { border-color: var(--black); }
+
+.post-submit-btn {
+  width: 100%;
+  padding: 13px;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: var(--transition);
+}
+
+.post-submit-btn:active { transform: scale(0.98); }
+
+.post-submit-btn svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--white);
+}
+
+/* POST LIST */
+.post-list { display: flex; flex-direction: column; gap: 10px; }
+
+.post-item {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+}
+
+.post-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.post-time { font-size: 11px; color: var(--gray-300); }
+
+.post-text { font-size: 14px; color: var(--gray-700); line-height: 1.6; }
+
+.post-image {
+  width: 100%;
+  border-radius: 8px;
+  margin-top: 8px;
+  max-height: 250px;
+  object-fit: cover;
+}
+
+.post-delete-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--gray-300);
+  padding: 2px;
+  transition: var(--transition);
+}
+
+.post-delete-btn:hover { color: var(--red); }
+
+.post-delete-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+}
+
+/* NOTIFICATION FORM */
+.notif-form {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+
+.form-group { margin-bottom: 14px; }
+
+.form-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 6px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--gray-50);
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--black);
+  outline: none;
+  transition: var(--transition);
+}
+
+.form-input:focus {
+  border-color: var(--black);
+  background: var(--white);
+}
+
+.form-textarea {
+  width: 100%;
+  padding: 12px 14px;
+  background: var(--gray-50);
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--black);
+  outline: none;
+  transition: var(--transition);
+  resize: none;
+  min-height: 90px;
+}
+
+.form-textarea:focus {
+  border-color: var(--black);
+  background: var(--white);
+}
+
+.send-notif-btn {
+  width: 100%;
+  padding: 13px;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.send-notif-btn:active { transform: scale(0.98); }
+
+/* STUDENT DETAIL */
+.detail-card {
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--gray-100);
+  border: none;
+  border-radius: 8px;
+  padding: 9px 14px;
+  font-family: var(--font-body);
+  font-size: 13px;
+  color: var(--gray-600);
+  cursor: pointer;
+  margin: 16px 20px 12px;
+  transition: var(--transition);
+}
+
+.back-btn:active { background: var(--gray-200); }
+
+.back-btn svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+}
+
+/* BOTTOM NAV */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--white);
+  border-top: 1px solid var(--gray-200);
+  display: flex;
+  z-index: 100;
+  padding: 6px 0 8px;
+}
+
+.bn-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 6px 4px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.bn-icon {
+  width: 22px;
+  height: 22px;
+  stroke: var(--gray-300);
+  transition: var(--transition);
+}
+
+.bn-label {
+  font-size: 9px;
+  font-weight: 600;
+  color: var(--gray-300);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.bn-btn.active .bn-icon { stroke: var(--black); }
+.bn-btn.active .bn-label { color: var(--black); }
+
+/* LOADING */
+.loading-screen {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.loading-spinner {
+  width: 28px;
+  height: 28px;
+  border: 2px solid var(--gray-200);
+  border-top-color: var(--black);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+.loading-text {
+  font-size: 13px;
+  color: var(--gray-400);
+}
+
+/* EMPTY */
+.empty-box {
+  text-align: center;
+  padding: 32px 20px;
+  color: var(--gray-300);
+}
+
+.empty-box svg {
+  width: 36px;
+  height: 36px;
+  stroke: var(--gray-200);
+  margin: 0 auto 10px;
+  display: block;
+}
+
+.empty-box p { font-size: 13px; }
+
+/* TOAST */
+.toast {
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--black);
+  color: var(--white);
+  padding: 10px 20px;
+  border-radius: 100px;
+  font-size: 13px;
+  font-weight: 600;
+  opacity: 0;
+  transition: all 0.3s ease;
+  z-index: 999;
+  white-space: nowrap;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="mobile-topbar">
+  <div class="topbar-logo">
+    <div class="topbar-logo-mark">E</div>
+    EduManage
+  </div>
+  <div class="topbar-right">
+    <div class="lang-selector-sm">
+      <button class="lang-btn-sm active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn-sm" onclick="setLang('hi')">HI</button>
+      <button class="lang-btn-sm" onclick="setLang('mr')">MR</button>
+    </div>
+    <button class="btn-logout-sm" onclick="doLogout()">Logout</button>
+  </div>
+</div>
+
+<!-- CONTENT -->
+<div class="content" id="mainContent">
+  <div class="loading-screen">
+    <div class="loading-spinner"></div>
+    <div class="loading-text">Loading...</div>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav">
+  <button class="bn-btn active" onclick="showPage('students', this)">
+    <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+      <circle cx="9" cy="7" r="4"/>
+      <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+      <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+    </svg>
+    <span class="bn-label">Students</span>
+  </button>
+  <button class="bn-btn" onclick="showPage('attendance', this)">
+    <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="9 11 12 14 22 4"/>
+      <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+    </svg>
+    <span class="bn-label">Attendance</span>
+  </button>
+  <button class="bn-btn" onclick="showPage('marks', this)">
+    <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <line x1="18" y1="20" x2="18" y2="10"/>
+      <line x1="12" y1="20" x2="12" y2="4"/>
+      <line x1="6" y1="20" x2="6" y2="14"/>
+    </svg>
+    <span class="bn-label">Marks</span>
+  </button>
+  <button class="bn-btn" onclick="showPage('group', this)">
+    <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    </svg>
+    <span class="bn-label">Group</span>
+  </button>
+  <button class="bn-btn" onclick="showPage('notify', this)">
+    <svg class="bn-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+      <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+    </svg>
+    <span class="bn-label">Notify</span>
+  </button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API = 'http://192.168.43.246:3000/api';
+
+// ============ AUTH ============
+function getToken() {
+  return localStorage.getItem('edu_token') || sessionStorage.getItem('edu_token');
+}
+
+function getUser() {
+  const u = localStorage.getItem('edu_user') || sessionStorage.getItem('edu_user');
+  return u ? JSON.parse(u) : null;
+}
+
+if (!getToken()) window.location.href = 'login.html';
+const user = getUser();
+if (!user || user.role !== 'teacher') window.location.href = 'login.html';
+
+// ============ TRANSLATIONS ============
+const T = {
+  en: {
+    students: 'Students', attendance: 'Attendance',
+    marks: 'Marks', group: 'Class Group', notify: 'Notify',
+    my_class: 'My Class', total_students: 'Students',
+    avg_marks: 'Class Avg', present_today: 'Present Today',
+    mark_attendance: 'Mark Attendance', update_marks: 'Update Marks',
+    post_group: 'Post in Group', send_notification: 'Send Notification',
+    save_attendance: 'Save Attendance', save_marks: 'Save Marks',
+    post_submit: 'Post', notif_title_label: 'Title',
+    notif_msg_label: 'Message', send_notif: 'Send Notification',
+    notif_sent: 'Notification sent', att_saved: 'Attendance saved',
+    marks_saved: 'Marks saved', posted: 'Posted successfully',
+    present: 'P', absent: 'A', select_date: 'Select Date',
+    add_image: 'Image', add_video: 'Video Link',
+    write_post: 'Write something for your class...',
+    video_placeholder: 'Paste YouTube or video link',
+    roll: 'Roll', logout: 'Logout'
+  },
+  hi: {
+    students: 'छात्र', attendance: 'उपस्थिति',
+    marks: 'अंक', group: 'क्लास ग्रुप', notify: 'सूचना',
+    my_class: 'मेरी कक्षा', total_students: 'छात्र',
+    avg_marks: 'कक्षा औसत', present_today: 'आज उपस्थित',
+    mark_attendance: 'उपस्थिति लगाएं', update_marks: 'अंक अपडेट करें',
+    post_group: 'ग्रुप में पोस्ट करें', send_notification: 'सूचना भेजें',
+    save_attendance: 'उपस्थिति सहेजें', save_marks: 'अंक सहेजें',
+    post_submit: 'पोस्ट करें', notif_title_label: 'शीर्षक',
+    notif_msg_label: 'संदेश', send_notif: 'सूचना भेजें',
+    notif_sent: 'सूचना भेजी गई', att_saved: 'उपस्थिति सहेजी गई',
+    marks_saved: 'अंक सहेजे गए', posted: 'सफलतापूर्वक पोस्ट किया',
+    present: 'उ', absent: 'अ', select_date: 'तिथि चुनें',
+    add_image: 'छवि', add_video: 'वीडियो लिंक',
+    write_post: 'अपनी कक्षा के लिए कुछ लिखें...',
+    video_placeholder: 'YouTube या वीडियो लिंक पेस्ट करें',
+    roll: 'रोल', logout: 'लॉगआउट'
+  },
+  mr: {
+    students: 'विद्यार्थी', attendance: 'हजेरी',
+    marks: 'गुण', group: 'वर्ग गट', notify: 'सूचना',
+    my_class: 'माझा वर्ग', total_students: 'विद्यार्थी',
+    avg_marks: 'वर्ग सरासरी', present_today: 'आज उपस्थित',
+    mark_attendance: 'हजेरी नोंदवा', update_marks: 'गुण अपडेट करा',
+    post_group: 'गटात पोस्ट करा', send_notification: 'सूचना पाठवा',
+    save_attendance: 'हजेरी जतन करा', save_marks: 'गुण जतन करा',
+    post_submit: 'पोस्ट करा', notif_title_label: 'शीर्षक',
+    notif_msg_label: 'संदेश', send_notif: 'सूचना पाठवा',
+    notif_sent: 'सूचना पाठवली', att_saved: 'हजेरी जतन झाली',
+    marks_saved: 'गुण जतन झाले', posted: 'यशस्वीरित्या पोस्ट केले',
+    present: 'उ', absent: 'अ', select_date: 'तारीख निवडा',
+    add_image: 'छायाचित्र', add_video: 'व्हिडिओ लिंक',
+    write_post: 'तुमच्या वर्गासाठी काहीतरी लिहा...',
+    video_placeholder: 'YouTube किंवा व्हिडिओ लिंक पेस्ट करा',
+    roll: 'रोल', logout: 'लॉगआउट'
+  }
+};
+
+let lang = localStorage.getItem('edu-lang') || 'en';
+function t(key) { return T[lang][key] || T.en[key] || key; }
+
+function setLang(l) {
+  lang = l;
+  localStorage.setItem('edu-lang', l);
+  document.querySelectorAll('.lang-btn-sm').forEach(b => {
+    b.classList.toggle('active', b.textContent.toLowerCase() === l);
+  });
+  showPage(currentPage);
+}
+
+setLang(lang);
+
+// ============ DATA ============
+let classData = null;
+let students = [];
+let currentPage = 'students';
+let attendanceState = {};
+let postFileBase64 = null;
+let postFileType = null;
+let showVideoInput = false;
+
+async function fetchClassData() {
+  try {
+    const res = await fetch(`${API}/teachers/my-class`, {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    });
+
+    if (res.status === 401) {
+      localStorage.removeItem('edu_token');
+      localStorage.removeItem('edu_user');
+      window.location.href = 'login.html';
+      return;
+    }
+
+    const data = await res.json();
+
+    // No class assigned - still show panel
+    if (!data.class) {
+      classData = { id: null, standard: 'Not Assigned' };
+      students = [];
+      document.getElementById('mainContent').innerHTML = `
+        <div style="padding:24px;text-align:center">
+          <div style="font-family:var(--font-display);font-size:20px;margin-bottom:8px">No Class Assigned</div>
+          <div style="font-size:14px;color:var(--gray-400)">Ask admin to assign you a class.</div>
+        </div>
+      `;
+      return;
+    }
+
+    classData = data.class;
+    students = data.students || [];
+    showPage('students');
+
+  } catch (err) {
+    document.getElementById('mainContent').innerHTML = `
+      <div style="padding:24px;text-align:center">
+        <div style="font-size:14px;color:var(--red)">Could not connect to server.</div>
+        <button onclick="fetchClassData()" style="margin-top:12px;padding:10px 20px;background:var(--black);color:var(--white);border:none;border-radius:8px;cursor:pointer;font-family:var(--font-body);font-weight:600">Retry</button>
+      </div>
+    `;
+  }
+}
+// ============ PAGES ============
+function showPage(page, btn) {
+  currentPage = page;
+  if (btn) {
+    document.querySelectorAll('.bn-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  if (!classData && page !== 'students') { fetchClassData(); return; }
+  if (!classData) { fetchClassData(); return; }
+
+  const c = document.getElementById('mainContent');
+
+  if (page === 'students') c.innerHTML = renderStudents();
+  else if (page === 'attendance') c.innerHTML = renderAttendance();
+  else if (page === 'marks') c.innerHTML = renderMarks();
+  else if (page === 'group') renderGroup();
+  else if (page === 'notify') c.innerHTML = renderNotify();
+}
+
+// ============ STUDENTS PAGE ============
+function renderStudents() {
+  const cls = classData;
+  const avgMark = students.length
+    ? Math.round(students.reduce((a, s) => a + getStudentAvg(s), 0) / students.length)
+    : 0;
+
+  return `
+    <div class="class-header">
+      <div class="class-header-grid"></div>
+      <div class="class-header-content">
+        <div class="class-greeting">Teacher</div>
+        <div class="class-name">${user.name || 'Teacher'}</div>
+        <div class="class-chips">
+          <span class="class-chip">Class ${cls.standard}</span>
+          <span class="class-chip">${students.length} Students</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-mini">
+        <div class="stat-mini-val">${students.length}</div>
+        <div class="stat-mini-label">${t('total_students')}</div>
+      </div>
+      <div class="stat-mini">
+        <div class="stat-mini-val">${avgMark}%</div>
+        <div class="stat-mini-label">${t('avg_marks')}</div>
+      </div>
+      <div class="stat-mini">
+        <div class="stat-mini-val">${students.filter(s => s.attendance_pct >= 75).length}</div>
+        <div class="stat-mini-label">Good Att.</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="section-title">${t('my_class')}</div>
+      <div class="student-list">
+        ${students.length > 0 ? students.map(s => `
+          <div class="student-item" onclick="viewStudent('${s.id}')">
+            <div class="student-avatar">${s.name[0].toUpperCase()}</div>
+            <div class="student-info">
+              <div class="student-name">${s.name}</div>
+              <div class="student-meta">Roll ${s.roll_no}</div>
+            </div>
+            <div class="student-right">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gray-300)" stroke-width="2">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </div>
+          </div>
+        `).join('') : `
+          <div class="empty-box">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+            </svg>
+            <p>No students in your class</p>
+          </div>
+        `}
+      </div>
+    </div>
+  `;
+}
+
+function viewStudent(id) {
+  const s = students.find(x => x.id === id);
+  if (!s) return;
+  const c = document.getElementById('mainContent');
+  c.innerHTML = `
+    <button class="back-btn" onclick="showPage('students', document.querySelectorAll('.bn-btn')[0])">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      Back
+    </button>
+    <div style="padding:0 20px">
+      <div class="detail-card">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
+          <div class="student-avatar" style="width:52px;height:52px;font-size:20px">${s.name[0]}</div>
+          <div>
+            <div style="font-family:var(--font-display);font-size:20px;font-weight:700">${s.name}</div>
+            <div style="font-size:12px;color:var(--gray-400)">Roll ${s.roll_no} · ${s.code}</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+          ${detailRow('Parent', s.parent_name || 'N/A')}
+          ${detailRow('Phone', s.parent_phone || 'N/A')}
+          ${detailRow('Blood Group', s.blood_group || 'N/A')}
+          ${detailRow('Bus', s.has_bus ? 'Yes' : 'No')}
+        </div>
+      </div>
+
+      <div class="detail-card">
+        <div style="font-weight:700;margin-bottom:12px;font-family:var(--font-display)">Update Marks</div>
+        ${['Math','Science','English','Hindi','Social Science','Marathi'].map(sub => `
+          <div class="marks-subject-row">
+            <div class="marks-subject-label">${sub}</div>
+            <input type="number" class="marks-input" id="m_${s.id}_${sub}" placeholder="0" min="0" max="100" style="max-width:80px">
+            <div class="marks-total">/100</div>
+          </div>
+        `).join('')}
+        <button class="marks-save-btn" onclick="saveStudentMarks('${s.id}')">Save Marks</button>
+      </div>
+
+      <div class="detail-card">
+        <div style="font-weight:700;margin-bottom:12px;font-family:var(--font-display)">Remarks</div>
+        <textarea class="composer-textarea" id="remark_${s.id}" placeholder="Write remarks for this student..." style="min-height:70px"></textarea>
+        <button class="marks-save-btn" onclick="saveRemark('${s.id}')">Save Remark</button>
+      </div>
+    </div>
+  `;
+}
+
+function detailRow(label, value) {
+  return `
+    <div style="background:var(--gray-50);border-radius:8px;padding:10px 12px">
+      <div style="font-size:10px;color:var(--gray-400);font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:2px">${label}</div>
+      <div style="font-size:13px;font-weight:600">${value}</div>
+    </div>
+  `;
+}
+
+// ============ ATTENDANCE PAGE ============
+function renderAttendance() {
+  const today = new Date().toISOString().split('T')[0];
+
+  // Init attendance state
+  students.forEach(s => {
+    if (!attendanceState[s.id]) attendanceState[s.id] = 'present';
+  });
+
+  return `
+    <div style="padding:20px">
+      <div class="section-title" style="margin-bottom:12px">${t('mark_attendance')}</div>
+      <div class="att-sheet">
+        <div class="att-date-row">
+          <div class="att-date-label">${t('select_date')}</div>
+          <input type="date" class="date-input" id="attDate" value="${today}">
+        </div>
+        ${students.map(s => `
+          <div class="att-student-row">
+            <div class="att-roll">${s.roll_no}</div>
+            <div class="att-student-name">${s.name}</div>
+            <div class="att-toggle">
+              <button
+                class="att-toggle-btn ${attendanceState[s.id] === 'present' ? 'present-active' : ''}"
+                id="btn_p_${s.id}"
+                onclick="setAtt('${s.id}', 'present')"
+              >${t('present')}</button>
+              <button
+                class="att-toggle-btn ${attendanceState[s.id] === 'absent' ? 'absent-active' : ''}"
+                id="btn_a_${s.id}"
+                onclick="setAtt('${s.id}', 'absent')"
+              >${t('absent')}</button>
+            </div>
+          </div>
+        `).join('')}
+        <button class="att-save-btn" onclick="saveAttendance()">${t('save_attendance')}</button>
+      </div>
+    </div>
+  `;
+}
+
+function setAtt(studentId, status) {
+  attendanceState[studentId] = status;
+  const pBtn = document.getElementById(`btn_p_${studentId}`);
+  const aBtn = document.getElementById(`btn_a_${studentId}`);
+  if (pBtn) pBtn.className = `att-toggle-btn ${status === 'present' ? 'present-active' : ''}`;
+  if (aBtn) aBtn.className = `att-toggle-btn ${status === 'absent' ? 'absent-active' : ''}`;
+}
+
+async function saveAttendance() {
+  const date = document.getElementById('attDate').value;
+  if (!date) { showToast('Please select date'); return; }
+
+  const list = students.map(s => ({
+    student_id: s.id,
+    status: attendanceState[s.id] || 'present'
+  }));
+
+  try {
+    const res = await fetch(`${API}/attendance/mark`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ attendance_list: list, date })
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast(t('att_saved'));
+      // Send notification
+      await sendAutoNotif('Attendance Marked', `Attendance for ${date} has been marked.`, 'attendance');
+    } else {
+      showToast(data.error || 'Error saving');
+    }
+  } catch (e) {
+    showToast('Could not save attendance');
+  }
+}
+
+// ============ MARKS PAGE ============
+function renderMarks() {
+  return `
+    <div style="padding:20px">
+      <div class="section-title" style="margin-bottom:12px">${t('update_marks')}</div>
+      <div class="marks-sheet">
+        ${students.map((s, i) => `
+          <div class="marks-student-section">
+            <div class="marks-student-header" onclick="toggleMarksStudent('${s.id}')">
+              <div class="student-avatar" style="width:36px;height:36px;font-size:14px">${s.name[0]}</div>
+              <div style="flex:1">
+                <div style="font-size:13px;font-weight:600">${s.name}</div>
+                <div style="font-size:11px;color:var(--gray-400)">Roll ${s.roll_no}</div>
+              </div>
+              <svg class="marks-expand-icon" id="exp_${s.id}" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+                <polyline points="6 9 12 15 18 9"/>
+              </svg>
+            </div>
+            <div class="marks-fields" id="mf_${s.id}">
+              ${['Math','Science','English','Hindi','Social Science','Marathi'].map(sub => `
+                <div class="marks-subject-row">
+                  <div class="marks-subject-label">${sub}</div>
+                  <input type="number" class="marks-input" id="mk_${s.id}_${sub.replace(/ /g,'_')}" placeholder="0" min="0" max="100">
+                  <div class="marks-total">/100</div>
+                </div>
+              `).join('')}
+              <button class="marks-save-btn" onclick="saveMarksForStudent('${s.id}')">${t('save_marks')}</button>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+function toggleMarksStudent(id) {
+  const fields = document.getElementById(`mf_${id}`);
+  const icon = document.getElementById(`exp_${id}`);
+  const isOpen = fields.classList.contains('open');
+  fields.classList.toggle('open', !isOpen);
+  icon.classList.toggle('open', !isOpen);
+}
+
+async function saveMarksForStudent(studentId) {
+  const subjects = ['Math','Science','English','Hindi','Social Science','Marathi'];
+  let saved = 0;
+
+  for (const sub of subjects) {
+    const el = document.getElementById(`mk_${studentId}_${sub.replace(/ /g,'_')}`);
+    if (!el || el.value === '') continue;
+    const val = parseInt(el.value);
+    if (isNaN(val)) continue;
+
+    await fetch(`${API}/marks/update`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        student_id: studentId,
+        subject: sub,
+        marks_obtained: val,
+        total_marks: 100,
+        exam_type: 'Unit Test'
+      })
+    });
+    saved++;
+  }
+
+  if (saved > 0) showToast(t('marks_saved'));
+  else showToast('Enter at least one mark');
+}
+
+async function saveStudentMarks(studentId) {
+  const subjects = ['Math','Science','English','Hindi','Social Science','Marathi'];
+  let saved = 0;
+
+  for (const sub of subjects) {
+    const el = document.getElementById(`m_${studentId}_${sub}`);
+    if (!el || el.value === '') continue;
+    const val = parseInt(el.value);
+    if (isNaN(val)) continue;
+
+    await fetch(`${API}/marks/update`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        student_id: studentId,
+        subject: sub,
+        marks_obtained: val,
+        total_marks: 100,
+        exam_type: 'Unit Test'
+      })
+    });
+    saved++;
+  }
+
+  if (saved > 0) showToast(t('marks_saved'));
+  else showToast('Enter at least one mark');
+}
+
+async function saveRemark(studentId) {
+  const el = document.getElementById(`remark_${studentId}`);
+  if (!el || !el.value.trim()) { showToast('Enter a remark'); return; }
+  showToast('Remark feature coming soon');
+}
+
+// ============ GROUP PAGE ============
+async function renderGroup() {
+  const c = document.getElementById('mainContent');
+  c.innerHTML = `
+    <div style="padding:20px">
+      <div class="section-title" style="margin-bottom:12px">${t('post_group')}</div>
+
+      <div class="composer">
+        <textarea class="composer-textarea" id="postText" placeholder="${t('write_post')}"></textarea>
+
+        <div class="composer-options">
+          <button class="composer-opt-btn" id="imgBtn" onclick="toggleImageUpload()">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+              <rect x="3" y="3" width="18" height="18" rx="2"/>
+              <circle cx="8.5" cy="8.5" r="1.5"/>
+              <polyline points="21 15 16 10 5 21"/>
+            </svg>
+            ${t('add_image')}
+          </button>
+          <button class="composer-opt-btn" id="vidBtn" onclick="toggleVideoInput()">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            ${t('add_video')}
+          </button>
+        </div>
+
+        <input type="file" class="composer-file-input" id="postFileInput" accept="image/*,application/pdf" onchange="handlePostFile(this)">
+
+        <div class="composer-preview" id="composerPreview">
+          <img id="composerPreviewImg" src="" alt="">
+        </div>
+
+        <input type="url" class="video-input" id="videoLinkInput" placeholder="${t('video_placeholder')}">
+
+        <button class="post-submit-btn" onclick="submitPost()">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+            <line x1="22" y1="2" x2="11" y2="13"/>
+            <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+          </svg>
+          ${t('post_submit')}
+        </button>
+      </div>
+
+      <div style="margin-top:20px">
+        <div class="section-title" style="margin-bottom:12px">Recent Posts</div>
+        <div class="post-list" id="groupPostList">
+          <div class="loading-screen" style="min-height:120px">
+            <div class="loading-spinner"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  await loadGroupPosts();
+}
+
+function toggleImageUpload() {
+  document.getElementById('postFileInput').click();
+  document.getElementById('imgBtn').classList.toggle('active');
+}
+
+function toggleVideoInput() {
+  showVideoInput = !showVideoInput;
+  const input = document.getElementById('videoLinkInput');
+  if (input) {
+    input.classList.toggle('show', showVideoInput);
+    document.getElementById('vidBtn').classList.toggle('active', showVideoInput);
+  }
+}
+
+function handlePostFile(input) {
+  const file = input.files[0];
+  if (!file) return;
+  postFileType = file.type;
+  const reader = new FileReader();
+  reader.onload = e => {
+    postFileBase64 = e.target.result.split(',')[1];
+    if (file.type.startsWith('image')) {
+      const preview = document.getElementById('composerPreview');
+      const img = document.getElementById('composerPreviewImg');
+      img.src = e.target.result;
+      preview.style.display = 'block';
+    }
+  };
+  reader.readAsDataURL(file);
+}
+
+async function submitPost() {
+  const text = document.getElementById('postText')?.value.trim();
+  const videoLink = document.getElementById('videoLinkInput')?.value.trim();
+
+  if (!text && !postFileBase64 && !videoLink) {
+    showToast('Write something or add a file');
+    return;
+  }
+
+  const body = {
+    class_id: classData.id,
+    text_content: text || null,
+    video_link: videoLink || null,
+    post_type: 'general'
+  };
+
+  if (postFileBase64) {
+    body.file_base64 = postFileBase64;
+    body.file_type = postFileType;
+  }
+
+  try {
+    const res = await fetch(`${API}/posts`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast(t('posted'));
+      document.getElementById('postText').value = '';
+      postFileBase64 = null;
+      postFileType = null;
+      document.getElementById('composerPreview').style.display = 'none';
+      if (document.getElementById('videoLinkInput')) {
+        document.getElementById('videoLinkInput').value = '';
+        document.getElementById('videoLinkInput').classList.remove('show');
+      }
+      showVideoInput = false;
+      await loadGroupPosts();
+      // Notify class
+      await sendAutoNotif('New Post in Class Group', text || 'New file shared in class group', 'group');
+    } else {
+      showToast(data.error || 'Error posting');
+    }
+  } catch (e) {
+    showToast('Could not post. Try again.');
+  }
+}
+
+async function loadGroupPosts() {
+  try {
+    const res = await fetch(`${API}/posts/${classData.id}`, {
+      headers: { Authorization: `Bearer ${getToken()}` }
+    });
+    const data = await res.json();
+    const posts = data.posts || [];
+    const container = document.getElementById('groupPostList');
+    if (!container) return;
+
+    container.innerHTML = posts.length > 0
+      ? posts.map(p => `
+          <div class="post-item">
+            <div class="post-head">
+              <div style="font-size:12px;font-weight:600">${p.posted_by_name}</div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <span class="post-time">${formatTime(p.created_at)}</span>
+                <button class="post-delete-btn" onclick="deletePost('${p.id}')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round">
+                    <polyline points="3 6 5 6 21 6"/>
+                    <path d="M19 6l-1 14H6L5 6"/>
+                    <path d="M10 11v6M14 11v6"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            ${p.text_content ? `<div class="post-text">${p.text_content}</div>` : ''}
+            ${p.file_url && p.file_type?.startsWith('image') ? `<img class="post-image" src="${p.file_url}" loading="lazy">` : ''}
+            ${p.video_link ? `
+              <a href="${p.video_link}" target="_blank" style="display:flex;align-items:center;gap:6px;margin-top:8px;padding:8px 12px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:8px;font-size:12px;color:var(--black);text-decoration:none;font-weight:500">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                  <polygon points="5 3 19 12 5 21 5 3"/>
+                </svg>
+                Watch Video
+              </a>
+            ` : ''}
+          </div>
+        `).join('')
+      : `<div class="empty-box">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          <p>No posts yet</p>
+        </div>`;
+  } catch (e) {}
+}
+
+async function deletePost(id) {
+  try {
+    await fetch(`${API}/posts/${id}`, {
+      method: 'DELETE',
+      headers: { Authorization: `Bearer ${getToken()}` }
+    });
+    await loadGroupPosts();
+    showToast('Post deleted');
+  } catch (e) {
+    showToast('Could not delete');
+  }
+}
+
+// ============ NOTIFY PAGE ============
+function renderNotify() {
+  return `
+    <div style="padding:20px">
+      <div class="section-title" style="margin-bottom:12px">${t('send_notification')}</div>
+      <div class="notif-form">
+        <div class="form-group">
+          <label class="form-label">${t('notif_title_label')}</label>
+          <input type="text" class="form-input" id="notifTitle" placeholder="e.g. Holiday Tomorrow">
+        </div>
+        <div class="form-group">
+          <label class="form-label">${t('notif_msg_label')}</label>
+          <textarea class="form-textarea" id="notifMsg" placeholder="Write your message here..."></textarea>
+        </div>
+        <button class="send-notif-btn" onclick="sendNotification()">${t('send_notif')}</button>
+      </div>
+    </div>
+  `;
+}
+
+async function sendNotification() {
+  const title = document.getElementById('notifTitle')?.value.trim();
+  const message = document.getElementById('notifMsg')?.value.trim();
+
+  if (!title || !message) { showToast('Enter title and message'); return; }
+
+  try {
+    const res = await fetch(`${API}/notifications/send`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title,
+        message,
+        target_type: 'class',
+        target_id: classData.id,
+        type: 'general'
+      })
+    });
+    const data = await res.json();
+    if (data.success) {
+      showToast(t('notif_sent'));
+      document.getElementById('notifTitle').value = '';
+      document.getElementById('notifMsg').value = '';
+    } else {
+      showToast(data.error || 'Error sending');
+    }
+  } catch (e) {
+    showToast('Could not send notification');
+  }
+}
+
+async function sendAutoNotif(title, message, type) {
+  try {
+    await fetch(`${API}/notifications/send`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${getToken()}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        title,
+        message,
+        target_type: 'class',
+        target_id: classData.id,
+        type
+      })
+    });
+  } catch (e) {}
+}
+
+// ============ HELPERS ============
+function getStudentAvg(s) { return 0; }
+
+function formatTime(ts) {
+  if (!ts) return '';
+  const d = new Date(ts);
+  return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
+}
+
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+function doLogout() {
+  localStorage.removeItem('edu_token');
+  localStorage.removeItem('edu_user');
+  window.location.href = 'login.html';
+}
+
+// PWA
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+
+// ============ INIT ============
+fetchClassData();
+</script>
+</body>
+</html>

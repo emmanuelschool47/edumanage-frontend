@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="description" content="School Management System">
+<title>EduManage — School Management System</title>
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+/* LANDING SPECIFIC */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid transparent;
+  transition: var(--transition);
+}
+
+nav.scrolled {
+  border-bottom-color: var(--gray-200);
+  padding: 14px 60px;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--black);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.nav-logo-mark {
+  width: 34px;
+  height: 34px;
+  background: var(--black);
+  color: var(--white);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  font-weight: 700;
+  transition: var(--transition);
+}
+
+.nav-logo:hover .nav-logo-mark {
+  transform: rotate(-8deg);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gray-600);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.nav-links a:hover { color: var(--black); }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* LANGUAGE SELECTOR */
+.lang-selector {
+  display: flex;
+  gap: 4px;
+  background: var(--gray-100);
+  border-radius: 100px;
+  padding: 3px;
+}
+
+.lang-btn {
+  padding: 5px 12px;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-500);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.lang-btn.active {
+  background: var(--white);
+  color: var(--black);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+/* HERO */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 120px 60px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* GRID BG */
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--gray-200) 1px, transparent 1px),
+    linear-gradient(90deg, var(--gray-200) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 20%, transparent 100%);
+  opacity: 0.4;
+}
+
+/* ANIMATED LINES */
+.hero-lines {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.line {
+  position: absolute;
+  background: var(--gray-200);
+}
+
+.line-h {
+  height: 1px;
+  width: 0;
+  animation: lineGrow 2s ease forwards;
+}
+
+.line-v {
+  width: 1px;
+  height: 0;
+  animation: lineGrowV 2s ease forwards;
+}
+
+@keyframes lineGrowV {
+  from { height: 0; }
+  to { height: 100%; }
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--gray-100);
+  border: 1px solid var(--gray-200);
+  border-radius: 100px;
+  padding: 6px 18px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-600);
+  letter-spacing: 0.5px;
+  margin-bottom: 28px;
+}
+
+.eyebrow-pulse {
+  width: 6px;
+  height: 6px;
+  background: var(--black);
+  border-radius: 50%;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 7vw, 88px);
+  line-height: 1.05;
+  letter-spacing: -2px;
+  color: var(--black);
+  margin-bottom: 24px;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: var(--gray-400);
+}
+
+.hero-sub {
+  font-size: clamp(16px, 2vw, 18px);
+  color: var(--gray-500);
+  max-width: 520px;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.hero-cta {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* SCROLL LINE */
+.scroll-hint {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  animation: fadeIn 0.8s ease 1.5s forwards;
+}
+
+.scroll-line-anim {
+  width: 1px;
+  height: 0;
+  background: var(--gray-300);
+  animation: lineGrowV 1.5s ease 2s forwards;
+}
+
+.scroll-text {
+  font-size: 10px;
+  color: var(--gray-400);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* MARQUEE */
+.marquee-section {
+  background: var(--black);
+  color: var(--white);
+  padding: 16px 0;
+  overflow: hidden;
+}
+
+.marquee-track {
+  display: flex;
+  animation: marquee 25s linear infinite;
+  white-space: nowrap;
+}
+
+.marquee-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  padding: 0 32px;
+  opacity: 0.7;
+}
+
+.marquee-sep { opacity: 0.3; }
+
+/* FEATURES */
+.features-section {
+  padding: 100px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--gray-400);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--gray-200);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  margin-top: 48px;
+}
+
+.feature-card {
+  background: var(--white);
+  padding: 36px 28px;
+  transition: var(--transition);
+  cursor: default;
+}
+
+.feature-card:hover {
+  background: var(--gray-50);
+}
+
+.feature-icon-wrap {
+  width: 44px;
+  height: 44px;
+  background: var(--black);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  transition: var(--transition);
+}
+
+.feature-card:hover .feature-icon-wrap {
+  transform: rotate(-5deg) scale(1.05);
+}
+
+.feature-icon-wrap svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--white);
+}
+
+.feature-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.feature-desc {
+  font-size: 14px;
+  color: var(--gray-500);
+  line-height: 1.65;
+}
+
+/* ROLES */
+.roles-section {
+  padding: 0 60px 100px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.roles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 48px;
+}
+
+.role-card {
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: 32px 24px;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+
+.role-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--black);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+  transform-origin: left;
+}
+
+.role-card:hover::before { transform: scaleX(1); }
+
+.role-card:hover {
+  border-color: var(--gray-400);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow);
+}
+
+.role-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  background: var(--gray-100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.role-icon svg {
+  width: 24px;
+  height: 24px;
+  stroke: var(--black);
+}
+
+.role-name {
+  font-family: var(--font-display);
+  font-size: 22px;
+  margin-bottom: 8px;
+}
+
+.role-desc {
+  font-size: 14px;
+  color: var(--gray-500);
+  margin-bottom: 20px;
+  line-height: 1.6;
+}
+
+.role-perms { list-style: none; }
+
+.role-perms li {
+  font-size: 13px;
+  color: var(--gray-700);
+  padding: 7px 0;
+  border-bottom: 1px solid var(--gray-100);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.perm-dot {
+  width: 4px;
+  height: 4px;
+  background: var(--black);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* STATS BAR */
+.stats-bar {
+  background: var(--black);
+  padding: 60px;
+}
+
+.stats-bar-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  text-align: center;
+}
+
+.stat-bar-num {
+  font-family: var(--font-display);
+  font-size: 52px;
+  color: var(--white);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+
+.stat-bar-label {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+}
+
+/* PWA SECTION */
+.pwa-section {
+  padding: 100px 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+
+.step-list { display: flex; flex-direction: column; gap: 20px; }
+
+.step-item {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.step-num {
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid var(--gray-200);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-400);
+  flex-shrink: 0;
+}
+
+.step-title { font-size: 15px; font-weight: 600; margin-bottom: 3px; }
+.step-desc { font-size: 13px; color: var(--gray-500); line-height: 1.5; }
+
+/* PHONE VISUAL */
+.phone-visual {
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.phone-frame {
+  width: 200px;
+  height: 380px;
+  background: var(--black);
+  border-radius: 30px;
+  padding: 10px;
+  box-shadow: var(--shadow-lg);
+  animation: float 5s ease-in-out infinite;
+}
+
+.phone-screen {
+  background: var(--gray-50);
+  border-radius: 22px;
+  height: 100%;
+  overflow: hidden;
+}
+
+.phone-top-bar {
+  background: var(--black);
+  height: 24px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding-bottom: 4px;
+}
+
+.phone-notch-bar {
+  width: 50px;
+  height: 10px;
+  background: var(--black);
+  border-radius: 0 0 8px 8px;
+}
+
+.phone-body {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.phone-card-mini {
+  background: var(--white);
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+
+.phone-card-title-mini {
+  font-size: 7px;
+  font-weight: 700;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 6px;
+}
+
+.phone-bar-mini {
+  height: 4px;
+  background: var(--gray-100);
+  border-radius: 2px;
+  margin-bottom: 4px;
+  overflow: hidden;
+}
+
+.phone-bar-fill-mini {
+  height: 100%;
+  background: var(--black);
+  border-radius: 2px;
+  animation: barFill 2s ease-in-out infinite alternate;
+}
+
+@keyframes barFill {
+  from { width: 30%; }
+  to { width: 90%; }
+}
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--gray-200);
+  padding: 40px 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--black);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 24px;
+}
+
+.footer-links a {
+  font-size: 13px;
+  color: var(--gray-500);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.footer-links a:hover { color: var(--black); }
+
+.footer-copy {
+  font-size: 12px;
+  color: var(--gray-400);
+}
+
+@media (max-width: 768px) {
+  nav { padding: 16px 20px; }
+  nav.scrolled { padding: 12px 20px; }
+  .nav-links { display: none; }
+  .hero { padding: 100px 20px 60px; }
+  .features-section { padding: 60px 20px; }
+  .features-grid { grid-template-columns: 1fr; }
+  .roles-section { padding: 0 20px 60px; }
+  .roles-grid { grid-template-columns: 1fr; }
+  .stats-bar { padding: 40px 20px; }
+  .stats-bar-inner { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .pwa-section { grid-template-columns: 1fr; padding: 60px 20px; gap: 40px; }
+  footer { padding: 28px 20px; flex-direction: column; align-items: flex-start; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-mark">E</div>
+    EduManage
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#features" data-i18n="nav_features">Features</a></li>
+    <li><a href="#panels" data-i18n="nav_panels">Panels</a></li>
+    <li><a href="#install" data-i18n="nav_install">Install App</a></li>
+  </ul>
+
+  <div class="nav-right">
+    <div class="lang-selector">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('hi')">HI</button>
+      <button class="lang-btn" onclick="setLang('mr')">MR</button>
+    </div>
+    <a href="login.html" class="btn btn-primary" data-i18n="nav_login">Login</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-lines">
+    <div class="line line-h" style="top:30%;left:0;animation-delay:0.5s"></div>
+    <div class="line line-h" style="top:70%;left:0;animation-delay:0.8s"></div>
+    <div class="line line-v" style="left:20%;top:0;animation-delay:1s"></div>
+    <div class="line line-v" style="left:80%;top:0;animation-delay:1.2s"></div>
+  </div>
+
+  <div class="hero-eyebrow animate-fadeIn delay-1">
+    <div class="eyebrow-pulse"></div>
+    <span data-i18n="hero_eyebrow">School Management Platform</span>
+  </div>
+
+  <h1 class="hero-title animate-fadeIn delay-2">
+    <span data-i18n="hero_title_1">Manage your</span><br>
+    school <em data-i18n="hero_title_2">smarter,</em><br>
+    <span data-i18n="hero_title_3">not harder.</span>
+  </h1>
+
+  <p class="hero-sub animate-fadeIn delay-3" data-i18n="hero_sub">
+    A complete school management system for Indian schools. Nursery to Class 10. Admin manages on PC, students and teachers access on their phones — anytime, anywhere.
+  </p>
+
+  <div class="hero-cta animate-fadeIn delay-4">
+    <a href="login.html" class="btn btn-primary" data-i18n="hero_cta_1">Enter Portal</a>
+    <a href="#install" class="btn btn-outline" data-i18n="hero_cta_2">Install as App</a>
+  </div>
+
+  <div class="scroll-hint">
+    <span class="scroll-text" data-i18n="scroll">Scroll</span>
+    <div class="scroll-line-anim"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-section">
+  <div class="marquee-track">
+    <span class="marquee-item">Student Portal <span class="marquee-sep">—</span></span>
+    <span class="marquee-item">Teacher Dashboard <span class="marquee-sep">—</span></span>
+    <span class="marquee-item">Admin Control <span class="marquee-sep">—</span></span>
+    <span class="marquee-item">Live Marks <span class="marquee-sep">—</span></span>
+    <span class="marquee-item">Attendance Tracking <span class="marquee-sep">—</span></span>
+    <span class="marquee-item">Fee Management <span class="marquee-sep">—</span></span>
+    <span class="marquee-item">Works as Mobile App <span class="marquee-sep">—</span></span>
+    <span class="marquee-item">Nursery to Class 10 <span class="marquee-sep">—</span></span>
+    <span class="marquee-item">Student Portal <span class="marquee-sep">—</span></span>
+    <span class="marquee-item">Teacher Dashboard <span class="marquee-sep">—</span></span>
+    <span class="marquee-item">Admin Control <span class="marquee-sep">—</span></span>
+    <span class="marquee-item">Live Marks <span class="marquee-sep">—</span></span>
+    <span class="marquee-item">Attendance Tracking <span class="marquee-sep">—</span></span>
+    <span class="marquee-item">Fee Management <span class="marquee-sep">—</span></span>
+    <span class="marquee-item">Works as Mobile App <span class="marquee-sep">—</span></span>
+    <span class="marquee-item">Nursery to Class 10 <span class="marquee-sep">—</span></span>
+  </div>
+</div>
+
+<!-- FEATURES -->
+<section class="features-section" id="features">
+  <div class="reveal">
+    <div class="section-eyebrow">// What we offer</div>
+    <h2 class="section-title" style="font-size:clamp(36px,5vw,52px);letter-spacing:-1px" data-i18n="feat_title">
+      Everything your school needs.
+    </h2>
+  </div>
+
+  <div class="features-grid reveal">
+    <div class="feature-card">
+      <div class="feature-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <div class="feature-name" data-i18n="feat1_name">Admin Control</div>
+      <p class="feature-desc" data-i18n="feat1_desc">Full control of all students, teachers, fees and reports. Password protected with unique admin code.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+        </svg>
+      </div>
+      <div class="feature-name" data-i18n="feat2_name">Teacher Panel</div>
+      <p class="feature-desc" data-i18n="feat2_desc">Teachers see and manage only their assigned class. Update marks, attendance and post homework.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+      </div>
+      <div class="feature-name" data-i18n="feat3_name">Student Portal</div>
+      <p class="feature-desc" data-i18n="feat3_desc">Students login with their unique code and see only their own marks, attendance, fees and timetable.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+        </svg>
+      </div>
+      <div class="feature-name" data-i18n="feat4_name">Class Group</div>
+      <p class="feature-desc" data-i18n="feat4_desc">WhatsApp style class group. Teacher posts homework, images, videos. Students view only.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>
+        </svg>
+      </div>
+      <div class="feature-name" data-i18n="feat5_name">UPI Fee Payment</div>
+      <p class="feature-desc" data-i18n="feat5_desc">Students pay fees via PhonePe, GPay or Paytm directly. Upload screenshot for admin verification.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/>
+        </svg>
+      </div>
+      <div class="feature-name" data-i18n="feat6_name">Push Notifications</div>
+      <p class="feature-desc" data-i18n="feat6_desc">Instant notifications for attendance, fees, holidays and updates. Works even when app is closed.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ROLES -->
+<section class="roles-section" id="panels">
+  <div class="reveal">
+    <div class="section-eyebrow">// Access levels</div>
+    <h2 class="section-title" style="font-size:clamp(36px,5vw,52px);letter-spacing:-1px" data-i18n="roles_title">
+      Three panels, one system.
+    </h2>
+  </div>
+
+  <div class="roles-grid">
+    <div class="role-card reveal">
+      <div class="role-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+      </div>
+      <div class="role-name" data-i18n="role1_name">Admin</div>
+      <p class="role-desc" data-i18n="role1_desc">Principal or school manager. Full access to everything. Login required every time for security.</p>
+      <ul class="role-perms">
+        <li><div class="perm-dot"></div><span data-i18n="role1_p1">Add / Remove Students and Teachers</span></li>
+        <li><div class="perm-dot"></div><span data-i18n="role1_p2">View all students class-wise</span></li>
+        <li><div class="perm-dot"></div><span data-i18n="role1_p3">Manage fee payments</span></li>
+        <li><div class="perm-dot"></div><span data-i18n="role1_p4">Promote students to next class</span></li>
+        <li><div class="perm-dot"></div><span data-i18n="role1_p5">Manage passout students</span></li>
+      </ul>
+    </div>
+
+    <div class="role-card reveal" style="animation-delay:0.1s">
+      <div class="role-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+        </svg>
+      </div>
+      <div class="role-name" data-i18n="role2_name">Teacher</div>
+      <p class="role-desc" data-i18n="role2_desc">Class teacher. Sees and manages only their assigned class. Stays logged in permanently on phone.</p>
+      <ul class="role-perms">
+        <li><div class="perm-dot"></div><span data-i18n="role2_p1">View their class students only</span></li>
+        <li><div class="perm-dot"></div><span data-i18n="role2_p2">Mark daily attendance</span></li>
+        <li><div class="perm-dot"></div><span data-i18n="role2_p3">Update subject marks</span></li>
+        <li><div class="perm-dot"></div><span data-i18n="role2_p4">Post in class group</span></li>
+        <li><div class="perm-dot"></div><span data-i18n="role2_p5">Send class notifications</span></li>
+      </ul>
+    </div>
+
+    <div class="role-card reveal" style="animation-delay:0.2s">
+      <div class="role-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+      </div>
+      <div class="role-name" data-i18n="role3_name">Student</div>
+      <p class="role-desc" data-i18n="role3_desc">Logs in with unique code given by admin. Stays logged in permanently. Sees only personal data.</p>
+      <ul class="role-perms">
+        <li><div class="perm-dot"></div><span data-i18n="role3_p1">View own marks and grades</span></li>
+        <li><div class="perm-dot"></div><span data-i18n="role3_p2">Check attendance percentage</span></li>
+        <li><div class="perm-dot"></div><span data-i18n="role3_p3">Pay fees via UPI</span></li>
+        <li><div class="perm-dot"></div><span data-i18n="role3_p4">View class timetable</span></li>
+        <li><div class="perm-dot"></div><span data-i18n="role3_p5">View class group posts</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar">
+  <div class="stats-bar-inner">
+    <div class="reveal">
+      <div class="stat-bar-num">10K+</div>
+      <div class="stat-bar-label" data-i18n="stat1">Student Records</div>
+    </div>
+    <div class="reveal" style="animation-delay:0.1s">
+      <div class="stat-bar-num">3</div>
+      <div class="stat-bar-label" data-i18n="stat2">Access Levels</div>
+    </div>
+    <div class="reveal" style="animation-delay:0.2s">
+      <div class="stat-bar-num">14</div>
+      <div class="stat-bar-label" data-i18n="stat3">Class Levels</div>
+    </div>
+    <div class="reveal" style="animation-delay:0.3s">
+      <div class="stat-bar-num">Rs.0</div>
+      <div class="stat-bar-label" data-i18n="stat4">Monthly Cost</div>
+    </div>
+  </div>
+</div>
+
+<!-- PWA SECTION -->
+<section class="pwa-section" id="install">
+  <div>
+    <div class="section-eyebrow reveal">// Install as App</div>
+    <h2 class="section-title reveal" style="font-size:clamp(32px,4vw,48px);letter-spacing:-1px" data-i18n="pwa_title">
+      Works like a real mobile app.
+    </h2>
+    <p class="reveal" style="font-size:15px;color:var(--gray-500);margin:16px 0 32px;line-height:1.7" data-i18n="pwa_sub">
+      No Play Store. No App Store. Just open the website in Chrome and install it. It works offline too.
+    </p>
+
+    <div class="step-list">
+      <div class="step-item reveal">
+        <div class="step-num">01</div>
+        <div>
+          <div class="step-title" data-i18n="step1_title">Open in Chrome browser</div>
+          <div class="step-desc" data-i18n="step1_desc">Open the school website link in Chrome on your Android phone.</div>
+        </div>
+      </div>
+      <div class="step-item reveal" style="animation-delay:0.1s">
+        <div class="step-num">02</div>
+        <div>
+          <div class="step-title" data-i18n="step2_title">Tap Install or Add to Home Screen</div>
+          <div class="step-desc" data-i18n="step2_desc">Chrome will show an install popup or tap the 3-dot menu and select Add to Home Screen.</div>
+        </div>
+      </div>
+      <div class="step-item reveal" style="animation-delay:0.2s">
+        <div class="step-num">03</div>
+        <div>
+          <div class="step-title" data-i18n="step3_title">Done — use like an app</div>
+          <div class="step-desc" data-i18n="step3_desc">School app icon appears on home screen. Open it anytime — no browser needed.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="phone-visual reveal">
+    <div class="phone-frame">
+      <div class="phone-screen">
+        <div class="phone-top-bar">
+          <div class="phone-notch-bar"></div>
+        </div>
+        <div class="phone-body">
+          <div class="phone-card-mini">
+            <div class="phone-card-title-mini">My Marks</div>
+            <div class="phone-bar-mini"><div class="phone-bar-fill-mini" style="width:87%"></div></div>
+            <div class="phone-bar-mini"><div class="phone-bar-fill-mini" style="width:72%;animation-delay:0.3s"></div></div>
+            <div class="phone-bar-mini"><div class="phone-bar-fill-mini" style="width:95%;animation-delay:0.6s"></div></div>
+          </div>
+          <div class="phone-card-mini">
+            <div class="phone-card-title-mini">Attendance</div>
+            <div class="phone-bar-mini"><div class="phone-bar-fill-mini" style="width:94%"></div></div>
+          </div>
+          <div class="phone-card-mini">
+            <div class="phone-card-title-mini">Fees Status</div>
+            <div style="font-size:8px;font-weight:700;color:#1a7a4a;margin-top:4px">Paid</div>
+          </div>
+          <div class="phone-card-mini">
+            <div class="phone-card-title-mini">Notification</div>
+            <div style="font-size:7px;color:#666;margin-top:2px">Holiday tomorrow</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <div class="nav-logo-mark" style="width:28px;height:28px;font-size:13px">E</div>
+    EduManage Pro
+  </div>
+  <div class="footer-links">
+    <a href="login.html" data-i18n="nav_login">Login</a>
+    <a href="#features" data-i18n="nav_features">Features</a>
+    <a href="#install" data-i18n="nav_install">Install</a>
+  </div>
+  <div class="footer-copy" data-i18n="footer_copy">Built for Indian Schools. 2025.</div>
+</footer>
+
+<script>
+// ============ TRANSLATIONS ============
+const translations = {
+  en: {
+    nav_features: 'Features',
+    nav_panels: 'Panels',
+    nav_install: 'Install App',
+    nav_login: 'Login',
+    hero_eyebrow: 'School Management Platform',
+    hero_title_1: 'Manage your',
+    hero_title_2: 'smarter,',
+    hero_title_3: 'not harder.',
+    hero_sub: 'A complete school management system for Indian schools. Nursery to Class 10. Admin manages on PC, students and teachers access on their phones.',
+    hero_cta_1: 'Enter Portal',
+    hero_cta_2: 'Install as App',
+    scroll: 'Scroll',
+    feat_title: 'Everything your school needs.',
+    feat1_name: 'Admin Control',
+    feat1_desc: 'Full control of all students, teachers, fees and reports. Password protected with unique admin code.',
+    feat2_name: 'Teacher Panel',
+    feat2_desc: 'Teachers see and manage only their assigned class. Update marks, attendance and post homework.',
+    feat3_name: 'Student Portal',
+    feat3_desc: 'Students login with their unique code and see only their own marks, attendance, fees and timetable.',
+    feat4_name: 'Class Group',
+    feat4_desc: 'WhatsApp style class group. Teacher posts homework, images, videos. Students view only.',
+    feat5_name: 'UPI Fee Payment',
+    feat5_desc: 'Students pay fees via PhonePe, GPay or Paytm directly. Upload screenshot for admin verification.',
+    feat6_name: 'Push Notifications',
+    feat6_desc: 'Instant notifications for attendance, fees, holidays and updates. Works even when app is closed.',
+    roles_title: 'Three panels, one system.',
+    role1_name: 'Admin',
+    role1_desc: 'Principal or school manager. Full access to everything. Login required every time for security.',
+    role1_p1: 'Add / Remove Students and Teachers',
+    role1_p2: 'View all students class-wise',
+    role1_p3: 'Manage fee payments',
+    role1_p4: 'Promote students to next class',
+    role1_p5: 'Manage passout students',
+    role2_name: 'Teacher',
+    role2_desc: 'Class teacher. Sees and manages only their assigned class. Stays logged in permanently on phone.',
+    role2_p1: 'View their class students only',
+    role2_p2: 'Mark daily attendance',
+    role2_p3: 'Update subject marks',
+    role2_p4: 'Post in class group',
+    role2_p5: 'Send class notifications',
+    role3_name: 'Student',
+    role3_desc: 'Logs in with unique code given by admin. Stays logged in permanently. Sees only personal data.',
+    role3_p1: 'View own marks and grades',
+    role3_p2: 'Check attendance percentage',
+    role3_p3: 'Pay fees via UPI',
+    role3_p4: 'View class timetable',
+    role3_p5: 'View class group posts',
+    stat1: 'Student Records',
+    stat2: 'Access Levels',
+    stat3: 'Class Levels',
+    stat4: 'Monthly Cost',
+    pwa_title: 'Works like a real mobile app.',
+    pwa_sub: 'No Play Store. No App Store. Just open the website in Chrome and install it. Works offline too.',
+    step1_title: 'Open in Chrome browser',
+    step1_desc: 'Open the school website link in Chrome on your Android phone.',
+    step2_title: 'Tap Install or Add to Home Screen',
+    step2_desc: 'Chrome will show an install popup or tap 3-dot menu and select Add to Home Screen.',
+    step3_title: 'Done — use like an app',
+    step3_desc: 'School app icon appears on home screen. Open it anytime, no browser needed.',
+    footer_copy: 'Built for Indian Schools. 2025.'
+  },
+  hi: {
+    nav_features: 'सुविधाएं',
+    nav_panels: 'पैनल',
+    nav_install: 'ऐप इंस्टॉल करें',
+    nav_login: 'लॉगिन',
+    hero_eyebrow: 'स्कूल प्रबंधन प्लेटफॉर्म',
+    hero_title_1: 'अपने स्कूल को',
+    hero_title_2: 'स्मार्ट तरीके से',
+    hero_title_3: 'संभालें।',
+    hero_sub: 'भारतीय स्कूलों के लिए पूर्ण स्कूल प्रबंधन प्रणाली। नर्सरी से कक्षा 10 तक। एडमिन PC पर, छात्र और शिक्षक फोन पर।',
+    hero_cta_1: 'पोर्टल खोलें',
+    hero_cta_2: 'ऐप इंस्टॉल करें',
+    scroll: 'स्क्रॉल करें',
+    feat_title: 'आपके स्कूल की हर जरूरत।',
+    feat1_name: 'एडमिन नियंत्रण',
+    feat1_desc: 'सभी छात्रों, शिक्षकों, फीस और रिपोर्ट पर पूर्ण नियंत्रण।',
+    feat2_name: 'शिक्षक पैनल',
+    feat2_desc: 'शिक्षक केवल अपनी कक्षा देख और प्रबंधित कर सकते हैं।',
+    feat3_name: 'छात्र पोर्टल',
+    feat3_desc: 'छात्र अपने अद्वितीय कोड से लॉगिन करें और केवल अपना डेटा देखें।',
+    feat4_name: 'क्लास ग्रुप',
+    feat4_desc: 'व्हाट्सएप जैसा क्लास ग्रुप। शिक्षक होमवर्क, इमेज, वीडियो पोस्ट करें।',
+    feat5_name: 'UPI फीस भुगतान',
+    feat5_desc: 'PhonePe, GPay या Paytm से सीधे फीस दें। स्क्रीनशॉट अपलोड करें।',
+    feat6_name: 'पुश नोटिफिकेशन',
+    feat6_desc: 'उपस्थिति, फीस, छुट्टी के लिए तुरंत सूचना। ऐप बंद होने पर भी।',
+    roles_title: 'तीन पैनल, एक सिस्टम।',
+    role1_name: 'एडमिन',
+    role1_desc: 'प्रिंसिपल या स्कूल प्रबंधक। हर चीज़ का पूर्ण नियंत्रण।',
+    role1_p1: 'छात्र और शिक्षक जोड़ें / हटाएं',
+    role1_p2: 'कक्षा-वार सभी छात्र देखें',
+    role1_p3: 'फीस भुगतान प्रबंधित करें',
+    role1_p4: 'छात्रों को अगली कक्षा में प्रमोट करें',
+    role1_p5: 'पासआउट छात्र प्रबंधन',
+    role2_name: 'शिक्षक',
+    role2_desc: 'कक्षा शिक्षक। केवल अपनी कक्षा देखें। फोन पर हमेशा लॉगिन रहें।',
+    role2_p1: 'केवल अपनी कक्षा के छात्र देखें',
+    role2_p2: 'दैनिक उपस्थिति लगाएं',
+    role2_p3: 'विषय अंक अपडेट करें',
+    role2_p4: 'क्लास ग्रुप में पोस्ट करें',
+    role2_p5: 'कक्षा को सूचना भेजें',
+    role3_name: 'छात्र',
+    role3_desc: 'एडमिन द्वारा दिए गए कोड से लॉगिन। हमेशा लॉगिन रहें। केवल अपना डेटा।',
+    role3_p1: 'अपने अंक और ग्रेड देखें',
+    role3_p2: 'उपस्थिति प्रतिशत जांचें',
+    role3_p3: 'UPI से फीस दें',
+    role3_p4: 'क्लास टाइमटेबल देखें',
+    role3_p5: 'क्लास ग्रुप पोस्ट देखें',
+    stat1: 'छात्र रिकॉर्ड',
+    stat2: 'एक्सेस स्तर',
+    stat3: 'कक्षा स्तर',
+    stat4: 'मासिक लागत',
+    pwa_title: 'असली मोबाइल ऐप जैसा काम करता है।',
+    pwa_sub: 'Play Store नहीं। App Store नहीं। बस Chrome में खोलें और इंस्टॉल करें।',
+    step1_title: 'Chrome में खोलें',
+    step1_desc: 'अपने Android फोन पर Chrome में स्कूल वेबसाइट लिंक खोलें।',
+    step2_title: 'इंस्टॉल या होम स्क्रीन पर जोड़ें',
+    step2_desc: 'Chrome इंस्टॉल पॉपअप दिखाएगा या 3-डॉट मेनू से Add to Home Screen चुनें।',
+    step3_title: 'हो गया — ऐप की तरह उपयोग करें',
+    step3_desc: 'होम स्क्रीन पर स्कूल ऐप आइकन दिखेगा। कभी भी खोलें।',
+    footer_copy: 'भारतीय स्कूलों के लिए बनाया गया। 2025.'
+  },
+  mr: {
+    nav_features: 'वैशिष्ट्ये',
+    nav_panels: 'पॅनेल',
+    nav_install: 'ॲप इंस्टॉल करा',
+    nav_login: 'लॉगिन',
+    hero_eyebrow: 'शाळा व्यवस्थापन प्लॅटफॉर्म',
+    hero_title_1: 'तुमची शाळा',
+    hero_title_2: 'स्मार्टपणे',
+    hero_title_3: 'व्यवस्थापित करा।',
+    hero_sub: 'भारतीय शाळांसाठी संपूर्ण शाळा व्यवस्थापन प्रणाली। नर्सरी ते इयत्ता 10 पर्यंत।',
+    hero_cta_1: 'पोर्टल उघडा',
+    hero_cta_2: 'ॲप इंस्टॉल करा',
+    scroll: 'स्क्रोल करा',
+    feat_title: 'तुमच्या शाळेला हवे ते सर्व.',
+    feat1_name: 'प्रशासक नियंत्रण',
+    feat1_desc: 'सर्व विद्यार्थी, शिक्षक, शुल्क आणि अहवालांवर पूर्ण नियंत्रण।',
+    feat2_name: 'शिक्षक पॅनेल',
+    feat2_desc: 'शिक्षक फक्त त्यांचा वर्ग पाहू आणि व्यवस्थापित करू शकतात।',
+    feat3_name: 'विद्यार्थी पोर्टल',
+    feat3_desc: 'विद्यार्थी त्यांच्या युनिक कोडने लॉगिन करतात आणि फक्त त्यांचा डेटा पाहतात।',
+    feat4_name: 'वर्ग गट',
+    feat4_desc: 'WhatsApp सारखा वर्ग गट। शिक्षक गृहपाठ, छायाचित्रे, व्हिडिओ पोस्ट करतात।',
+    feat5_name: 'UPI शुल्क भरणा',
+    feat5_desc: 'PhonePe, GPay किंवा Paytm द्वारे थेट शुल्क भरा।',
+    feat6_name: 'पुश सूचना',
+    feat6_desc: 'उपस्थिती, शुल्क, सुट्टीसाठी त्वरित सूचना. ॲप बंद असतानाही.',
+    roles_title: 'तीन पॅनेल, एक प्रणाली.',
+    role1_name: 'प्रशासक',
+    role1_desc: 'मुख्याध्यापक किंवा शाळा व्यवस्थापक। सर्व गोष्टींवर पूर्ण नियंत्रण।',
+    role1_p1: 'विद्यार्थी आणि शिक्षक जोडा / काढा',
+    role1_p2: 'वर्गनिहाय सर्व विद्यार्थी पाहा',
+    role1_p3: 'शुल्क देयके व्यवस्थापित करा',
+    role1_p4: 'विद्यार्थ्यांना पुढील वर्गात पदोन्नत करा',
+    role1_p5: 'पासआउट विद्यार्थी व्यवस्थापन',
+    role2_name: 'शिक्षक',
+    role2_desc: 'वर्ग शिक्षक। फक्त त्यांचा वर्ग पाहा। फोनवर कायम लॉगिन राहा।',
+    role2_p1: 'फक्त त्यांच्या वर्गाचे विद्यार्थी पाहा',
+    role2_p2: 'दैनंदिन हजेरी नोंदवा',
+    role2_p3: 'विषय गुण अपडेट करा',
+    role2_p4: 'वर्ग गटात पोस्ट करा',
+    role2_p5: 'वर्गाला सूचना पाठवा',
+    role3_name: 'विद्यार्थी',
+    role3_desc: 'प्रशासकाने दिलेल्या कोडने लॉगिन करा। कायम लॉगिन राहा। फक्त स्वतःचा डेटा।',
+    role3_p1: 'स्वतःचे गुण आणि श्रेणी पाहा',
+    role3_p2: 'उपस्थिती टक्केवारी तपासा',
+    role3_p3: 'UPI द्वारे शुल्क भरा',
+    role3_p4: 'वर्ग वेळापत्रक पाहा',
+    role3_p5: 'वर्ग गट पोस्ट पाहा',
+    stat1: 'विद्यार्थी नोंदी',
+    stat2: 'प्रवेश स्तर',
+    stat3: 'वर्ग स्तर',
+    stat4: 'मासिक खर्च',
+    pwa_title: 'खऱ्या मोबाइल ॲपसारखे काम करते.',
+    pwa_sub: 'Play Store नाही. App Store नाही. फक्त Chrome मध्ये उघडा आणि इंस्टॉल करा.',
+    step1_title: 'Chrome मध्ये उघडा',
+    step1_desc: 'तुमच्या Android फोनवर Chrome मध्ये शाळेची वेबसाइट लिंक उघडा.',
+    step2_title: 'इंस्टॉल करा किंवा होम स्क्रीनवर जोडा',
+    step2_desc: 'Chrome इंस्टॉल पॉपअप दाखवेल किंवा 3-डॉट मेनूमधून Add to Home Screen निवडा.',
+    step3_title: 'झाले — ॲपसारखे वापरा',
+    step3_desc: 'होम स्क्रीनवर शाळेचे ॲप चिन्ह दिसेल. कधीही उघडा.',
+    footer_copy: 'भारतीय शाळांसाठी बनवले. 2025.'
+  }
+};
+
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('edu-lang', lang);
+
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active',
+      btn.textContent.toLowerCase() === lang
+    );
+  });
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang][key]) {
+      el.textContent = translations[lang][key];
+    }
+  });
+}
+
+// Load saved language — always default to English
+const savedLang = localStorage.getItem('edu-lang') || 'en';
+setLang(savedLang);
+
+// NAV SCROLL
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// SCROLL REVEAL
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// SMOOTH SCROLL
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// PWA
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+</script>
+</body>
+</html>

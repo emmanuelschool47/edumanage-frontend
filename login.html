@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+
+<script src="js/config.js"></script>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Login — EduManage</title>
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-family: var(--font-body);
+  background: var(--white);
+}
+
+/* LEFT PANEL */
+.left-panel {
+  background: var(--black);
+  color: var(--white);
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ANIMATED GRID */
+.left-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ANIMATED CIRCLE */
+.left-circle {
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation: rotateSlow 20s linear infinite;
+}
+
+.left-circle-2 {
+  width: 250px;
+  height: 250px;
+  animation: rotateSlow 12s linear infinite reverse;
+}
+
+@keyframes rotateSlow {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.left-logo {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  z-index: 1;
+  text-decoration: none;
+}
+
+.left-logo-mark {
+  width: 36px;
+  height: 36px;
+  background: var(--white);
+  color: var(--black);
+  border-radius: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.left-content {
+  position: relative;
+  z-index: 1;
+}
+
+.left-title {
+  font-family: var(--font-display);
+  font-size: clamp(36px, 4vw, 52px);
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  margin-bottom: 16px;
+  animation: fadeIn 0.8s ease 0.3s both;
+}
+
+.left-title em {
+  font-style: italic;
+  color: rgba(255,255,255,0.4);
+}
+
+.left-desc {
+  font-size: 15px;
+  color: rgba(255,255,255,0.5);
+  line-height: 1.7;
+  max-width: 340px;
+  animation: fadeIn 0.8s ease 0.5s both;
+}
+
+.left-features {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 36px;
+  animation: fadeIn 0.8s ease 0.7s both;
+}
+
+.left-feature {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: rgba(255,255,255,0.6);
+}
+
+.left-feature-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--white);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.left-footer {
+  font-size: 12px;
+  color: rgba(255,255,255,0.2);
+  position: relative;
+  z-index: 1;
+}
+
+/* RIGHT PANEL */
+.right-panel {
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 480px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.right-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 52px;
+}
+
+.lang-selector {
+  display: flex;
+  gap: 4px;
+  background: var(--gray-100);
+  border-radius: 100px;
+  padding: 3px;
+}
+
+.lang-btn {
+  padding: 5px 12px;
+  border-radius: 100px;
+  border: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-500);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.lang-btn.active {
+  background: var(--white);
+  color: var(--black);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.back-link {
+  font-size: 13px;
+  color: var(--gray-500);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: var(--transition);
+}
+
+.back-link:hover { color: var(--black); }
+
+.login-welcome {
+  font-size: 13px;
+  color: var(--gray-400);
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+
+.login-title {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 3vw, 38px);
+  letter-spacing: -1px;
+  color: var(--black);
+  margin-bottom: 8px;
+  line-height: 1.15;
+}
+
+.login-sub {
+  font-size: 14px;
+  color: var(--gray-400);
+  margin-bottom: 36px;
+  line-height: 1.5;
+}
+
+/* ROLE TABS */
+.role-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 28px;
+}
+
+.role-tab {
+  padding: 14px 8px;
+  background: var(--gray-50);
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: var(--transition);
+  text-align: center;
+}
+
+.role-tab:hover {
+  border-color: var(--gray-400);
+}
+
+.role-tab.active {
+  background: var(--black);
+  border-color: var(--black);
+}
+
+.role-tab.active .role-tab-name {
+  color: var(--white);
+}
+
+.role-tab-icon {
+  width: 28px;
+  height: 28px;
+  margin: 0 auto 8px;
+  stroke: var(--gray-400);
+  transition: var(--transition);
+}
+
+.role-tab.active .role-tab-icon {
+  stroke: var(--white);
+}
+
+.role-tab-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--gray-500);
+  display: block;
+  transition: var(--transition);
+}
+
+/* FORM */
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--gray-500);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 7px;
+}
+
+.input {
+  width: 100%;
+  padding: 13px 16px;
+  background: var(--gray-50);
+  border: 1.5px solid var(--gray-200);
+  border-radius: var(--radius);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: var(--black);
+  outline: none;
+  transition: var(--transition);
+  letter-spacing: 0.5px;
+}
+
+.input:focus {
+  border-color: var(--black);
+  background: var(--white);
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.05);
+}
+
+.input::placeholder {
+  font-family: var(--font-body);
+  color: var(--gray-400);
+  letter-spacing: 0;
+}
+
+.password-wrap {
+  position: relative;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--gray-400);
+  padding: 4px;
+  transition: var(--transition);
+}
+
+.password-toggle:hover { color: var(--black); }
+
+.btn-login {
+  width: 100%;
+  padding: 14px;
+  background: var(--black);
+  color: var(--white);
+  border: none;
+  border-radius: var(--radius);
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: var(--transition);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
+}
+
+.btn-login:hover {
+  background: var(--gray-900);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+
+.btn-login:active { transform: scale(0.98); }
+
+.btn-login:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* LOADING SPINNER IN BUTTON */
+.btn-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255,255,255,0.3);
+  border-top-color: white;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  display: none;
+}
+
+/* ERROR */
+.error-box {
+  background: var(--red-light);
+  border: 1px solid rgba(192,57,43,0.2);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  font-size: 13px;
+  color: var(--red);
+  margin-top: 12px;
+  display: none;
+  align-items: center;
+  gap: 8px;
+  animation: fadeIn 0.3s ease;
+}
+
+.error-box.show { display: flex; }
+
+.error-icon {
+  width: 16px;
+  height: 16px;
+  stroke: var(--red);
+  flex-shrink: 0;
+}
+
+/* DEMO BOX */
+.demo-box {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-top: 24px;
+}
+
+.demo-title {
+  font-size: 10px;
+  font-weight: 700;
+  color: var(--gray-400);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.demo-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+  font-size: 12px;
+}
+
+.demo-label { color: var(--gray-500); font-weight: 500; }
+
+.demo-val {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--gray-700);
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* DIVIDER */
+.or-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  color: var(--gray-300);
+  font-size: 12px;
+}
+
+.or-divider::before,
+.or-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--gray-200);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  body {
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+  }
+  .left-panel { display: none; }
+  .right-panel {
+    padding: 32px 24px;
+    max-width: 100%;
+    justify-content: flex-start;
+    padding-top: 48px;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- LEFT PANEL -->
+<div class="left-panel">
+  <div class="left-grid"></div>
+  <div class="left-circle"></div>
+  <div class="left-circle left-circle-2"></div>
+
+  <a href="index.html" class="left-logo">
+    <div class="left-logo-mark">E</div>
+    EduManage
+  </a>
+
+  <div class="left-content">
+    <h1 class="left-title">
+      Your school,<br>
+      <em>in your</em><br>
+      pocket.
+    </h1>
+    <p class="left-desc">
+      A unified platform for admins, teachers and students. Real-time data. Secure access. Works as a mobile app.
+    </p>
+    <div class="left-features">
+      <div class="left-feature">
+        <div class="left-feature-dot"></div>
+        <span>Secure role-based access</span>
+      </div>
+      <div class="left-feature">
+        <div class="left-feature-dot"></div>
+        <span>Student and teacher stays logged in</span>
+      </div>
+      <div class="left-feature">
+        <div class="left-feature-dot"></div>
+        <span>Nursery to Class 10 support</span>
+      </div>
+      <div class="left-feature">
+        <div class="left-feature-dot"></div>
+        <span>English, Hindi and Marathi</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="left-footer">EduManage Pro — 2025</div>
+</div>
+
+<!-- RIGHT PANEL -->
+<div class="right-panel">
+  <div class="right-top">
+    <a href="index.html" class="back-link">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7"/>
+      </svg>
+      <span data-i18n="back">Back</span>
+    </a>
+    <div class="lang-selector">
+      <button class="lang-btn active" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('hi')">HI</button>
+      <button class="lang-btn" onclick="setLang('mr')">MR</button>
+    </div>
+  </div>
+
+  <div class="login-welcome" data-i18n="welcome">Welcome back</div>
+  <h1 class="login-title" data-i18n="login_title">Sign in to your portal</h1>
+  <p class="login-sub" data-i18n="login_sub">Select your role and enter your credentials</p>
+
+  <!-- ROLE TABS -->
+  <div class="role-tabs">
+    <div class="role-tab active" onclick="setRole('admin', this)" id="tab-admin">
+      <svg class="role-tab-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+      <span class="role-tab-name" data-i18n="role_admin">Admin</span>
+    </div>
+    <div class="role-tab" onclick="setRole('teacher', this)" id="tab-teacher">
+      <svg class="role-tab-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/>
+      </svg>
+      <span class="role-tab-name" data-i18n="role_teacher">Teacher</span>
+    </div>
+    <div class="role-tab" onclick="setRole('student', this)" id="tab-student">
+      <svg class="role-tab-icon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>
+      </svg>
+      <span class="role-tab-name" data-i18n="role_student">Student</span>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-group">
+    <label data-i18n="label_code">User Code</label>
+    <input
+      type="text"
+      class="input"
+      id="loginCode"
+      placeholder="e.g. ADMIN47"
+      autocomplete="username"
+      autocapitalize="characters"
+    >
+  </div>
+
+  <div class="form-group">
+    <label data-i18n="label_pass">Password</label>
+    <div class="password-wrap">
+      <input
+        type="password"
+        class="input"
+        id="loginPass"
+        placeholder="Enter your password"
+        autocomplete="current-password"
+      >
+      <button class="password-toggle" onclick="togglePass()" type="button">
+        <svg id="eyeIcon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <button class="btn-login" onclick="doLogin()" id="loginBtn">
+    <span id="loginBtnText" data-i18n="btn_login">Sign In</span>
+    <div class="btn-spinner" id="loginSpinner"></div>
+    <svg id="loginArrow" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M5 12h14M12 5l7 7-7 7"/>
+    </svg>
+  </button>
+
+  <div class="error-box" id="errorBox">
+    <svg class="error-icon" viewBox="0 0 24 24" fill="none" stroke-width="2">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    <span id="errorMsg" data-i18n="error_msg">Invalid code or password. Please try again.</span>
+  </div>
+
+  <div class="demo-box">
+    <div class="demo-title" data-i18n="demo_title">Admin Credentials</div>
+    <div class="demo-row">
+      <span class="demo-label" data-i18n="role_admin">Admin</span>
+      <span class="demo-val">ADMIN47 / Admin@School47</span>
+    </div>
+  </div>
+</div>
+
+<script>
+// ✅ FIX: Correct IP address — localhost nahi, actual server IP
+const API = 'http://192.168.43.246:3000/api';
+
+// TRANSLATIONS
+const translations = {
+  en: {
+    back: 'Back',
+    welcome: 'Welcome back',
+    login_title: 'Sign in to your portal',
+    login_sub: 'Select your role and enter your credentials',
+    role_admin: 'Admin',
+    role_teacher: 'Teacher',
+    role_student: 'Student',
+    label_code: 'User Code',
+    label_pass: 'Password',
+    btn_login: 'Sign In',
+    error_msg: 'Invalid code or password. Please try again.',
+    demo_title: 'Admin Credentials'
+  },
+  hi: {
+    back: 'वापस',
+    welcome: 'वापस स्वागत है',
+    login_title: 'अपने पोर्टल में साइन इन करें',
+    login_sub: 'अपनी भूमिका चुनें और क्रेडेंशियल दर्ज करें',
+    role_admin: 'एडमिन',
+    role_teacher: 'शिक्षक',
+    role_student: 'छात्र',
+    label_code: 'यूजर कोड',
+    label_pass: 'पासवर्ड',
+    btn_login: 'साइन इन करें',
+    error_msg: 'गलत कोड या पासवर्ड। कृपया पुनः प्रयास करें।',
+    demo_title: 'एडमिन क्रेडेंशियल'
+  },
+  mr: {
+    back: 'मागे',
+    welcome: 'पुन्हा स्वागत आहे',
+    login_title: 'तुमच्या पोर्टलमध्ये साइन इन करा',
+    login_sub: 'तुमची भूमिका निवडा आणि क्रेडेन्शियल प्रविष्ट करा',
+    role_admin: 'प्रशासक',
+    role_teacher: 'शिक्षक',
+    role_student: 'विद्यार्थी',
+    label_code: 'युजर कोड',
+    label_pass: 'पासवर्ड',
+    btn_login: 'साइन इन करा',
+    error_msg: 'चुकीचा कोड किंवा पासवर्ड. पुन्हा प्रयत्न करा.',
+    demo_title: 'अॅडमिन क्रेडेन्शियल'
+  }
+};
+
+let currentLang = localStorage.getItem('edu-lang') || 'en';
+let currentRole = 'admin';
+let passVisible = false;
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('edu-lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.textContent.toLowerCase() === lang);
+  });
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang]?.[key]) el.textContent = translations[lang][key];
+  });
+}
+
+setLang(currentLang);
+
+function setRole(role, el) {
+  currentRole = role;
+  document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  document.getElementById('errorBox').classList.remove('show');
+  document.getElementById('loginCode').value = '';
+  document.getElementById('loginPass').value = '';
+  document.getElementById('loginCode').focus();
+}
+
+function togglePass() {
+  passVisible = !passVisible;
+  const input = document.getElementById('loginPass');
+  input.type = passVisible ? 'text' : 'password';
+  document.getElementById('eyeIcon').innerHTML = passVisible
+    ? '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>'
+    : '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+}
+
+async function doLogin() {
+  const code = document.getElementById('loginCode').value.trim();
+  const pass = document.getElementById('loginPass').value.trim();
+  const errorBox = document.getElementById('errorBox');
+  const btn = document.getElementById('loginBtn');
+  const spinner = document.getElementById('loginSpinner');
+  const arrow = document.getElementById('loginArrow');
+  const btnText = document.getElementById('loginBtnText');
+
+  if (!code || !pass) {
+    errorBox.classList.add('show');
+    document.getElementById('errorMsg').textContent = 'Please enter code and password.';
+    return;
+  }
+
+  // Loading state
+  btn.disabled = true;
+  spinner.style.display = 'block';
+  arrow.style.display = 'none';
+  btnText.textContent = 'Signing in...';
+  errorBox.classList.remove('show');
+
+  try {
+    const res = await fetch(`${API}/auth/login`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code: code.toUpperCase(), password: pass })
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      // Save token
+      // Admin = session only, Student/Teacher = permanent
+      if (currentRole === 'admin') {
+        sessionStorage.setItem('edu_token', data.token);
+        sessionStorage.setItem('edu_user', JSON.stringify(data.user));
+      } else {
+        localStorage.setItem('edu_token', data.token);
+        localStorage.setItem('edu_user', JSON.stringify(data.user));
+      }
+
+      // Redirect based on role
+      if (data.user.role === 'admin') {
+        window.location.href = 'admin.html';
+      } else if (data.user.role === 'teacher') {
+        window.location.href = 'teacher.html';
+      } else {
+        window.location.href = 'student.html';
+      }
+    } else {
+      throw new Error(data.error || 'Login failed');
+    }
+
+  } catch (err) {
+    errorBox.classList.add('show');
+    document.getElementById('errorMsg').textContent =
+      err.message === 'Login failed'
+        ? translations[currentLang].error_msg
+        : 'Server se connect nahi ho pa raha. Backend chal raha hai?';
+    btn.disabled = false;
+    spinner.style.display = 'none';
+    arrow.style.display = 'block';
+    btnText.textContent = translations[currentLang].btn_login;
+  }
+}
+
+// Auto login check
+window.addEventListener('load', () => {
+  const token = localStorage.getItem('edu_token');
+  const user = localStorage.getItem('edu_user');
+  if (token && user) {
+    const parsed = JSON.parse(user);
+    if (parsed.role === 'teacher') {
+      window.location.href = 'teacher.html';
+    } else if (parsed.role === 'student') {
+      window.location.href = 'student.html';
+    }
+  }
+});
+
+// Enter key
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter') doLogin();
+});
+
+// PWA
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+</script>
+</body>
+</html>
