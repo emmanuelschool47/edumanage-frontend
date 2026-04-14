@@ -9,6 +9,7 @@
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="js/config.js"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{--white:#fff;--black:#0a0a0a;--gray-50:#fafafa;--gray-100:#f5f5f5;--gray-200:#eee;--gray-300:#e0e0e0;--gray-400:#bdbdbd;--gray-500:#9e9e9e;--gray-600:#757575;--gray-700:#616161;--green:#1a7a4a;--green-light:#e8f5ee;--red:#c0392b;--red-light:#fdf0ef;--gold:#b8860b;--gold-light:#fdf8e8;--font-display:'Playfair Display',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;--radius:12px;--transition:all .3s cubic-bezier(.4,0,.2,1)}
@@ -198,26 +199,14 @@ body{font-family:var(--font-body);background:var(--gray-50);color:var(--black);p
 </div>
 <div class="toast" id="toast"></div>
 <script>
-// ✅ FIX 1: API hardcoded — CONFIG pe depend nahi
-const API = 'https://edumanage-backend-xi.vercel.app/api';
+const API = (typeof CONFIG !== 'undefined' && CONFIG.API) ? CONFIG.API : 'https://edumanage-backend-xi.vercel.app/api';
 
-// ✅ FIX 2: Token dono jagah se check karo
-function getToken(){
-  return localStorage.getItem('edu_token') || sessionStorage.getItem('edu_token') || null;
-}
-function getUser(){
-  try{
-    const u = localStorage.getItem('edu_user') || sessionStorage.getItem('edu_user');
-    return u ? JSON.parse(u) : {};
-  }catch(e){return{}}
-}
+function getToken(){return localStorage.getItem('edu_token')||sessionStorage.getItem('edu_token')}
+function getUser(){try{return JSON.parse(localStorage.getItem('edu_user')||sessionStorage.getItem('edu_user')||'{}')}catch(e){return{}}}
 
-// ✅ FIX 3: Sirf token check karo — role check hataya (wahi bug tha)
-if(!getToken()){
-  window.location.href='login.html';
-}
-
-const user = getUser();
+if(!getToken()){window.location.href='login.html'}
+const user=getUser();
+if(user.role&&user.role!=='student'){window.location.href='login.html'}
 
 const T={
   en:{greeting:'Good day,',avg:'Average',grade:'Grade',att:'Attendance',fees:'Fees',teacher:'Class Teacher',remarks:'Remarks',timetable:'Timetable',paid:'Paid',pending:'Pending',partial:'Partial',present:'Present',absent:'Absent',total:'Total Days',no_marks:'No marks uploaded yet',no_posts:'No posts yet',no_notif:'No notifications yet',pay:'Pay Fees',fees_paid:'Fees fully paid',pay_ok:'Payment submitted!',bus_yes:'Bus Available',bus_no:'No Bus',due:'Amount Due',paid2:'Amount Paid'},
@@ -226,48 +215,21 @@ const T={
 };
 let lang=localStorage.getItem('edu-lang')||'en';
 function t(k){return T[lang][k]||T.en[k]||k}
-function setLang(l){lang=l;localStorage.setItem('edu-lang',l);document.querySelectorAll('.lb').forEach(b=>{b.classList.toggle('active',b.textContent.toLowerCase()===l)});if(sd)showPage(cp)}
+function setLang(l){lang=l;localStorage.setItem('edu-lang',l);document.querySelectorAll('.lb').forEach(b=>{b.classList.toggle('active',b.textContent.toLowerCase()===l)});showPage(cp)}
 setLang(lang);
 
 let sd=null,ud=null,cp='home';
 
 async function load(){
   document.getElementById('mainContent').innerHTML='<div class="ls2"><div class="sp"></div><div class="lt">Loading your data...</div></div>';
-  const token = getToken();
-  if(!token){
-    window.location.href='login.html';
-    return;
-  }
   try{
-    const r=await fetch(API+'/students/me',{
-      headers:{Authorization:'Bearer '+token}
-    });
-    // ✅ FIX 4: 401 pe logout
-    if(r.status===401){
-      localStorage.removeItem('edu_token');
-      localStorage.removeItem('edu_user');
-      sessionStorage.removeItem('edu_token');
-      sessionStorage.removeItem('edu_user');
-      window.location.href='login.html';
-      return;
-    }
+    const r=await fetch(API+'/students/me',{headers:{Authorization:'Bearer '+getToken()}});
+    if(r.status===401){localStorage.removeItem('edu_token');localStorage.removeItem('edu_user');window.location.href='login.html';return}
     const d=await r.json();
-    // ✅ FIX 5: Error clearly dikhao — loading stuck nahi rahega
-    if(d.error){
-      document.getElementById('mainContent').innerHTML=
-        '<div class="ls2"><div class="lt">❌ '+d.error+'</div><button class="retry-btn" onclick="load()">Retry</button><button class="retry-btn" style="background:#c0392b;margin-left:8px" onclick="doLogout()">Logout</button></div>';
-      return;
-    }
-    if(!d.student){
-      document.getElementById('mainContent').innerHTML=
-        '<div class="ls2"><div class="lt">❌ Student data nahi mila.<br>Admin se contact karo.</div><button class="retry-btn" style="background:#c0392b" onclick="doLogout()">Logout</button></div>';
-      return;
-    }
-    sd=d;
-    showPage('home');
+    if(d.error){document.getElementById('mainContent').innerHTML='<div class="ls2"><div class="lt">'+d.error+'</div><button class="retry-btn" onclick="load()">Retry</button></div>';return}
+    sd=d;showPage('home')
   }catch(e){
-    document.getElementById('mainContent').innerHTML=
-      '<div class="ls2"><div class="lt">❌ Internet check karo.<br>'+e.message+'</div><button class="retry-btn" onclick="load()">Retry</button></div>';
+    document.getElementById('mainContent').innerHTML='<div class="ls2"><div class="lt">Could not load data.<br>Check internet.</div><button class="retry-btn" onclick="load()">Retry</button></div>'
   }
 }
 
@@ -345,17 +307,15 @@ async function rNotifs(){
 function rProfile(){
   const s=sd.student;
   setTimeout(()=>{if(s.id)loadPh(s.id,'pfavel')},200);
-  return`<div style="padding:16px"><div class="pfhd"><div class="pfg"></div><div class="pfav" id="pfavel">${s.name?s.name[0].toUpperCase():'S'}</div><div class="pfnm">${s.name}</div><div class="pfcd">${user.code||s.code||''}</div><div class="pfcp"><span class="pfcpi">${s.standard?(isNaN(s.standard)?s.standard:'Class '+s.standard):'N/A'}</span><span class="pfcpi">Roll ${s.roll_no||'N/A'}</span></div></div>
-  <div class="il">${irow('Date of Birth',s.dob?new Date(s.dob).toLocaleDateString('en-IN'):'N/A')}${irow('Gender',s.gender||'N/A')}${irow('Parent',s.parent_name||'N/A')}${irow('Parent Phone',s.parent_phone||'N/A')}${irow('Address',s.address||'N/A')}${irow('Blood Group',s.blood_group||'N/A')}${irow('Bus',s.has_bus?t('bus_yes'):t('bus_no'))}${irow('Teacher',s.teacher_name||'N/A')}</div>
+  return`<div style="padding:16px"><div class="pfhd"><div class="pfg"></div><div class="pfav" id="pfavel">${s.name?s.name[0].toUpperCase():'S'}</div><div class="pfnm">${s.name}</div><div class="pfcd">${user.code||''}</div><div class="pfcp"><span class="pfcpi">${s.standard?(isNaN(s.standard)?s.standard:'Class '+s.standard):'N/A'}</span><span class="pfcpi">Roll ${s.roll_no||'N/A'}</span></div></div>
+  <div class="il">${irow('Date of Birth',s.dob||'N/A')}${irow('Gender',s.gender||'N/A')}${irow('Parent',s.parent_name||'N/A')}${irow('Parent Phone',s.parent_phone||'N/A')}${irow('Address',s.address||'N/A')}${irow('Blood Group',s.blood_group||'N/A')}${irow('Bus',s.has_bus?t('bus_yes'):t('bus_no'))}${irow('Teacher',s.teacher_name||'N/A')}</div>
   <button onclick="doLogout()" style="width:100%;padding:12px;background:var(--white);border:1.5px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--red);cursor:pointer">Logout</button></div>`;
 }
 
 function irow(l,v){return`<div class="ir"><span class="irlab">${l}</span><span class="irval">${v}</span></div>`}
 
 async function loadPh(sid,eid){
-  try{
-    const r=await fetch(API+'/upload/photo/'+sid,{headers:{Authorization:'Bearer '+getToken()}});
-    if(r.ok){const d=await r.json();if(d.url){const el=document.getElementById(eid);if(el)el.innerHTML=`<img src="${d.url}" alt="photo">`;}}
+  try{const r=await fetch(API+'/upload/photo/'+sid,{headers:{Authorization:'Bearer '+getToken()}});if(r.ok){const d=await r.json();if(d.url){const el=document.getElementById(eid);if(el)el.innerHTML=`<img src="${d.url}" alt="photo">`;}}
   }catch(e){}
 }
 
@@ -386,13 +346,7 @@ document.getElementById('payModal').addEventListener('click',e=>{if(e.target===d
 function grade(s){if(s>=90)return'A+';if(s>=80)return'A';if(s>=70)return'B+';if(s>=60)return'B';if(s>=50)return'C';return'F'}
 function fmtDate(ts){if(!ts)return'';try{return new Date(ts).toLocaleDateString('en-IN',{day:'numeric',month:'short'})}catch(e){return''}}
 function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),3000)}
-function doLogout(){
-  localStorage.removeItem('edu_token');
-  localStorage.removeItem('edu_user');
-  sessionStorage.removeItem('edu_token');
-  sessionStorage.removeItem('edu_user');
-  window.location.href='login.html';
-}
+function doLogout(){localStorage.removeItem('edu_token');localStorage.removeItem('edu_user');window.location.href='login.html'}
 
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}
 load();
