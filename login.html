@@ -754,8 +754,10 @@ async function doLogin() {
       // Save token
       // Admin = session only, Student/Teacher = permanent
       if (currentRole === 'admin') {
-        sessionStorage.setItem('edu_token', data.token);
-        sessionStorage.setItem('edu_user', JSON.stringify(data.user));
+        localStorage.setItem('edu_token', data.token);
+localStorage.setItem('edu_user', JSON.stringify(data.user));
+sessionStorage.setItem('edu_token', data.token);
+sessionStorage.setItem('edu_user', JSON.stringify(data.user));
       } else {
         localStorage.setItem('edu_token', data.token);
         localStorage.setItem('edu_user', JSON.stringify(data.user));
