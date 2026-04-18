@@ -165,7 +165,7 @@ body{font-family:var(--font-body);background:var(--gray-50);color:var(--black);p
 </nav>
 <div class="toast" id="toast"></div>
 <script>
-const API = (typeof CONFIG !== 'undefined' && CONFIG.API) ? CONFIG.API : 'https://edumanage-backend-xi.vercel.app/api';
+const API = 'https://edumanage-backend-xi.vercel.app/api';
 
 function getToken(){return localStorage.getItem('edu_token')||sessionStorage.getItem('edu_token')}
 function getUser(){try{return JSON.parse(localStorage.getItem('edu_user')||sessionStorage.getItem('edu_user')||'{}')}catch(e){return{}}}
