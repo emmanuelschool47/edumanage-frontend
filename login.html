@@ -11,285 +11,93 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --white:#ffffff;--black:#0a0a0a;
-  --gray-50:#fafafa;--gray-100:#f5f5f5;--gray-200:#eeeeee;
-  --gray-300:#e0e0e0;--gray-400:#bdbdbd;--gray-500:#9e9e9e;
-  --gray-600:#757575;--red:#c0392b;--red-light:#fdf0ef;
-  --green:#1a7a4a;--green-light:#e8f5ee;
-  --font-display:'Playfair Display',serif;
-  --font-body:'Inter',sans-serif;
-  --font-mono:'JetBrains Mono',monospace;
-  --radius:12px;--transition:all .3s cubic-bezier(.4,0,.2,1)
-}
-body{
-  font-family:var(--font-body);
-  background:var(--black);
-  min-height:100vh;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  padding:20px;
-  position:relative;
-  overflow:hidden;
-}
-.bg-grid{
-  position:fixed;inset:0;
-  background-image:
-    linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);
-  background-size:40px 40px;
-  pointer-events:none;
-}
-.bg-glow{
-  position:fixed;
-  width:600px;height:600px;
-  background:radial-gradient(circle,rgba(255,255,255,.04) 0%,transparent 70%);
-  top:50%;left:50%;
-  transform:translate(-50%,-50%);
-  pointer-events:none;
-}
-.card{
-  background:var(--white);
-  border-radius:20px;
-  padding:32px 24px;
-  width:100%;max-width:380px;
-  position:relative;z-index:1;
-  box-shadow:0 25px 60px rgba(0,0,0,.4);
-}
-.logo-row{
-  display:flex;align-items:center;
-  justify-content:center;gap:10px;
-  margin-bottom:6px;
-}
-.logo-mark{
-  width:36px;height:36px;
-  background:var(--black);color:var(--white);
-  border-radius:9px;
-  display:flex;align-items:center;justify-content:center;
-  font-weight:800;font-size:17px;
-}
-.logo-name{
-  font-family:var(--font-display);
-  font-size:22px;font-weight:700;
-}
-.logo-sub{
-  text-align:center;
-  font-size:12px;color:var(--gray-400);
-  margin-bottom:24px;
-  font-weight:500;
-}
-.role-tabs{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:6px;margin-bottom:22px;
-  background:var(--gray-100);
-  border-radius:10px;padding:4px;
-}
-.role-tab{
-  display:flex;flex-direction:column;
-  align-items:center;gap:5px;
-  padding:10px 4px;
-  border-radius:7px;border:none;
-  background:transparent;
-  font-family:var(--font-body);
-  font-size:11px;font-weight:600;
-  color:var(--gray-400);cursor:pointer;
-  transition:var(--transition);
-}
-.role-tab svg{
-  width:20px;height:20px;
-  stroke:var(--gray-400);
-  transition:var(--transition);
-}
-.role-tab.active{
-  background:var(--white);
-  color:var(--black);
-  box-shadow:0 2px 8px rgba(0,0,0,.1);
-}
+:root{--white:#fff;--black:#0a0a0a;--gray-50:#fafafa;--gray-100:#f5f5f5;--gray-200:#eee;--gray-300:#e0e0e0;--gray-400:#bdbdbd;--gray-500:#9e9e9e;--red:#c0392b;--red-light:#fdf0ef;--green:#1a7a4a;--green-light:#e8f5ee;--font-display:'Playfair Display',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;--radius:12px;--transition:all .3s cubic-bezier(.4,0,.2,1)}
+body{font-family:var(--font-body);background:var(--black);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;position:relative;overflow:hidden}
+.bg-grid{position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+.bg-glow{position:fixed;width:600px;height:600px;background:radial-gradient(circle,rgba(255,255,255,.04) 0%,transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}
+.card{background:var(--white);border-radius:20px;padding:32px 24px;width:100%;max-width:380px;position:relative;z-index:1;box-shadow:0 25px 60px rgba(0,0,0,.4)}
+.logo-row{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px}
+.logo-mark{width:36px;height:36px;background:var(--black);color:var(--white);border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px}
+.logo-name{font-family:var(--font-display);font-size:22px;font-weight:700}
+.logo-sub{text-align:center;font-size:12px;color:var(--gray-400);margin-bottom:24px;font-weight:500}
+.role-tabs{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:22px;background:var(--gray-100);border-radius:10px;padding:4px}
+.role-tab{display:flex;flex-direction:column;align-items:center;gap:5px;padding:10px 4px;border-radius:7px;border:none;background:transparent;font-family:var(--font-body);font-size:11px;font-weight:600;color:var(--gray-400);cursor:pointer;transition:var(--transition)}
+.role-tab svg{width:20px;height:20px;stroke:var(--gray-400);transition:var(--transition)}
+.role-tab.active{background:var(--white);color:var(--black);box-shadow:0 2px 8px rgba(0,0,0,.1)}
 .role-tab.active svg{stroke:var(--black)}
 .form-group{margin-bottom:14px}
-.form-label{
-  display:block;
-  font-size:11px;font-weight:600;
-  color:var(--gray-500);
-  text-transform:uppercase;letter-spacing:.8px;
-  margin-bottom:6px;
-}
-.form-input{
-  width:100%;padding:12px 14px;
-  background:var(--gray-50);
-  border:1.5px solid var(--gray-200);
-  border-radius:var(--radius);
-  font-family:var(--font-body);
-  font-size:14px;color:var(--black);
-  outline:none;transition:var(--transition);
-}
-.form-input:focus{
-  border-color:var(--black);
-  background:var(--white);
-}
+.form-label{display:block;font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.form-input{width:100%;padding:12px 14px;background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:14px;color:var(--black);outline:none;transition:var(--transition)}
+.form-input:focus{border-color:var(--black);background:var(--white)}
 .pw-wrap{position:relative}
-.pw-toggle{
-  position:absolute;right:12px;top:50%;
-  transform:translateY(-50%);
-  background:none;border:none;
-  cursor:pointer;padding:4px;color:var(--gray-400);
-}
+.pw-toggle{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;padding:4px;color:var(--gray-400)}
 .pw-toggle svg{width:16px;height:16px;stroke:currentColor}
-.sign-btn{
-  width:100%;padding:14px;
-  background:var(--black);color:var(--white);
-  border:none;border-radius:var(--radius);
-  font-family:var(--font-body);
-  font-size:15px;font-weight:600;
-  cursor:pointer;transition:var(--transition);
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  margin-top:6px;
-}
+.sign-btn{width:100%;padding:14px;background:var(--black);color:var(--white);border:none;border-radius:var(--radius);font-family:var(--font-body);font-size:15px;font-weight:600;cursor:pointer;transition:var(--transition);display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px}
 .sign-btn:active{transform:scale(.98)}
 .sign-btn svg{width:16px;height:16px;stroke:var(--white)}
 .sign-btn.loading{opacity:.7;pointer-events:none}
-.error-box{
-  display:none;
-  background:var(--red-light);
-  border:1px solid rgba(192,57,43,.15);
-  border-radius:var(--radius);
-  padding:11px 14px;
-  font-size:13px;color:var(--red);
-  font-weight:500;margin-top:12px;
-  align-items:center;gap:8px;
-}
+.error-box{display:none;background:var(--red-light);border:1px solid rgba(192,57,43,.15);border-radius:var(--radius);padding:11px 14px;font-size:13px;color:var(--red);font-weight:500;margin-top:12px;align-items:center;gap:8px}
 .error-box.show{display:flex}
 .error-box svg{width:15px;height:15px;stroke:var(--red);flex-shrink:0}
-.success-box{
-  display:none;
-  background:var(--green-light);
-  border:1px solid rgba(26,122,74,.15);
-  border-radius:var(--radius);
-  padding:11px 14px;
-  font-size:13px;color:var(--green);
-  font-weight:500;margin-top:12px;
-  align-items:center;gap:8px;
-}
+.success-box{display:none;background:var(--green-light);border:1px solid rgba(26,122,74,.15);border-radius:var(--radius);padding:11px 14px;font-size:13px;color:var(--green);font-weight:500;margin-top:12px;align-items:center;gap:8px}
 .success-box.show{display:flex}
-.version{
-  position:relative;z-index:1;
-  text-align:center;margin-top:16px;
-  font-size:11px;color:rgba(255,255,255,.2);
-}
-.spinner{
-  width:16px;height:16px;
-  border:2px solid rgba(255,255,255,.3);
-  border-top-color:var(--white);
-  border-radius:50%;
-  animation:spin .7s linear infinite;
-}
+.version{position:relative;z-index:1;text-align:center;margin-top:16px;font-size:11px;color:rgba(255,255,255,.2)}
+.spinner{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:var(--white);border-radius:50%;animation:spin .7s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 <div class="bg-grid"></div>
 <div class="bg-glow"></div>
-
 <div class="card">
   <div class="logo-row">
     <div class="logo-mark">E</div>
     <div class="logo-name">EduManage</div>
   </div>
   <div class="logo-sub">School Management System</div>
-
-  <!-- ROLE TABS -->
   <div class="role-tabs">
     <button class="role-tab active" onclick="setRole('admin',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
       Admin
     </button>
     <button class="role-tab" onclick="setRole('teacher',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
-        <circle cx="12" cy="7" r="4"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       Teacher
     </button>
     <button class="role-tab" onclick="setRole('student',this)">
-      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
-        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
-      </svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
       Student
     </button>
   </div>
-
-  <!-- FORM -->
   <div class="form-group">
     <label class="form-label">User Code</label>
-    <input
-      type="text"
-      class="form-input"
-      id="codeInput"
-      placeholder="Enter your code"
-      autocomplete="off"
-      autocapitalize="characters"
-      spellcheck="false"
-    >
+    <input type="text" class="form-input" id="codeInput" placeholder="Enter your code" autocomplete="off" autocapitalize="characters" spellcheck="false">
   </div>
-
   <div class="form-group">
     <label class="form-label">Password</label>
     <div class="pw-wrap">
-      <input
-        type="password"
-        class="form-input"
-        id="passInput"
-        placeholder="Enter your password"
-        autocomplete="current-password"
-        onkeydown="if(event.key==='Enter')doLogin()"
-      >
+      <input type="password" class="form-input" id="passInput" placeholder="Enter your password" onkeydown="if(event.key==='Enter')doLogin()">
       <button class="pw-toggle" onclick="togglePw()" type="button">
-        <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-          <circle cx="12" cy="12" r="3"/>
-        </svg>
+        <svg id="eyeIcon" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
       </button>
     </div>
   </div>
-
   <button class="sign-btn" id="signBtn" onclick="doLogin()">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
-      <polyline points="10 17 15 12 10 7"/>
-      <line x1="15" y1="12" x2="3" y2="12"/>
-    </svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
     Sign In
   </button>
-
   <div class="error-box" id="errorBox">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <circle cx="12" cy="12" r="10"/>
-      <line x1="12" y1="8" x2="12" y2="12"/>
-      <line x1="12" y1="16" x2="12.01" y2="16"/>
-    </svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
     <span id="errorMsg">Invalid code or password</span>
   </div>
-
   <div class="success-box" id="successBox">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polyline points="20 6 9 17 4 12"/>
-    </svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
     <span>Login successful! Redirecting...</span>
   </div>
 </div>
-
 <div class="version">EduManage Pro v1.0</div>
-
 <script>
-// API URL — hardcoded Vercel backend
 const API = 'https://edumanage-backend-xi.vercel.app/api';
-
 let currentRole = 'admin';
 let pwVisible = false;
 
@@ -300,7 +108,6 @@ function setRole(role, btn) {
   hideError();
   document.getElementById('codeInput').value = '';
   document.getElementById('passInput').value = '';
-  document.getElementById('codeInput').focus();
 }
 
 function togglePw() {
@@ -314,9 +121,8 @@ function togglePw() {
 }
 
 function showError(msg) {
-  const box = document.getElementById('errorBox');
   document.getElementById('errorMsg').textContent = msg;
-  box.classList.add('show');
+  document.getElementById('errorBox').classList.add('show');
   document.getElementById('successBox').classList.remove('show');
 }
 
@@ -325,10 +131,22 @@ function hideError() {
   document.getElementById('successBox').classList.remove('show');
 }
 
+function saveToken(token, user) {
+  // Save in multiple places to ensure it persists
+  localStorage.setItem('edu_token', token);
+  localStorage.setItem('edu_user', JSON.stringify(user));
+  sessionStorage.setItem('edu_token', token);
+  sessionStorage.setItem('edu_user', JSON.stringify(user));
+  // Also save in cookie
+  const expires = new Date();
+  expires.setDate(expires.getDate() + 30);
+  document.cookie = 'edu_token=' + token + ';path=/;expires=' + expires.toUTCString();
+  document.cookie = 'edu_user=' + encodeURIComponent(JSON.stringify(user)) + ';path=/;expires=' + expires.toUTCString();
+}
+
 async function doLogin() {
   const code = document.getElementById('codeInput').value.trim().toUpperCase();
   const password = document.getElementById('passInput').value.trim();
-
   if (!code) { showError('Please enter your user code'); return; }
   if (!password) { showError('Please enter your password'); return; }
 
@@ -343,30 +161,55 @@ async function doLogin() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ code, password })
     });
-
     const data = await res.json();
 
     if (data.success && data.token) {
-      // Save token in BOTH localStorage and sessionStorage
-      localStorage.setItem('edu_token', data.token);
-      localStorage.setItem('edu_user', JSON.stringify(data.user));
-      sessionStorage.setItem('edu_token', data.token);
-      sessionStorage.setItem('edu_user', JSON.stringify(data.user));
-
+      saveToken(data.token, data.user);
       document.getElementById('successBox').classList.add('show');
-
-      // Redirect based on role
       const role = data.user.role;
       setTimeout(() => {
-        if (role === 'admin') {
-          window.location.href = 'admin.html';
-        } else if (role === 'teacher') {
-          window.location.href = 'teacher.html';
-        } else if (role === 'student') {
-          window.location.href = 'student.html';
-        } else {
-          showError('Unknown role: ' + role);
-        }
+        if (role === 'admin') window.location.replace('admin.html');
+        else if (role === 'teacher') window.location.replace('teacher.html');
+        else if (role === 'student') window.location.replace('student.html');
+        else showError('Unknown role: ' + role);
+      }, 500);
+    } else {
+      showError(data.error || 'Invalid code or password');
+      btn.classList.remove('loading');
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Sign In';
+    }
+  } catch (err) {
+    showError('Server se connect nahi ho pa raha. Check internet.');
+    btn.classList.remove('loading');
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Sign In';
+  }
+}
+
+document.getElementById('codeInput').addEventListener('input', function() {
+  this.value = this.value.toUpperCase();
+});
+
+// Check if already logged in
+try {
+  const token = localStorage.getItem('edu_token') || sessionStorage.getItem('edu_token');
+  const userStr = localStorage.getItem('edu_user') || sessionStorage.getItem('edu_user');
+  if (token && userStr) {
+    const u = JSON.parse(userStr);
+    if (u.role === 'admin') window.location.replace('admin.html');
+    else if (u.role === 'teacher') window.location.replace('teacher.html');
+    else if (u.role === 'student') window.location.replace('student.html');
+  }
+} catch(e) {
+  localStorage.clear();
+  sessionStorage.clear();
+}
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(() => {});
+}
+</script>
+</body>
+</html>        }
       }, 800);
 
     } else {
