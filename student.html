@@ -54,7 +54,7 @@ body{font-family:var(--font-body);background:var(--gray-50);color:var(--black);p
 .at{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
 .ap{font-family:var(--font-mono);font-size:15px;font-weight:700;line-height:1}
 .as2{font-size:8px;color:var(--gray-400);text-transform:uppercase}
-.ar{display:flex;justify-content:space-between;font-size:13px;padding:4px 0}
+.ar2{display:flex;justify-content:space-between;font-size:13px;padding:4px 0}
 .al{color:var(--gray-500)}
 .av{font-weight:600}
 .fc{padding:14px}
@@ -66,10 +66,7 @@ body{font-family:var(--font-body);background:var(--gray-50);color:var(--black);p
 .trow{display:flex;align-items:center;gap:12px}
 .tav{width:40px;height:40px;background:var(--gray-100);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:16px;color:var(--gray-600);flex-shrink:0}
 .tnm{font-size:14px;font-weight:600}
-.ts{font-size:11px;color:var(--gray-400)}
-.rmc{border-left:3px solid var(--black);border-radius:0 var(--radius) var(--radius) 0}
-.rl{font-size:10px;color:var(--gray-400);text-transform:uppercase;letter-spacing:.8px;font-weight:600;margin-bottom:4px}
-.rt{font-size:13px;color:var(--gray-700);line-height:1.6}
+.ts2{font-size:11px;color:var(--gray-400)}
 .ttc{overflow:hidden}
 .ttr{display:flex;border-bottom:1px solid var(--gray-100)}
 .ttr:last-child{border-bottom:none}
@@ -167,6 +164,337 @@ body{font-family:var(--font-body);background:var(--gray-50);color:var(--black);p
   <button class="bb" onclick="showPage('group',this)">
     <svg class="bi" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
     <span class="bla">Group</span>
+  </button>
+  <button class="bb" onclick="showPage('notifications',this)">
+    <svg class="bi" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    <span class="bla">Alerts</span>
+  </button>
+  <button class="bb" onclick="showPage('profile',this)">
+    <svg class="bi" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    <span class="bla">Profile</span>
+  </button>
+</nav>
+<div class="mo" id="payModal">
+  <div class="msh">
+    <div class="mh"></div>
+    <div class="mttl">Pay Fees</div>
+    <div class="msub" id="payTxt">Amount due: Rs. 0</div>
+    <div class="ub"><div class="ul">School UPI ID</div><div class="uv" id="upiId">Loading...</div></div>
+    <div class="ua">
+      <a class="uab" id="ppBtn" href="#">PhonePe</a>
+      <a class="uab" id="gpBtn" href="#">GPay</a>
+      <a class="uab" id="ptBtn" href="#">Paytm</a>
+    </div>
+    <div class="dv">After payment enter details</div>
+    <label style="font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:5px">UPI Transaction ID</label>
+    <input type="text" class="fi" id="upiRef" placeholder="e.g. 123456789012">
+    <button class="sbt" onclick="submitPay()">Submit Payment</button>
+    <button class="cbt" onclick="closePay()">Cancel</button>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+// FIXED API URL
+const API = 'https://edumanage-backend-xi.vercel.app/api';
+
+// Get token from ALL possible places
+function getToken() {
+  // Try localStorage first
+  let token = localStorage.getItem('edu_token');
+  if (token) return token;
+  // Try sessionStorage
+  token = sessionStorage.getItem('edu_token');
+  if (token) return token;
+  // Try cookies
+  const cookies = document.cookie.split(';');
+  for (const c of cookies) {
+    const [key, val] = c.trim().split('=');
+    if (key === 'edu_token' && val) return val;
+  }
+  return null;
+}
+
+function getUser() {
+  try {
+    const u = localStorage.getItem('edu_user') ||
+               sessionStorage.getItem('edu_user');
+    if (u) return JSON.parse(u);
+    // Try cookie
+    const cookies = document.cookie.split(';');
+    for (const c of cookies) {
+      const [key, val] = c.trim().split('=');
+      if (key === 'edu_user' && val) return JSON.parse(decodeURIComponent(val));
+    }
+  } catch(e) {}
+  return {};
+}
+
+// Auth check
+const token = getToken();
+if (!token) {
+  window.location.replace('login.html');
+}
+const user = getUser();
+
+const T = {
+  en:{greeting:'Good day,',avg:'Average',grade:'Grade',att:'Attendance',fees:'Fees',teacher:'Class Teacher',paid:'Paid',pending:'Pending',partial:'Partial',present:'Present',absent:'Absent',total:'Total Days',no_marks:'No marks yet',no_posts:'No posts yet',no_notif:'No notifications yet',pay:'Pay Fees',fees_paid:'Fees fully paid',pay_ok:'Payment submitted!',bus_yes:'Bus',bus_no:'No Bus',due:'Amount Due',paid2:'Amount Paid'},
+  hi:{greeting:'नमस्ते,',avg:'औसत',grade:'ग्रेड',att:'उपस्थिति',fees:'फीस',teacher:'कक्षा शिक्षक',paid:'भुगतान हुआ',pending:'बाकी है',partial:'आंशिक',present:'उपस्थित',absent:'अनुपस्थित',total:'कुल दिन',no_marks:'अभी कोई अंक नहीं',no_posts:'कोई पोस्ट नहीं',no_notif:'कोई सूचना नहीं',pay:'फीस भरें',fees_paid:'फीस पूरी तरह भुगतान हुई',pay_ok:'भुगतान जमा हुआ!',bus_yes:'बस',bus_no:'बस नहीं',due:'बाकी राशि',paid2:'भुगतान राशि'},
+  mr:{greeting:'नमस्कार,',avg:'सरासरी',grade:'श्रेणी',att:'हजेरी',fees:'शुल्क',teacher:'वर्ग शिक्षक',paid:'भरले',pending:'बाकी आहे',partial:'अंशतः',present:'उपस्थित',absent:'अनुपस्थित',total:'एकूण दिवस',no_marks:'अद्याप गुण नाहीत',no_posts:'पोस्ट नाही',no_notif:'सूचना नाही',pay:'शुल्क भरा',fees_paid:'शुल्क पूर्णपणे भरले',pay_ok:'पेमेंट सबमिट झाले!',bus_yes:'बस',bus_no:'बस नाही',due:'बाकी रक्कम',paid2:'भरलेली रक्कम'}
+};
+let lang = localStorage.getItem('edu-lang') || 'en';
+function t(k) { return T[lang][k] || T.en[k] || k; }
+function setLang(l) {
+  lang = l;
+  localStorage.setItem('edu-lang', l);
+  document.querySelectorAll('.lb').forEach(b => b.classList.toggle('active', b.textContent.toLowerCase() === l));
+  showPage(cp);
+}
+setLang(lang);
+
+let sd = null, cp = 'home';
+
+async function load() {
+  document.getElementById('mainContent').innerHTML = '<div class="ls2"><div class="sp"></div><div class="lt">Loading your data...</div></div>';
+  const tk = getToken();
+  if (!tk) { window.location.replace('login.html'); return; }
+  try {
+    const res = await fetch(API + '/students/me', {
+      method: 'GET',
+      headers: {
+        'Authorization': 'Bearer ' + tk,
+        'Content-Type': 'application/json'
+      }
+    });
+    if (res.status === 401) {
+      localStorage.clear(); sessionStorage.clear();
+      document.cookie = 'edu_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/';
+      window.location.replace('login.html');
+      return;
+    }
+    const data = await res.json();
+    if (data.error) {
+      document.getElementById('mainContent').innerHTML = '<div class="ls2"><div class="lt">' + data.error + '</div><button class="retry-btn" onclick="load()">Retry</button></div>';
+      return;
+    }
+    sd = data;
+    showPage('home');
+  } catch(e) {
+    document.getElementById('mainContent').innerHTML = '<div class="ls2"><div class="lt">Could not load data.<br>Check internet and try again.</div><button class="retry-btn" onclick="load()">Retry</button></div>';
+  }
+}
+
+function showPage(p, btn) {
+  cp = p;
+  if (btn) { document.querySelectorAll('.bb').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
+  if (!sd) { load(); return; }
+  const c = document.getElementById('mainContent');
+  if (p === 'home') c.innerHTML = rHome();
+  else if (p === 'marks') c.innerHTML = rMarks();
+  else if (p === 'group') { rGroup(); return; }
+  else if (p === 'notifications') { rNotifs(); return; }
+  else if (p === 'profile') c.innerHTML = rProfile();
+  setTimeout(() => { document.querySelectorAll('.mf[data-w]').forEach(b => { b.style.width = b.dataset.w + '%'; }); }, 150);
+}
+
+function rHome() {
+  const s = sd.student, marks = sd.marks || [], att = sd.attendance || {}, fees = sd.fees, tt = sd.timetable || [];
+  const avg = marks.length ? Math.round(marks.reduce((a, m) => a + parseFloat(m.marks_obtained || 0), 0) / marks.length) : 0;
+  const tot = parseInt(att.total || 0), pres = parseInt(att.present || 0);
+  const ap = tot > 0 ? Math.round((pres / tot) * 100) : 0;
+  const fs = fees ? fees.status : 'not set';
+  const fc = fs === 'paid' ? 'var(--green)' : fs === 'partial' ? 'var(--gold)' : 'var(--red)';
+  const fl = fs === 'paid' ? t('paid') : fs === 'partial' ? t('partial') : t('pending');
+  const ac = ap >= 75 ? 'var(--black)' : 'var(--red)';
+  setTimeout(() => { if (s.id) loadPh(s.id, 'hpel'); }, 300);
+  return `
+  <div class="hdr"><div class="hg"></div><div class="hc">
+    <div class="prow">
+      <div class="sphoto" id="hpel">${s.name ? s.name[0].toUpperCase() : 'S'}</div>
+      <div>
+        <div class="grt">${t('greeting')}</div>
+        <div class="snm">${s.name}</div>
+        <div class="cps">
+          <span class="cp">${s.standard || 'N/A'}</span>
+          <span class="cp">Roll ${s.roll_no || 'N/A'}</span>
+          ${s.has_bus ? '<span class="cp">' + t('bus_yes') + '</span>' : ''}
+        </div>
+      </div>
+    </div>
+  </div></div>
+  <div class="qs-grid">
+    <div class="qs" onclick="showPage('marks',document.querySelectorAll('.bb')[1])">
+      <div class="qsi"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+      <div class="qsv" style="color:${avg>=75?'var(--green)':avg>=50?'var(--gold)':'var(--red)'}">${avg}%</div>
+      <div class="qsl">${t('avg')}</div>
+    </div>
+    <div class="qs">
+      <div class="qsi"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <div class="qsv">${grade(avg)}</div>
+      <div class="qsl">${t('grade')}</div>
+    </div>
+    <div class="qs">
+      <div class="qsi"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+      <div class="qsv" style="color:${ac}">${ap}%</div>
+      <div class="qsl">${t('att')}</div>
+    </div>
+    <div class="qs" onclick="${fs !== 'paid' ? 'openPay()' : ''}">
+      <div class="qsi"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+      <div class="qsv" style="font-size:14px;margin-top:4px;color:${fc}">${fl}</div>
+      <div class="qsl">${t('fees')}</div>
+    </div>
+  </div>
+  ${s.teacher_name ? `<div class="sec"><div class="stt">${t('teacher')}</div><div class="card"><div class="trow"><div class="tav">${s.teacher_name[0]}</div><div><div class="tnm">${s.teacher_name}</div><div class="ts2">${s.teacher_phone || ''}</div></div></div></div></div>` : ''}
+  ${marks.length > 0 ? `<div class="sec"><div class="stt">${t('avg')} — Marks</div><div class="card">${marks.slice(0,4).map(m => `<div class="mr"><div class="ms">${m.subject}</div><div class="mb"><div class="mf" data-w="${m.marks_obtained}" style="width:0%;background:${m.marks_obtained>=75?'var(--black)':m.marks_obtained>=50?'var(--gold)':'var(--red)'}"></div></div><div class="msc">${m.marks_obtained}/${m.total_marks}</div></div>`).join('')}</div></div>` : ''}
+  ${fees ? `<div class="sec"><div class="stt">${t('fees')}</div><div class="card fc">
+    <div class="fr">
+      <div><div class="fa" style="color:${fc}">Rs. ${parseInt(fees.remaining_amount||0).toLocaleString('en-IN')}</div><div class="fs2">${t('due')}</div></div>
+      <div style="text-align:right"><div style="font-size:14px;font-weight:600;color:var(--green)">Rs. ${parseInt(fees.paid_amount||0).toLocaleString('en-IN')}</div><div style="font-size:11px;color:var(--gray-400)">${t('paid2')}</div></div>
+    </div>
+    ${fees.status !== 'paid' ? `<button class="pb" onclick="openPay()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>${t('pay')}</button>` : `<div style="text-align:center;padding:8px;font-size:13px;color:var(--green);font-weight:600">${t('fees_paid')}</div>`}
+  </div></div>` : ''}
+  ${tt.length > 0 ? `<div class="sec"><div class="stt">Timetable</div><div class="card ttc" style="padding:0">${tt.slice(0,3).map(x => `<div class="ttr"><div class="ttd">${x.day?.slice(0,3)||''}</div><div class="ttp">${[x.period_1,x.period_2,x.period_3,x.period_4,x.period_5,x.period_6,x.period_7].filter(Boolean).map(p=>`<div class="ttpi">${p}</div>`).join('')}</div></div>`).join('')}</div></div>` : ''}
+  `;
+}
+
+function rMarks() {
+  const marks = sd.marks || [], att = sd.attendance || {};
+  const avg = marks.length ? Math.round(marks.reduce((a,m) => a+parseFloat(m.marks_obtained||0),0)/marks.length) : 0;
+  const tot = parseInt(att.total||0), pres = parseInt(att.present||0);
+  const ap = tot > 0 ? Math.round((pres/tot)*100) : 0;
+  const R=34, C=2*Math.PI*R, D=(ap/100)*C, ac=ap>=75?'var(--black)':'var(--red)';
+  return `<div style="padding:16px">
+  <div class="stt" style="margin-bottom:12px">Marks Report</div>
+  <div style="background:var(--black);color:var(--white);border-radius:var(--radius);padding:18px;text-align:center;margin-bottom:14px">
+    <div style="font-family:var(--font-display);font-size:44px;font-weight:700;line-height:1">${avg}%</div>
+    <div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:4px">Average — Grade ${grade(avg)}</div>
+  </div>
+  <div class="card">
+    ${marks.length > 0 ? marks.map(m => `<div class="mr">
+      <div style="min-width:90px"><div class="ms">${m.subject}</div><div style="font-size:10px;color:var(--gray-400)">${m.exam_type||''}</div></div>
+      <div class="mb"><div class="mf" data-w="${m.marks_obtained}" style="width:0%;background:${m.marks_obtained>=75?'var(--black)':m.marks_obtained>=50?'var(--gold)':'var(--red)'}"></div></div>
+      <div><div class="msc">${m.marks_obtained}/${m.total_marks}</div><div style="font-size:10px;text-align:right;color:${m.marks_obtained>=75?'var(--green)':m.marks_obtained>=50?'var(--gold)':'var(--red)'}">${grade(parseInt(m.marks_obtained))}</div></div>
+    </div>`).join('') : `<div class="eb"><p>${t('no_marks')}</p></div>`}
+  </div>
+  <div class="stt" style="margin:14px 0 10px">Attendance</div>
+  <div class="card ac">
+    <div class="ad">
+      <svg width="72" height="72" viewBox="0 0 72 72">
+        <circle cx="36" cy="36" r="${R}" fill="none" stroke="var(--gray-100)" stroke-width="7"/>
+        <circle cx="36" cy="36" r="${R}" fill="none" stroke="${ac}" stroke-width="7" stroke-dasharray="${D} ${C}" stroke-linecap="round"/>
+      </svg>
+      <div class="at"><div class="ap" style="color:${ac}">${ap}%</div><div class="as2">att.</div></div>
+    </div>
+    <div style="flex:1">
+      <div class="ar2"><span class="al">${t('present')}</span><span class="av" style="color:var(--green)">${pres}</span></div>
+      <div class="ar2"><span class="al">${t('absent')}</span><span class="av" style="color:var(--red)">${att.absent||0}</span></div>
+      <div class="ar2"><span class="al">${t('total')}</span><span class="av">${tot}</span></div>
+      <div style="margin-top:6px;font-size:12px;font-weight:600;color:${ap>=75?'var(--green)':'var(--red)'}">${ap>=75?'Good Standing':'Below 75%'}</div>
+    </div>
+  </div></div>`;
+}
+
+async function rGroup() {
+  const s = sd.student, c = document.getElementById('mainContent');
+  c.innerHTML = `<div style="padding:16px"><div class="stt" style="margin-bottom:12px">Class Group</div><div id="pl"><div class="ls2" style="min-height:150px"><div class="sp"></div></div></div></div>`;
+  if (!s.class_id) { document.getElementById('pl').innerHTML = `<div class="eb"><p>${t('no_posts')}</p></div>`; return; }
+  try {
+    const r = await fetch(API+'/posts/'+s.class_id, {headers:{Authorization:'Bearer '+getToken()}});
+    const d = await r.json(); const posts = d.posts || [];
+    document.getElementById('pl').innerHTML = posts.length > 0 ? posts.map(p => `<div class="pi"><div class="ph"><span class="pau">${p.posted_by_name||'Teacher'}</span><span class="ptm">${fmtDate(p.created_at)}</span></div>${p.text_content?`<div class="ptxt">${p.text_content}</div>`:''} ${p.file_url&&p.file_type?.startsWith('image')?`<img class="pimg" src="${p.file_url}" loading="lazy">`:''} ${p.video_link?`<a class="vb" href="${p.video_link}" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Watch Video</a>`:''}</div>`).join('') : `<div class="eb"><p>${t('no_posts')}</p></div>`;
+  } catch(e) { document.getElementById('pl').innerHTML = `<div class="eb"><p>Could not load</p></div>`; }
+}
+
+async function rNotifs() {
+  const c = document.getElementById('mainContent');
+  c.innerHTML = `<div style="padding:16px"><div class="stt" style="margin-bottom:12px">Notifications</div><div id="nl"><div class="ls2" style="min-height:150px"><div class="sp"></div></div></div></div>`;
+  try {
+    const r = await fetch(API+'/notifications', {headers:{Authorization:'Bearer '+getToken()}});
+    const d = await r.json(); const notifs = d.notifications || [];
+    document.getElementById('nl').innerHTML = notifs.length > 0 ? `<div class="card" style="padding:0 14px">${notifs.map(n=>`<div class="ni"><div class="nd"></div><div><div class="ntl">${n.title}</div><div class="nm">${n.message}</div><div class="nti">${fmtDate(n.created_at)}</div></div></div>`).join('')}</div>` : `<div class="eb"><p>${t('no_notif')}</p></div>`;
+  } catch(e) { document.getElementById('nl').innerHTML = `<div class="eb"><p>Could not load</p></div>`; }
+}
+
+function rProfile() {
+  const s = sd.student;
+  setTimeout(() => { if (s.id) loadPh(s.id, 'pfav'); }, 200);
+  return `<div style="padding:16px">
+  <div class="pfhd">
+    <div class="pfg"></div>
+    <div class="pfav" id="pfav">${s.name ? s.name[0].toUpperCase() : 'S'}</div>
+    <div class="pfnm">${s.name}</div>
+    <div class="pfcd">${user.code || ''}</div>
+    <div class="pfcp">
+      <span class="pfcpi">${s.standard || 'N/A'}</span>
+      <span class="pfcpi">Roll ${s.roll_no || 'N/A'}</span>
+    </div>
+  </div>
+  <div class="il">
+    ${irow('Date of Birth', s.dob ? s.dob.split('T')[0] : 'N/A')}
+    ${irow('Gender', s.gender || 'N/A')}
+    ${irow('Parent', s.parent_name || 'N/A')}
+    ${irow('Parent Phone', s.parent_phone || 'N/A')}
+    ${irow('Address', s.address || 'N/A')}
+    ${irow('Blood Group', s.blood_group || 'N/A')}
+    ${irow('Bus', s.has_bus ? t('bus_yes') : t('bus_no'))}
+    ${irow('Class Teacher', s.teacher_name || 'N/A')}
+  </div>
+  <button onclick="doLogout()" style="width:100%;padding:12px;background:var(--white);border:1.5px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--red);cursor:pointer">Logout</button>
+  </div>`;
+}
+
+function irow(l, v) { return `<div class="ir"><span class="irlab">${l}</span><span class="irval">${v}</span></div>`; }
+
+async function loadPh(sid, eid) {
+  try {
+    const r = await fetch(API+'/upload/photo/'+sid, {headers:{Authorization:'Bearer '+getToken()}});
+    if (r.ok) { const d = await r.json(); if (d.url) { const el = document.getElementById(eid); if (el) el.innerHTML = `<img src="${d.url}" alt="">`; } }
+  } catch(e) {}
+}
+
+async function openPay() {
+  let upi = null;
+  try { const r = await fetch(API+'/fees/upi-details', {headers:{Authorization:'Bearer '+getToken()}}); upi = await r.json(); } catch(e) {}
+  const fees = sd.fees, amt = parseInt(fees?.remaining_amount || 0);
+  document.getElementById('payTxt').textContent = 'Amount due: Rs. ' + amt.toLocaleString('en-IN');
+  document.getElementById('payTxt').setAttribute('data-amt', amt);
+  if (upi?.upi_id) {
+    document.getElementById('upiId').textContent = upi.upi_id;
+    const base = `upi://pay?pa=${upi.upi_id}&pn=${encodeURIComponent(upi.name||'School')}&am=${amt}&cu=INR`;
+    document.getElementById('ppBtn').href = base;
+    document.getElementById('gpBtn').href = base;
+    document.getElementById('ptBtn').href = base;
+  }
+  document.getElementById('payModal').classList.add('show');
+}
+
+function closePay() { document.getElementById('payModal').classList.remove('show'); document.getElementById('upiRef').value = ''; }
+
+async function submitPay() {
+  const ref = document.getElementById('upiRef').value.trim();
+  const amt = parseFloat(document.getElementById('payTxt').getAttribute('data-amt') || 0);
+  if (!ref) { toast('Please enter UPI Transaction ID'); return; }
+  try {
+    const r = await fetch(API+'/fees/submit-payment', {method:'POST', headers:{Authorization:'Bearer '+getToken(),'Content-Type':'application/json'}, body:JSON.stringify({amount:amt, upi_ref:ref})});
+    const d = await r.json();
+    if (d.success) { closePay(); toast(t('pay_ok')); setTimeout(() => load(), 1000); }
+    else toast(d.error || 'Error');
+  } catch(e) { toast('Could not submit'); }
+}
+
+document.getElementById('payModal').addEventListener('click', e => { if (e.target === document.getElementById('payModal')) closePay(); });
+
+function grade(s) { if(s>=90)return'A+'; if(s>=80)return'A'; if(s>=70)return'B+'; if(s>=60)return'B'; if(s>=50)return'C'; return'F'; }
+function fmtDate(ts) { if(!ts)return''; try{return new Date(ts).toLocaleDateString('en-IN',{day:'numeric',month:'short'})}catch(e){return'';} }
+function toast(msg) { const el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); setTimeout(()=>el.classList.remove('show'),3000); }
+function doLogout() { localStorage.clear(); sessionStorage.clear(); document.cookie='edu_token=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/'; window.location.replace('login.html'); }
+
+if ('serviceWorker' in navigator) { navigator.serviceWorker.register('sw.js').catch(() => {}); }
+
+// START
+load();
+</script>
+</body>
+</html>    <span class="bla">Group</span>
   </button>
   <button class="bb" onclick="showPage('notifications',this)">
     <svg class="bi" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
