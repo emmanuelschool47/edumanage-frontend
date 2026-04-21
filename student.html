@@ -4,9 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#ffffff">
-<meta name="apple-mobile-web-app-capable" content="yes">
 <title>Student Portal — EduManage</title>
-<link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -19,7 +17,7 @@ body{font-family:var(--font-body);background:var(--gray-50);color:var(--black);p
 .tr{display:flex;align-items:center;gap:8px}
 .ls{display:flex;gap:2px;background:var(--gray-100);border-radius:100px;padding:2px}
 .lb{padding:4px 9px;border-radius:100px;border:none;background:transparent;font-family:var(--font-body);font-size:10px;font-weight:700;color:var(--gray-400);cursor:pointer}
-.lb.active{background:var(--white);color:var(--black);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.lb.active{background:var(--white);color:var(--black)}
 .ob{background:none;border:1px solid var(--gray-200);border-radius:7px;padding:6px 10px;font-size:11px;font-weight:600;color:var(--gray-500);cursor:pointer;font-family:var(--font-body)}
 .cnt{max-width:600px;margin:0 auto}
 .hdr{background:var(--black);color:var(--white);padding:20px 16px 24px;position:relative;overflow:hidden}
@@ -54,8 +52,7 @@ body{font-family:var(--font-body);background:var(--gray-50);color:var(--black);p
 .ap{font-family:var(--font-mono);font-size:15px;font-weight:700;line-height:1}
 .as2{font-size:8px;color:var(--gray-400);text-transform:uppercase}
 .ar2{display:flex;justify-content:space-between;font-size:13px;padding:4px 0}
-.al{color:var(--gray-500)}
-.av{font-weight:600}
+.al{color:var(--gray-500)}.av{font-weight:600}
 .fc{padding:14px}
 .fr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
 .fa{font-family:var(--font-display);font-size:22px;font-weight:700}
@@ -64,8 +61,7 @@ body{font-family:var(--font-body);background:var(--gray-50);color:var(--black);p
 .pb svg{width:15px;height:15px;stroke:var(--white)}
 .trow{display:flex;align-items:center;gap:12px}
 .tav{width:40px;height:40px;background:var(--gray-100);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:16px;color:var(--gray-600);flex-shrink:0}
-.tnm{font-size:14px;font-weight:600}
-.ts2{font-size:11px;color:var(--gray-400)}
+.tnm{font-size:14px;font-weight:600}.ts2{font-size:11px;color:var(--gray-400)}
 .ttc{overflow:hidden}
 .ttr{display:flex;border-bottom:1px solid var(--gray-100)}
 .ttr:last-child{border-bottom:none}
@@ -80,12 +76,10 @@ body{font-family:var(--font-body);background:var(--gray-50);color:var(--black);p
 .nti{font-size:10px;color:var(--gray-300);margin-top:3px}
 .pi{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:12px;margin-bottom:8px}
 .ph{display:flex;justify-content:space-between;margin-bottom:6px}
-.pau{font-size:12px;font-weight:700}
-.ptm{font-size:10px;color:var(--gray-300)}
+.pau{font-size:12px;font-weight:700}.ptm{font-size:10px;color:var(--gray-300)}
 .ptxt{font-size:13px;color:var(--gray-700);line-height:1.6}
 .pimg{width:100%;border-radius:8px;margin-top:8px;max-height:220px;object-fit:cover}
 .vb{display:flex;align-items:center;gap:6px;margin-top:8px;padding:8px 12px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:8px;font-size:12px;color:var(--black);text-decoration:none;font-weight:500}
-.vb svg{width:14px;height:14px;stroke:var(--black)}
 .pfhd{background:var(--black);color:var(--white);border-radius:var(--radius);padding:20px;text-align:center;margin-bottom:12px;position:relative;overflow:hidden}
 .pfg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:32px 32px}
 .pfav{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:26px;overflow:hidden;position:relative;z-index:1}
@@ -114,7 +108,7 @@ body{font-family:var(--font-body);background:var(--gray-50);color:var(--black);p
 .dv{display:flex;align-items:center;gap:10px;color:var(--gray-300);font-size:11px;margin-bottom:14px}
 .dv::before,.dv::after{content:'';flex:1;height:1px;background:var(--gray-200)}
 .fi{width:100%;padding:11px 13px;background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:13px;color:var(--black);outline:none;margin-bottom:12px}
-.fi:focus{border-color:var(--black);background:var(--white)}
+.fi:focus{border-color:var(--black)}
 .sbt{width:100%;padding:13px;background:var(--black);color:var(--white);border:none;border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer;margin-bottom:8px}
 .cbt{width:100%;padding:11px;background:none;border:1px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:13px;color:var(--gray-500);cursor:pointer}
 .bn{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--gray-200);display:flex;padding:6px 0 8px;z-index:100}
@@ -130,7 +124,8 @@ body{font-family:var(--font-body);background:var(--gray-50);color:var(--black);p
 .eb p{font-size:13px}
 .toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--black);color:var(--white);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:999;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.retry-btn{margin-top:12px;padding:10px 20px;background:var(--black);color:var(--white);border:none;border-radius:8px;cursor:pointer;font-family:var(--font-body);font-weight:600;font-size:13px}
+.retry-btn{padding:10px 24px;background:var(--black);color:var(--white);border:none;border-radius:8px;cursor:pointer;font-family:var(--font-body);font-weight:600;font-size:13px;margin-top:12px}
+.err-card{background:var(--red-light);border:1px solid rgba(192,57,43,.2);border-radius:var(--radius);padding:14px;margin:16px;font-size:13px;color:var(--red)}
 @keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
@@ -147,7 +142,7 @@ body{font-family:var(--font-body);background:var(--gray-50);color:var(--black);p
   </div>
 </div>
 <div class="cnt" id="mainContent">
-  <div class="ls2"><div class="sp"></div><div class="lt">Loading...</div></div>
+  <div class="ls2"><div class="sp"></div><div class="lt">Loading your data...</div></div>
 </div>
 <nav class="bn">
   <button class="bb active" onclick="showPage('home',this)">
@@ -190,39 +185,47 @@ body{font-family:var(--font-body);background:var(--gray-50);color:var(--black);p
   </div>
 </div>
 <div class="toast" id="toast"></div>
-<script>
-const API = 'https://edumanage-backend-xi.vercel.app/api';
 
-// ========== TOKEN FROM HASH ==========
-function initToken() {
+<script>
+// =============================================
+// HARDCODED BACKEND URL - DO NOT CHANGE
+const API = 'https://edumanage-backend-xi.vercel.app/api';
+// =============================================
+
+// READ TOKEN FROM URL HASH FIRST (set by login.html)
+(function() {
   try {
-    const hash = window.location.hash;
-    if (hash && hash.length > 1) {
-      const hashData = hash.substring(1); // remove #
-      const pipeIndex = hashData.indexOf('|');
-      if (pipeIndex > 0) {
-        const token = hashData.substring(0, pipeIndex);
-        const userStr = decodeURIComponent(hashData.substring(pipeIndex + 1));
-        if (token && token.length > 10) {
-          localStorage.setItem('edu_token', token);
-          sessionStorage.setItem('edu_token', token);
+    const h = window.location.hash;
+    if (h && h.length > 2) {
+      const raw = h.slice(1);
+      const idx = raw.indexOf('|');
+      let tk, us;
+      if (idx > 0) {
+        tk = raw.slice(0, idx);
+        us = raw.slice(idx + 1);
+      } else {
+        tk = raw;
+      }
+      if (tk && tk.length > 20) {
+        localStorage.setItem('edu_token', tk);
+        sessionStorage.setItem('edu_token', tk);
+        if (us) {
           try {
-            localStorage.setItem('edu_user', userStr);
-            sessionStorage.setItem('edu_user', userStr);
+            const decoded = decodeURIComponent(us);
+            localStorage.setItem('edu_user', decoded);
+            sessionStorage.setItem('edu_user', decoded);
           } catch(e) {}
-          // Clean URL
-          history.replaceState(null, '', window.location.pathname);
         }
+        // Clean hash from URL
+        history.replaceState(null, '', window.location.pathname + window.location.search);
       }
     }
   } catch(e) {}
-}
-
-// Run FIRST before anything else
-initToken();
+})();
 
 function getToken() {
-  return localStorage.getItem('edu_token') || sessionStorage.getItem('edu_token');
+  return localStorage.getItem('edu_token') ||
+         sessionStorage.getItem('edu_token') || null;
 }
 
 function getUser() {
@@ -232,18 +235,18 @@ function getUser() {
   } catch(e) { return {}; }
 }
 
-// Auth check
-const token = getToken();
-if (!token) {
+// If no token at all, go to login
+if (!getToken()) {
   window.location.href = 'login.html';
 }
+
 const user = getUser();
 
-// ========== TRANSLATIONS ==========
+// TRANSLATIONS
 const T = {
-  en:{greeting:'Good day,',avg:'Average',grade:'Grade',att:'Attendance',fees:'Fees',teacher:'Class Teacher',paid:'Paid',pending:'Pending',partial:'Partial',present:'Present',absent:'Absent',total:'Total Days',no_marks:'No marks yet',no_posts:'No posts yet',no_notif:'No notifications yet',pay:'Pay Fees',fees_paid:'Fees fully paid',pay_ok:'Payment submitted!',bus_yes:'Bus',bus_no:'No Bus',due:'Amount Due',paid2:'Amount Paid'},
-  hi:{greeting:'नमस्ते,',avg:'औसत',grade:'ग्रेड',att:'उपस्थिति',fees:'फीस',teacher:'कक्षा शिक्षक',paid:'भुगतान हुआ',pending:'बाकी है',partial:'आंशिक',present:'उपस्थित',absent:'अनुपस्थित',total:'कुल दिन',no_marks:'कोई अंक नहीं',no_posts:'कोई पोस्ट नहीं',no_notif:'कोई सूचना नहीं',pay:'फीस भरें',fees_paid:'फीस भुगतान हुई',pay_ok:'भुगतान जमा!',bus_yes:'बस',bus_no:'बस नहीं',due:'बाकी राशि',paid2:'भुगतान राशि'},
-  mr:{greeting:'नमस्कार,',avg:'सरासरी',grade:'श्रेणी',att:'हजेरी',fees:'शुल्क',teacher:'वर्ग शिक्षक',paid:'भरले',pending:'बाकी',partial:'अंशतः',present:'उपस्थित',absent:'अनुपस्थित',total:'एकूण दिवस',no_marks:'गुण नाहीत',no_posts:'पोस्ट नाही',no_notif:'सूचना नाही',pay:'शुल्क भरा',fees_paid:'शुल्क भरले',pay_ok:'पेमेंट सबमिट!',bus_yes:'बस',bus_no:'बस नाही',due:'बाकी रक्कम',paid2:'भरलेली रक्कम'}
+  en: { greeting:'Good day,', avg:'Average', grade:'Grade', att:'Attendance', fees:'Fees', teacher:'Class Teacher', paid:'Paid', pending:'Pending', partial:'Partial', present:'Present', absent:'Absent', total:'Total Days', no_marks:'No marks yet', no_posts:'No posts yet', no_notif:'No notifications yet', pay:'Pay Fees', fees_paid:'Fees fully paid', pay_ok:'Payment submitted!', bus_yes:'Bus', bus_no:'No Bus', due:'Amount Due', paid2:'Amount Paid' },
+  hi: { greeting:'नमस्ते,', avg:'औसत', grade:'ग्रेड', att:'उपस्थिति', fees:'फीस', teacher:'कक्षा शिक्षक', paid:'भुगतान हुआ', pending:'बाकी है', partial:'आंशिक', present:'उपस्थित', absent:'अनुपस्थित', total:'कुल दिन', no_marks:'कोई अंक नहीं', no_posts:'कोई पोस्ट नहीं', no_notif:'कोई सूचना नहीं', pay:'फीस भरें', fees_paid:'फीस भुगतान हुई', pay_ok:'भुगतान जमा!', bus_yes:'बस', bus_no:'बस नहीं', due:'बाकी राशि', paid2:'भुगतान राशि' },
+  mr: { greeting:'नमस्कार,', avg:'सरासरी', grade:'श्रेणी', att:'हजेरी', fees:'शुल्क', teacher:'वर्ग शिक्षक', paid:'भरले', pending:'बाकी', partial:'अंशतः', present:'उपस्थित', absent:'अनुपस्थित', total:'एकूण दिवस', no_marks:'गुण नाहीत', no_posts:'पोस्ट नाही', no_notif:'सूचना नाही', pay:'शुल्क भरा', fees_paid:'शुल्क भरले', pay_ok:'पेमेंट सबमिट!', bus_yes:'बस', bus_no:'बस नाही', due:'बाकी रक्कम', paid2:'भरलेली रक्कम' }
 };
 let lang = localStorage.getItem('edu-lang') || 'en';
 function t(k) { return T[lang][k] || T.en[k] || k; }
@@ -257,32 +260,67 @@ setLang(lang);
 
 let sd = null, cp = 'home';
 
-// ========== LOAD DATA ==========
-async function load() {
-  document.getElementById('mainContent').innerHTML = '<div class="ls2"><div class="sp"></div><div class="lt">Loading your data...</div></div>';
-  const tk = getToken();
-  if (!tk) { window.location.href = 'login.html'; return; }
+// FETCH WITH TIMEOUT
+async function fetchWithTimeout(url, options = {}, ms = 15000) {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), ms);
   try {
-    const res = await fetch(API + '/students/me', {
-      headers: { 'Authorization': 'Bearer ' + tk }
-    });
-    if (res.status === 401) {
-      localStorage.clear(); sessionStorage.clear();
-      window.location.href = 'login.html'; return;
-    }
-    const data = await res.json();
-    if (data.error) {
-      document.getElementById('mainContent').innerHTML = '<div class="ls2"><div class="lt">' + data.error + '</div><button class="retry-btn" onclick="load()">Retry</button></div>';
-      return;
-    }
-    sd = data;
-    showPage('home');
+    const res = await fetch(url, { ...options, signal: controller.signal });
+    clearTimeout(id);
+    return res;
   } catch(e) {
-    document.getElementById('mainContent').innerHTML = '<div class="ls2"><div class="lt">Could not load.<br>Check internet.</div><button class="retry-btn" onclick="load()">Retry</button></div>';
+    clearTimeout(id);
+    throw e;
   }
 }
 
-// ========== PAGES ==========
+// LOAD DATA
+async function load() {
+  document.getElementById('mainContent').innerHTML = '<div class="ls2"><div class="sp"></div><div class="lt">Loading your data...</div></div>';
+
+  const tk = getToken();
+  if (!tk) { window.location.href = 'login.html'; return; }
+
+  try {
+    const res = await fetchWithTimeout(
+      API + '/students/me',
+      { headers: { 'Authorization': 'Bearer ' + tk } },
+      15000
+    );
+
+    if (res.status === 401) {
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = 'login.html';
+      return;
+    }
+
+    const data = await res.json();
+
+    if (data.error) {
+      document.getElementById('mainContent').innerHTML = `
+        <div class="ls2">
+          <div class="lt" style="color:var(--red)">${data.error}</div>
+          <button class="retry-btn" onclick="load()">Try Again</button>
+          <button onclick="doLogout()" style="margin-top:8px;padding:8px 20px;background:none;border:1px solid var(--gray-300);border-radius:8px;cursor:pointer;font-family:var(--font-body);font-size:13px;color:var(--gray-500)">Logout</button>
+        </div>`;
+      return;
+    }
+
+    sd = data;
+    showPage('home');
+
+  } catch(e) {
+    const msg = e.name === 'AbortError' ? 'Request timed out. Check internet.' : 'Could not connect to server.';
+    document.getElementById('mainContent').innerHTML = `
+      <div class="ls2">
+        <div class="lt">${msg}</div>
+        <button class="retry-btn" onclick="load()">Try Again</button>
+        <button onclick="doLogout()" style="margin-top:8px;padding:8px 20px;background:none;border:1px solid var(--gray-300);border-radius:8px;cursor:pointer;font-family:var(--font-body);font-size:13px;color:var(--gray-500)">Logout & Login Again</button>
+      </div>`;
+  }
+}
+
 function showPage(p, btn) {
   cp = p;
   if (btn) { document.querySelectorAll('.bb').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
@@ -300,12 +338,12 @@ function rHome() {
   const s = sd.student, marks = sd.marks||[], att = sd.attendance||{}, fees = sd.fees, tt = sd.timetable||[];
   const avg = marks.length ? Math.round(marks.reduce((a,m)=>a+parseFloat(m.marks_obtained||0),0)/marks.length) : 0;
   const tot = parseInt(att.total||0), pres = parseInt(att.present||0);
-  const ap = tot>0 ? Math.round((pres/tot)*100) : 0;
+  const ap = tot > 0 ? Math.round((pres/tot)*100) : 0;
   const fs = fees ? fees.status : 'not set';
-  const fc = fs==='paid'?'var(--green)':fs==='partial'?'var(--gold)':'var(--red)';
-  const fl = fs==='paid'?t('paid'):fs==='partial'?t('partial'):t('pending');
-  const ac = ap>=75?'var(--black)':'var(--red)';
-  setTimeout(()=>{if(s.id)loadPh(s.id,'hpel')},300);
+  const fc = fs==='paid' ? 'var(--green)' : fs==='partial' ? 'var(--gold)' : 'var(--red)';
+  const fl = fs==='paid' ? t('paid') : fs==='partial' ? t('partial') : t('pending');
+  const ac = ap>=75 ? 'var(--black)' : 'var(--red)';
+  setTimeout(()=>{ if(s.id) loadPh(s.id,'hpel'); }, 300);
   return `
   <div class="hdr"><div class="hg"></div><div class="hc">
     <div class="prow">
@@ -316,7 +354,7 @@ function rHome() {
         <div class="cps">
           <span class="cp">${s.standard||'N/A'}</span>
           <span class="cp">Roll ${s.roll_no||'N/A'}</span>
-          ${s.has_bus?'<span class="cp">'+t('bus_yes')+'</span>':''}
+          ${s.has_bus ? '<span class="cp">'+t('bus_yes')+'</span>' : ''}
         </div>
       </div>
     </div>
@@ -343,18 +381,18 @@ function rHome() {
       <div class="qsl">${t('fees')}</div>
     </div>
   </div>
-  ${s.teacher_name?`<div class="sec"><div class="stt">${t('teacher')}</div><div class="card"><div class="trow"><div class="tav">${s.teacher_name[0]}</div><div><div class="tnm">${s.teacher_name}</div><div class="ts2">${s.teacher_phone||''}</div></div></div></div></div>`:''}
-  ${marks.length>0?`<div class="sec"><div class="stt">Marks</div><div class="card">${marks.slice(0,4).map(m=>`<div class="mr"><div class="ms">${m.subject}</div><div class="mb"><div class="mf" data-w="${m.marks_obtained}" style="width:0%;background:${m.marks_obtained>=75?'var(--black)':m.marks_obtained>=50?'var(--gold)':'var(--red)'}"></div></div><div class="msc">${m.marks_obtained}/${m.total_marks}</div></div>`).join('')}</div></div>`:''}
-  ${fees?`<div class="sec"><div class="stt">${t('fees')}</div><div class="card fc"><div class="fr"><div><div class="fa" style="color:${fc}">Rs. ${parseInt(fees.remaining_amount||0).toLocaleString('en-IN')}</div><div class="fs2">${t('due')}</div></div><div style="text-align:right"><div style="font-size:14px;font-weight:600;color:var(--green)">Rs. ${parseInt(fees.paid_amount||0).toLocaleString('en-IN')}</div><div style="font-size:11px;color:var(--gray-400)">${t('paid2')}</div></div></div>${fees.status!=='paid'?`<button class="pb" onclick="openPay()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>${t('pay')}</button>`:`<div style="text-align:center;padding:8px;font-size:13px;color:var(--green);font-weight:600">${t('fees_paid')}</div>`}</div></div>`:''}
-  ${tt.length>0?`<div class="sec"><div class="stt">Timetable</div><div class="card ttc" style="padding:0">${tt.slice(0,3).map(x=>`<div class="ttr"><div class="ttd">${x.day?.slice(0,3)||''}</div><div class="ttp">${[x.period_1,x.period_2,x.period_3,x.period_4,x.period_5,x.period_6,x.period_7].filter(Boolean).map(p=>`<div class="ttpi">${p}</div>`).join('')}</div></div>`).join('')}</div></div>`:''}`;
+  ${s.teacher_name ? `<div class="sec"><div class="stt">${t('teacher')}</div><div class="card"><div class="trow"><div class="tav">${s.teacher_name[0]}</div><div><div class="tnm">${s.teacher_name}</div><div class="ts2">${s.teacher_phone||''}</div></div></div></div></div>` : ''}
+  ${marks.length > 0 ? `<div class="sec"><div class="stt">Marks</div><div class="card">${marks.slice(0,4).map(m=>`<div class="mr"><div class="ms">${m.subject}</div><div class="mb"><div class="mf" data-w="${m.marks_obtained}" style="width:0%;background:${m.marks_obtained>=75?'var(--black)':m.marks_obtained>=50?'var(--gold)':'var(--red)'}"></div></div><div class="msc">${m.marks_obtained}/${m.total_marks}</div></div>`).join('')}</div></div>` : ''}
+  ${fees ? `<div class="sec"><div class="stt">${t('fees')}</div><div class="card fc"><div class="fr"><div><div class="fa" style="color:${fc}">Rs. ${parseInt(fees.remaining_amount||0).toLocaleString('en-IN')}</div><div class="fs2">${t('due')}</div></div><div style="text-align:right"><div style="font-size:14px;font-weight:600;color:var(--green)">Rs. ${parseInt(fees.paid_amount||0).toLocaleString('en-IN')}</div><div style="font-size:11px;color:var(--gray-400)">${t('paid2')}</div></div></div>${fees.status!=='paid'?`<button class="pb" onclick="openPay()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>${t('pay')}</button>`:`<div style="text-align:center;padding:8px;font-size:13px;color:var(--green);font-weight:600">${t('fees_paid')}</div>`}</div></div>` : ''}
+  ${tt.length > 0 ? `<div class="sec"><div class="stt">Timetable</div><div class="card ttc" style="padding:0">${tt.slice(0,3).map(x=>`<div class="ttr"><div class="ttd">${x.day?.slice(0,3)||''}</div><div class="ttp">${[x.period_1,x.period_2,x.period_3,x.period_4,x.period_5,x.period_6,x.period_7].filter(Boolean).map(p=>`<div class="ttpi">${p}</div>`).join('')}</div></div>`).join('')}</div></div>` : ''}`;
 }
 
 function rMarks() {
-  const marks=sd.marks||[],att=sd.attendance||{};
+  const marks=sd.marks||[], att=sd.attendance||{};
   const avg=marks.length?Math.round(marks.reduce((a,m)=>a+parseFloat(m.marks_obtained||0),0)/marks.length):0;
-  const tot=parseInt(att.total||0),pres=parseInt(att.present||0);
+  const tot=parseInt(att.total||0), pres=parseInt(att.present||0);
   const ap=tot>0?Math.round((pres/tot)*100):0;
-  const R=34,C=2*Math.PI*R,D=(ap/100)*C,ac=ap>=75?'var(--black)':'var(--red)';
+  const R=34, C=2*Math.PI*R, D=(ap/100)*C, ac=ap>=75?'var(--black)':'var(--red)';
   return `<div style="padding:16px">
   <div class="stt" style="margin-bottom:12px">Marks Report</div>
   <div style="background:var(--black);color:var(--white);border-radius:var(--radius);padding:18px;text-align:center;margin-bottom:14px">
@@ -367,13 +405,13 @@ function rMarks() {
 }
 
 async function rGroup() {
-  const s=sd.student,c=document.getElementById('mainContent');
+  const s=sd.student, c=document.getElementById('mainContent');
   c.innerHTML=`<div style="padding:16px"><div class="stt" style="margin-bottom:12px">Class Group</div><div id="pl"><div class="ls2" style="min-height:150px"><div class="sp"></div></div></div></div>`;
   if(!s.class_id){document.getElementById('pl').innerHTML=`<div class="eb"><p>${t('no_posts')}</p></div>`;return}
   try{
-    const r=await fetch(API+'/posts/'+s.class_id,{headers:{Authorization:'Bearer '+getToken()}});
-    const d=await r.json();const posts=d.posts||[];
-    document.getElementById('pl').innerHTML=posts.length>0?posts.map(p=>`<div class="pi"><div class="ph"><span class="pau">${p.posted_by_name||'Teacher'}</span><span class="ptm">${fmtDate(p.created_at)}</span></div>${p.text_content?`<div class="ptxt">${p.text_content}</div>`:''} ${p.file_url&&p.file_type?.startsWith('image')?`<img class="pimg" src="${p.file_url}" loading="lazy">`:''} ${p.video_link?`<a class="vb" href="${p.video_link}" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Watch</a>`:''}</div>`).join(''):`<div class="eb"><p>${t('no_posts')}</p></div>`;
+    const r=await fetchWithTimeout(API+'/posts/'+s.class_id,{headers:{Authorization:'Bearer '+getToken()}},10000);
+    const d=await r.json(); const posts=d.posts||[];
+    document.getElementById('pl').innerHTML=posts.length>0?posts.map(p=>`<div class="pi"><div class="ph"><span class="pau">${p.posted_by_name||'Teacher'}</span><span class="ptm">${fmtDate(p.created_at)}</span></div>${p.text_content?`<div class="ptxt">${p.text_content}</div>`:''} ${p.video_link?`<a class="vb" href="${p.video_link}" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>Watch</a>`:''}</div>`).join(''):`<div class="eb"><p>${t('no_posts')}</p></div>`;
   }catch(e){document.getElementById('pl').innerHTML=`<div class="eb"><p>Could not load</p></div>`}
 }
 
@@ -381,8 +419,8 @@ async function rNotifs() {
   const c=document.getElementById('mainContent');
   c.innerHTML=`<div style="padding:16px"><div class="stt" style="margin-bottom:12px">Notifications</div><div id="nl"><div class="ls2" style="min-height:150px"><div class="sp"></div></div></div></div>`;
   try{
-    const r=await fetch(API+'/notifications',{headers:{Authorization:'Bearer '+getToken()}});
-    const d=await r.json();const notifs=d.notifications||[];
+    const r=await fetchWithTimeout(API+'/notifications',{headers:{Authorization:'Bearer '+getToken()}},10000);
+    const d=await r.json(); const notifs=d.notifications||[];
     document.getElementById('nl').innerHTML=notifs.length>0?`<div class="card" style="padding:0 14px">${notifs.map(n=>`<div class="ni"><div class="nd"></div><div><div class="ntl">${n.title}</div><div class="nm">${n.message}</div><div class="nti">${fmtDate(n.created_at)}</div></div></div>`).join('')}</div>`:`<div class="eb"><p>${t('no_notif')}</p></div>`;
   }catch(e){document.getElementById('nl').innerHTML=`<div class="eb"><p>Could not load</p></div>`}
 }
@@ -405,16 +443,43 @@ function rProfile() {
 }
 
 function irow(l,v){return`<div class="ir"><span class="irlab">${l}</span><span class="irval">${v}</span></div>`}
-async function loadPh(sid,eid){try{const r=await fetch(API+'/upload/photo/'+sid,{headers:{Authorization:'Bearer '+getToken()}});if(r.ok){const d=await r.json();if(d.url){const el=document.getElementById(eid);if(el)el.innerHTML=`<img src="${d.url}" alt="">`}}}catch(e){}}
-async function openPay(){let upi=null;try{const r=await fetch(API+'/fees/upi-details',{headers:{Authorization:'Bearer '+getToken()}});upi=await r.json()}catch(e){}const fees=sd.fees,amt=parseInt(fees?.remaining_amount||0);document.getElementById('payTxt').textContent='Amount due: Rs. '+amt.toLocaleString('en-IN');document.getElementById('payTxt').setAttribute('data-amt',amt);if(upi?.upi_id){document.getElementById('upiId').textContent=upi.upi_id;const base=`upi://pay?pa=${upi.upi_id}&pn=${encodeURIComponent(upi.name||'School')}&am=${amt}&cu=INR`;document.getElementById('ppBtn').href=base;document.getElementById('gpBtn').href=base;document.getElementById('ptBtn').href=base}document.getElementById('payModal').classList.add('show')}
+async function loadPh(sid,eid){try{const r=await fetchWithTimeout(API+'/upload/photo/'+sid,{headers:{Authorization:'Bearer '+getToken()}},8000);if(r.ok){const d=await r.json();if(d.url){const el=document.getElementById(eid);if(el)el.innerHTML=`<img src="${d.url}" alt="">`;}}
+}catch(e){}}
+async function openPay(){
+  let upi=null;
+  try{const r=await fetchWithTimeout(API+'/fees/upi-details',{headers:{Authorization:'Bearer '+getToken()}},8000);upi=await r.json()}catch(e){}
+  const fees=sd.fees, amt=parseInt(fees?.remaining_amount||0);
+  document.getElementById('payTxt').textContent='Amount due: Rs. '+amt.toLocaleString('en-IN');
+  document.getElementById('payTxt').setAttribute('data-amt',amt);
+  if(upi?.upi_id){
+    document.getElementById('upiId').textContent=upi.upi_id;
+    const base=`upi://pay?pa=${upi.upi_id}&pn=${encodeURIComponent(upi.name||'School')}&am=${amt}&cu=INR`;
+    document.getElementById('ppBtn').href=base;
+    document.getElementById('gpBtn').href=base;
+    document.getElementById('ptBtn').href=base;
+  }
+  document.getElementById('payModal').classList.add('show');
+}
 function closePay(){document.getElementById('payModal').classList.remove('show');document.getElementById('upiRef').value=''}
-async function submitPay(){const ref=document.getElementById('upiRef').value.trim();const amt=parseFloat(document.getElementById('payTxt').getAttribute('data-amt')||0);if(!ref){toast('Please enter UPI Transaction ID');return}try{const r=await fetch(API+'/fees/submit-payment',{method:'POST',headers:{Authorization:'Bearer '+getToken(),'Content-Type':'application/json'},body:JSON.stringify({amount:amt,upi_ref:ref})});const d=await r.json();if(d.success){closePay();toast(t('pay_ok'));setTimeout(()=>load(),1000)}else toast(d.error||'Error')}catch(e){toast('Could not submit')}}
+async function submitPay(){
+  const ref=document.getElementById('upiRef').value.trim();
+  const amt=parseFloat(document.getElementById('payTxt').getAttribute('data-amt')||0);
+  if(!ref){toast('Please enter UPI Transaction ID');return}
+  try{
+    const r=await fetchWithTimeout(API+'/fees/submit-payment',{method:'POST',headers:{Authorization:'Bearer '+getToken(),'Content-Type':'application/json'},body:JSON.stringify({amount:amt,upi_ref:ref})},10000);
+    const d=await r.json();
+    if(d.success){closePay();toast(t('pay_ok'));setTimeout(()=>load(),1000)}
+    else toast(d.error||'Error');
+  }catch(e){toast('Could not submit')}
+}
 document.getElementById('payModal').addEventListener('click',e=>{if(e.target===document.getElementById('payModal'))closePay()});
 function grade(s){if(s>=90)return'A+';if(s>=80)return'A';if(s>=70)return'B+';if(s>=60)return'B';if(s>=50)return'C';return'F'}
 function fmtDate(ts){if(!ts)return'';try{return new Date(ts).toLocaleDateString('en-IN',{day:'numeric',month:'short'})}catch(e){return''}}
 function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),3000)}
 function doLogout(){localStorage.clear();sessionStorage.clear();window.location.href='login.html'}
 if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}
+
+// START
 load();
 </script>
 </body>
