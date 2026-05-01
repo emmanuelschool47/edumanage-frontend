@@ -3,225 +3,527 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#ffffff">
-<title>Student Portal — EduManage</title>
+<meta name="theme-color" content="#800020">
+<title>Student Portal — Emmanuel School</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,300;1,9..144,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--white:#fff;--black:#0a0a0a;--gray-50:#fafafa;--gray-100:#f5f5f5;--gray-200:#eee;--gray-300:#e0e0e0;--gray-400:#bdbdbd;--gray-500:#9e9e9e;--gray-600:#757575;--gray-700:#616161;--green:#1a7a4a;--green-light:#e8f5ee;--red:#c0392b;--red-light:#fdf0ef;--gold:#b8860b;--font-display:'Playfair Display',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;--radius:12px}
-body{font-family:var(--font-body);background:var(--gray-50);color:var(--black);padding-bottom:80px;min-height:100vh}
-/* LOGIN SCREEN */
-.login-screen{min-height:100vh;background:var(--black);display:flex;align-items:center;justify-content:center;padding:20px;position:relative}
-.login-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
-.login-card{background:var(--white);border-radius:20px;padding:28px 22px;width:100%;max-width:360px;position:relative;z-index:1;box-shadow:0 25px 60px rgba(0,0,0,.4)}
-.login-logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:4px}
-.login-lm{width:34px;height:34px;background:var(--black);color:var(--white);border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px}
-.login-name{font-family:var(--font-display);font-size:20px;font-weight:700}
-.login-sub{text-align:center;font-size:12px;color:var(--gray-400);margin-bottom:20px}
-.login-label{display:block;font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
-.login-input{width:100%;padding:12px 14px;background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:14px;color:var(--black);outline:none;margin-bottom:12px}
-.login-input:focus{border-color:var(--black);background:var(--white)}
-.login-btn{width:100%;padding:13px;background:var(--black);color:var(--white);border:none;border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
-.login-err{background:var(--red-light);border:1px solid rgba(192,57,43,.15);border-radius:var(--radius);padding:10px 14px;font-size:13px;color:var(--red);margin-top:10px;display:none}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --m:#800020;--md:#5c0018;--ml:rgba(128,0,32,0.08);--ms:rgba(128,0,32,0.15);
+  --white:#fff;--cream:#fdf9f6;--g50:#faf8f6;--g100:#f2eeeb;--g200:#e8e0dd;
+  --g300:#d4c8c4;--g400:#b8a8a4;--g500:#8a7470;--g600:#5a4440;
+  --text:#1a0a0f;--muted:#8a7470;
+  --green:#1a6b3c;--greenl:rgba(26,107,60,0.08);
+  --red:#b02020;--redl:rgba(176,32,32,0.08);
+  --gold:#8a6000;--goldl:rgba(138,96,0,0.1);
+  --radius:14px;--radiuss:10px;
+  --shadow:0 2px 16px rgba(128,0,32,0.07);
+  --shadow-m:0 8px 32px rgba(128,0,32,0.13);
+}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);padding-bottom:76px;min-height:100vh}
+
+/* ── LOGIN ── */
+.login-screen{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;
+  padding:20px;background:var(--m);position:relative;overflow:hidden;
+}
+.login-screen::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 120% 80% at 50% 110%, rgba(255,255,255,0.06) 0%, transparent 70%);
+}
+.login-screen::after{
+  content:'';position:absolute;top:-60px;right:-60px;width:260px;height:260px;
+  border-radius:50%;border:1px solid rgba(255,255,255,0.06);
+}
+.login-wrap{
+  width:100%;max-width:360px;position:relative;z-index:2;
+}
+.login-school{text-align:center;margin-bottom:28px;}
+.login-school-icon{
+  width:58px;height:58px;background:rgba(255,255,255,0.12);border:1.5px solid rgba(255,255,255,0.2);
+  border-radius:16px;display:flex;align-items:center;justify-content:center;
+  margin:0 auto 12px;font-family:'Fraunces',serif;font-weight:900;font-size:1.4rem;color:white;
+}
+.login-school-name{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:700;color:white;margin-bottom:3px}
+.login-school-sub{font-size:0.75rem;color:rgba(255,255,255,0.45);letter-spacing:2px;text-transform:uppercase}
+.login-card{
+  background:var(--white);border-radius:20px;padding:28px 24px;
+  box-shadow:0 30px 80px rgba(0,0,0,0.25);
+}
+.login-card-title{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:700;margin-bottom:4px;color:var(--text)}
+.login-card-sub{font-size:0.82rem;color:var(--muted);margin-bottom:22px}
+.lbl{display:block;font-size:0.72rem;font-weight:600;color:var(--g500);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+.inp{
+  width:100%;padding:12px 14px;background:var(--g50);border:1.5px solid var(--g200);
+  border-radius:var(--radiuss);font-family:'DM Sans',sans-serif;font-size:0.92rem;
+  color:var(--text);outline:none;margin-bottom:14px;transition:border-color 0.2s,background 0.2s;
+}
+.inp:focus{border-color:var(--m);background:var(--white)}
+.inp::placeholder{color:var(--g300)}
+.remember-row{display:flex;align-items:center;gap:8px;margin-bottom:18px}
+.remember-row input[type=checkbox]{width:15px;height:15px;accent-color:var(--m);cursor:pointer;flex-shrink:0}
+.remember-row label{font-size:0.82rem;color:var(--muted);cursor:pointer}
+.login-btn{
+  width:100%;padding:13px;background:var(--m);color:var(--white);border:none;
+  border-radius:var(--radiuss);font-family:'DM Sans',sans-serif;font-size:0.9rem;
+  font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  gap:8px;transition:background 0.2s,transform 0.15s;
+}
+.login-btn:hover{background:var(--md);transform:translateY(-1px)}
+.login-btn:active{transform:translateY(0)}
+.login-err{
+  background:var(--redl);border:1px solid rgba(176,32,32,0.2);border-radius:var(--radiuss);
+  padding:10px 14px;font-size:0.82rem;color:var(--red);margin-top:12px;display:none;text-align:center;
+}
 .login-err.show{display:block}
-.login-sp{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:var(--white);border-radius:50%;animation:spin .7s linear infinite}
-/* MAIN APP */
-.topbar{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:1px solid var(--gray-200);padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
-.tl{font-family:var(--font-display);font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
-.lm{width:28px;height:28px;background:var(--black);color:var(--white);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.spin-sm{width:16px;height:16px;border:2px solid rgba(255,255,255,0.3);border-top-color:white;border-radius:50%;animation:spin .7s linear infinite;flex-shrink:0}
+
+/* ── TOPBAR ── */
+.topbar{
+  position:sticky;top:0;z-index:100;background:var(--white);
+  border-bottom:1px solid var(--g200);padding:11px 16px;
+  display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 1px 8px rgba(128,0,32,0.05);
+}
+.tl{display:flex;align-items:center;gap:9px}
+.lm{
+  width:30px;height:30px;background:var(--m);color:var(--white);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;font-family:'Fraunces',serif;font-weight:900;font-size:0.95rem;
+}
+.brand{font-family:'Fraunces',serif;font-size:1rem;font-weight:700;color:var(--text);letter-spacing:-0.3px}
 .tr{display:flex;align-items:center;gap:8px}
-.ls{display:flex;gap:2px;background:var(--gray-100);border-radius:100px;padding:2px}
-.lb{padding:4px 9px;border-radius:100px;border:none;background:transparent;font-family:var(--font-body);font-size:10px;font-weight:700;color:var(--gray-400);cursor:pointer}
-.lb.active{background:var(--white);color:var(--black)}
-.ob{background:none;border:1px solid var(--gray-200);border-radius:7px;padding:6px 10px;font-size:11px;font-weight:600;color:var(--gray-500);cursor:pointer;font-family:var(--font-body)}
-.cnt{max-width:600px;margin:0 auto}
-.hdr{background:var(--black);color:var(--white);padding:20px 16px 24px;position:relative;overflow:hidden}
-.hg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:32px 32px}
+.lang-sw{display:flex;gap:1px;background:var(--g100);border-radius:100px;padding:2px;border:1px solid var(--g200)}
+.lb{
+  padding:4px 10px;border-radius:100px;border:none;background:transparent;
+  font-family:'DM Sans',sans-serif;font-size:0.7rem;font-weight:600;color:var(--g400);cursor:pointer;
+  transition:all 0.2s;
+}
+.lb.active{background:var(--m);color:white}
+.logout-btn{
+  background:none;border:1.5px solid var(--g200);border-radius:8px;
+  padding:6px 12px;font-size:0.75rem;font-weight:600;color:var(--g500);
+  cursor:pointer;font-family:'DM Sans',sans-serif;transition:all 0.2s;
+}
+.logout-btn:hover{border-color:var(--m);color:var(--m)}
+
+/* ── CONTENT ── */
+.cnt{max-width:560px;margin:0 auto}
+
+/* ── HEADER BANNER ── */
+.hdr{
+  background:var(--m);color:var(--white);padding:22px 16px 26px;
+  position:relative;overflow:hidden;
+}
+.hdr::before{
+  content:'';position:absolute;top:-40px;right:-40px;width:160px;height:160px;
+  border-radius:50%;border:1px solid rgba(255,255,255,0.07);
+}
+.hdr::after{
+  content:'';position:absolute;bottom:-30px;left:-30px;width:120px;height:120px;
+  border-radius:50%;border:1px solid rgba(255,255,255,0.05);
+}
 .hc{position:relative;z-index:1}
-.prow{display:flex;align-items:flex-start;gap:14px;margin-bottom:10px}
-.sphoto{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:22px;color:rgba(255,255,255,.8);flex-shrink:0;overflow:hidden}
+.prow{display:flex;align-items:flex-start;gap:14px;margin-bottom:12px}
+.sphoto{
+  width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,0.12);
+  border:2px solid rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-size:1.3rem;color:rgba(255,255,255,0.85);flex-shrink:0;overflow:hidden;
+}
 .sphoto img{width:100%;height:100%;object-fit:cover}
-.grt{font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:600}
-.snm{font-family:var(--font-display);font-size:24px;font-weight:700;line-height:1.1;margin-bottom:6px}
-.cps{display:flex;gap:6px;flex-wrap:wrap}
-.cp{padding:3px 10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-radius:100px;font-size:10px;color:rgba(255,255,255,.7);font-weight:500}
-.qs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:14px 16px}
-.qs{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:14px;cursor:pointer}
-.qsi{width:30px;height:30px;background:var(--gray-100);border-radius:7px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
-.qsi svg{width:15px;height:15px;stroke:var(--black)}
-.qsv{font-family:var(--font-display);font-size:24px;font-weight:700;line-height:1;margin-bottom:2px}
-.qsl{font-size:10px;color:var(--gray-400);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-.sec{padding:0 16px;margin-bottom:18px}
-.stt{font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:10px}
-.card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:14px;margin-bottom:10px}
-.mr{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid var(--gray-100)}
-.mr:last-child{border-bottom:none}
-.ms{font-size:13px;font-weight:600;min-width:90px}
-.mb{flex:1;height:4px;background:var(--gray-100);border-radius:2px;overflow:hidden}
-.mf{height:100%;border-radius:2px;transition:width 1s ease}
-.msc{font-family:var(--font-mono);font-size:12px;font-weight:600;min-width:50px;text-align:right;color:var(--gray-600)}
-.ac{display:flex;align-items:center;gap:16px;padding:16px}
-.ad{width:72px;height:72px;position:relative;flex-shrink:0}
+.grt{font-size:0.7rem;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1.5px;font-weight:600;margin-bottom:3px}
+.snm{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:700;line-height:1.1;margin-bottom:8px}
+.cps{display:flex;gap:5px;flex-wrap:wrap}
+.cp{
+  padding:3px 10px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.12);
+  border-radius:100px;font-size:0.7rem;color:rgba(255,255,255,0.75);font-weight:500;
+}
+
+/* ── QUICK STATS ── */
+.qs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;padding:14px 14px}
+.qs{
+  background:var(--white);border:1px solid var(--g200);border-radius:var(--radius);
+  padding:14px;cursor:pointer;transition:all 0.2s;box-shadow:var(--shadow);
+}
+.qs:hover{border-color:var(--ms);box-shadow:var(--shadow-m);transform:translateY(-1px)}
+.qsi{
+  width:32px;height:32px;background:var(--ml);border-radius:8px;
+  display:flex;align-items:center;justify-content:center;margin-bottom:10px;
+}
+.qsi svg{width:15px;height:15px;stroke:var(--m);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.qsv{font-family:'Fraunces',serif;font-size:1.5rem;font-weight:700;line-height:1;margin-bottom:2px;color:var(--text)}
+.qsl{font-size:0.68rem;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}
+
+/* ── SECTIONS ── */
+.sec{padding:0 14px;margin-bottom:20px}
+.stt{
+  font-family:'Fraunces',serif;font-size:1rem;font-weight:700;margin-bottom:10px;
+  color:var(--text);display:flex;align-items:center;gap:8px;
+}
+.stt::after{content:'';flex:1;height:1px;background:var(--g200)}
+
+/* ── CARD ── */
+.card{background:var(--white);border:1px solid var(--g200);border-radius:var(--radius);padding:14px;margin-bottom:10px;box-shadow:var(--shadow)}
+
+/* ── MARKS ── */
+.mr{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--g100)}
+.mr:last-child{border-bottom:none;padding-bottom:0}
+.mr:first-child{padding-top:0}
+.ms{font-size:0.82rem;font-weight:600;min-width:88px;color:var(--text)}
+.mb{flex:1;height:5px;background:var(--g100);border-radius:3px;overflow:hidden}
+.mf{height:100%;border-radius:3px;background:var(--m);transition:width 1.2s cubic-bezier(0.4,0,0.2,1)}
+.msc{font-family:'JetBrains Mono',monospace;font-size:0.75rem;font-weight:600;min-width:46px;text-align:right;color:var(--muted)}
+
+/* ── ATTENDANCE ── */
+.ac{display:flex;align-items:center;gap:18px;padding:14px}
+.ad{width:80px;height:80px;position:relative;flex-shrink:0}
 .ad svg{transform:rotate(-90deg)}
 .at{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.ap{font-family:var(--font-mono);font-size:15px;font-weight:700;line-height:1}
-.as2{font-size:8px;color:var(--gray-400);text-transform:uppercase}
-.ar2{display:flex;justify-content:space-between;font-size:13px;padding:4px 0}
-.al{color:var(--gray-500)}.av{font-weight:600}
-.fc{padding:14px}
-.fr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
-.fa{font-family:var(--font-display);font-size:22px;font-weight:700}
-.fs2{font-size:11px;color:var(--gray-400)}
-.pb{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;background:var(--black);color:var(--white);border:none;border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer}
-.pb svg{width:15px;height:15px;stroke:var(--white)}
+.ap{font-family:'JetBrains Mono',monospace;font-size:1rem;font-weight:700;line-height:1;color:var(--m)}
+.as2{font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:1px}
+.att-details{flex:1}
+.ar2{display:flex;justify-content:space-between;align-items:center;font-size:0.82rem;padding:5px 0;border-bottom:1px solid var(--g100)}
+.ar2:last-child{border-bottom:none}
+.al{color:var(--muted);font-weight:400}
+.av{font-weight:600;color:var(--text)}
+
+/* ── FEES ── */
+.fc{padding:16px}
+.fr{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px}
+.fee-amount-wrap{}
+.fee-label{font-size:0.72rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:4px}
+.fa{font-family:'Fraunces',serif;font-size:1.8rem;font-weight:700;color:var(--text);line-height:1}
+.fee-badge{
+  padding:5px 12px;border-radius:100px;font-size:0.72rem;font-weight:700;
+  text-transform:uppercase;letter-spacing:0.5px;
+}
+.fee-badge.paid{background:var(--greenl);color:var(--green)}
+.fee-badge.pending{background:var(--redl);color:var(--red)}
+.fee-badge.partial{background:var(--goldl);color:var(--gold)}
+.fee-breakdown{background:var(--g50);border-radius:10px;padding:10px 12px;margin-bottom:14px;border:1px solid var(--g100)}
+.fee-row{display:flex;justify-content:space-between;font-size:0.82rem;padding:3px 0}
+.fee-row span:first-child{color:var(--muted)}
+.fee-row span:last-child{font-weight:600;color:var(--text)}
+.pb{
+  display:flex;align-items:center;justify-content:center;gap:8px;width:100%;
+  padding:13px;background:var(--m);color:var(--white);border:none;border-radius:var(--radiuss);
+  font-family:'DM Sans',sans-serif;font-size:0.9rem;font-weight:600;cursor:pointer;
+  transition:all 0.2s;box-shadow:0 4px 16px rgba(128,0,32,0.25);
+}
+.pb:hover{background:var(--md);transform:translateY(-1px);box-shadow:0 6px 20px rgba(128,0,32,0.3)}
+.pb:active{transform:translateY(0)}
+.pb svg{width:15px;height:15px;stroke:white;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── TEACHER ── */
 .trow{display:flex;align-items:center;gap:12px}
-.tav{width:40px;height:40px;background:var(--gray-100);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:16px;color:var(--gray-600);flex-shrink:0}
-.tnm{font-size:14px;font-weight:600}.ts2{font-size:11px;color:var(--gray-400)}
-.ttc{overflow:hidden}
-.ttr{display:flex;border-bottom:1px solid var(--gray-100)}
+.tav{
+  width:42px;height:42px;background:var(--ml);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-size:1rem;color:var(--m);flex-shrink:0;
+}
+.tnm{font-size:0.9rem;font-weight:600;color:var(--text)}
+.ts2{font-size:0.76rem;color:var(--muted)}
+
+/* ── TIMETABLE ── */
+.ttc{border-radius:var(--radiuss);overflow:hidden;border:1px solid var(--g200)}
+.ttr{display:flex;border-bottom:1px solid var(--g100)}
 .ttr:last-child{border-bottom:none}
-.ttd{width:72px;padding:8px 10px;font-size:10px;font-weight:700;color:var(--gray-500);text-transform:uppercase;background:var(--gray-50);border-right:1px solid var(--gray-100);display:flex;align-items:center;flex-shrink:0}
-.ttp{display:flex;flex:1;overflow-x:auto;padding:6px;gap:5px}
-.ttpi{flex-shrink:0;padding:5px 9px;background:var(--gray-50);border:1px solid var(--gray-100);border-radius:6px;font-size:11px;font-weight:500;white-space:nowrap}
-.ni{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--gray-100)}
-.ni:last-child{border-bottom:none}
-.nd{width:7px;height:7px;background:var(--black);border-radius:50%;flex-shrink:0;margin-top:4px}
-.ntl{font-size:13px;font-weight:600;margin-bottom:2px}
-.nm{font-size:12px;color:var(--gray-500);line-height:1.5}
-.nti{font-size:10px;color:var(--gray-300);margin-top:3px}
-.pi{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:12px;margin-bottom:8px}
-.ph{display:flex;justify-content:space-between;margin-bottom:6px}
-.pau{font-size:12px;font-weight:700}.ptm{font-size:10px;color:var(--gray-300)}
-.ptxt{font-size:13px;color:var(--gray-700);line-height:1.6}
-.pimg{width:100%;border-radius:8px;margin-top:8px;max-height:220px;object-fit:cover}
-.vb{display:flex;align-items:center;gap:6px;margin-top:8px;padding:8px 12px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:8px;font-size:12px;color:var(--black);text-decoration:none;font-weight:500}
-.pfhd{background:var(--black);color:var(--white);border-radius:var(--radius);padding:20px;text-align:center;margin-bottom:12px;position:relative;overflow:hidden}
-.pfg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:32px 32px}
-.pfav{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.1);border:2px solid rgba(255,255,255,.2);margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:26px;overflow:hidden;position:relative;z-index:1}
+.ttd{
+  width:68px;padding:8px 10px;font-size:0.68rem;font-weight:700;color:var(--m);
+  text-transform:uppercase;background:var(--ml);border-right:1px solid var(--g200);
+  display:flex;align-items:center;flex-shrink:0;letter-spacing:0.3px;
+}
+.ttp{display:flex;flex:1;overflow-x:auto;padding:6px 8px;gap:5px;scrollbar-width:none}
+.ttp::-webkit-scrollbar{display:none}
+.ttpi{
+  flex-shrink:0;padding:5px 10px;background:var(--g50);border:1px solid var(--g200);
+  border-radius:7px;font-size:0.72rem;font-weight:500;white-space:nowrap;color:var(--text);
+}
+
+/* ── NOTIFICATIONS ── */
+.ni{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--g100)}
+.ni:last-child{border-bottom:none;padding-bottom:0}
+.ni:first-child{padding-top:0}
+.nd{width:7px;height:7px;background:var(--m);border-radius:50%;flex-shrink:0;margin-top:5px}
+.ntl{font-size:0.88rem;font-weight:600;margin-bottom:3px;color:var(--text)}
+.nm{font-size:0.8rem;color:var(--muted);line-height:1.55}
+.nti{font-size:0.68rem;color:var(--g300);margin-top:4px}
+
+/* ── GROUP POSTS ── */
+.pi{background:var(--white);border:1px solid var(--g200);border-radius:var(--radius);padding:14px;margin-bottom:10px;box-shadow:var(--shadow)}
+.ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.pau{font-size:0.82rem;font-weight:700;color:var(--m)}
+.ptm{font-size:0.7rem;color:var(--g300)}
+.ptxt{font-size:0.88rem;color:var(--g600);line-height:1.65}
+.pimg{width:100%;border-radius:10px;margin-top:10px;max-height:220px;object-fit:cover}
+.vb{
+  display:inline-flex;align-items:center;gap:7px;margin-top:10px;padding:8px 14px;
+  background:var(--g50);border:1px solid var(--g200);border-radius:9px;
+  font-size:0.78rem;color:var(--text);text-decoration:none;font-weight:600;
+  transition:all 0.2s;
+}
+.vb:hover{border-color:var(--ms);color:var(--m)}
+.vb svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ── PROFILE ── */
+.pfhd{
+  background:var(--m);color:var(--white);border-radius:var(--radius);
+  padding:22px;text-align:center;margin-bottom:12px;position:relative;overflow:hidden;
+  box-shadow:var(--shadow-m);
+}
+.pfhd::before{content:'';position:absolute;top:-30px;right:-30px;width:120px;height:120px;border-radius:50%;border:1px solid rgba(255,255,255,0.07)}
+.pfav{
+  width:68px;height:68px;border-radius:50%;background:rgba(255,255,255,0.12);
+  border:2px solid rgba(255,255,255,0.25);margin:0 auto 12px;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-size:1.6rem;overflow:hidden;position:relative;z-index:1;
+}
 .pfav img{width:100%;height:100%;object-fit:cover}
-.pfnm{font-family:var(--font-display);font-size:22px;font-weight:700;position:relative;z-index:1}
-.pfcd{font-family:var(--font-mono);font-size:11px;color:rgba(255,255,255,.4);margin-top:2px;position:relative;z-index:1}
-.pfcp{display:flex;gap:6px;justify-content:center;margin-top:8px;position:relative;z-index:1}
-.pfcpi{background:rgba(255,255,255,.1);padding:3px 10px;border-radius:100px;font-size:10px}
-.il{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;margin-bottom:10px}
-.ir{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-bottom:1px solid var(--gray-100)}
+.pfnm{font-family:'Fraunces',serif;font-size:1.3rem;font-weight:700;position:relative;z-index:1;margin-bottom:2px}
+.pfcd{font-family:'JetBrains Mono',monospace;font-size:0.72rem;color:rgba(255,255,255,0.4);position:relative;z-index:1;margin-bottom:10px}
+.pfcp{display:flex;gap:5px;justify-content:center;position:relative;z-index:1;flex-wrap:wrap}
+.pfcpi{background:rgba(255,255,255,0.1);padding:3px 10px;border-radius:100px;font-size:0.7rem}
+.il{background:var(--white);border:1px solid var(--g200);border-radius:var(--radius);overflow:hidden;margin-bottom:10px;box-shadow:var(--shadow)}
+.ir{display:flex;justify-content:space-between;align-items:center;padding:12px 14px;border-bottom:1px solid var(--g100)}
 .ir:last-child{border-bottom:none}
-.irlab{font-size:12px;color:var(--gray-400);font-weight:500}
-.irval{font-size:13px;font-weight:600;text-align:right;max-width:60%}
-.mo{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:none;align-items:flex-end}
+.irlab{font-size:0.78rem;color:var(--muted);font-weight:500}
+.irval{font-size:0.85rem;font-weight:600;text-align:right;max-width:60%;color:var(--text)}
+
+/* ── PAYMENT MODAL ── */
+.mo{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:200;display:none;align-items:flex-end;backdrop-filter:blur(4px)}
 .mo.show{display:flex}
-.msh{background:var(--white);border-radius:20px 20px 0 0;padding:20px 16px 40px;width:100%;animation:su .3s ease}
-@keyframes su{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.mh{width:36px;height:4px;background:var(--gray-200);border-radius:2px;margin:0 auto 16px}
-.mttl{font-family:var(--font-display);font-size:20px;font-weight:700;margin-bottom:4px}
-.msub{font-size:13px;color:var(--gray-400);margin-bottom:16px}
-.ub{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:var(--radius);padding:12px 14px;margin-bottom:14px}
-.ul{font-size:10px;color:var(--gray-400);text-transform:uppercase;letter-spacing:.8px;font-weight:600;margin-bottom:3px}
-.uv{font-family:var(--font-mono);font-size:15px;font-weight:700}
-.ua{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
-.uab{padding:11px 6px;background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:12px;font-weight:700;color:var(--black);cursor:pointer;text-align:center;display:block;text-decoration:none}
-.dv{display:flex;align-items:center;gap:10px;color:var(--gray-300);font-size:11px;margin-bottom:14px}
-.dv::before,.dv::after{content:'';flex:1;height:1px;background:var(--gray-200)}
-.fi{width:100%;padding:11px 13px;background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:13px;color:var(--black);outline:none;margin-bottom:12px}
-.fi:focus{border-color:var(--black)}
-.sbt{width:100%;padding:13px;background:var(--black);color:var(--white);border:none;border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer;margin-bottom:8px}
-.cbt{width:100%;padding:11px;background:none;border:1px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:13px;color:var(--gray-500);cursor:pointer}
-.bn{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--gray-200);display:flex;padding:6px 0 8px;z-index:100}
-.bb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 4px;background:none;border:none;cursor:pointer}
-.bi{width:21px;height:21px;stroke:var(--gray-300)}
-.bla{font-size:9px;font-weight:600;color:var(--gray-300);text-transform:uppercase;letter-spacing:.5px}
-.bb.active .bi{stroke:var(--black)}
-.bb.active .bla{color:var(--black)}
-.ls2{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:12px}
-.sp{width:26px;height:26px;border:2px solid var(--gray-200);border-top-color:var(--black);border-radius:50%;animation:spin .8s linear infinite}
-.lt{font-size:13px;color:var(--gray-400);text-align:center}
-.eb{text-align:center;padding:28px;color:var(--gray-300)}
-.eb p{font-size:13px}
-.toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--black);color:var(--white);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:999;white-space:nowrap}
+.msh{
+  background:var(--white);border-radius:22px 22px 0 0;padding:20px 16px 40px;
+  width:100%;max-height:92vh;overflow-y:auto;animation:slideup .3s cubic-bezier(0.34,1.1,0.64,1);
+}
+@keyframes slideup{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.mh{width:36px;height:4px;background:var(--g200);border-radius:2px;margin:0 auto 18px}
+.mttl{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;margin-bottom:3px}
+.msub{font-size:0.82rem;color:var(--muted);margin-bottom:18px}
+
+/* custom amount */
+.amount-section{margin-bottom:18px}
+.amount-label{font-size:0.72rem;font-weight:600;color:var(--g500);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;display:block}
+.amount-input-wrap{position:relative;margin-bottom:8px}
+.amount-rs{
+  position:absolute;left:14px;top:50%;transform:translateY(-50%);
+  font-family:'Fraunces',serif;font-weight:700;font-size:1.1rem;color:var(--m);
+}
+.amount-inp{
+  width:100%;padding:14px 14px 14px 34px;background:var(--g50);
+  border:2px solid var(--m);border-radius:var(--radiuss);
+  font-family:'JetBrains Mono',monospace;font-size:1.2rem;font-weight:700;
+  color:var(--text);outline:none;transition:border-color 0.2s;
+}
+.amount-inp:focus{border-color:var(--md);background:var(--white)}
+.amount-presets{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.amount-preset{
+  padding:7px 14px;background:var(--ml);border:1.5px solid var(--ms);border-radius:100px;
+  font-size:0.78rem;font-weight:600;color:var(--m);cursor:pointer;font-family:'DM Sans',sans-serif;
+  transition:all 0.2s;
+}
+.amount-preset:hover,.amount-preset.selected{background:var(--m);color:white;border-color:var(--m)}
+.amount-note{font-size:0.75rem;color:var(--muted);text-align:center}
+
+.upi-section{background:var(--g50);border:1px solid var(--g200);border-radius:var(--radiuss);padding:12px 14px;margin-bottom:16px}
+.upi-label{font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;font-weight:600;margin-bottom:4px}
+.upi-id{font-family:'JetBrains Mono',monospace;font-size:0.95rem;font-weight:700;color:var(--text)}
+
+.ua{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:18px}
+.uab{
+  padding:12px 6px;background:var(--white);border:1.5px solid var(--g200);border-radius:var(--radiuss);
+  font-family:'DM Sans',sans-serif;font-size:0.8rem;font-weight:700;color:var(--text);
+  cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;gap:6px;
+  text-decoration:none;transition:all 0.2s;
+}
+.uab:hover{border-color:var(--m);color:var(--m);background:var(--ml)}
+.uab-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+
+.divider{display:flex;align-items:center;gap:10px;color:var(--g300);font-size:0.75rem;margin-bottom:16px}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--g200)}
+
+.fi{
+  width:100%;padding:12px 14px;background:var(--g50);border:1.5px solid var(--g200);
+  border-radius:var(--radiuss);font-family:'DM Sans',sans-serif;font-size:0.88rem;
+  color:var(--text);outline:none;margin-bottom:12px;
+}
+.fi:focus{border-color:var(--m)}
+.fi::placeholder{color:var(--g300)}
+
+.sbt{
+  width:100%;padding:14px;background:var(--m);color:white;border:none;border-radius:var(--radiuss);
+  font-family:'DM Sans',sans-serif;font-size:0.92rem;font-weight:600;cursor:pointer;
+  margin-bottom:8px;transition:all 0.2s;box-shadow:0 4px 16px rgba(128,0,32,0.25);
+}
+.sbt:hover{background:var(--md)}
+.cbt{
+  width:100%;padding:12px;background:none;border:1.5px solid var(--g200);border-radius:var(--radiuss);
+  font-family:'DM Sans',sans-serif;font-size:0.85rem;color:var(--muted);cursor:pointer;transition:all 0.2s;
+}
+.cbt:hover{border-color:var(--m);color:var(--m)}
+
+/* ── BOTTOM NAV ── */
+.bn{
+  position:fixed;bottom:0;left:0;right:0;background:var(--white);
+  border-top:1px solid var(--g200);display:flex;padding:6px 0 10px;z-index:100;
+  box-shadow:0 -4px 20px rgba(128,0,32,0.06);
+}
+.bb{
+  flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;
+  padding:5px 4px;background:none;border:none;cursor:pointer;transition:all 0.2s;
+}
+.bi{width:21px;height:21px;stroke:var(--g300);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke 0.2s}
+.bla{font-size:0.58rem;font-weight:700;color:var(--g300);text-transform:uppercase;letter-spacing:0.5px;transition:color 0.2s}
+.bb.active .bi{stroke:var(--m)}
+.bb.active .bla{color:var(--m)}
+
+/* ── STATES ── */
+.ls2{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:55vh;gap:14px}
+.sp{width:28px;height:28px;border:2.5px solid var(--g200);border-top-color:var(--m);border-radius:50%;animation:spin .8s linear infinite}
+.lt{font-size:0.82rem;color:var(--muted);text-align:center}
+.eb{text-align:center;padding:36px 20px;color:var(--muted)}
+.eb p{font-size:0.85rem;margin-top:8px}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(16px);
+  background:var(--text);color:white;padding:10px 20px;border-radius:100px;
+  font-size:0.82rem;font-weight:600;opacity:0;transition:all .3s;z-index:999;white-space:nowrap;
+  box-shadow:0 4px 20px rgba(0,0,0,0.2);
+}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
 @keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── RESPONSIVE ── */
+@media(min-width:500px){
+  .qs-grid{grid-template-columns:repeat(4,1fr)}
+}
 </style>
 </head>
 <body>
 
-<!-- LOGIN SCREEN (shown when no token) -->
+<!-- ══ LOGIN SCREEN ══ -->
 <div class="login-screen" id="loginScreen" style="display:none">
-  <div class="login-bg"></div>
-  <div class="login-card">
-    <div class="login-logo">
-      <div class="login-lm">E</div>
-      <div class="login-name">EduManage</div>
+  <div class="login-wrap">
+    <div class="login-school">
+      <div class="login-school-icon">E</div>
+      <div class="login-school-name">Emmanuel School</div>
+      <div class="login-school-sub">Student Portal</div>
     </div>
-    <div class="login-sub">Student Login</div>
-    <label class="login-label">Student Code</label>
-    <input type="text" class="login-input" id="lCode" placeholder="e.g. AYUSH09" autocomplete="off" spellcheck="false" style="text-transform:uppercase">
-    <label class="login-label">Password</label>
-    <input type="password" class="login-input" id="lPass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
-    <button class="login-btn" id="lBtn" onclick="doLogin()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-      Sign In
-    </button>
-    <div class="login-err" id="lErr"></div>
+    <div class="login-card">
+      <div class="login-card-title">Welcome back</div>
+      <div class="login-card-sub">Sign in to access your portal</div>
+      <label class="lbl">Student Code</label>
+      <input type="text" class="inp" id="lCode" placeholder="e.g. AYUSH09" autocomplete="off" spellcheck="false" style="text-transform:uppercase">
+      <label class="lbl">Password</label>
+      <input type="password" class="inp" id="lPass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
+      <div class="remember-row">
+        <input type="checkbox" id="rememberMe" checked>
+        <label for="rememberMe">Keep me signed in</label>
+      </div>
+      <button class="login-btn" id="lBtn" onclick="doLogin()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+        Sign In
+      </button>
+      <div class="login-err" id="lErr"></div>
+    </div>
   </div>
 </div>
 
-<!-- MAIN APP (shown after login) -->
+<!-- ══ MAIN APP ══ -->
 <div id="appScreen" style="display:none">
   <div class="topbar">
-    <div class="tl"><div class="lm">E</div>EduManage</div>
+    <div class="tl">
+      <div class="lm">E</div>
+      <span class="brand">EduManage</span>
+    </div>
     <div class="tr">
-      <div class="ls">
-        <button class="lb active" onclick="setLang('en')">EN</button>
-        <button class="lb" onclick="setLang('hi')">HI</button>
-        <button class="lb" onclick="setLang('mr')">MR</button>
+      <div class="lang-sw">
+        <button class="lb active" onclick="setLang('en',this)">EN</button>
+        <button class="lb" onclick="setLang('hi',this)">HI</button>
+        <button class="lb" onclick="setLang('mr',this)">MR</button>
       </div>
-      <button class="ob" onclick="doLogout()">Logout</button>
+      <button class="logout-btn" onclick="doLogout()">Logout</button>
     </div>
   </div>
+
   <div class="cnt" id="mainContent">
-    <div class="ls2"><div class="sp"></div><div class="lt">Loading...</div></div>
+    <div class="ls2"><div class="sp"></div><div class="lt">Loading…</div></div>
   </div>
+
   <nav class="bn">
     <button class="bb active" onclick="showPage('home',this)">
-      <svg class="bi" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <svg class="bi" viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       <span class="bla">Home</span>
     </button>
     <button class="bb" onclick="showPage('marks',this)">
-      <svg class="bi" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      <svg class="bi" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
       <span class="bla">Marks</span>
     </button>
     <button class="bb" onclick="showPage('group',this)">
-      <svg class="bi" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <svg class="bi" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       <span class="bla">Group</span>
     </button>
     <button class="bb" onclick="showPage('notifications',this)">
-      <svg class="bi" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <svg class="bi" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       <span class="bla">Alerts</span>
     </button>
     <button class="bb" onclick="showPage('profile',this)">
-      <svg class="bi" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      <svg class="bi" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       <span class="bla">Profile</span>
     </button>
   </nav>
 </div>
 
-<!-- PAYMENT MODAL -->
-<div class="mo" id="payModal">
+<!-- ══ PAYMENT MODAL ══ -->
+<div class="mo" id="payModal" onclick="if(event.target===this)closePay()">
   <div class="msh">
     <div class="mh"></div>
-    <div class="mttl">Pay Fees</div>
-    <div class="msub" id="payTxt">Amount due: Rs. 0</div>
-    <div class="ub"><div class="ul">School UPI ID</div><div class="uv" id="upiId">Loading...</div></div>
-    <div class="ua">
-      <a class="uab" id="ppBtn" href="#">PhonePe</a>
-      <a class="uab" id="gpBtn" href="#">GPay</a>
-      <a class="uab" id="ptBtn" href="#">Paytm</a>
+    <div class="mttl">Pay School Fees</div>
+    <div class="msub" id="payTxt">Choose amount to pay</div>
+
+    <!-- CUSTOM AMOUNT -->
+    <div class="amount-section">
+      <label class="amount-label">Enter Amount (₹)</label>
+      <div class="amount-input-wrap">
+        <span class="amount-rs">₹</span>
+        <input type="number" class="amount-inp" id="payAmount" placeholder="0" min="1" oninput="onAmountType()">
+      </div>
+      <div class="amount-presets" id="amountPresets">
+        <!-- filled dynamically -->
+      </div>
+      <div class="amount-note" id="amountNote">Max: ₹0 pending</div>
     </div>
-    <div class="dv">After payment enter details</div>
-    <label style="font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:5px">UPI Transaction ID</label>
+
+    <!-- UPI ID -->
+    <div class="upi-section">
+      <div class="upi-label">School UPI ID</div>
+      <div class="upi-id" id="upiId">Loading…</div>
+    </div>
+
+    <!-- UPI APPS -->
+    <div class="ua">
+      <a class="uab" id="ppBtn" href="#" onclick="return openUPI('phonepe')">
+        <div class="uab-icon" style="background:#f0eaff">💜</div>
+        PhonePe
+      </a>
+      <a class="uab" id="gpBtn" href="#" onclick="return openUPI('gpay')">
+        <div class="uab-icon" style="background:#e8f4ea">💚</div>
+        GPay
+      </a>
+      <a class="uab" id="ptBtn" href="#" onclick="return openUPI('paytm')">
+        <div class="uab-icon" style="background:#e8f4ff">💙</div>
+        Paytm
+      </a>
+    </div>
+
+    <div class="divider">After payment, enter transaction ID</div>
+
+    <label class="lbl">UPI Transaction ID</label>
     <input type="text" class="fi" id="upiRef" placeholder="e.g. 123456789012">
-    <button class="sbt" onclick="submitPay()">Submit Payment</button>
+
+    <button class="sbt" onclick="submitPay()">Confirm Payment</button>
     <button class="cbt" onclick="closePay()">Cancel</button>
   </div>
 </div>
@@ -235,268 +537,514 @@ let activeToken = null;
 let sd = null;
 let cp = 'home';
 let lang = localStorage.getItem('edu-lang') || 'en';
+let pendingFeeAmount = 0;
 
-// TRANSLATIONS
+// ── TRANSLATIONS ──
 const T = {
-  en:{greeting:'Good day,',avg:'Average',grade:'Grade',att:'Attendance',fees:'Fees',teacher:'Class Teacher',paid:'Paid',pending:'Pending',partial:'Partial',present:'Present',absent:'Absent',total:'Total Days',no_marks:'No marks yet',no_posts:'No posts yet',no_notif:'No notifications yet',pay:'Pay Fees',fees_paid:'Fees fully paid',pay_ok:'Payment submitted!',bus_yes:'Bus',bus_no:'No Bus',due:'Amount Due',paid2:'Amount Paid'},
-  hi:{greeting:'नमस्ते,',avg:'औसत',grade:'ग्रेड',att:'उपस्थिति',fees:'फीस',teacher:'कक्षा शिक्षक',paid:'भुगतान हुआ',pending:'बाकी है',partial:'आंशिक',present:'उपस्थित',absent:'अनुपस्थित',total:'कुल दिन',no_marks:'कोई अंक नहीं',no_posts:'कोई पोस्ट नहीं',no_notif:'कोई सूचना नहीं',pay:'फीस भरें',fees_paid:'फीस भुगतान हुई',pay_ok:'भुगतान जमा!',bus_yes:'बस',bus_no:'बस नहीं',due:'बाकी राशि',paid2:'भुगतान राशि'},
-  mr:{greeting:'नमस्कार,',avg:'सरासरी',grade:'श्रेणी',att:'हजेरी',fees:'शुल्क',teacher:'वर्ग शिक्षक',paid:'भरले',pending:'बाकी',partial:'अंशतः',present:'उपस्थित',absent:'अनुपस्थित',total:'एकूण दिवस',no_marks:'गुण नाहीत',no_posts:'पोस्ट नाही',no_notif:'सूचना नाही',pay:'शुल्क भरा',fees_paid:'शुल्क भरले',pay_ok:'पेमेंट सबमिट!',bus_yes:'बस',bus_no:'बस नाही',due:'बाकी रक्कम',paid2:'भरलेली रक्कम'}
+  en:{greeting:'Good day,',avg:'Average',grade:'Grade',att:'Attendance',fees:'Fees',teacher:'Class Teacher',
+      paid:'Paid',pending:'Pending',partial:'Partial',present:'Present',absent:'Absent',total:'Total Days',
+      no_marks:'No marks recorded yet',no_posts:'No posts yet',no_notif:'No notifications yet',
+      pay:'Pay Fees',fees_paid:'Fees fully paid ✓',pay_ok:'Payment submitted!',
+      bus_yes:'Bus',bus_no:'No Bus',due:'Amount Due',paid2:'Amount Paid',loading:'Loading…'},
+  hi:{greeting:'नमस्ते,',avg:'औसत',grade:'ग्रेड',att:'उपस्थिति',fees:'फीस',teacher:'कक्षा शिक्षक',
+      paid:'भुगतान हुआ',pending:'बाकी है',partial:'आंशिक',present:'उपस्थित',absent:'अनुपस्थित',total:'कुल दिन',
+      no_marks:'कोई अंक नहीं',no_posts:'कोई पोस्ट नहीं',no_notif:'कोई सूचना नहीं',
+      pay:'फीस भरें',fees_paid:'फीस भुगतान हुई ✓',pay_ok:'भुगतान जमा!',
+      bus_yes:'बस',bus_no:'बस नहीं',due:'बाकी राशि',paid2:'भुगतान राशि',loading:'लोड हो रहा है…'},
+  mr:{greeting:'नमस्कार,',avg:'सरासरी',grade:'श्रेणी',att:'उपस्थिती',fees:'फी',teacher:'वर्ग शिक्षक',
+      paid:'भरली',pending:'बाकी',partial:'अंशतः',present:'उपस्थित',absent:'अनुपस्थित',total:'एकूण दिवस',
+      no_marks:'अंक नाही',no_posts:'कोणतीही पोस्ट नाही',no_notif:'कोणतीही सूचना नाही',
+      pay:'फी भरा',fees_paid:'फी भरली ✓',pay_ok:'भरणा केला!',
+      bus_yes:'बस',bus_no:'बस नाही',due:'बाकी रक्कम',paid2:'भरलेली रक्कम',loading:'लोड होत आहे…'}
 };
-function t(k){return T[lang][k]||T.en[k]||k}
-function setLang(l){lang=l;localStorage.setItem('edu-lang',l);document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase()===l));showPage(cp)}
-setLang(lang);
 
-// =============================================
-// INIT — decide what to show
-// =============================================
-function init() {
-  // Try to get token from localStorage
-  const savedToken = localStorage.getItem('edu_token');
+function t(k){ return (T[lang]||T.en)[k]||k }
 
-  if (savedToken && savedToken.length > 20) {
-    // Try with saved token
-    activeToken = savedToken;
+// ── INIT ──
+window.addEventListener('DOMContentLoaded', () => {
+  // Try token in order: localStorage (forever) → sessionStorage (fallback)
+  const tok = localStorage.getItem('student_token') || sessionStorage.getItem('student_token');
+  if (tok) {
+    activeToken = tok;
     showApp();
-    loadData();
+    loadStudentData();
   } else {
-    // No token — show login
-    showLogin();
+    document.getElementById('loginScreen').style.display = 'flex';
+  }
+});
+
+// ── LOGIN ──
+async function doLogin() {
+  const code = document.getElementById('lCode').value.trim().toUpperCase();
+  const pass = document.getElementById('lPass').value.trim();
+  const btn  = document.getElementById('lBtn');
+  const err  = document.getElementById('lErr');
+  const remember = document.getElementById('rememberMe').checked;
+
+  err.classList.remove('show');
+  if (!code || !pass) { showErr('Please enter code and password.'); return; }
+
+  btn.disabled = true;
+  btn.innerHTML = '<div class="spin-sm"></div> Signing in…';
+
+  try {
+    const res  = await fetch(`${API}/auth/login`, {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({code, password: pass})
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.message || data.error || 'Login failed');
+    if ((data.user?.role || data.role) !== 'student') throw new Error('This account is not a student.');
+
+    activeToken = data.token;
+
+    // Save token — forever if remember, else session only
+    if (remember) {
+      localStorage.setItem('student_token', activeToken);
+    } else {
+      sessionStorage.setItem('student_token', activeToken);
+    }
+
+    showApp();
+    loadStudentData();
+  } catch(e) {
+    showErr(e.message || 'Login failed. Try again.');
+    btn.disabled = false;
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg> Sign In';
   }
 }
 
-function showLogin() {
-  document.getElementById('loginScreen').style.display = 'flex';
-  document.getElementById('appScreen').style.display = 'none';
+function showErr(msg) {
+  const el = document.getElementById('lErr');
+  el.textContent = msg;
+  el.classList.add('show');
 }
 
 function showApp() {
   document.getElementById('loginScreen').style.display = 'none';
-  document.getElementById('appScreen').style.display = 'block';
+  document.getElementById('appScreen').style.display   = 'block';
 }
 
-// =============================================
-// LOGIN
-// =============================================
-async function doLogin() {
-  const code = document.getElementById('lCode').value.trim().toUpperCase();
-  const pass = document.getElementById('lPass').value.trim();
-  const errEl = document.getElementById('lErr');
-  const btn = document.getElementById('lBtn');
+function doLogout() {
+  localStorage.removeItem('student_token');
+  localStorage.removeItem('student_user');
+  sessionStorage.removeItem('student_token');
+  activeToken = null; sd = null;
+  document.getElementById('appScreen').style.display   = 'none';
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('lCode').value = '';
+  document.getElementById('lPass').value = '';
+  document.getElementById('lErr').classList.remove('show');
+}
 
-  if (!code || !pass) {
-    errEl.textContent = 'Please enter code and password';
-    errEl.classList.add('show');
-    return;
-  }
-
-  errEl.classList.remove('show');
-  btn.innerHTML = '<div class="login-sp"></div> Signing in...';
-  btn.disabled = true;
-
+// ── LOAD DATA ──
+async function loadStudentData() {
   try {
-    const res = await fetch(API + '/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ code, password: pass })
-    });
-    const data = await res.json();
-
-    if (data.success && data.token) {
-      // Check role
-      if (data.user.role !== 'student') {
-        errEl.textContent = 'This login is for students only';
-        errEl.classList.add('show');
-        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Sign In';
-        btn.disabled = false;
-        return;
-      }
-
-      // Save token
-      activeToken = data.token;
-      localStorage.setItem('edu_token', data.token);
-      localStorage.setItem('edu_user', JSON.stringify(data.user));
-
-      // Show app and load data
-      showApp();
-      loadData();
-    } else {
-      errEl.textContent = data.error || 'Invalid code or password';
-      errEl.classList.add('show');
-      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Sign In';
-      btn.disabled = false;
-    }
+    const r = await apiFetch('/student/dashboard');
+    sd = r;
+    showPage(cp, document.querySelector('.bb.active'));
   } catch(e) {
-    errEl.textContent = 'Could not connect. Check internet.';
-    errEl.classList.add('show');
-    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Sign In';
-    btn.disabled = false;
+    if (e.status === 401) { doLogout(); return; }
+    document.getElementById('mainContent').innerHTML =
+      `<div class="eb"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--g300)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg><p>Could not load data. Check connection.</p></div>`;
   }
 }
 
-document.getElementById('lCode').addEventListener('input', function(){ this.value = this.value.toUpperCase(); });
-
-// =============================================
-// LOAD DATA
-// =============================================
-async function loadData() {
-  document.getElementById('mainContent').innerHTML = '<div class="ls2"><div class="sp"></div><div class="lt">Loading your data...</div></div>';
-
-  try {
-    const res = await fetch(API + '/students/me', {
-      headers: { 'Authorization': 'Bearer ' + activeToken }
-    });
-
-    if (res.status === 401) {
-      // Token expired — show login again
-      activeToken = null;
-      localStorage.removeItem('edu_token');
-      localStorage.removeItem('edu_user');
-      showLogin();
-      document.getElementById('lErr').textContent = 'Session expired. Please login again.';
-      document.getElementById('lErr').classList.add('show');
-      return;
-    }
-
-    const data = await res.json();
-
-    if (data.error) {
-      document.getElementById('mainContent').innerHTML = `<div class="ls2"><div class="lt" style="color:var(--red)">${data.error}</div></div>`;
-      return;
-    }
-
-    sd = data;
-    showPage('home');
-
-  } catch(e) {
-    document.getElementById('mainContent').innerHTML = `
-      <div class="ls2">
-        <div class="lt">Could not load data.<br>Check internet.</div>
-        <button onclick="loadData()" style="margin-top:12px;padding:10px 20px;background:var(--black);color:var(--white);border:none;border-radius:8px;cursor:pointer;font-family:var(--font-body);font-weight:600;font-size:13px">Try Again</button>
-      </div>`;
-  }
+async function apiFetch(path, opts={}) {
+  const r = await fetch(API + path, {
+    ...opts, headers: {'Authorization': `Bearer ${activeToken}`, 'Content-Type':'application/json', ...(opts.headers||{})}
+  });
+  if (!r.ok) { const e = new Error(); e.status = r.status; throw e; }
+  return r.json();
 }
 
-// =============================================
-// PAGES
-// =============================================
-function showPage(p, btn) {
-  cp = p;
-  if (btn) { document.querySelectorAll('.bb').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
-  if (!sd) { loadData(); return; }
-  const c = document.getElementById('mainContent');
-  if (p==='home') c.innerHTML = rHome();
-  else if (p==='marks') c.innerHTML = rMarks();
-  else if (p==='group') { rGroup(); return; }
-  else if (p==='notifications') { rNotifs(); return; }
-  else if (p==='profile') c.innerHTML = rProfile();
-  setTimeout(()=>{document.querySelectorAll('.mf[data-w]').forEach(b=>{b.style.width=b.dataset.w+'%'})},150);
+// ── PAGES ──
+function showPage(page, btn) {
+  cp = page;
+  document.querySelectorAll('.bb').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const mc = document.getElementById('mainContent');
+  if (!sd) { mc.innerHTML = '<div class="ls2"><div class="sp"></div><div class="lt">Loading…</div></div>'; return; }
+  if (page === 'home')          mc.innerHTML = renderHome();
+  else if (page === 'marks')    mc.innerHTML = renderMarks();
+  else if (page === 'group')    { mc.innerHTML = '<div class="ls2"><div class="sp"></div></div>'; loadGroup(); }
+  else if (page === 'notifications') { mc.innerHTML = '<div class="ls2"><div class="sp"></div></div>'; loadNotifs(); }
+  else if (page === 'profile')  mc.innerHTML = renderProfile();
+  window.scrollTo(0,0);
 }
 
-function rHome() {
-  const s=sd.student,marks=sd.marks||[],att=sd.attendance||{},fees=sd.fees,tt=sd.timetable||[];
-  const avg=marks.length?Math.round(marks.reduce((a,m)=>a+parseFloat(m.marks_obtained||0),0)/marks.length):0;
-  const tot=parseInt(att.total||0),pres=parseInt(att.present||0);
-  const ap=tot>0?Math.round((pres/tot)*100):0;
-  const fs=fees?fees.status:'not set';
-  const fc=fs==='paid'?'var(--green)':fs==='partial'?'var(--gold)':'var(--red)';
-  const fl=fs==='paid'?t('paid'):fs==='partial'?t('partial'):t('pending');
-  const ac=ap>=75?'var(--black)':'var(--red)';
-  setTimeout(()=>{if(s.id)loadPh(s.id,'hpel')},300);
+// ── HOME ──
+function renderHome() {
+  const s = sd.student || {};
+  const fee = sd.fees || {};
+  const att = sd.attendance || {};
+  const marks = sd.marks || [];
+  const avg = marks.length ? Math.round(marks.reduce((a,m)=>a+(m.obtained/m.total*100),0)/marks.length) : 0;
+  const attPct = att.total ? Math.round((att.present/att.total)*100) : 0;
+  const feeStatus = fee.status || 'pending';
+  const photo = s.photo_url ? `<img src="${s.photo_url}" alt="">` : (s.name||'S').charAt(0);
+  const hour = new Date().getHours();
+  const greetWord = hour < 12 ? 'Good morning,' : hour < 17 ? 'Good afternoon,' : 'Good evening,';
+
+  const fBadge = feeStatus==='paid' ? `<span class="fee-badge paid">${t('paid')}</span>`
+               : feeStatus==='partial' ? `<span class="fee-badge partial">${t('partial')}</span>`
+               : `<span class="fee-badge pending">${t('pending')}</span>`;
+
+  const payBtn = feeStatus !== 'paid'
+    ? `<button class="pb" onclick="openPay()">
+        <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
+        ${t('pay')}
+       </button>`
+    : `<div style="text-align:center;color:var(--green);font-weight:600;font-size:0.88rem;padding:10px">${t('fees_paid')}</div>`;
+
+  const teacher = sd.teacher || {};
+  const tAvatar = teacher.name ? teacher.name.charAt(0) : 'T';
+
   return `
-  <div class="hdr"><div class="hg"></div><div class="hc">
-    <div class="prow">
-      <div class="sphoto" id="hpel">${s.name?s.name[0].toUpperCase():'S'}</div>
-      <div>
-        <div class="grt">${t('greeting')}</div>
-        <div class="snm">${s.name}</div>
-        <div class="cps">
-          <span class="cp">${s.standard||'N/A'}</span>
-          <span class="cp">Roll ${s.roll_no||'N/A'}</span>
-          ${s.has_bus?'<span class="cp">'+t('bus_yes')+'</span>':''}
+    <div class="hdr">
+      <div class="hc">
+        <div class="prow">
+          <div class="sphoto">${photo}</div>
+          <div>
+            <div class="grt">${greetWord}</div>
+            <div class="snm">${s.name||'Student'}</div>
+            <div class="cps">
+              <span class="cp">Class ${s.class_name||s.class||''}</span>
+              ${s.roll_no?`<span class="cp">Roll ${s.roll_no}</span>`:''}
+              ${s.has_bus?`<span class="cp">${t('bus_yes')}</span>`:``}
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </div></div>
-  <div class="qs-grid">
-    <div class="qs" onclick="showPage('marks',document.querySelectorAll('.bb')[1])">
-      <div class="qsi"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-      <div class="qsv" style="color:${avg>=75?'var(--green)':avg>=50?'var(--gold)':'var(--red)'}">${avg}%</div>
-      <div class="qsl">${t('avg')}</div>
+
+    <div class="qs-grid">
+      <div class="qs" onclick="showPage('marks',document.querySelectorAll('.bb')[1])">
+        <div class="qsi"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+        <div class="qsv">${avg}%</div>
+        <div class="qsl">${t('avg')}</div>
+      </div>
+      <div class="qs" onclick="showPage('marks',document.querySelectorAll('.bb')[1])">
+        <div class="qsi"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.5H21l-5.5 4 2 6.5L12 15l-5.5 4 2-6.5L3 8.5h6z"/></svg></div>
+        <div class="qsv">${getGrade(avg)}</div>
+        <div class="qsl">${t('grade')}</div>
+      </div>
+      <div class="qs" onclick="showPage('home',document.querySelectorAll('.bb')[0])">
+        <div class="qsi"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <div class="qsv">${attPct}%</div>
+        <div class="qsl">${t('att')}</div>
+      </div>
+      <div class="qs" onclick="openPay()">
+        <div class="qsi"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
+        <div class="qsv" style="font-size:1rem">${feeStatus==='paid'?'✓':feeStatus==='partial'?'Part':t('pending').charAt(0)+'.'}</div>
+        <div class="qsl">${t('fees')}</div>
+      </div>
     </div>
-    <div class="qs">
-      <div class="qsi"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-      <div class="qsv">${grade(avg)}</div>
-      <div class="qsl">${t('grade')}</div>
+
+    <div class="sec">
+      <div class="stt">${t('att')}</div>
+      <div class="card">
+        <div class="ac">
+          <div class="ad">
+            ${attCircle(attPct)}
+            <div class="at"><div class="ap">${attPct}%</div><div class="as2">Att.</div></div>
+          </div>
+          <div class="att-details">
+            <div class="ar2"><span class="al">${t('present')}</span><span class="av">${att.present||0}</span></div>
+            <div class="ar2"><span class="al">${t('absent')}</span><span class="av">${att.absent||0}</span></div>
+            <div class="ar2"><span class="al">${t('total')}</span><span class="av">${att.total||0}</span></div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="qs">
-      <div class="qsi"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
-      <div class="qsv" style="color:${ac}">${ap}%</div>
-      <div class="qsl">${t('att')}</div>
+
+    <div class="sec">
+      <div class="stt">${t('fees')}</div>
+      <div class="card">
+        <div class="fc">
+          <div class="fr">
+            <div class="fee-amount-wrap">
+              <div class="fee-label">${t('due')}</div>
+              <div class="fa">₹${(fee.pending_amount||0).toLocaleString('en-IN')}</div>
+            </div>
+            ${fBadge}
+          </div>
+          <div class="fee-breakdown">
+            <div class="fee-row"><span>Total Fees</span><span>₹${(fee.total_amount||0).toLocaleString('en-IN')}</span></div>
+            <div class="fee-row"><span>${t('paid2')}</span><span style="color:var(--green)">₹${(fee.paid_amount||0).toLocaleString('en-IN')}</span></div>
+            <div class="fee-row"><span>${t('due')}</span><span style="color:var(--red)">₹${(fee.pending_amount||0).toLocaleString('en-IN')}</span></div>
+          </div>
+          ${payBtn}
+        </div>
+      </div>
     </div>
-    <div class="qs" onclick="${fs!=='paid'?'openPay()':''}">
-      <div class="qsi"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
-      <div class="qsv" style="font-size:14px;margin-top:4px;color:${fc}">${fl}</div>
-      <div class="qsl">${t('fees')}</div>
+
+    <div class="sec">
+      <div class="stt">${t('teacher')}</div>
+      <div class="card">
+        ${teacher.name ? `
+        <div class="trow">
+          <div class="tav">${tAvatar}</div>
+          <div>
+            <div class="tnm">${teacher.name}</div>
+            <div class="ts2">${teacher.subject||'Class Teacher'} · ${teacher.phone||''}</div>
+          </div>
+        </div>` : `<div class="eb" style="padding:12px"><p>No teacher assigned</p></div>`}
+      </div>
     </div>
-  </div>
-  ${s.teacher_name?`<div class="sec"><div class="stt">${t('teacher')}</div><div class="card"><div class="trow"><div class="tav">${s.teacher_name[0]}</div><div><div class="tnm">${s.teacher_name}</div><div class="ts2">${s.teacher_phone||''}</div></div></div></div></div>`:''}
-  ${marks.length>0?`<div class="sec"><div class="stt">Marks</div><div class="card">${marks.slice(0,4).map(m=>`<div class="mr"><div class="ms">${m.subject}</div><div class="mb"><div class="mf" data-w="${m.marks_obtained}" style="width:0%;background:${m.marks_obtained>=75?'var(--black)':m.marks_obtained>=50?'var(--gold)':'var(--red)'}"></div></div><div class="msc">${m.marks_obtained}/${m.total_marks}</div></div>`).join('')}</div></div>`:''}
-  ${fees?`<div class="sec"><div class="stt">${t('fees')}</div><div class="card fc"><div class="fr"><div><div class="fa" style="color:${fc}">Rs. ${parseInt(fees.remaining_amount||0).toLocaleString('en-IN')}</div><div class="fs2">${t('due')}</div></div><div style="text-align:right"><div style="font-size:14px;font-weight:600;color:var(--green)">Rs. ${parseInt(fees.paid_amount||0).toLocaleString('en-IN')}</div><div style="font-size:11px;color:var(--gray-400)">${t('paid2')}</div></div></div>${fees.status!=='paid'?`<button class="pb" onclick="openPay()"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>${t('pay')}</button>`:`<div style="text-align:center;padding:8px;font-size:13px;color:var(--green);font-weight:600">${t('fees_paid')}</div>`}</div></div>`:''}
-  ${tt.length>0?`<div class="sec"><div class="stt">Timetable</div><div class="card ttc" style="padding:0">${tt.slice(0,3).map(x=>`<div class="ttr"><div class="ttd">${x.day?.slice(0,3)||''}</div><div class="ttp">${[x.period_1,x.period_2,x.period_3,x.period_4,x.period_5,x.period_6,x.period_7].filter(Boolean).map(p=>`<div class="ttpi">${p}</div>`).join('')}</div></div>`).join('')}</div></div>`:''}`;
+
+    ${sd.timetable && sd.timetable.length ? `
+    <div class="sec">
+      <div class="stt">Timetable</div>
+      <div class="ttc">
+        ${sd.timetable.map(row=>`
+          <div class="ttr">
+            <div class="ttd">${row.day}</div>
+            <div class="ttp">${(row.periods||[]).map(p=>`<div class="ttpi">${p}</div>`).join('')}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>` : ''}
+  `;
 }
 
-function rMarks() {
-  const marks=sd.marks||[],att=sd.attendance||{};
-  const avg=marks.length?Math.round(marks.reduce((a,m)=>a+parseFloat(m.marks_obtained||0),0)/marks.length):0;
-  const tot=parseInt(att.total||0),pres=parseInt(att.present||0);
-  const ap=tot>0?Math.round((pres/tot)*100):0;
-  const R=34,C=2*Math.PI*R,D=(ap/100)*C,ac=ap>=75?'var(--black)':'var(--red)';
-  return `<div style="padding:16px">
-  <div class="stt" style="margin-bottom:12px">Marks Report</div>
-  <div style="background:var(--black);color:var(--white);border-radius:var(--radius);padding:18px;text-align:center;margin-bottom:14px">
-    <div style="font-family:var(--font-display);font-size:44px;font-weight:700;line-height:1">${avg}%</div>
-    <div style="font-size:12px;color:rgba(255,255,255,.4);margin-top:4px">Average — Grade ${grade(avg)}</div>
-  </div>
-  <div class="card">${marks.length>0?marks.map(m=>`<div class="mr"><div style="min-width:90px"><div class="ms">${m.subject}</div><div style="font-size:10px;color:var(--gray-400)">${m.exam_type||''}</div></div><div class="mb"><div class="mf" data-w="${m.marks_obtained}" style="width:0%;background:${m.marks_obtained>=75?'var(--black)':m.marks_obtained>=50?'var(--gold)':'var(--red)'}"></div></div><div><div class="msc">${m.marks_obtained}/${m.total_marks}</div><div style="font-size:10px;text-align:right;font-weight:700;color:${m.marks_obtained>=75?'var(--green)':m.marks_obtained>=50?'var(--gold)':'var(--red)'}">${grade(parseInt(m.marks_obtained))}</div></div></div>`).join(''):`<div class="eb"><p>${t('no_marks')}</p></div>`}</div>
-  <div class="stt" style="margin:14px 0 10px">Attendance</div>
-  <div class="card ac"><div class="ad"><svg width="72" height="72" viewBox="0 0 72 72"><circle cx="36" cy="36" r="${R}" fill="none" stroke="var(--gray-100)" stroke-width="7"/><circle cx="36" cy="36" r="${R}" fill="none" stroke="${ac}" stroke-width="7" stroke-dasharray="${D} ${C}" stroke-linecap="round"/></svg><div class="at"><div class="ap" style="color:${ac}">${ap}%</div><div class="as2">att.</div></div></div><div style="flex:1"><div class="ar2"><span class="al">${t('present')}</span><span class="av" style="color:var(--green)">${pres}</span></div><div class="ar2"><span class="al">${t('absent')}</span><span class="av" style="color:var(--red)">${att.absent||0}</span></div><div class="ar2"><span class="al">${t('total')}</span><span class="av">${tot}</span></div><div style="margin-top:6px;font-size:12px;font-weight:600;color:${ap>=75?'var(--green)':'var(--red)'}">${ap>=75?'Good Standing':'Below 75%'}</div></div></div></div>`;
+// ── MARKS ──
+function renderMarks() {
+  const marks = sd.marks || [];
+  if (!marks.length) return `<div class="eb" style="margin-top:40px"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--g300)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg><p>${t('no_marks')}</p></div>`;
+
+  const avg = Math.round(marks.reduce((a,m)=>a+(m.obtained/m.total*100),0)/marks.length);
+
+  return `
+    <div class="hdr" style="padding:18px 16px">
+      <div class="hc" style="display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div class="grt" style="margin-bottom:2px">Academic Performance</div>
+          <div style="font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700">${avg}% <em style="font-style:italic;font-weight:300;font-size:1.1rem">${getGrade(avg)}</em></div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:0.7rem;color:rgba(255,255,255,0.45);text-transform:uppercase;letter-spacing:1px;margin-bottom:2px">Subjects</div>
+          <div style="font-family:'Fraunces',serif;font-size:1.6rem;font-weight:700">${marks.length}</div>
+        </div>
+      </div>
+    </div>
+    <div class="sec" style="margin-top:14px">
+      <div class="card">
+        ${marks.map(m=>{
+          const pct = Math.round(m.obtained/m.total*100);
+          const col = pct>=75?'var(--green)':pct>=50?'var(--gold)':'var(--red)';
+          return `<div class="mr">
+            <div class="ms">${m.subject}</div>
+            <div class="mb"><div class="mf" style="width:${pct}%;background:${col}"></div></div>
+            <div class="msc" style="color:${col}">${m.obtained}/${m.total}</div>
+          </div>`;
+        }).join('')}
+      </div>
+    </div>
+  `;
 }
 
-async function rGroup() {
-  const s=sd.student,c=document.getElementById('mainContent');
-  c.innerHTML=`<div style="padding:16px"><div class="stt" style="margin-bottom:12px">Class Group</div><div id="pl"><div class="ls2" style="min-height:150px"><div class="sp"></div></div></div></div>`;
-  if(!s.class_id){document.getElementById('pl').innerHTML=`<div class="eb"><p>${t('no_posts')}</p></div>`;return}
-  try{const r=await fetch(API+'/posts/'+s.class_id,{headers:{Authorization:'Bearer '+activeToken}});const d=await r.json();const posts=d.posts||[];document.getElementById('pl').innerHTML=posts.length>0?posts.map(p=>`<div class="pi"><div class="ph"><span class="pau">${p.posted_by_name||'Teacher'}</span><span class="ptm">${fmtDate(p.created_at)}</span></div>${p.text_content?`<div class="ptxt">${p.text_content}</div>`:''} ${p.video_link?`<a class="vb" href="${p.video_link}" target="_blank">Watch</a>`:''}</div>`).join(''):`<div class="eb"><p>${t('no_posts')}</p></div>`;}catch(e){document.getElementById('pl').innerHTML=`<div class="eb"><p>Could not load</p></div>`}
+// ── GROUP ──
+async function loadGroup() {
+  try {
+    const data = await apiFetch('/student/group-posts');
+    const posts = data.posts || data || [];
+    const mc = document.getElementById('mainContent');
+    if (!posts.length) { mc.innerHTML = `<div class="eb" style="margin-top:40px"><p>${t('no_posts')}</p></div>`; return; }
+    mc.innerHTML = `<div style="padding:14px">${posts.map(p=>renderPost(p)).join('')}</div>`;
+  } catch(e) {
+    document.getElementById('mainContent').innerHTML = `<div class="eb"><p>Could not load posts.</p></div>`;
+  }
 }
 
-async function rNotifs() {
-  const c=document.getElementById('mainContent');
-  c.innerHTML=`<div style="padding:16px"><div class="stt" style="margin-bottom:12px">Notifications</div><div id="nl"><div class="ls2" style="min-height:150px"><div class="sp"></div></div></div></div>`;
-  try{const r=await fetch(API+'/notifications',{headers:{Authorization:'Bearer '+activeToken}});const d=await r.json();const notifs=d.notifications||[];document.getElementById('nl').innerHTML=notifs.length>0?`<div class="card" style="padding:0 14px">${notifs.map(n=>`<div class="ni"><div class="nd"></div><div><div class="ntl">${n.title}</div><div class="nm">${n.message}</div><div class="nti">${fmtDate(n.created_at)}</div></div></div>`).join('')}</div>`:`<div class="eb"><p>${t('no_notif')}</p></div>`;}catch(e){document.getElementById('nl').innerHTML=`<div class="eb"><p>Could not load</p></div>`}
+function renderPost(p) {
+  const img = p.image_url ? `<img src="${p.image_url}" class="pimg" alt="">` : '';
+  const vid = p.video_url ? `<a href="${p.video_url}" class="vb" target="_blank"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>Watch Video</a>` : '';
+  return `<div class="pi">
+    <div class="ph"><div class="pau">${p.teacher_name||'Teacher'}</div><div class="ptm">${formatDate(p.created_at)}</div></div>
+    <div class="ptxt">${p.content||''}</div>
+    ${img}${vid}
+  </div>`;
 }
 
-function rProfile() {
-  const s=sd.student;
-  return `<div style="padding:16px"><div class="pfhd"><div class="pfg"></div><div class="pfav" id="pfav">${s.name?s.name[0].toUpperCase():'S'}</div><div class="pfnm">${s.name}</div><div class="pfcd">${s.code||''}</div><div class="pfcp"><span class="pfcpi">${s.standard||'N/A'}</span><span class="pfcpi">Roll ${s.roll_no||'N/A'}</span></div></div>
-  <div class="il">${irow('Date of Birth',s.dob?s.dob.split('T')[0]:'N/A')}${irow('Gender',s.gender||'N/A')}${irow('Parent',s.parent_name||'N/A')}${irow('Parent Phone',s.parent_phone||'N/A')}${irow('Address',s.address||'N/A')}${irow('Blood Group',s.blood_group||'N/A')}${irow('Bus',s.has_bus?t('bus_yes'):t('bus_no'))}${irow('Teacher',s.teacher_name||'N/A')}</div>
-  <button onclick="doLogout()" style="width:100%;padding:12px;background:var(--white);border:1.5px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;color:var(--red);cursor:pointer">Logout</button></div>`;
+// ── NOTIFICATIONS ──
+async function loadNotifs() {
+  try {
+    const data = await apiFetch('/student/notifications');
+    const notifs = data.notifications || data || [];
+    const mc = document.getElementById('mainContent');
+    if (!notifs.length) { mc.innerHTML = `<div class="eb" style="margin-top:40px"><p>${t('no_notif')}</p></div>`; return; }
+    mc.innerHTML = `<div class="sec" style="margin-top:14px"><div class="card">${notifs.map(n=>`
+      <div class="ni">
+        <div class="nd"></div>
+        <div>
+          <div class="ntl">${n.title||''}</div>
+          <div class="nm">${n.message||''}</div>
+          <div class="nti">${formatDate(n.created_at)}</div>
+        </div>
+      </div>`).join('')}</div></div>`;
+  } catch(e) {
+    document.getElementById('mainContent').innerHTML = `<div class="eb"><p>Could not load notifications.</p></div>`;
+  }
 }
 
-function irow(l,v){return`<div class="ir"><span class="irlab">${l}</span><span class="irval">${v}</span></div>`}
-async function loadPh(sid,eid){try{const r=await fetch(API+'/upload/photo/'+sid,{headers:{Authorization:'Bearer '+activeToken}});if(r.ok){const d=await r.json();if(d.url){const el=document.getElementById(eid);if(el)el.innerHTML=`<img src="${d.url}" alt="">`}}}catch(e){}}
-async function openPay(){let upi=null;try{const r=await fetch(API+'/fees/upi-details',{headers:{Authorization:'Bearer '+activeToken}});upi=await r.json()}catch(e){}const fees=sd.fees,amt=parseInt(fees?.remaining_amount||0);document.getElementById('payTxt').textContent='Amount due: Rs. '+amt.toLocaleString('en-IN');document.getElementById('payTxt').setAttribute('data-amt',amt);if(upi?.upi_id){document.getElementById('upiId').textContent=upi.upi_id;const base=`upi://pay?pa=${upi.upi_id}&pn=${encodeURIComponent(upi.name||'School')}&am=${amt}&cu=INR`;document.getElementById('ppBtn').href=base;document.getElementById('gpBtn').href=base;document.getElementById('ptBtn').href=base}document.getElementById('payModal').classList.add('show')}
-function closePay(){document.getElementById('payModal').classList.remove('show');document.getElementById('upiRef').value=''}
-async function submitPay(){const ref=document.getElementById('upiRef').value.trim();const amt=parseFloat(document.getElementById('payTxt').getAttribute('data-amt')||0);if(!ref){toast('Please enter UPI Transaction ID');return}try{const r=await fetch(API+'/fees/submit-payment',{method:'POST',headers:{Authorization:'Bearer '+activeToken,'Content-Type':'application/json'},body:JSON.stringify({amount:amt,upi_ref:ref})});const d=await r.json();if(d.success){closePay();toast(t('pay_ok'));setTimeout(()=>loadData(),1000)}else toast(d.error||'Error')}catch(e){toast('Could not submit')}}
-document.getElementById('payModal').addEventListener('click',e=>{if(e.target===document.getElementById('payModal'))closePay()});
-function grade(s){if(s>=90)return'A+';if(s>=80)return'A';if(s>=70)return'B+';if(s>=60)return'B';if(s>=50)return'C';return'F'}
-function fmtDate(ts){if(!ts)return'';try{return new Date(ts).toLocaleDateString('en-IN',{day:'numeric',month:'short'})}catch(e){return''}}
-function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),3000)}
-function doLogout(){activeToken=null;localStorage.clear();sessionStorage.clear();sd=null;showLogin();document.getElementById('lCode').value='';document.getElementById('lPass').value='';document.getElementById('lErr').classList.remove('show')}
+// ── PROFILE ──
+function renderProfile() {
+  const s = sd.student || {};
+  const photo = s.photo_url ? `<img src="${s.photo_url}" alt="">` : (s.name||'S').charAt(0);
+  return `
+    <div style="padding:14px">
+      <div class="pfhd">
+        <div class="pfav">${photo}</div>
+        <div class="pfnm">${s.name||'Student'}</div>
+        <div class="pfcd">${s.code||s.student_code||''}</div>
+        <div class="pfcp">
+          <span class="pfcpi">Class ${s.class_name||s.class||''}</span>
+          ${s.roll_no?`<span class="pfcpi">Roll ${s.roll_no}</span>`:''}
+        </div>
+      </div>
+      <div class="il">
+        ${infoRow('Full Name',s.name)}
+        ${infoRow('Student Code',s.code||s.student_code)}
+        ${infoRow('Class',`Class ${s.class_name||s.class||''}`)}
+        ${infoRow('Roll Number',s.roll_no)}
+        ${infoRow('Date of Birth',s.dob?formatDate(s.dob):'—')}
+        ${infoRow('Parent Name',s.parent_name)}
+        ${infoRow('Phone',s.phone||s.parent_phone)}
+        ${infoRow('Address',s.address)}
+        ${infoRow('Bus',s.has_bus?t('bus_yes'):t('bus_no'))}
+      </div>
+    </div>
+  `;
+}
 
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}
+function infoRow(label, val) {
+  if (!val) return '';
+  return `<div class="ir"><div class="irlab">${label}</div><div class="irval">${val}</div></div>`;
+}
 
-// START
-init();
+// ── PAYMENT ──
+function openPay() {
+  const fee = sd.fees || {};
+  const pending = fee.pending_amount || 0;
+  pendingFeeAmount = pending;
+
+  document.getElementById('payTxt').textContent = `Total pending: ₹${pending.toLocaleString('en-IN')}`;
+  document.getElementById('upiId').textContent  = sd.school_upi || sd.upi_id || 'school@upi';
+  document.getElementById('upiRef').value = '';
+  document.getElementById('payAmount').value = pending || '';
+
+  // Preset buttons
+  const presets = [];
+  if (pending >= 500)  presets.push(500);
+  if (pending >= 1000) presets.push(1000);
+  if (pending >= 2000) presets.push(2000);
+  presets.push(pending);
+  const unique = [...new Set(presets)].filter(x=>x>0&&x<=pending).slice(0,4);
+
+  document.getElementById('amountPresets').innerHTML = unique.map(a=>
+    `<button class="amount-preset${a===pending?' selected':''}" onclick="setPreset(${a})" data-val="${a}">₹${a.toLocaleString('en-IN')}</button>`
+  ).join('');
+
+  document.getElementById('amountNote').textContent = `Max: ₹${pending.toLocaleString('en-IN')} pending`;
+  document.getElementById('payModal').classList.add('show');
+}
+
+function setPreset(amount) {
+  document.getElementById('payAmount').value = amount;
+  document.querySelectorAll('.amount-preset').forEach(b=>{
+    b.classList.toggle('selected', parseInt(b.dataset.val)===amount);
+  });
+}
+
+function onAmountType() {
+  const val = parseInt(document.getElementById('payAmount').value)||0;
+  document.querySelectorAll('.amount-preset').forEach(b=>{
+    b.classList.toggle('selected', parseInt(b.dataset.val)===val);
+  });
+}
+
+function openUPI(app) {
+  const amount = parseInt(document.getElementById('payAmount').value)||0;
+  if (!amount || amount <= 0) { showToast('Please enter an amount first'); return false; }
+  if (amount > pendingFeeAmount) { showToast(`Max amount is ₹${pendingFeeAmount}`); return false; }
+
+  const upi = document.getElementById('upiId').textContent;
+  const name = encodeURIComponent('Emmanuel School');
+  const note = encodeURIComponent('School Fee Payment');
+  const upiUri = `upi://pay?pa=${encodeURIComponent(upi)}&pn=${name}&am=${amount}&cu=INR&tn=${note}`;
+
+  let deepLink = upiUri;
+  if (app === 'phonepe') deepLink = `phonepe://${upiUri.replace('upi://','')}&sign=`;
+  else if (app === 'gpay') deepLink = `gpay://upi/${upiUri.replace('upi://pay?','')}`;
+  else if (app === 'paytm') deepLink = upiUri;
+
+  window.location.href = deepLink;
+
+  // Fallback after 2s
+  setTimeout(()=>{ window.location.href = upiUri; }, 2000);
+  return false;
+}
+
+function closePay() {
+  document.getElementById('payModal').classList.remove('show');
+}
+
+async function submitPay() {
+  const ref    = document.getElementById('upiRef').value.trim();
+  const amount = parseInt(document.getElementById('payAmount').value)||0;
+  if (!ref)    { showToast('Please enter transaction ID'); return; }
+  if (!amount) { showToast('Please enter amount'); return; }
+  if (amount > pendingFeeAmount) { showToast(`Max amount is ₹${pendingFeeAmount}`); return; }
+
+  try {
+    await apiFetch('/student/pay-fee', {
+      method:'POST',
+      body: JSON.stringify({upi_ref: ref, amount})
+    });
+    closePay();
+    showToast(t('pay_ok'));
+    loadStudentData();
+  } catch(e) {
+    showToast('Could not submit. Try again.');
+  }
+}
+
+// ── HELPERS ──
+function attCircle(pct) {
+  const r = 32, c = 2*Math.PI*r, dash = (pct/100)*c;
+  const col = pct>=75?'var(--green)':pct>=50?'var(--gold)':'var(--red)';
+  return `<svg width="80" height="80" viewBox="0 0 80 80">
+    <circle cx="40" cy="40" r="${r}" fill="none" stroke="var(--g100)" stroke-width="7"/>
+    <circle cx="40" cy="40" r="${r}" fill="none" stroke="${col}" stroke-width="7"
+      stroke-dasharray="${dash} ${c}" stroke-linecap="round" style="transform:rotate(-90deg);transform-origin:center;transition:stroke-dasharray 1s ease"/>
+  </svg>`;
+}
+
+function getGrade(p) {
+  if(p>=90)return'A+';if(p>=80)return'A';if(p>=70)return'B+';
+  if(p>=60)return'B';if(p>=50)return'C';return'D';
+}
+
+function formatDate(d) {
+  if (!d) return '';
+  return new Date(d).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'});
+}
+
+function setLang(l, btn) {
+  lang = l;
+  localStorage.setItem('edu-lang', l);
+  document.querySelectorAll('.lb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  showPage(cp, document.querySelector('.bb.active'));
+}
+
+function showToast(msg, dur=2800) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), dur);
+}
 </script>
 </body>
 </html>
