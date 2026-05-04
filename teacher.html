@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#800020">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Teacher Panel — EduManage</title>
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,169 +13,173 @@
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
   --m:#800020;--m-dark:#5c0018;--m-deeper:#3d0010;--m-light:#a30027;
-  --m-pale:rgba(128,0,32,.08);--m-glow:rgba(128,0,32,.18);
+  --m-pale:rgba(128,0,32,.09);--m-glow:rgba(128,0,32,.18);
   --white:#fff;--black:#0a0a0a;
   --g50:#fafafa;--g100:#f5f5f5;--g200:#eee;--g300:#e0e0e0;
   --g400:#bdbdbd;--g500:#9e9e9e;--g600:#757575;--g700:#616161;
   --green:#1a7a4a;--green-l:#e8f5ee;--red:#c0392b;--red-l:#fdf0ef;
   --gold:#b8860b;--gold-l:#fdf8e8;
-  --fd:'Playfair Display',serif;--fb:'Inter',sans-serif;--fm:'JetBrains Mono',monospace;
-  --r:12px;--tr:all .3s cubic-bezier(.4,0,.2,1);
+  --font-display:'Playfair Display',serif;
+  --font-body:'Inter',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --radius:12px;
 }
-body{font-family:var(--fb);background:var(--g50);color:var(--black);padding-bottom:80px;min-height:100vh}
+body{font-family:var(--font-body);background:var(--g50);color:var(--black);padding-bottom:80px;min-height:100vh}
 
-/* LOGIN */
-.login-screen{min-height:100vh;background:linear-gradient(160deg,var(--m-deeper) 0%,var(--m) 55%,var(--m-light) 100%);display:none;align-items:center;justify-content:center;padding:1.5rem;position:relative}
+/* ── LOGIN ── */
+.login-screen{
+  min-height:100vh;
+  background:linear-gradient(160deg,var(--m-deeper) 0%,var(--m) 55%,var(--m-light) 100%);
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
 .login-screen.show{display:flex}
 .login-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
-.login-wrap{width:100%;max-width:380px;animation:loginIn .5s cubic-bezier(.34,1.56,.64,1)}
-@keyframes loginIn{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
-.login-brand{text-align:center;margin-bottom:1.75rem}
-.login-logo-icon{width:64px;height:64px;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.25);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;font-family:var(--fd);font-size:1.6rem;font-weight:700;color:#fff;backdrop-filter:blur(8px)}
-.login-brand h1{font-family:var(--fd);font-size:1.9rem;font-weight:800;color:#fff;line-height:1.1;margin-bottom:.3rem}
-.login-brand p{font-size:.85rem;color:rgba(255,255,255,.65);font-weight:300}
-.login-card{background:rgba(255,255,255,.97);border-radius:20px;padding:2rem 1.75rem 1.75rem;box-shadow:0 24px 60px rgba(0,0,0,.25)}
-.login-card-title{font-family:var(--fd);font-size:1.3rem;font-weight:700;color:var(--m);margin-bottom:.25rem}
-.login-card-sub{font-size:.82rem;color:var(--g500);margin-bottom:1.4rem}
-.login-label{display:block;font-size:.8rem;font-weight:600;color:var(--black);margin-bottom:.4rem;letter-spacing:.2px}
-.login-input{width:100%;padding:.82rem 1rem;border:2px solid var(--g200);border-radius:10px;font-family:var(--fb);font-size:.95rem;color:var(--black);transition:border-color .3s,box-shadow .3s;background:var(--white);margin-bottom:1rem}
-.login-input:focus{outline:none;border-color:var(--m);box-shadow:0 0 0 3px rgba(128,0,32,.12)}
-.login-input::placeholder{color:#c0c0c0}
-.login-btn{width:100%;padding:1rem;background:linear-gradient(135deg,var(--m),var(--m-light));color:#fff;border:none;border-radius:10px;font-family:var(--fb);font-size:.97rem;font-weight:700;cursor:pointer;letter-spacing:.4px;box-shadow:0 4px 16px rgba(128,0,32,.3);transition:var(--tr);display:flex;align-items:center;justify-content:center;gap:8px}
-.login-btn:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(128,0,32,.35)}
+.login-wrap{width:100%;max-width:360px;animation:lIn .5s cubic-bezier(.34,1.56,.64,1)}
+@keyframes lIn{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+.login-brand{text-align:center;margin-bottom:1.5rem}
+.login-icon{width:62px;height:62px;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.25);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto .9rem;font-family:var(--font-display);font-size:1.5rem;font-weight:700;color:#fff;backdrop-filter:blur(8px)}
+.login-brand h1{font-family:var(--font-display);font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:.25rem}
+.login-brand p{font-size:.83rem;color:rgba(255,255,255,.65);font-weight:300}
+.login-card{background:rgba(255,255,255,.97);border-radius:20px;padding:26px 22px;box-shadow:0 25px 60px rgba(0,0,0,.28)}
+.login-card-ttl{font-family:var(--font-display);font-size:1.25rem;font-weight:700;color:var(--m);margin-bottom:.2rem}
+.login-card-sub{font-size:.8rem;color:var(--g500);margin-bottom:1.3rem}
+.login-label{display:block;font-size:11px;font-weight:600;color:var(--g500);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.login-input{width:100%;padding:12px 14px;background:var(--g50);border:1.5px solid var(--g200);border-radius:var(--radius);font-family:var(--font-body);font-size:14px;color:var(--black);outline:none;margin-bottom:12px;transition:border-color .3s,box-shadow .3s}
+.login-input:focus{border-color:var(--m);background:var(--white);box-shadow:0 0 0 3px var(--m-pale)}
+.login-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--m),var(--m-light));color:var(--white);border:none;border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px var(--m-glow);transition:all .3s}
+.login-btn:hover{transform:translateY(-2px);box-shadow:0 8px 20px var(--m-glow)}
 .login-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
-.login-err{background:var(--red-l);border:1px solid rgba(192,57,43,.2);border-radius:var(--r);padding:10px 14px;font-size:13px;color:var(--red);margin-top:10px;display:none}
+.login-err{background:var(--red-l);border:1px solid rgba(192,57,43,.15);border-radius:var(--radius);padding:10px 14px;font-size:13px;color:var(--red);margin-top:10px;display:none}
 .login-err.show{display:block}
-.login-footer{text-align:center;margin-top:1.25rem}
-.login-footer p{font-size:.75rem;color:rgba(255,255,255,.5)}
-.login-footer strong{color:rgba(255,255,255,.8)}
-.login-sp{width:16px;height:16px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+.login-sp{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:var(--white);border-radius:50%;animation:spin .7s linear infinite}
+.login-foot{text-align:center;margin-top:1.1rem}
+.login-foot p{font-size:.73rem;color:rgba(255,255,255,.5)}
+.login-foot strong{color:rgba(255,255,255,.8)}
 
-/* TOPBAR */
+/* ── TOPBAR ── */
 .topbar{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:1px solid var(--g200);padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
-.tl{font-family:var(--fd);font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
+.tl{font-family:var(--font-display);font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
 .lm{width:28px;height:28px;background:var(--m);color:var(--white);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
 .tr{display:flex;align-items:center;gap:8px}
 .ls{display:flex;gap:2px;background:var(--g100);border-radius:100px;padding:2px}
-.lb{padding:4px 9px;border-radius:100px;border:none;background:transparent;font-family:var(--fb);font-size:10px;font-weight:700;color:var(--g400);cursor:pointer;transition:var(--tr)}
+.lb{padding:4px 9px;border-radius:100px;border:none;background:transparent;font-family:var(--font-body);font-size:10px;font-weight:700;color:var(--g400);cursor:pointer}
 .lb.active{background:var(--white);color:var(--m);box-shadow:0 1px 3px rgba(0,0,0,.1)}
-.ob{background:none;border:1px solid var(--g200);border-radius:7px;padding:6px 10px;font-size:11px;font-weight:600;color:var(--g500);cursor:pointer;font-family:var(--fb);transition:var(--tr)}
+.ob{background:none;border:1px solid var(--g200);border-radius:7px;padding:6px 10px;font-size:11px;font-weight:600;color:var(--g500);cursor:pointer;font-family:var(--font-body)}
 .ob:hover{border-color:var(--m);color:var(--m)}
 
-/* LAYOUT */
+/* ── CONTENT ── */
 .cnt{max-width:600px;margin:0 auto}
 
-/* HEADER */
+/* ── HEADER BANNER ── */
 .hdr{background:linear-gradient(135deg,var(--m-deeper),var(--m));color:var(--white);padding:20px 16px 24px;position:relative;overflow:hidden}
 .hg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
 .hc{position:relative;z-index:1}
 .grt{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:600}
-.tnm{font-family:var(--fd);font-size:24px;font-weight:700;line-height:1.1;margin-bottom:6px}
+.tnm{font-family:var(--font-display);font-size:24px;font-weight:700;line-height:1.1;margin-bottom:6px}
 .cps{display:flex;gap:6px;flex-wrap:wrap}
 .cp{padding:3px 10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);border-radius:100px;font-size:10px;color:rgba(255,255,255,.8);font-weight:500}
 
-/* STATS */
+/* ── STATS ── */
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px 16px}
-.sc{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);padding:14px;text-align:center;transition:var(--tr)}
-.sc:hover{border-color:var(--m);box-shadow:0 4px 12px var(--m-glow)}
-.sv{font-family:var(--fd);font-size:24px;font-weight:700;line-height:1;margin-bottom:2px;color:var(--m)}
+.sc{background:var(--white);border:1px solid var(--g200);border-radius:var(--radius);padding:14px;text-align:center}
+.sv{font-family:var(--font-display);font-size:24px;font-weight:700;line-height:1;margin-bottom:2px;color:var(--m)}
 .sl{font-size:10px;color:var(--g400);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
 
-/* SECTION / CARD */
+/* ── SECTION ── */
 .sec{padding:0 16px;margin-bottom:18px}
-.stt{font-family:var(--fd);font-size:16px;font-weight:600;margin-bottom:10px}
-.card{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.stt{font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:10px}
+.card{background:var(--white);border:1px solid var(--g200);border-radius:var(--radius);padding:14px;margin-bottom:10px}
 
-/* STUDENT ITEM */
-.si{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--white);border:1px solid var(--g200);border-radius:var(--r);margin-bottom:8px;cursor:pointer;transition:var(--tr)}
-.si:hover{border-color:var(--m);box-shadow:0 4px 12px var(--m-glow)}
-.sav{width:40px;height:40px;background:var(--m-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:16px;color:var(--m);flex-shrink:0}
+/* ── STUDENT ITEM ── */
+.si{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--white);border:1px solid var(--g200);border-radius:var(--radius);margin-bottom:8px;cursor:pointer}
+.si:hover{border-color:var(--m)}
+.sav{width:40px;height:40px;background:var(--m-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:16px;color:var(--m);flex-shrink:0}
 .snm{font-size:14px;font-weight:600;margin-bottom:2px}
 .smeta{font-size:11px;color:var(--g400)}
 
-/* ATTENDANCE */
-.att-sheet{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);overflow:hidden}
+/* ── ATTENDANCE ── */
+.att-sheet{background:var(--white);border:1px solid var(--g200);border-radius:var(--radius);overflow:hidden}
 .att-date-row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--g100)}
 .att-dl{font-size:13px;font-weight:600}
-.di{padding:6px 10px;border:1.5px solid var(--g200);border-radius:8px;font-family:var(--fm);font-size:12px;color:var(--black);outline:none;transition:var(--tr)}
+.di{padding:6px 10px;border:1.5px solid var(--g200);border-radius:8px;font-family:var(--font-mono);font-size:12px;color:var(--black);outline:none}
 .di:focus{border-color:var(--m)}
 .ar{display:flex;align-items:center;padding:11px 14px;border-bottom:1px solid var(--g100);gap:10px}
 .ar:last-child{border-bottom:none}
-.aroll{font-family:var(--fm);font-size:12px;color:var(--g400);min-width:26px}
+.aroll{font-family:var(--font-mono);font-size:12px;color:var(--g400);min-width:26px}
 .anm{font-size:13px;font-weight:500;flex:1}
 .atog{display:flex;border:1.5px solid var(--g200);border-radius:8px;overflow:hidden}
-.atb{padding:6px 13px;border:none;font-family:var(--fb);font-size:12px;font-weight:600;cursor:pointer;background:transparent;color:var(--g400);transition:var(--tr)}
+.atb{padding:6px 13px;border:none;font-family:var(--font-body);font-size:12px;font-weight:600;cursor:pointer;background:transparent;color:var(--g400)}
 .atb.pa{background:var(--green);color:var(--white)}
 .atb.aa{background:var(--red);color:var(--white)}
-.save-btn{width:calc(100% - 28px);margin:14px;padding:12px;background:linear-gradient(135deg,var(--m),var(--m-light));color:var(--white);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px var(--m-glow)}
+.save-btn{width:calc(100% - 28px);margin:14px;padding:12px;background:linear-gradient(135deg,var(--m),var(--m-light));color:var(--white);border:none;border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px var(--m-glow)}
 
-/* MARKS */
-.marks-sheet{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);overflow:hidden}
-.ms-header{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;border-bottom:1px solid var(--g100);transition:var(--tr)}
+/* ── MARKS ── */
+.marks-sheet{background:var(--white);border:1px solid var(--g200);border-radius:var(--radius);overflow:hidden}
+.ms-header{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;border-bottom:1px solid var(--g100)}
 .ms-header:hover{background:var(--m-pale)}
-.ms-fields{padding:10px 14px 14px;display:none;background:var(--g50);border-bottom:1px solid var(--g100)}
+.ms-fields{padding:10px 14px 14px;display:none;background:var(--g50)}
 .ms-fields.open{display:block}
 .mrow{display:flex;align-items:center;gap:10px;margin-bottom:10px}
 .mlbl{font-size:13px;font-weight:500;min-width:80px;color:var(--g700)}
-.minput{flex:1;padding:7px 10px;border:1.5px solid var(--g200);border-radius:8px;font-family:var(--fm);font-size:13px;color:var(--black);outline:none;text-align:center;max-width:80px;transition:var(--tr)}
+.minput{flex:1;padding:7px 10px;border:1.5px solid var(--g200);border-radius:8px;font-family:var(--font-mono);font-size:13px;color:var(--black);outline:none;text-align:center;max-width:80px}
 .minput:focus{border-color:var(--m)}
-.msave{width:100%;padding:9px;background:linear-gradient(135deg,var(--m),var(--m-light));color:var(--white);border:none;border-radius:8px;font-family:var(--fb);font-size:12px;font-weight:600;cursor:pointer;margin-top:6px;box-shadow:0 3px 10px var(--m-glow)}
+.msave{width:100%;padding:9px;background:linear-gradient(135deg,var(--m),var(--m-light));color:var(--white);border:none;border-radius:8px;font-family:var(--font-body);font-size:12px;font-weight:600;cursor:pointer;margin-top:6px}
 
-/* GROUP */
-.composer{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);padding:14px}
-.ctxt{width:100%;min-height:90px;padding:11px;border:1.5px solid var(--g200);border-radius:var(--r);font-family:var(--fb);font-size:14px;color:var(--black);resize:none;outline:none;margin-bottom:10px;transition:var(--tr)}
+/* ── GROUP ── */
+.composer{background:var(--white);border:1px solid var(--g200);border-radius:var(--radius);padding:14px}
+.ctxt{width:100%;min-height:90px;padding:11px;border:1.5px solid var(--g200);border-radius:var(--radius);font-family:var(--font-body);font-size:14px;color:var(--black);resize:none;outline:none;margin-bottom:10px}
 .ctxt:focus{border-color:var(--m)}
-.post-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--m),var(--m-light));color:var(--white);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px var(--m-glow)}
-.pi{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);padding:12px;margin-bottom:8px}
+.post-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--m),var(--m-light));color:var(--white);border:none;border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer}
+.pi{background:var(--white);border:1px solid var(--g200);border-radius:var(--radius);padding:12px;margin-bottom:8px}
 .ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
 .pau{font-size:12px;font-weight:700;color:var(--m)}
 .ptm{font-size:10px;color:var(--g300)}
 .ptxt{font-size:13px;color:var(--g700);line-height:1.6}
-.del-btn{background:none;border:none;cursor:pointer;color:var(--g300);padding:2px;transition:var(--tr)}
+.del-btn{background:none;border:none;cursor:pointer;color:var(--g300);padding:2px}
 .del-btn:hover{color:var(--red)}
 .del-btn svg{width:13px;height:13px;stroke:currentColor}
 
-/* NOTIFY */
-.nf{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);padding:14px}
+/* ── NOTIFY ── */
+.nf{background:var(--white);border:1px solid var(--g200);border-radius:var(--radius);padding:14px}
 .fg{margin-bottom:12px}
 .fg label{display:block;font-size:11px;font-weight:600;color:var(--g500);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px}
-.fi{width:100%;padding:10px 13px;background:var(--g50);border:1.5px solid var(--g200);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:var(--black);outline:none;transition:var(--tr)}
+.fi{width:100%;padding:10px 13px;background:var(--g50);border:1.5px solid var(--g200);border-radius:var(--radius);font-family:var(--font-body);font-size:13px;color:var(--black);outline:none}
 .fi:focus{border-color:var(--m);background:var(--white)}
-.fita{width:100%;padding:10px 13px;background:var(--g50);border:1.5px solid var(--g200);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:var(--black);outline:none;resize:none;min-height:80px;transition:var(--tr)}
+.fita{width:100%;padding:10px 13px;background:var(--g50);border:1.5px solid var(--g200);border-radius:var(--radius);font-family:var(--font-body);font-size:13px;color:var(--black);outline:none;resize:none;min-height:80px}
 .fita:focus{border-color:var(--m);background:var(--white)}
-.send-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--m),var(--m-light));color:var(--white);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 4px 12px var(--m-glow)}
+.send-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--m),var(--m-light));color:var(--white);border:none;border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer}
 
-/* STUDENT SELECTOR */
-.stu-sel-wrap{border:1.5px solid var(--g200);border-radius:var(--r);overflow:hidden;margin-bottom:12px;max-height:260px;overflow-y:auto}
-.stu-sel-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--g100);cursor:pointer;transition:background .2s;user-select:none}
+/* ── STUDENT SELECTOR (Notify) ── */
+.stu-sel-box{border:1.5px solid var(--g200);border-radius:var(--radius);overflow:hidden;margin-bottom:12px;max-height:250px;overflow-y:auto}
+.stu-sel-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--g100);cursor:pointer;transition:background .15s;-webkit-user-select:none;user-select:none}
 .stu-sel-item:last-child{border-bottom:none}
-.stu-sel-item.selected{background:var(--m-pale)}
+.stu-sel-item.on{background:var(--m-pale)}
 .stu-sel-item:hover{background:var(--m-pale)}
-.stu-chk{width:18px;height:18px;accent-color:var(--m);flex-shrink:0;cursor:pointer}
+.stu-chk{width:17px;height:17px;accent-color:var(--m);flex-shrink:0;pointer-events:none}
 .stu-sel-name{font-size:13px;font-weight:600;flex:1}
-.stu-sel-roll{font-size:11px;color:var(--g400);font-family:var(--fm)}
-.sel-count-badge{display:inline-block;background:var(--m);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;margin-bottom:8px}
+.stu-sel-roll{font-size:11px;color:var(--g400);font-family:var(--font-mono)}
+.sel-badge{display:inline-block;background:var(--m);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;margin-bottom:8px}
 
-/* BACK + DETAIL */
-.back-btn{display:inline-flex;align-items:center;gap:6px;background:var(--g100);border:none;border-radius:8px;padding:9px 14px;font-family:var(--fb);font-size:13px;color:var(--g600);cursor:pointer;margin:14px 16px 10px;transition:var(--tr)}
+/* ── BACK + DETAIL ── */
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:var(--g100);border:none;border-radius:8px;padding:9px 14px;font-family:var(--font-body);font-size:13px;color:var(--g600);cursor:pointer;margin:14px 16px 10px}
 .back-btn:hover{background:var(--m-pale);color:var(--m)}
 .back-btn svg{width:14px;height:14px;stroke:currentColor;stroke-width:2}
-.det-card{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);padding:14px;margin:0 16px 12px}
-.il{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);overflow:hidden;margin-bottom:10px}
+.det-card{background:var(--white);border:1px solid var(--g200);border-radius:var(--radius);padding:14px;margin:0 16px 12px}
+.il{background:var(--white);border:1px solid var(--g200);border-radius:var(--radius);overflow:hidden;margin-bottom:10px}
 .ir{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--g100)}
 .ir:last-child{border-bottom:none}
 .irl{font-size:12px;color:var(--g400);font-weight:500}
 .irv{font-size:13px;font-weight:600}
 
-/* BOTTOM NAV */
+/* ── BOTTOM NAV ── */
 .bn{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--g200);display:flex;padding:6px 0 8px;z-index:100}
-.bb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 4px;background:none;border:none;cursor:pointer;transition:var(--tr)}
-.bi{width:21px;height:21px;stroke:var(--g300);transition:var(--tr)}
+.bb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 4px;background:none;border:none;cursor:pointer}
+.bi{width:21px;height:21px;stroke:var(--g300)}
 .bla{font-size:9px;font-weight:600;color:var(--g300);text-transform:uppercase;letter-spacing:.5px}
 .bb.active .bi{stroke:var(--m)}
 .bb.active .bla{color:var(--m)}
 
-/* UTILITY */
+/* ── UTILITY ── */
 .ls2{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:12px}
 .sp{width:26px;height:26px;border:2px solid var(--g200);border-top-color:var(--m);border-radius:50%;animation:spin .8s linear infinite}
 .lt{font-size:13px;color:var(--g400);text-align:center}
@@ -184,11 +187,11 @@ body{font-family:var(--fb);background:var(--g50);color:var(--black);padding-bott
 .eb p{font-size:13px}
 .toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--m);color:var(--white);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:999;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+/* debug card */
+.dbg{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:10px 14px;font-size:11px;font-family:var(--font-mono);color:#5d4037;margin:0 16px 12px;line-height:1.7;word-break:break-all}
 .badge-ok{background:var(--green-l);color:var(--green);padding:2px 8px;border-radius:100px;font-size:11px;font-weight:600}
 .badge-due{background:var(--red-l);color:var(--red);padding:2px 8px;border-radius:100px;font-size:11px;font-weight:600}
 .badge-par{background:var(--gold-l);color:var(--gold);padding:2px 8px;border-radius:100px;font-size:11px;font-weight:600}
-/* debug box */
-.dbg{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:10px 14px;font-size:11px;font-family:var(--fm);color:#5d4037;margin:10px 16px;line-height:1.6;word-break:break-all}
 @keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
@@ -199,18 +202,18 @@ body{font-family:var(--fb);background:var(--g50);color:var(--black);padding-bott
   <div class="login-bg"></div>
   <div class="login-wrap">
     <div class="login-brand">
-      <div class="login-logo-icon">EM</div>
+      <div class="login-icon">EM</div>
       <h1>EduManage Pro</h1>
       <p>Emmanuel School — Teacher Portal</p>
     </div>
     <div class="login-card">
-      <div class="login-card-title">Teacher Login</div>
+      <div class="login-card-ttl">Teacher Login</div>
       <div class="login-card-sub">Enter your teacher code &amp; password</div>
-      <label class="login-label" for="lCode">Teacher Code</label>
+      <label class="login-label">Teacher Code</label>
       <input type="text" class="login-input" id="lCode" placeholder="e.g. TCH001"
              autocomplete="off" spellcheck="false" style="text-transform:uppercase"
              onkeydown="if(event.key==='Enter')doLogin()">
-      <label class="login-label" for="lPass">Password</label>
+      <label class="login-label">Password</label>
       <input type="password" class="login-input" id="lPass" placeholder="Enter password"
              onkeydown="if(event.key==='Enter')doLogin()">
       <button class="login-btn" id="lBtn" onclick="doLogin()">
@@ -219,7 +222,7 @@ body{font-family:var(--fb);background:var(--g50);color:var(--black);padding-bott
       </button>
       <div class="login-err" id="lErr"></div>
     </div>
-    <div class="login-footer">
+    <div class="login-foot">
       <p>Contact <strong>Admin</strong> if you forgot your credentials</p>
     </div>
   </div>
@@ -264,35 +267,36 @@ body{font-family:var(--fb);background:var(--g50);color:var(--black);padding-bott
     </button>
   </nav>
 </div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-/* ─── CONFIG ─────────────────────────────────────── */
 const API = 'https://edumanage-backend-xi.vercel.app/api';
 
-/* ─── STATE ──────────────────────────────────────── */
+/* ── STATE ── */
 let activeToken = null;
-let teacherInfo = null;       // from /teachers/me
-let students    = [];         // flat array, always
+let cd          = null;      // raw teacher API response
+let students    = [];
 let attState    = {};
 let posts       = [];
 let cp          = 'students';
 let lang        = localStorage.getItem('edu-lang') || 'en';
-// selected student IDs for notification (Set)
-let selectedStudents = new Set();
+let selSet      = new Set(); // selected students for notification
 
-/* ─── TRANSLATIONS ───────────────────────────────── */
-const T = {
-  en:{students:'Students',attend:'Attendance',marks:'Marks',group:'Class Group',notify:'Notify',total:'Students',mark_att:'Mark Attendance',update_marks:'Update Marks',post_group:'Post in Group',send_notif:'Send Notification',save_att:'Save Attendance',save_marks:'Save Marks',post:'Post',notif_sent:'Notification sent!',att_saved:'Attendance saved!',marks_saved:'Marks saved!',posted:'Posted!',P:'P',A:'A',write:'Write something for your class...',no_students:'No students found in your class',no_posts:'No posts yet',out_of:'Out of',obtained:'Obtained',select_students:'Select Students',all_students:'Select All',selected:'selected'},
-  hi:{students:'छात्र',attend:'उपस्थिति',marks:'अंक',group:'क्लास ग्रुप',notify:'सूचना',total:'छात्र',mark_att:'उपस्थिति लगाएं',update_marks:'अंक अपडेट करें',post_group:'ग्रुप में पोस्ट करें',send_notif:'सूचना भेजें',save_att:'उपस्थिति सहेजें',save_marks:'अंक सहेजें',post:'पोस्ट करें',notif_sent:'सूचना भेजी गई!',att_saved:'उपस्थिति सहेजी गई!',marks_saved:'अंक सहेजे गए!',posted:'पोस्ट हुआ!',P:'उ',A:'अ',write:'कक्षा के लिए लिखें...',no_students:'कोई छात्र नहीं मिले',no_posts:'कोई पोस्ट नहीं',out_of:'में से',obtained:'प्राप्त',select_students:'छात्र चुनें',all_students:'सभी चुनें',selected:'चुने गए'},
-  mr:{students:'विद्यार्थी',attend:'हजेरी',marks:'गुण',group:'वर्ग गट',notify:'सूचना',total:'विद्यार्थी',mark_att:'हजेरी नोंदवा',update_marks:'गुण अपडेट करा',post_group:'गटात पोस्ट करा',send_notif:'सूचना पाठवा',save_att:'हजेरी जतन करा',save_marks:'गुण जतन करा',post:'पोस्ट करा',notif_sent:'सूचना पाठवली!',att_saved:'हजेरी जतन झाली!',marks_saved:'गुण जतन झाले!',posted:'पोस्ट झाले!',P:'उ',A:'अ',write:'वर्गासाठी लिहा...',no_students:'विद्यार्थी नाहीत',no_posts:'पोस्ट नाही',out_of:'पैकी',obtained:'मिळाले',select_students:'विद्यार्थी निवडा',all_students:'सर्व निवडा',selected:'निवडले'}
+/* ── TRANSLATIONS ── */
+const T={
+  en:{students:'Students',attend:'Attendance',marks:'Marks',group:'Class Group',notify:'Notify',my_class:'My Class',total:'Students',mark_att:'Mark Attendance',update_marks:'Update Marks',post_group:'Post in Group',send_notif:'Send Notification',save_att:'Save Attendance',save_marks:'Save Marks',post:'Post',notif_sent:'Notification sent!',att_saved:'Attendance saved!',marks_saved:'Marks saved!',posted:'Posted!',P:'P',A:'A',write:'Write something for your class...',no_class:'No class assigned. Contact admin.',no_students:'No students in your class',no_posts:'No posts yet',out_of:'Out of',obtained:'Obtained',sel_students:'Select Students',all_students:'Select All',selected:'selected'},
+  hi:{students:'छात्र',attend:'उपस्थिति',marks:'अंक',group:'क्लास ग्रुप',notify:'सूचना',my_class:'मेरी कक्षा',total:'छात्र',mark_att:'उपस्थिति लगाएं',update_marks:'अंक अपडेट करें',post_group:'ग्रुप में पोस्ट करें',send_notif:'सूचना भेजें',save_att:'उपस्थिति सहेजें',save_marks:'अंक सहेजें',post:'पोस्ट करें',notif_sent:'सूचना भेजी गई!',att_saved:'उपस्थिति सहेजी गई!',marks_saved:'अंक सहेजे गए!',posted:'पोस्ट हुआ!',P:'उ',A:'अ',write:'कक्षा के लिए लिखें...',no_class:'कोई कक्षा नहीं।',no_students:'कोई छात्र नहीं',no_posts:'कोई पोस्ट नहीं',out_of:'में से',obtained:'प्राप्त',sel_students:'छात्र चुनें',all_students:'सभी चुनें',selected:'चुने गए'},
+  mr:{students:'विद्यार्थी',attend:'हजेरी',marks:'गुण',group:'वर्ग गट',notify:'सूचना',my_class:'माझा वर्ग',total:'विद्यार्थी',mark_att:'हजेरी नोंदवा',update_marks:'गुण अपडेट करा',post_group:'गटात पोस्ट करा',send_notif:'सूचना पाठवा',save_att:'हजेरी जतन करा',save_marks:'गुण जतन करा',post:'पोस्ट करा',notif_sent:'सूचना पाठवली!',att_saved:'हजेरी जतन झाली!',marks_saved:'गुण जतन झाले!',posted:'पोस्ट झाले!',P:'उ',A:'अ',write:'वर्गासाठी लिहा...',no_class:'कोणताही वर्ग नाही.',no_students:'विद्यार्थी नाहीत',no_posts:'पोस्ट नाही',out_of:'पैकी',obtained:'मिळाले',sel_students:'विद्यार्थी निवडा',all_students:'सर्व निवडा',selected:'निवडले'}
 };
 function t(k){return(T[lang]&&T[lang][k])?T[lang][k]:(T.en[k]||k)}
-function setLang(l){lang=l;localStorage.setItem('edu-lang',l);document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase()===l));showPage(cp)}
+function setLang(l){
+  lang=l;localStorage.setItem('edu-lang',l);
+  document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase()===l));
+  showPage(cp);
+}
 
-/* ─── BOOT ───────────────────────────────────────── */
-(function boot(){
+/* ── BOOT: forever login ── */
+(function init(){
   const saved = localStorage.getItem('tch_token');
   if(saved && saved.length > 20){
     activeToken = saved;
@@ -306,39 +310,39 @@ function setLang(l){lang=l;localStorage.setItem('edu-lang',l);document.querySele
 function showLogin(){
   document.getElementById('loginScreen').classList.add('show');
   document.getElementById('appScreen').style.display='none';
-  setTimeout(()=>{const e=document.getElementById('lCode');if(e)e.focus();},400);
+  setTimeout(()=>{ const e=document.getElementById('lCode'); if(e)e.focus(); },400);
 }
 function showApp(){
   document.getElementById('loginScreen').classList.remove('show');
   document.getElementById('appScreen').style.display='block';
 }
 
-/* ─── LOGIN ──────────────────────────────────────── */
+/* ── LOGIN ── */
 async function doLogin(){
-  const code = document.getElementById('lCode').value.trim().toUpperCase();
-  const pass = document.getElementById('lPass').value.trim();
-  const errEl = document.getElementById('lErr');
-  const btn   = document.getElementById('lBtn');
+  const code=document.getElementById('lCode').value.trim().toUpperCase();
+  const pass=document.getElementById('lPass').value.trim();
+  const errEl=document.getElementById('lErr');
+  const btn=document.getElementById('lBtn');
   if(!code||!pass){errEl.textContent='Please enter code and password';errEl.classList.add('show');return;}
   errEl.classList.remove('show');
   btn.innerHTML='<div class="login-sp"></div> Signing in...';
   btn.disabled=true;
   try{
-    const res  = await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code,password:pass,role:'teacher'})});
-    const data = await res.json();
-    const ok   = data.token && (data.success || res.ok);
-    if(ok){
-      if(data.user && data.user.role && data.user.role!=='teacher'){
+    const res=await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code,password:pass,role:'teacher'})});
+    const data=await res.json();
+    if(data.token){
+      if(data.user&&data.user.role&&data.user.role!=='teacher'){
         errEl.textContent='This login is for teachers only';errEl.classList.add('show');
         btn.innerHTML='Sign In';btn.disabled=false;return;
       }
-      localStorage.setItem('tch_token', data.token);
-      localStorage.setItem('tch_name',  data.user?.name||code);
-      activeToken = data.token;
+      /* ── SAVE FOREVER ── */
+      localStorage.setItem('tch_token',data.token);
+      localStorage.setItem('tch_name',data.user?.name||code);
+      activeToken=data.token;
       showApp();
       loadData();
     } else {
-      errEl.textContent = data.message||'Invalid code or password';
+      errEl.textContent=data.message||'Invalid code or password';
       errEl.classList.add('show');
       btn.innerHTML='Sign In';btn.disabled=false;
     }
@@ -349,156 +353,130 @@ async function doLogin(){
   }
 }
 
-/* ─── LOGOUT ─────────────────────────────────────── */
+/* ── LOGOUT ── */
 function doLogout(){
   if(!confirm('Are you sure you want to logout?'))return;
   localStorage.removeItem('tch_token');
   localStorage.removeItem('tch_name');
-  activeToken=null;teacherInfo=null;students=[];
+  activeToken=null;cd=null;students=[];posts=[];
   location.reload();
 }
 
-/* ─── LOAD DATA — with multiple fallback endpoints ── */
+/* ── EXTRACT class name from ANY field name API may use ── */
+function extractClass(obj){
+  if(!obj) return '';
+  const keys=[
+    'class_name','assigned_class','class','className','assignedClass',
+    'classAssigned','my_class','myClass','standard','std',
+    'class_assigned','teacher_class','teacherClass','classname'
+  ];
+  for(const k of keys){
+    if(obj[k] && String(obj[k]).trim()) return String(obj[k]).trim();
+  }
+  return '';
+}
+
+/* ── GET student id safely ── */
+function sid(s){ return s._id||s.id||s.student_id||''; }
+
+/* ── LOAD DATA ── */
 async function loadData(){
-  const h = {Authorization:`Bearer ${activeToken}`,'Content-Type':'application/json'};
-  const el = document.getElementById('mainContent');
-
+  const h={Authorization:`Bearer ${activeToken}`,'Content-Type':'application/json'};
   try{
-    /* Step 1: Get teacher info */
-    let tRes = await fetch(API+'/teachers/me',{headers:h});
-
-    /* If 401 token expired → re-login */
-    if(tRes.status===401){
-      localStorage.removeItem('tch_token');
-      showLogin();return;
-    }
-
+    /* 1. Teacher info */
+    const tRes=await fetch(API+'/teachers/me',{headers:h});
+    if(tRes.status===401){localStorage.removeItem('tch_token');showLogin();return;}
     if(tRes.ok){
-      const d = await tRes.json();
-      /* Handle various response shapes */
-      teacherInfo = d.teacher || d.data || d;
+      const raw=await tRes.json();
+      /* raw may be {teacher:{...}} or directly the teacher object */
+      cd = raw.teacher || raw.data || raw;
     }
 
-    /* Step 2: Load students — try multiple endpoints */
-    students = [];
-
-    /* Try endpoint 1: /teachers/my-students */
-    try{
-      const r = await fetch(API+'/teachers/my-students',{headers:h});
-      if(r.ok){
-        const d = await r.json();
-        students = normalizeStudents(d);
-      }
-    }catch(_){}
-
-    /* Try endpoint 2: /students?class=X if first failed */
-    if(!students.length && teacherInfo){
-      const cls = teacherInfo.class_name || teacherInfo.assigned_class || teacherInfo.class || '';
-      if(cls){
-        try{
-          const r = await fetch(`${API}/students?class=${encodeURIComponent(cls)}`,{headers:h});
-          if(r.ok){
-            const d = await r.json();
-            students = normalizeStudents(d);
-          }
-        }catch(_){}
-      }
+    /* 2. Students — original endpoint first */
+    const sRes=await fetch(API+'/teachers/my-students',{headers:h});
+    if(sRes.ok){
+      const raw=await sRes.json();
+      students=Array.isArray(raw)?raw:(raw.students||raw.data||[]);
     }
 
-    /* Try endpoint 3: /students/class/:name */
-    if(!students.length && teacherInfo){
-      const cls = teacherInfo.class_name || teacherInfo.assigned_class || teacherInfo.class || '';
-      if(cls){
-        try{
-          const r = await fetch(`${API}/students/class/${encodeURIComponent(cls)}`,{headers:h});
-          if(r.ok){
-            const d = await r.json();
-            students = normalizeStudents(d);
-          }
-        }catch(_){}
-      }
-    }
-
-    /* Try endpoint 4: /students (get all, filter by class client-side) */
+    /* 3. If still empty, try /students with class filter */
     if(!students.length){
-      try{
-        const r = await fetch(API+'/students',{headers:h});
-        if(r.ok){
-          const d = await r.json();
-          let all = normalizeStudents(d);
-          const myClass = teacherInfo?.class_name || teacherInfo?.assigned_class || teacherInfo?.class || '';
-          if(myClass && all.length){
-            const filtered = all.filter(s=>{
-              const sc = (s.class_name||s.standard||s.class||'').toString().toLowerCase().trim();
-              const tc = myClass.toString().toLowerCase().trim();
-              return sc===tc || sc.includes(tc) || tc.includes(sc);
-            });
-            students = filtered.length ? filtered : all;
-          } else {
-            students = all;
-          }
-        }
-      }catch(_){}
+      const myClass=extractClass(cd);
+      if(myClass){
+        const r=await fetch(`${API}/students?class=${encodeURIComponent(myClass)}`,{headers:h});
+        if(r.ok){const d=await r.json();students=Array.isArray(d)?d:(d.students||d.data||[]);}
+      }
     }
 
-    /* Load posts */
+    /* 4. If STILL empty, get all and filter client-side */
+    if(!students.length){
+      const myClass=extractClass(cd);
+      const r=await fetch(API+'/students',{headers:h});
+      if(r.ok){
+        const d=await r.json();
+        const all=Array.isArray(d)?d:(d.students||d.data||[]);
+        if(myClass){
+          const mc=myClass.toLowerCase().trim();
+          const filtered=all.filter(s=>{
+            const sc=String(s.class_name||s.standard||s.class||s.className||'').toLowerCase().trim();
+            return sc===mc||sc.includes(mc)||mc.includes(sc);
+          });
+          students=filtered.length?filtered:all;
+        } else {
+          students=all;
+        }
+      }
+    }
+
+    /* 5. Posts */
     try{
-      const r = await fetch(API+'/posts/my-class',{headers:h});
-      if(r.ok){const d=await r.json();posts=Array.isArray(d)?d:(d.posts||[]);}
+      const pRes=await fetch(API+'/posts/my-class',{headers:h});
+      if(pRes.ok){const d=await pRes.json();posts=Array.isArray(d)?d:(d.posts||[]);}
     }catch(_){}
 
-    /* Initialize attState */
-    students.forEach(s=>{
-      const sid=getSid(s);
-      if(!attState[sid]) attState[sid]='P';
-    });
+    /* Init attState */
+    students.forEach(s=>{if(!attState[sid(s)])attState[sid(s)]='P';});
 
     showPage('students');
-
   }catch(err){
-    el.innerHTML=`<div class="ls2"><div class="eb"><p>Could not load data.<br>${err.message}</p></div></div>`;
+    document.getElementById('mainContent').innerHTML=
+      `<div class="ls2"><div class="eb"><p>Could not load data.<br>${err.message}</p></div></div>`;
   }
 }
 
-/* ─── NORMALIZE student arrays from any API shape ── */
-function normalizeStudents(d){
-  if(Array.isArray(d)) return d;
-  if(Array.isArray(d.students)) return d.students;
-  if(Array.isArray(d.data)) return d.data;
-  if(d.student) return [d.student];
-  return [];
-}
-
-/* ─── Get student ID safely ─────────────────────── */
-function getSid(s){ return s._id || s.id || s.student_id || ''; }
-
-/* ─── ROUTER ─────────────────────────────────────── */
+/* ── ROUTER ── */
 function showPage(page,btn){
   cp=page;
   document.querySelectorAll('.bb').forEach(b=>b.classList.remove('active'));
   if(btn) btn.classList.add('active');
   else{
     const idx={students:0,attendance:1,marks:2,group:3,notify:4}[page];
-    if(idx!==undefined) document.querySelectorAll('.bb')[idx]?.classList.add('active');
+    if(idx!=null) document.querySelectorAll('.bb')[idx]?.classList.add('active');
   }
   const el=document.getElementById('mainContent');
-  const pages={students:renderStudents,attendance:renderAttendance,marks:renderMarks,group:renderGroup,notify:renderNotify};
-  el.innerHTML=(pages[page]||renderStudents)();
+  if(page==='students')    el.innerHTML=renderStudents();
+  else if(page==='attendance') el.innerHTML=renderAttendance();
+  else if(page==='marks')  el.innerHTML=renderMarks();
+  else if(page==='group')  el.innerHTML=renderGroup();
+  else if(page==='notify') el.innerHTML=renderNotify();
   el.scrollTop=0;window.scrollTo(0,0);
 }
 
-/* ─── HELPERS ────────────────────────────────────── */
-function initials(n){if(!n)return '?';return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}
-function timeAgo(d){if(!d)return '';const s=Math.floor((Date.now()-new Date(d))/1000);if(s<60)return 'just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago'}
+/* ── HELPERS ── */
+function initials(n){if(!n)return'?';return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}
+function timeAgo(d){if(!d)return'';const s=Math.floor((Date.now()-new Date(d))/1000);if(s<60)return'just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago'}
 function todayStr(){return new Date().toISOString().slice(0,10)}
-function showToast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),3000)}
-function feesBadge(s){if(s.fees_status==='paid')return '<span class="badge-ok">Paid</span>';if(s.fees_status==='partial')return '<span class="badge-par">Part</span>';return '<span class="badge-due">Due</span>'}
+function showToast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),3000)}
+function fBadge(s){if(s.fees_status==='paid')return'<span class="badge-ok">Paid</span>';if(s.fees_status==='partial')return'<span class="badge-par">Part</span>';return'<span class="badge-due">Due</span>'}
 
-/* ─── PAGE: STUDENTS ─────────────────────────────── */
+/* ── RENDER: STUDENTS ── */
 function renderStudents(){
-  const name = teacherInfo?.name || localStorage.getItem('tch_name') || 'Teacher';
-  const cls  = teacherInfo?.class_name || teacherInfo?.assigned_class || teacherInfo?.class || '';
-  const subj = teacherInfo?.subject || '';
+  const name=cd?.name||localStorage.getItem('tch_name')||'Teacher';
+  const cls=extractClass(cd);
+  const subj=cd?.subject||cd?.subjects||'';
+
+  /* Debug card — shows raw teacher API keys so you can identify class field */
+  const dbgKeys=cd?Object.keys(cd).map(k=>`${k}: ${JSON.stringify(cd[k])}`).join('\n'):'(no data)';
 
   return `
   <div class="hdr">
@@ -507,7 +485,7 @@ function renderStudents(){
       <div class="grt">Welcome back</div>
       <div class="tnm">${name}</div>
       <div class="cps">
-        ${cls?`<span class="cp">Class ${cls}</span>`:''}
+        ${cls?`<span class="cp">Class ${cls}</span>`:'<span class="cp" style="background:rgba(255,100,100,.3)">No class assigned</span>'}
         <span class="cp">${students.length} ${t('total')}</span>
         ${subj?`<span class="cp">${subj}</span>`:''}
       </div>
@@ -518,31 +496,32 @@ function renderStudents(){
     <div class="sc"><div class="sv">${students.filter(s=>s.fees_status==='paid').length}</div><div class="sl">Fees OK</div></div>
     <div class="sc"><div class="sv">${posts.length}</div><div class="sl">Posts</div></div>
   </div>
+
+  ${/* Show debug only if no students found */ !students.length?`
+  <div class="dbg">
+⚠️ DEBUG — Teacher API response fields:<br>
+${dbgKeys}<br><br>
+📌 Share this with developer to fix class field name.
+  </div>`:''}
+
   <div class="sec">
     <div class="stt">${t('students')}</div>
-    ${!students.length ? `
-      <div class="eb">
-        <p>${t('no_students')}</p>
-        <p style="font-size:11px;margin-top:8px;color:var(--g400)">
-          Class assigned: <b>${cls||'(none)'}</b><br>
-          Check admin panel — student's class must match teacher's assigned class exactly.
-        </p>
-      </div>` : ''}
+    ${!students.length?`<div class="eb"><p>${t('no_students')}</p></div>`:''}
     ${students.map(s=>`
-      <div class="si" onclick="viewStudent('${getSid(s)}')">
+      <div class="si" onclick="viewStudent('${sid(s)}')">
         <div class="sav">${initials(s.name)}</div>
         <div style="flex:1">
           <div class="snm">${s.name}</div>
           <div class="smeta">Roll ${s.roll_no||'-'} · ${s.parent_phone||s.phone||''}</div>
         </div>
-        ${feesBadge(s)}
+        ${fBadge(s)}
       </div>`).join('')}
   </div>`;
 }
 
-/* ─── STUDENT DETAIL ─────────────────────────────── */
+/* ── STUDENT DETAIL ── */
 function viewStudent(id){
-  const s=students.find(x=>getSid(x)===id);
+  const s=students.find(x=>sid(x)===id);
   if(!s)return;
   document.getElementById('mainContent').innerHTML=`
   <button class="back-btn" onclick="showPage('students')">
@@ -550,8 +529,8 @@ function viewStudent(id){
   </button>
   <div class="det-card">
     <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
-      <div style="width:52px;height:52px;border-radius:50%;background:var(--m-pale);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:20px;color:var(--m)">${initials(s.name)}</div>
-      <div><div style="font-family:var(--fd);font-size:18px;font-weight:700">${s.name}</div><div style="font-size:12px;color:var(--g400)">Roll ${s.roll_no||'-'}</div></div>
+      <div style="width:52px;height:52px;border-radius:50%;background:var(--m-pale);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:20px;color:var(--m)">${initials(s.name)}</div>
+      <div><div style="font-family:var(--font-display);font-size:18px;font-weight:700">${s.name}</div><div style="font-size:12px;color:var(--g400)">Roll ${s.roll_no||'-'}</div></div>
     </div>
     <div class="il">
       ${s.parent_name?`<div class="ir"><div class="irl">Parent</div><div class="irv">${s.parent_name}</div></div>`:''}
@@ -559,22 +538,21 @@ function viewStudent(id){
       ${s.dob?`<div class="ir"><div class="irl">DOB</div><div class="irv">${new Date(s.dob).toLocaleDateString('en-IN')}</div></div>`:''}
       ${s.blood_group?`<div class="ir"><div class="irl">Blood</div><div class="irv">${s.blood_group}</div></div>`:''}
       ${s.address?`<div class="ir"><div class="irl">Address</div><div class="irv" style="max-width:60%;text-align:right">${s.address}</div></div>`:''}
-      <div class="ir"><div class="irl">Fees</div><div class="irv">${feesBadge(s)}</div></div>
+      <div class="ir"><div class="irl">Fees</div><div class="irv">${fBadge(s)}</div></div>
       <div class="ir"><div class="irl">Bus</div><div class="irv">${s.has_bus?'🚌 Yes':'No'}</div></div>
     </div>
     ${s.remarks?`<div style="border-left:3px solid var(--m);padding:8px 12px;border-radius:0 8px 8px 0;background:var(--m-pale)"><div style="font-size:10px;color:var(--m);font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">Remarks</div><div style="font-size:13px;color:var(--g700)">${s.remarks}</div></div>`:''}
   </div>`;
 }
 
-/* ─── PAGE: ATTENDANCE ───────────────────────────── */
+/* ── RENDER: ATTENDANCE ── */
 function renderAttendance(){
-  if(!students.length) return `<div class="ls2"><div class="eb"><p>${t('no_students')}</p></div></div>`;
-  students.forEach(s=>{const sid=getSid(s);if(!attState[sid])attState[sid]='P';});
+  if(!students.length) return`<div class="ls2"><div class="eb"><p>${t('no_students')}</p></div></div>`;
+  students.forEach(s=>{if(!attState[sid(s)])attState[sid(s)]='P';});
   return `
   <div class="hdr"><div class="hg"></div>
-    <div class="hc">
-      <div class="grt">${t('mark_att')}</div>
-      <div class="tnm" style="font-size:18px">${teacherInfo?.class_name||teacherInfo?.assigned_class||'My Class'}</div>
+    <div class="hc"><div class="grt">${t('mark_att')}</div>
+      <div class="tnm" style="font-size:18px">${extractClass(cd)||t('my_class')}</div>
     </div>
   </div>
   <div class="sec" style="margin-top:14px">
@@ -584,14 +562,13 @@ function renderAttendance(){
         <input type="date" class="di" id="attDate" value="${todayStr()}">
       </div>
       ${students.map(s=>{
-        const sid=getSid(s);
-        const st=attState[sid]||'P';
+        const id=sid(s);const st=attState[id]||'P';
         return `<div class="ar">
           <div class="aroll">${s.roll_no||'-'}</div>
           <div class="anm">${s.name}</div>
           <div class="atog">
-            <button class="atb ${st==='P'?'pa':''}" onclick="setAtt('${sid}','P',this)">P</button>
-            <button class="atb ${st==='A'?'aa':''}" onclick="setAtt('${sid}','A',this)">A</button>
+            <button class="atb ${st==='P'?'pa':''}" onclick="setAtt('${id}','P',this)">${t('P')}</button>
+            <button class="atb ${st==='A'?'aa':''}" onclick="setAtt('${id}','A',this)">${t('A')}</button>
           </div>
         </div>`;
       }).join('')}
@@ -599,30 +576,27 @@ function renderAttendance(){
     </div>
   </div>`;
 }
-
-function setAtt(sid,val,btn){
-  attState[sid]=val;
+function setAtt(id,val,btn){
+  attState[id]=val;
   btn.closest('.ar').querySelectorAll('.atb').forEach(b=>{b.classList.remove('pa','aa')});
   btn.classList.add(val==='P'?'pa':'aa');
 }
-
 async function saveAttendance(){
   const date=document.getElementById('attDate')?.value;
-  const records=students.map(s=>({student_id:getSid(s),status:attState[getSid(s)]||'P'}));
+  const records=students.map(s=>({student_id:sid(s),status:attState[sid(s)]||'P'}));
   try{
     const res=await fetch(API+'/attendance',{method:'POST',headers:{Authorization:`Bearer ${activeToken}`,'Content-Type':'application/json'},body:JSON.stringify({date,records})});
-    showToast(res.ok?t('att_saved'):'Failed to save. Try again.');
+    showToast(res.ok?t('att_saved'):'Failed. Try again.');
   }catch(_){showToast('Network error.');}
 }
 
-/* ─── PAGE: MARKS ────────────────────────────────── */
+/* ── RENDER: MARKS ── */
 function renderMarks(){
-  if(!students.length) return `<div class="ls2"><div class="eb"><p>${t('no_students')}</p></div></div>`;
+  if(!students.length) return`<div class="ls2"><div class="eb"><p>${t('no_students')}</p></div></div>`;
   return `
   <div class="hdr"><div class="hg"></div>
-    <div class="hc">
-      <div class="grt">${t('update_marks')}</div>
-      <div class="tnm" style="font-size:18px">${teacherInfo?.class_name||teacherInfo?.assigned_class||'My Class'}</div>
+    <div class="hc"><div class="grt">${t('update_marks')}</div>
+      <div class="tnm" style="font-size:18px">${extractClass(cd)||t('my_class')}</div>
     </div>
   </div>
   <div class="sec" style="margin-top:14px">
@@ -637,14 +611,14 @@ function renderMarks(){
         <option>Sanskrit</option><option>Computer</option><option>GK</option>
       </select>
     </div>
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;background:var(--white);border:1px solid var(--g200);border-radius:var(--r);padding:10px 14px">
-      <label style="font-size:12px;font-weight:600;color:var(--g500);white-space:nowrap">Out of (all):</label>
-      <input type="number" class="fi" id="outOfGlobal" placeholder="e.g. 100" min="1" style="max-width:90px;margin:0">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;background:var(--white);border:1px solid var(--g200);border-radius:var(--radius);padding:10px 14px">
+      <label style="font-size:12px;font-weight:600;color:var(--g500);white-space:nowrap">${t('out_of')} (all):</label>
+      <input type="number" class="fi" id="outOfGlobal" placeholder="100" min="1" style="max-width:85px;margin:0">
       <button onclick="applyOutOf()" style="padding:8px 14px;background:var(--m);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap">Apply</button>
     </div>
     <div class="marks-sheet">
       ${students.map((s,i)=>{
-        const sid=getSid(s);
+        const id=sid(s);
         return `
         <div>
           <div class="ms-header" onclick="toggleMark('mk${i}')">
@@ -658,13 +632,13 @@ function renderMarks(){
           <div class="ms-fields" id="mk${i}">
             <div class="mrow">
               <div class="mlbl">${t('obtained')}</div>
-              <input type="number" class="minput" id="obt_${sid}" placeholder="0" min="0">
+              <input type="number" class="minput" id="obt_${id}" placeholder="0" min="0">
             </div>
             <div class="mrow">
               <div class="mlbl">${t('out_of')}</div>
-              <input type="number" class="minput" id="oof_${sid}" placeholder="100" min="1">
+              <input type="number" class="minput" id="oof_${id}" placeholder="100" min="1">
             </div>
-            <button class="msave" onclick="saveMark('${sid}','${s.name.replace(/'/g,"\\'")}')">
+            <button class="msave" onclick="saveMark('${id}','${s.name.replace(/'/g,"\\'")}')">
               Save ${s.name.split(' ')[0]}'s Marks
             </button>
           </div>
@@ -673,39 +647,31 @@ function renderMarks(){
     </div>
   </div>`;
 }
-
 function applyOutOf(){
   const val=document.getElementById('outOfGlobal')?.value;
   if(!val){showToast('Enter out of value first');return;}
-  students.forEach(s=>{const el=document.getElementById('oof_'+getSid(s));if(el)el.value=val;});
+  students.forEach(s=>{const e=document.getElementById('oof_'+sid(s));if(e)e.value=val;});
   showToast('Out of '+val+' applied to all');
 }
-
 function toggleMark(id){document.getElementById(id)?.classList.toggle('open')}
-
-async function saveMark(sid,name){
+async function saveMark(id,name){
   const exam=document.getElementById('examType')?.value;
   const subj=document.getElementById('subjectSel')?.value;
-  const obt=document.getElementById('obt_'+sid)?.value;
-  const oof=document.getElementById('oof_'+sid)?.value;
+  const obt=document.getElementById('obt_'+id)?.value;
+  const oof=document.getElementById('oof_'+id)?.value;
   if(!obt||!oof){showToast('Enter marks and out of value');return;}
   try{
-    const res=await fetch(API+'/marks',{
-      method:'POST',
-      headers:{Authorization:`Bearer ${activeToken}`,'Content-Type':'application/json'},
-      body:JSON.stringify({student_id:sid,exam_type:exam,subject:subj,marks_obtained:Number(obt),total_marks:Number(oof)})
-    });
+    const res=await fetch(API+'/marks',{method:'POST',headers:{Authorization:`Bearer ${activeToken}`,'Content-Type':'application/json'},body:JSON.stringify({student_id:id,exam_type:exam,subject:subj,marks_obtained:Number(obt),total_marks:Number(oof)})});
     showToast(res.ok?name.split(' ')[0]+': '+t('marks_saved'):'Failed. Try again.');
   }catch(_){showToast('Network error.');}
 }
 
-/* ─── PAGE: GROUP ────────────────────────────────── */
+/* ── RENDER: GROUP ── */
 function renderGroup(){
   return `
   <div class="hdr"><div class="hg"></div>
-    <div class="hc">
-      <div class="grt">${t('post_group')}</div>
-      <div class="tnm" style="font-size:18px">${teacherInfo?.class_name||teacherInfo?.assigned_class||'My Class'}</div>
+    <div class="hc"><div class="grt">${t('post_group')}</div>
+      <div class="tnm" style="font-size:18px">${extractClass(cd)||t('my_class')}</div>
     </div>
   </div>
   <div class="sec" style="margin-top:14px">
@@ -721,7 +687,7 @@ function renderGroup(){
     ${posts.map(p=>`
       <div class="pi">
         <div class="ph">
-          <div class="pau">${p.posted_by_name||teacherInfo?.name||'You'}</div>
+          <div class="pau">${p.posted_by_name||cd?.name||'You'}</div>
           <div style="display:flex;align-items:center;gap:8px">
             <div class="ptm">${timeAgo(p.created_at)}</div>
             <button class="del-btn" onclick="deletePost('${p._id||p.id}')">
@@ -734,7 +700,6 @@ function renderGroup(){
       </div>`).join('')}
   </div>`;
 }
-
 async function submitPost(){
   const txt=document.getElementById('postTxt')?.value.trim();
   const vid=document.getElementById('postVideo')?.value.trim();
@@ -743,13 +708,11 @@ async function submitPost(){
     const res=await fetch(API+'/posts',{method:'POST',headers:{Authorization:`Bearer ${activeToken}`,'Content-Type':'application/json'},body:JSON.stringify({text_content:txt,video_link:vid||null})});
     if(res.ok){
       const d=await res.json();
-      posts.unshift(d.post||{text_content:txt,video_link:vid,created_at:new Date(),posted_by_name:teacherInfo?.name});
-      showToast(t('posted'));
-      showPage('group');
+      posts.unshift(d.post||{text_content:txt,video_link:vid,created_at:new Date(),posted_by_name:cd?.name});
+      showToast(t('posted'));showPage('group');
     }else{showToast('Failed. Try again.');}
   }catch(_){showToast('Network error.');}
 }
-
 async function deletePost(id){
   if(!confirm('Delete this post?'))return;
   try{
@@ -759,29 +722,13 @@ async function deletePost(id){
   }catch(_){showToast('Network error.');}
 }
 
-/* ─── PAGE: NOTIFY ───────────────────────────────── */
+/* ── RENDER: NOTIFY ── */
 function renderNotify(){
-  /* Reset selected set on page render */
-  selectedStudents = new Set();
-
-  const stuRows = students.map(s=>{
-    const sid = getSid(s);
-    return `
-    <div class="stu-sel-item" id="row_${sid}" onclick="toggleStu('${sid}')">
-      <input type="checkbox" class="stu-chk" id="chk_${sid}"
-             onclick="event.stopPropagation();toggleStu('${sid}')">
-      <div style="flex:1">
-        <div class="stu-sel-name">${s.name}</div>
-        <div class="stu-sel-roll">Roll ${s.roll_no||'-'}</div>
-      </div>
-    </div>`;
-  }).join('');
-
+  selSet=new Set(); // reset on page open
   return `
   <div class="hdr"><div class="hg"></div>
-    <div class="hc">
-      <div class="grt">${t('send_notif')}</div>
-      <div class="tnm" style="font-size:18px">${teacherInfo?.class_name||teacherInfo?.assigned_class||'My Class'}</div>
+    <div class="hc"><div class="grt">${t('send_notif')}</div>
+      <div class="tnm" style="font-size:18px">${extractClass(cd)||t('my_class')}</div>
     </div>
   </div>
   <div class="sec" style="margin-top:14px">
@@ -794,103 +741,92 @@ function renderNotify(){
         <label>Message</label>
         <textarea class="fita" id="nmsg" placeholder="Write your message here..."></textarea>
       </div>
-
       <div class="fg">
-        <label>${t('select_students')}</label>
-
+        <label>${t('sel_students')}</label>
         <div style="display:flex;gap:6px;margin-bottom:8px">
-          <button onclick="selectAll(true)"
+          <button onclick="selAll(true)"
             style="flex:1;padding:8px;background:var(--m);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">
             ✅ ${t('all_students')}
           </button>
-          <button onclick="selectAll(false)"
+          <button onclick="selAll(false)"
             style="flex:1;padding:8px;background:var(--g100);color:var(--g600);border:1px solid var(--g200);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">
             ✕ Clear
           </button>
         </div>
-
-        <div id="selBadge" class="sel-count-badge">0 ${t('selected')}</div>
-
+        <div class="sel-badge" id="selBadge">0 ${t('selected')}</div>
         ${!students.length
           ? `<div class="eb"><p>${t('no_students')}</p></div>`
-          : `<div class="stu-sel-wrap">${stuRows}</div>`}
+          : `<div class="stu-sel-box">
+              ${students.map(s=>`
+                <div class="stu-sel-item" id="srow_${sid(s)}" onclick="togStu('${sid(s)}')">
+                  <input type="checkbox" class="stu-chk" id="schk_${sid(s)}"
+                         onclick="event.stopPropagation();togStu('${sid(s)}')">
+                  <div style="flex:1">
+                    <div class="stu-sel-name">${s.name}</div>
+                    <div class="stu-sel-roll">Roll ${s.roll_no||'-'}</div>
+                  </div>
+                </div>`).join('')}
+             </div>`}
       </div>
-
-      <button class="send-btn" onclick="sendNotification()">${t('send_notif')}</button>
+      <button class="send-btn" onclick="sendNotif()">${t('send_notif')}</button>
     </div>
   </div>`;
 }
 
-/* Toggle individual student selection */
-function toggleStu(sid){
-  if(selectedStudents.has(sid)){
-    selectedStudents.delete(sid);
-  } else {
-    selectedStudents.add(sid);
-  }
-  /* Update checkbox */
-  const chk = document.getElementById('chk_'+sid);
-  const row = document.getElementById('row_'+sid);
-  if(chk) chk.checked = selectedStudents.has(sid);
-  if(row) row.classList.toggle('selected', selectedStudents.has(sid));
-  updateBadge();
+/* toggle one student */
+function togStu(id){
+  selSet.has(id)?selSet.delete(id):selSet.add(id);
+  const chk=document.getElementById('schk_'+id);
+  const row=document.getElementById('srow_'+id);
+  if(chk) chk.checked=selSet.has(id);
+  if(row) row.classList.toggle('on',selSet.has(id));
+  updBadge();
 }
 
-/* Select / clear all */
-function selectAll(val){
+/* select / clear all */
+function selAll(val){
   students.forEach(s=>{
-    const sid=getSid(s);
-    if(val) selectedStudents.add(sid);
-    else selectedStudents.delete(sid);
-    const chk=document.getElementById('chk_'+sid);
-    const row=document.getElementById('row_'+sid);
-    if(chk) chk.checked=val;
-    if(row) row.classList.toggle('selected',val);
+    const id=sid(s);
+    val?selSet.add(id):selSet.delete(id);
+    const chk=document.getElementById('schk_'+id);
+    const row=document.getElementById('srow_'+id);
+    if(chk)chk.checked=val;
+    if(row)row.classList.toggle('on',val);
   });
-  updateBadge();
+  updBadge();
 }
 
-function updateBadge(){
+function updBadge(){
   const el=document.getElementById('selBadge');
-  if(el) el.textContent=selectedStudents.size+' '+t('selected');
+  if(el)el.textContent=selSet.size+' '+t('selected');
 }
 
-/* Send notification */
-async function sendNotification(){
-  const title = document.getElementById('ntitle')?.value.trim();
-  const msg   = document.getElementById('nmsg')?.value.trim();
+/* send */
+async function sendNotif(){
+  const title=document.getElementById('ntitle')?.value.trim();
+  const msg=document.getElementById('nmsg')?.value.trim();
   if(!title||!msg){showToast('Enter title and message');return;}
-  if(!selectedStudents.size){showToast('Select at least one student');return;}
-
-  const ids = [...selectedStudents];
-  const all = ids.length === students.length;
-
-  const payload={
-    title,
-    message:msg,
-    student_ids: ids,
-    send_to_all: all
-  };
-
+  if(!selSet.size){showToast('Select at least one student');return;}
+  const ids=[...selSet];
   try{
     const res=await fetch(API+'/notifications',{
       method:'POST',
       headers:{Authorization:`Bearer ${activeToken}`,'Content-Type':'application/json'},
-      body:JSON.stringify(payload)
+      body:JSON.stringify({title,message:msg,student_ids:ids,send_to_all:ids.length===students.length})
     });
     if(res.ok){
       showToast(t('notif_sent'));
       document.getElementById('ntitle').value='';
       document.getElementById('nmsg').value='';
-      selectAll(false);
+      selAll(false);
     }else{
-      const err=await res.json().catch(()=>({}));
-      showToast('Failed: '+(err.message||res.status));
+      const e=await res.json().catch(()=>({}));
+      showToast('Failed: '+(e.message||res.status));
     }
   }catch(_){showToast('Network error.');}
 }
 
-/* ─── SERVICE WORKER ─────────────────────────────── */
+/* ── SW ── */
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})});
 }
