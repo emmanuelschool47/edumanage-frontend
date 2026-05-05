@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#800020">
+<meta name="theme-color" content="#ffffff">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Teacher Panel — EduManage</title>
 <link rel="manifest" href="manifest.json">
@@ -11,198 +11,136 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-:root{
-  --m:#800020;--m-dark:#5c0018;--m-deeper:#3d0010;--m-light:#a30027;
-  --m-pale:rgba(128,0,32,.09);--m-glow:rgba(128,0,32,.18);
-  --white:#fff;--black:#0a0a0a;
-  --g50:#fafafa;--g100:#f5f5f5;--g200:#eee;--g300:#e0e0e0;
-  --g400:#bdbdbd;--g500:#9e9e9e;--g600:#757575;--g700:#616161;
-  --green:#1a7a4a;--green-l:#e8f5ee;--red:#c0392b;--red-l:#fdf0ef;
-  --gold:#b8860b;--gold-l:#fdf8e8;
-  --fd:'Playfair Display',serif;--fb:'Inter',sans-serif;--fm:'JetBrains Mono',monospace;
-  --r:12px;
-}
-body{font-family:var(--fb);background:var(--g50);color:var(--black);padding-bottom:80px;min-height:100vh}
-
-/* LOGIN */
-.login-screen{min-height:100vh;background:linear-gradient(160deg,var(--m-deeper) 0%,var(--m) 55%,var(--m-light) 100%);display:none;align-items:center;justify-content:center;padding:20px}
-.login-screen.show{display:flex}
-.login-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
-.login-wrap{width:100%;max-width:360px;animation:lIn .5s cubic-bezier(.34,1.56,.64,1)}
-@keyframes lIn{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
-.login-brand{text-align:center;margin-bottom:1.5rem}
-.login-icon{width:62px;height:62px;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.25);border-radius:16px;display:flex;align-items:center;justify-content:center;margin:0 auto .9rem;font-family:var(--fd);font-size:1.5rem;font-weight:700;color:#fff}
-.login-brand h1{font-family:var(--fd);font-size:1.8rem;font-weight:800;color:#fff;margin-bottom:.25rem}
-.login-brand p{font-size:.83rem;color:rgba(255,255,255,.65);font-weight:300}
-.login-card{background:rgba(255,255,255,.97);border-radius:20px;padding:26px 22px;box-shadow:0 25px 60px rgba(0,0,0,.28)}
-.login-card-ttl{font-family:var(--fd);font-size:1.25rem;font-weight:700;color:var(--m);margin-bottom:.2rem}
-.login-card-sub{font-size:.8rem;color:var(--g500);margin-bottom:1.3rem}
-.login-label{display:block;font-size:11px;font-weight:600;color:var(--g500);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
-.login-input{width:100%;padding:12px 14px;background:var(--g50);border:1.5px solid var(--g200);border-radius:var(--r);font-family:var(--fb);font-size:14px;color:var(--black);outline:none;margin-bottom:12px;transition:border-color .3s}
-.login-input:focus{border-color:var(--m);background:var(--white);box-shadow:0 0 0 3px var(--m-pale)}
-.login-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--m),var(--m-light));color:var(--white);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px var(--m-glow)}
-.login-btn:disabled{opacity:.6;cursor:not-allowed}
-.login-err{background:var(--red-l);border:1px solid rgba(192,57,43,.15);border-radius:var(--r);padding:10px 14px;font-size:13px;color:var(--red);margin-top:10px;display:none}
+:root{--white:#fff;--black:#0a0a0a;--gray-50:#fafafa;--gray-100:#f5f5f5;--gray-200:#eee;--gray-300:#e0e0e0;--gray-400:#bdbdbd;--gray-500:#9e9e9e;--gray-600:#757575;--gray-700:#616161;--green:#1a7a4a;--green-light:#e8f5ee;--red:#c0392b;--red-light:#fdf0ef;--gold:#b8860b;--font-display:'Playfair Display',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;--radius:12px}
+body{font-family:var(--font-body);background:var(--gray-50);color:var(--black);padding-bottom:80px;min-height:100vh}
+.login-screen{min-height:100vh;background:var(--black);display:flex;align-items:center;justify-content:center;padding:20px;position:relative}
+.login-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+.login-card{background:var(--white);border-radius:20px;padding:28px 22px;width:100%;max-width:360px;position:relative;z-index:1;box-shadow:0 25px 60px rgba(0,0,0,.4)}
+.login-logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:4px}
+.login-lm{width:34px;height:34px;background:var(--black);color:var(--white);border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px}
+.login-name{font-family:var(--font-display);font-size:20px;font-weight:700}
+.login-sub{text-align:center;font-size:12px;color:var(--gray-400);margin-bottom:20px}
+.login-label{display:block;font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.login-input{width:100%;padding:12px 14px;background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:14px;color:var(--black);outline:none;margin-bottom:12px}
+.login-input:focus{border-color:var(--black);background:var(--white)}
+.login-btn{width:100%;padding:13px;background:var(--black);color:var(--white);border:none;border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.login-err{background:var(--red-light);border:1px solid rgba(192,57,43,.15);border-radius:var(--radius);padding:10px 14px;font-size:13px;color:var(--red);margin-top:10px;display:none}
 .login-err.show{display:block}
 .login-sp{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:var(--white);border-radius:50%;animation:spin .7s linear infinite}
-.login-foot{text-align:center;margin-top:1.1rem}
-.login-foot p{font-size:.73rem;color:rgba(255,255,255,.5)}
-.login-foot strong{color:rgba(255,255,255,.8)}
-
-/* TOPBAR */
-.topbar{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:1px solid var(--g200);padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
-.tl{font-family:var(--fd);font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
-.lm{width:28px;height:28px;background:var(--m);color:var(--white);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.topbar{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:1px solid var(--gray-200);padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
+.tl{font-family:var(--font-display);font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
+.lm{width:28px;height:28px;background:var(--black);color:var(--white);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
 .tr{display:flex;align-items:center;gap:8px}
-.ls{display:flex;gap:2px;background:var(--g100);border-radius:100px;padding:2px}
-.lb{padding:4px 9px;border-radius:100px;border:none;background:transparent;font-family:var(--fb);font-size:10px;font-weight:700;color:var(--g400);cursor:pointer}
-.lb.active{background:var(--white);color:var(--m);box-shadow:0 1px 3px rgba(0,0,0,.1)}
-.ob{background:none;border:1px solid var(--g200);border-radius:7px;padding:6px 10px;font-size:11px;font-weight:600;color:var(--g500);cursor:pointer;font-family:var(--fb)}
-.ob:hover{border-color:var(--m);color:var(--m)}
-
+.ls{display:flex;gap:2px;background:var(--gray-100);border-radius:100px;padding:2px}
+.lb{padding:4px 9px;border-radius:100px;border:none;background:transparent;font-family:var(--font-body);font-size:10px;font-weight:700;color:var(--gray-400);cursor:pointer}
+.lb.active{background:var(--white);color:var(--black)}
+.ob{background:none;border:1px solid var(--gray-200);border-radius:7px;padding:6px 10px;font-size:11px;font-weight:600;color:var(--gray-500);cursor:pointer;font-family:var(--font-body)}
 .cnt{max-width:600px;margin:0 auto}
-.hdr{background:linear-gradient(135deg,var(--m-deeper),var(--m));color:var(--white);padding:20px 16px 24px;position:relative;overflow:hidden}
-.hg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
+.hdr{background:var(--black);color:var(--white);padding:20px 16px 24px;position:relative;overflow:hidden}
+.hg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:32px 32px}
 .hc{position:relative;z-index:1}
-.grt{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:600}
-.tnm{font-family:var(--fd);font-size:24px;font-weight:700;line-height:1.1;margin-bottom:6px}
+.grt{font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:600}
+.tnm{font-family:var(--font-display);font-size:24px;font-weight:700;line-height:1.1;margin-bottom:6px}
 .cps{display:flex;gap:6px;flex-wrap:wrap}
-.cp{padding:3px 10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);border-radius:100px;font-size:10px;color:rgba(255,255,255,.8);font-weight:500}
-
+.cp{padding:3px 10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-radius:100px;font-size:10px;color:rgba(255,255,255,.7);font-weight:500}
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px 16px}
-.sc{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);padding:14px;text-align:center}
-.sv{font-family:var(--fd);font-size:24px;font-weight:700;line-height:1;margin-bottom:2px;color:var(--m)}
-.sl{font-size:10px;color:var(--g400);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-
+.sc{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:14px;text-align:center}
+.sv{font-family:var(--font-display);font-size:24px;font-weight:700;line-height:1;margin-bottom:2px}
+.sl{font-size:10px;color:var(--gray-400);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
 .sec{padding:0 16px;margin-bottom:18px}
-.stt{font-family:var(--fd);font-size:16px;font-weight:600;margin-bottom:10px}
-.card{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);padding:14px;margin-bottom:10px}
-
-.si{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--white);border:1px solid var(--g200);border-radius:var(--r);margin-bottom:8px;cursor:pointer}
-.si:hover{border-color:var(--m)}
-.sav{width:40px;height:40px;background:var(--m-pale);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:16px;color:var(--m);flex-shrink:0}
+.stt{font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:10px}
+.card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:14px;margin-bottom:10px}
+.si{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);margin-bottom:8px;cursor:pointer}
+.sav{width:40px;height:40px;background:var(--gray-100);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:16px;color:var(--gray-600);flex-shrink:0}
 .snm{font-size:14px;font-weight:600;margin-bottom:2px}
-.smeta{font-size:11px;color:var(--g400)}
-
-.att-sheet{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);overflow:hidden}
-.att-date-row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--g100)}
+.smeta{font-size:11px;color:var(--gray-400)}
+.att-sheet{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden}
+.att-date-row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--gray-100)}
 .att-dl{font-size:13px;font-weight:600}
-.di{padding:6px 10px;border:1.5px solid var(--g200);border-radius:8px;font-family:var(--fm);font-size:12px;color:var(--black);outline:none}
-.di:focus{border-color:var(--m)}
-.ar{display:flex;align-items:center;padding:11px 14px;border-bottom:1px solid var(--g100);gap:10px}
+.di{padding:6px 10px;border:1.5px solid var(--gray-200);border-radius:8px;font-family:var(--font-mono);font-size:12px;color:var(--black);outline:none}
+.di:focus{border-color:var(--black)}
+.ar{display:flex;align-items:center;padding:11px 14px;border-bottom:1px solid var(--gray-100);gap:10px}
 .ar:last-child{border-bottom:none}
-.aroll{font-family:var(--fm);font-size:12px;color:var(--g400);min-width:26px}
+.aroll{font-family:var(--font-mono);font-size:12px;color:var(--gray-400);min-width:26px}
 .anm{font-size:13px;font-weight:500;flex:1}
-.atog{display:flex;border:1.5px solid var(--g200);border-radius:8px;overflow:hidden}
-.atb{padding:6px 13px;border:none;font-family:var(--fb);font-size:12px;font-weight:600;cursor:pointer;background:transparent;color:var(--g400)}
+.atog{display:flex;border:1.5px solid var(--gray-200);border-radius:8px;overflow:hidden}
+.atb{padding:6px 13px;border:none;font-family:var(--font-body);font-size:12px;font-weight:600;cursor:pointer;background:transparent;color:var(--gray-400)}
 .atb.pa{background:var(--green);color:var(--white)}
 .atb.aa{background:var(--red);color:var(--white)}
-.save-btn{width:calc(100% - 28px);margin:14px;padding:12px;background:linear-gradient(135deg,var(--m),var(--m-light));color:var(--white);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:600;cursor:pointer}
-
-.marks-sheet{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);overflow:hidden}
-.ms-header{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;border-bottom:1px solid var(--g100)}
-.ms-header:hover{background:var(--m-pale)}
-.ms-fields{padding:10px 14px 14px;display:none;background:var(--g50)}
+.save-btn{width:calc(100% - 28px);margin:14px;padding:12px;background:var(--black);color:var(--white);border:none;border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer}
+.marks-sheet{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden}
+.ms-header{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;border-bottom:1px solid var(--gray-100)}
+.ms-fields{padding:10px 14px 14px;display:none}
 .ms-fields.open{display:block}
 .mrow{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.mlbl{font-size:13px;font-weight:500;min-width:80px;color:var(--g700)}
-.minput{flex:1;padding:7px 10px;border:1.5px solid var(--g200);border-radius:8px;font-family:var(--fm);font-size:13px;color:var(--black);outline:none;text-align:center;max-width:80px}
-.minput:focus{border-color:var(--m)}
-.msave{width:100%;padding:9px;background:linear-gradient(135deg,var(--m),var(--m-light));color:var(--white);border:none;border-radius:8px;font-family:var(--fb);font-size:12px;font-weight:600;cursor:pointer;margin-top:6px}
-
-.composer{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);padding:14px}
-.ctxt{width:100%;min-height:90px;padding:11px;border:1.5px solid var(--g200);border-radius:var(--r);font-family:var(--fb);font-size:14px;color:var(--black);resize:none;outline:none;margin-bottom:10px}
-.ctxt:focus{border-color:var(--m)}
-.post-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--m),var(--m-light));color:var(--white);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:600;cursor:pointer}
-.pi{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);padding:12px;margin-bottom:8px}
+.mlbl{font-size:13px;font-weight:500;min-width:100px;color:var(--gray-700)}
+.minput{flex:1;padding:7px 10px;border:1.5px solid var(--gray-200);border-radius:8px;font-family:var(--font-mono);font-size:13px;color:var(--black);outline:none;text-align:center;max-width:75px}
+.minput:focus{border-color:var(--black)}
+.msave{width:100%;padding:9px;background:var(--black);color:var(--white);border:none;border-radius:8px;font-family:var(--font-body);font-size:12px;font-weight:600;cursor:pointer;margin-top:6px}
+.composer{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:14px}
+.ctxt{width:100%;min-height:90px;padding:11px;border:1.5px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:14px;color:var(--black);resize:none;outline:none;margin-bottom:10px}
+.ctxt:focus{border-color:var(--black)}
+.post-btn{width:100%;padding:12px;background:var(--black);color:var(--white);border:none;border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer}
+.pi{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:12px;margin-bottom:8px}
 .ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.pau{font-size:12px;font-weight:700;color:var(--m)}
-.ptm{font-size:10px;color:var(--g300)}
-.ptxt{font-size:13px;color:var(--g700);line-height:1.6}
-.del-btn{background:none;border:none;cursor:pointer;color:var(--g300);padding:2px}
+.pau{font-size:12px;font-weight:700}
+.ptm{font-size:10px;color:var(--gray-300)}
+.ptxt{font-size:13px;color:var(--gray-700);line-height:1.6}
+.del-btn{background:none;border:none;cursor:pointer;color:var(--gray-300);padding:2px}
 .del-btn:hover{color:var(--red)}
 .del-btn svg{width:13px;height:13px;stroke:currentColor}
-
-.nf{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);padding:14px}
+.nf{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:14px}
 .fg{margin-bottom:12px}
-.fg label{display:block;font-size:11px;font-weight:600;color:var(--g500);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px}
-.fi{width:100%;padding:10px 13px;background:var(--g50);border:1.5px solid var(--g200);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:var(--black);outline:none}
-.fi:focus{border-color:var(--m);background:var(--white)}
-.fita{width:100%;padding:10px 13px;background:var(--g50);border:1.5px solid var(--g200);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:var(--black);outline:none;resize:none;min-height:80px}
-.fita:focus{border-color:var(--m);background:var(--white)}
-.send-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--m),var(--m-light));color:var(--white);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:600;cursor:pointer}
-
-.stu-sel-box{border:1.5px solid var(--g200);border-radius:var(--r);overflow:hidden;margin-bottom:12px;max-height:250px;overflow-y:auto}
-.stu-sel-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--g100);cursor:pointer;user-select:none}
-.stu-sel-item:last-child{border-bottom:none}
-.stu-sel-item.on{background:var(--m-pale)}
-.stu-sel-item:hover{background:var(--m-pale)}
-.stu-chk{width:17px;height:17px;accent-color:var(--m);flex-shrink:0;pointer-events:none}
-.stu-sel-name{font-size:13px;font-weight:600;flex:1}
-.stu-sel-roll{font-size:11px;color:var(--g400);font-family:var(--fm)}
-.sel-badge{display:inline-block;background:var(--m);color:#fff;font-size:11px;font-weight:700;padding:3px 10px;border-radius:100px;margin-bottom:8px}
-
-.back-btn{display:inline-flex;align-items:center;gap:6px;background:var(--g100);border:none;border-radius:8px;padding:9px 14px;font-family:var(--fb);font-size:13px;color:var(--g600);cursor:pointer;margin:14px 16px 10px}
-.back-btn:hover{background:var(--m-pale);color:var(--m)}
+.fg label{display:block;font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px}
+.fi{width:100%;padding:10px 13px;background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:13px;color:var(--black);outline:none}
+.fi:focus{border-color:var(--black);background:var(--white)}
+.fita{width:100%;padding:10px 13px;background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:13px;color:var(--black);outline:none;resize:none;min-height:80px}
+.fita:focus{border-color:var(--black);background:var(--white)}
+.send-btn{width:100%;padding:12px;background:var(--black);color:var(--white);border:none;border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:var(--gray-100);border:none;border-radius:8px;padding:9px 14px;font-family:var(--font-body);font-size:13px;color:var(--gray-600);cursor:pointer;margin:14px 16px 10px}
 .back-btn svg{width:14px;height:14px;stroke:currentColor;stroke-width:2}
-.det-card{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);padding:14px;margin:0 16px 12px}
-.il{background:var(--white);border:1px solid var(--g200);border-radius:var(--r);overflow:hidden;margin-bottom:10px}
-.ir{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--g100)}
+.det-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:14px;margin:0 16px 12px}
+.il{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;margin-bottom:10px}
+.ir{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--gray-100)}
 .ir:last-child{border-bottom:none}
-.irl{font-size:12px;color:var(--g400);font-weight:500}
+.irl{font-size:12px;color:var(--gray-400);font-weight:500}
 .irv{font-size:13px;font-weight:600}
-
-.bn{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--g200);display:flex;padding:6px 0 8px;z-index:100}
+.bn{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--gray-200);display:flex;padding:6px 0 8px;z-index:100}
 .bb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 4px;background:none;border:none;cursor:pointer}
-.bi{width:21px;height:21px;stroke:var(--g300)}
-.bla{font-size:9px;font-weight:600;color:var(--g300);text-transform:uppercase;letter-spacing:.5px}
-.bb.active .bi{stroke:var(--m)}
-.bb.active .bla{color:var(--m)}
-
+.bi{width:21px;height:21px;stroke:var(--gray-300)}
+.bla{font-size:9px;font-weight:600;color:var(--gray-300);text-transform:uppercase;letter-spacing:.5px}
+.bb.active .bi{stroke:var(--black)}
+.bb.active .bla{color:var(--black)}
 .ls2{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:12px}
-.sp{width:26px;height:26px;border:2px solid var(--g200);border-top-color:var(--m);border-radius:50%;animation:spin .8s linear infinite}
-.lt{font-size:13px;color:var(--g400);text-align:center}
-.eb{text-align:center;padding:28px;color:var(--g300)}
+.sp{width:26px;height:26px;border:2px solid var(--gray-200);border-top-color:var(--black);border-radius:50%;animation:spin .8s linear infinite}
+.lt{font-size:13px;color:var(--gray-400);text-align:center}
+.eb{text-align:center;padding:28px;color:var(--gray-300)}
 .eb p{font-size:13px}
-.toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--m);color:var(--white);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:999;white-space:nowrap}
+.toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--black);color:var(--white);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:999;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.dbg{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:10px 14px;font-size:11px;font-family:var(--fm);color:#5d4037;margin:0 16px 12px;line-height:1.7;word-break:break-all;white-space:pre-wrap}
-.badge-ok{background:var(--green-l);color:var(--green);padding:2px 8px;border-radius:100px;font-size:11px;font-weight:600}
-.badge-due{background:var(--red-l);color:var(--red);padding:2px 8px;border-radius:100px;font-size:11px;font-weight:600}
-.badge-par{background:var(--gold-l);color:var(--gold);padding:2px 8px;border-radius:100px;font-size:11px;font-weight:600}
 @keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 
-<!-- LOGIN -->
-<div class="login-screen" id="loginScreen">
+<!-- LOGIN SCREEN -->
+<div class="login-screen" id="loginScreen" style="display:none">
   <div class="login-bg"></div>
-  <div class="login-wrap">
-    <div class="login-brand">
-      <div class="login-icon">EM</div>
-      <h1>EduManage Pro</h1>
-      <p>Emmanuel School — Teacher Portal</p>
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-lm">E</div>
+      <div class="login-name">EduManage</div>
     </div>
-    <div class="login-card">
-      <div class="login-card-ttl">Teacher Login</div>
-      <div class="login-card-sub">Enter your teacher code &amp; password</div>
-      <label class="login-label">Teacher Code</label>
-      <input type="text" class="login-input" id="lCode" placeholder="e.g. TCH001"
-             autocomplete="off" spellcheck="false" style="text-transform:uppercase"
-             onkeydown="if(event.key==='Enter')doLogin()">
-      <label class="login-label">Password</label>
-      <input type="password" class="login-input" id="lPass" placeholder="Enter password"
-             onkeydown="if(event.key==='Enter')doLogin()">
-      <button class="login-btn" id="lBtn" onclick="doLogin()">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-        Sign In
-      </button>
-      <div class="login-err" id="lErr"></div>
-    </div>
-    <div class="login-foot">
-      <p>Contact <strong>Admin</strong> if you forgot your credentials</p>
-    </div>
+    <div class="login-sub">Teacher Login</div>
+    <label class="login-label">Teacher Code</label>
+    <input type="text" class="login-input" id="lCode" placeholder="e.g. TCH001" autocomplete="off" spellcheck="false" style="text-transform:uppercase">
+    <label class="login-label">Password</label>
+    <input type="password" class="login-input" id="lPass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" id="lBtn" onclick="doLogin()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+      Sign In
+    </button>
+    <div class="login-err" id="lErr"></div>
   </div>
 </div>
 
@@ -245,535 +183,356 @@ body{font-family:var(--fb);background:var(--g50);color:var(--black);padding-bott
     </button>
   </nav>
 </div>
+
 <div class="toast" id="toast"></div>
 
 <script>
 const API = 'https://edumanage-backend-xi.vercel.app/api';
 
-/* STATE */
 let activeToken = null;
-let cd          = null;
-let students    = [];
-let attState    = {};
-let posts       = [];
-let cp          = 'students';
-let lang        = localStorage.getItem('edu-lang') || 'en';
-let selSet      = new Set();
-let debugLog    = [];   // collect all API debug info
+let cd = null;
+let students = [];
+let attState = {};
+let cp = 'students';
+let lang = localStorage.getItem('edu-lang') || 'en';
 
-/* TRANSLATIONS */
-const T={
-  en:{students:'Students',attend:'Attendance',marks:'Marks',group:'Class Group',notify:'Notify',my_class:'My Class',total:'Students',mark_att:'Mark Attendance',update_marks:'Update Marks',post_group:'Post in Group',send_notif:'Send Notification',save_att:'Save Attendance',save_marks:'Save Marks',post:'Post',notif_sent:'Notification sent!',att_saved:'Attendance saved!',marks_saved:'Marks saved!',posted:'Posted!',P:'P',A:'A',write:'Write something for your class...',no_students:'No students in your class',no_posts:'No posts yet',out_of:'Out of',obtained:'Obtained',sel_students:'Select Students',all_students:'Select All',selected:'selected'},
-  hi:{students:'छात्र',attend:'उपस्थिति',marks:'अंक',group:'क्लास ग्रुप',notify:'सूचना',my_class:'मेरी कक्षा',total:'छात्र',mark_att:'उपस्थिति लगाएं',update_marks:'अंक अपडेट करें',post_group:'ग्रुप में पोस्ट करें',send_notif:'सूचना भेजें',save_att:'उपस्थिति सहेजें',save_marks:'अंक सहेजें',post:'पोस्ट करें',notif_sent:'सूचना भेजी गई!',att_saved:'उपस्थिति सहेजी गई!',marks_saved:'अंक सहेजे गए!',posted:'पोस्ट हुआ!',P:'उ',A:'अ',write:'कक्षा के लिए लिखें...',no_students:'कोई छात्र नहीं',no_posts:'कोई पोस्ट नहीं',out_of:'में से',obtained:'प्राप्त',sel_students:'छात्र चुनें',all_students:'सभी चुनें',selected:'चुने गए'},
-  mr:{students:'विद्यार्थी',attend:'हजेरी',marks:'गुण',group:'वर्ग गट',notify:'सूचना',my_class:'माझा वर्ग',total:'विद्यार्थी',mark_att:'हजेरी नोंदवा',update_marks:'गुण अपडेट करा',post_group:'गटात पोस्ट करा',send_notif:'सूचना पाठवा',save_att:'हजेरी जतन करा',save_marks:'गुण जतन करा',post:'पोस्ट करा',notif_sent:'सूचना पाठवली!',att_saved:'हजेरी जतन झाली!',marks_saved:'गुण जतन झाले!',posted:'पोस्ट झाले!',P:'उ',A:'अ',write:'वर्गासाठी लिहा...',no_students:'विद्यार्थी नाहीत',no_posts:'पोस्ट नाही',out_of:'पैकी',obtained:'मिळाले',sel_students:'विद्यार्थी निवडा',all_students:'सर्व निवडा',selected:'निवडले'}
+const T = {
+  en:{students:'Students',attend:'Attendance',marks:'Marks',group:'Class Group',notify:'Notify',my_class:'My Class',total:'Students',mark_att:'Mark Attendance',update_marks:'Update Marks',post_group:'Post in Group',send_notif:'Send Notification',save_att:'Save Attendance',save_marks:'Save Marks',post:'Post',notif_sent:'Notification sent',att_saved:'Attendance saved',marks_saved:'Marks saved',posted:'Posted successfully',P:'P',A:'A',sel_date:'Select Date',write:'Write something for your class...',no_class:'No class assigned. Contact admin.',no_students:'No students in your class',no_posts:'No posts yet'},
+  hi:{students:'छात्र',attend:'उपस्थिति',marks:'अंक',group:'क्लास ग्रुप',notify:'सूचना',my_class:'मेरी कक्षा',total:'छात्र',mark_att:'उपस्थिति लगाएं',update_marks:'अंक अपडेट करें',post_group:'ग्रुप में पोस्ट करें',send_notif:'सूचना भेजें',save_att:'उपस्थिति सहेजें',save_marks:'अंक सहेजें',post:'पोस्ट करें',notif_sent:'सूचना भेजी गई',att_saved:'उपस्थिति सहेजी गई',marks_saved:'अंक सहेजे गए',posted:'पोस्ट हुआ',P:'उ',A:'अ',sel_date:'तिथि चुनें',write:'कक्षा के लिए लिखें...',no_class:'कोई कक्षा नहीं। एडमिन से संपर्क करें।',no_students:'कोई छात्र नहीं',no_posts:'कोई पोस्ट नहीं'},
+  mr:{students:'विद्यार्थी',attend:'हजेरी',marks:'गुण',group:'वर्ग गट',notify:'सूचना',my_class:'माझा वर्ग',total:'विद्यार्थी',mark_att:'हजेरी नोंदवा',update_marks:'गुण अपडेट करा',post_group:'गटात पोस्ट करा',send_notif:'सूचना पाठवा',save_att:'हजेरी जतन करा',save_marks:'गुण जतन करा',post:'पोस्ट करा',notif_sent:'सूचना पाठवली',att_saved:'हजेरी जतन झाली',marks_saved:'गुण जतन झाले',posted:'पोस्ट झाले',P:'उ',A:'अ',sel_date:'तारीख निवडा',write:'वर्गासाठी लिहा...',no_class:'कोणताही वर्ग नाही.',no_students:'विद्यार्थी नाहीत',no_posts:'पोस्ट नाही'}
 };
-function t(k){return(T[lang]&&T[lang][k])?T[lang][k]:(T.en[k]||k)}
+function t(k){return T[lang][k]||T.en[k]||k}
 function setLang(l){lang=l;localStorage.setItem('edu-lang',l);document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase()===l));showPage(cp)}
+setLang(lang);
 
-/* BOOT */
-(function init(){
-  const saved=localStorage.getItem('tch_token');
-  if(saved&&saved.length>20){activeToken=saved;showApp();loadData();}
-  else showLogin();
-})();
-
-function showLogin(){
-  document.getElementById('loginScreen').classList.add('show');
-  document.getElementById('appScreen').style.display='none';
-  setTimeout(()=>{const e=document.getElementById('lCode');if(e)e.focus();},400);
-}
-function showApp(){
-  document.getElementById('loginScreen').classList.remove('show');
-  document.getElementById('appScreen').style.display='block';
+function init() {
+  const savedToken = localStorage.getItem('tch_token');
+  if (savedToken && savedToken.length > 20) {
+    activeToken = savedToken;
+    showApp();
+    loadData();
+  } else {
+    showLogin();
+  }
 }
 
-/* LOGIN */
-async function doLogin(){
-  const code=document.getElementById('lCode').value.trim().toUpperCase();
-  const pass=document.getElementById('lPass').value.trim();
-  const errEl=document.getElementById('lErr');
-  const btn=document.getElementById('lBtn');
-  if(!code||!pass){errEl.textContent='Please enter code and password';errEl.classList.add('show');return;}
+function showLogin() {
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('appScreen').style.display = 'none';
+}
+
+function showApp() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('appScreen').style.display = 'block';
+}
+
+async function doLogin() {
+  const code = document.getElementById('lCode').value.trim().toUpperCase();
+  const pass = document.getElementById('lPass').value.trim();
+  const errEl = document.getElementById('lErr');
+  const btn = document.getElementById('lBtn');
+  if (!code || !pass) { errEl.textContent='Please enter code and password';errEl.classList.add('show');return; }
   errEl.classList.remove('show');
-  btn.innerHTML='<div class="login-sp"></div> Signing in...';
-  btn.disabled=true;
-  try{
-    const res=await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code,password:pass,role:'teacher'})});
-    const data=await res.json();
-    if(data.token){
-      if(data.user&&data.user.role&&data.user.role!=='teacher'){
-        errEl.textContent='This login is for teachers only';errEl.classList.add('show');
-        btn.innerHTML='Sign In';btn.disabled=false;return;
+  btn.innerHTML = '<div class="login-sp"></div> Signing in...';
+  btn.disabled = true;
+  try {
+    const res = await fetch(API + '/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code, password: pass })
+    });
+    const data = await res.json();
+    if (data.success && data.token) {
+      if (data.user.role !== 'teacher') {
+        errEl.textContent = 'This login is for teachers only';
+        errEl.classList.add('show');
+        btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Sign In';
+        btn.disabled = false;
+        return;
       }
-      localStorage.setItem('tch_token',data.token);
-      localStorage.setItem('tch_name',data.user?.name||code);
-      localStorage.setItem('tch_raw',JSON.stringify(data.user||{}));
-      activeToken=data.token;
-      showApp();loadData();
-    }else{
-      errEl.textContent=data.message||'Invalid code or password';
-      errEl.classList.add('show');btn.innerHTML='Sign In';btn.disabled=false;
+      activeToken = data.token;
+      localStorage.setItem('tch_token', data.token);
+      localStorage.setItem('tch_user', JSON.stringify(data.user));
+      showApp();
+      loadData();
+    } else {
+      errEl.textContent = data.error || 'Invalid code or password';
+      errEl.classList.add('show');
+      btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Sign In';
+      btn.disabled = false;
     }
-  }catch(_){
-    errEl.textContent='Network error. Check internet.';
-    errEl.classList.add('show');btn.innerHTML='Sign In';btn.disabled=false;
+  } catch(e) {
+    errEl.textContent = 'Could not connect. Check internet.';
+    errEl.classList.add('show');
+    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>Sign In';
+    btn.disabled = false;
   }
 }
 
-/* LOGOUT */
-function doLogout(){
-  if(!confirm('Are you sure you want to logout?'))return;
-  ['tch_token','tch_name','tch_raw'].forEach(k=>localStorage.removeItem(k));
-  activeToken=null;cd=null;students=[];posts=[];location.reload();
-}
+document.getElementById('lCode').addEventListener('input', function(){ this.value = this.value.toUpperCase(); });
 
-/* ── HELPERS ── */
-function sid(s){return s._id||s.id||s.student_id||'';}
-function initials(n){if(!n)return'?';return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}
-function timeAgo(d){if(!d)return'';const s=Math.floor((Date.now()-new Date(d))/1000);if(s<60)return'just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago'}
-function todayStr(){return new Date().toISOString().slice(0,10)}
-function showToast(m){const e=document.getElementById('toast');e.textContent=m;e.classList.add('show');setTimeout(()=>e.classList.remove('show'),3000)}
-function fBadge(s){if(s.fees_status==='paid')return'<span class="badge-ok">Paid</span>';if(s.fees_status==='partial')return'<span class="badge-par">Part</span>';return'<span class="badge-due">Due</span>'}
-
-/* ── Try a fetch, return {ok, data, status, raw} ── */
-async function tryFetch(url, h){
-  try{
-    const r=await fetch(url,{headers:h});
-    const text=await r.text();
-    let data;
-    try{data=JSON.parse(text);}catch(_){data=text;}
-    debugLog.push(`${r.status} ${url}\n→ ${text.slice(0,200)}`);
-    return {ok:r.ok, status:r.status, data, raw:text};
-  }catch(e){
-    debugLog.push(`ERR ${url}\n→ ${e.message}`);
-    return {ok:false, status:0, data:null, raw:e.message};
-  }
-}
-
-/* ── Extract flat array of students from any response shape ── */
-function toArray(d){
-  if(!d) return [];
-  if(Array.isArray(d)) return d;
-  if(Array.isArray(d.students)) return d.students;
-  if(Array.isArray(d.data)) return d.data;
-  if(Array.isArray(d.result)) return d.result;
-  if(Array.isArray(d.docs)) return d.docs;
-  if(d.student) return [d.student];
-  return [];
-}
-
-/* ── Extract teacher name from any object ── */
-function extractName(obj){
-  if(!obj) return '';
-  return obj.name||obj.teacher_name||obj.teacherName||obj.full_name||obj.fullName||'';
-}
-
-/* ── Extract class from any object ── */
-function extractClass(obj){
-  if(!obj) return '';
-  const keys=['class_name','assigned_class','class','className','assignedClass',
-    'classAssigned','my_class','myClass','standard','std','class_assigned',
-    'teacher_class','teacherClass','classname','section','grade'];
-  for(const k of keys){
-    if(obj[k]!==undefined&&obj[k]!==null&&String(obj[k]).trim())
-      return String(obj[k]).trim();
-  }
-  return '';
-}
-
-/* ══════════════════════════════
-   MAIN DATA LOADER
-══════════════════════════════ */
-async function loadData(){
-  debugLog=[];
-  const h={Authorization:`Bearer ${activeToken}`,'Content-Type':'application/json'};
-
-  /* ── STEP 1: Teacher info — try 5 endpoints ── */
-  const teacherEndpoints=[
-    '/teachers/me',
-    '/auth/me',
-    '/users/me',
-    '/teachers/profile',
-    '/teacher/me',
-  ];
-  for(const ep of teacherEndpoints){
-    const r=await tryFetch(API+ep,h);
-    if(r.status===401){localStorage.removeItem('tch_token');showLogin();return;}
-    if(r.ok&&r.data&&typeof r.data==='object'){
-      const obj=r.data.teacher||r.data.user||r.data.data||r.data;
-      if(obj&&(extractName(obj)||extractClass(obj))){cd=obj;break;}
+async function loadData() {
+  document.getElementById('mainContent').innerHTML = '<div class="ls2"><div class="sp"></div><div class="lt">Loading your class...</div></div>';
+  try {
+    const res = await fetch(API + '/teachers/my-class', {
+      headers: { 'Authorization': 'Bearer ' + activeToken }
+    });
+    if (res.status === 401) {
+      activeToken = null;
+      localStorage.removeItem('tch_token');
+      localStorage.removeItem('tch_user');
+      showLogin();
+      document.getElementById('lErr').textContent = 'Session expired. Please login again.';
+      document.getElementById('lErr').classList.add('show');
+      return;
     }
-  }
-
-  /* If /teachers/me returned nothing, use login response data saved in localStorage */
-  if(!cd||(!extractName(cd)&&!extractClass(cd))){
-    try{
-      const saved=localStorage.getItem('tch_raw');
-      if(saved){const parsed=JSON.parse(saved);if(parsed&&typeof parsed==='object')cd=parsed;}
-    }catch(_){}
-  }
-
-  /* ── STEP 2: Students — try 7 endpoints ── */
-  students=[];
-  const myClass=extractClass(cd);
-  const myId=cd?.(cd._id||cd.id||cd.teacher_id||cd.teacherId||''):'';
-
-  const stuEndpoints=[
-    '/teachers/my-students',
-    '/teachers/students',
-    '/teacher/students',
-    '/students/my-class',
-    myClass?`/students?class=${encodeURIComponent(myClass)}`:'',
-    myClass?`/students/class/${encodeURIComponent(myClass)}`:'',
-    '/students',
-  ].filter(Boolean);
-
-  for(const ep of stuEndpoints){
-    if(students.length) break;
-    const r=await tryFetch(API+ep,h);
-    if(r.ok){
-      let arr=toArray(r.data);
-      /* If got all students and we know class, filter */
-      if(arr.length&&myClass&&ep==='/students'){
-        const mc=myClass.toLowerCase().trim();
-        const filtered=arr.filter(s=>{
-          const sc=String(s.class_name||s.standard||s.class||s.className||s.grade||'').toLowerCase().trim();
-          return sc===mc||sc===`class ${mc}`||`class ${sc}`===mc;
-        });
-        arr=filtered.length?filtered:arr;
-      }
-      if(arr.length){students=arr;break;}
+    const data = await res.json();
+    if (!data.class) {
+      document.getElementById('mainContent').innerHTML = `<div class="ls2"><div class="lt">${t('no_class')}</div></div>`;
+      return;
     }
+    cd = data.class;
+    students = data.students || [];
+    showPage('students');
+  } catch(e) {
+    document.getElementById('mainContent').innerHTML = `<div class="ls2"><div class="lt">Could not load.<br>Check internet.</div><button onclick="loadData()" style="margin-top:12px;padding:10px 20px;background:var(--black);color:var(--white);border:none;border-radius:8px;cursor:pointer;font-family:var(--font-body);font-weight:600;font-size:13px">Try Again</button></div>`;
   }
-
-  /* ── STEP 3: Posts ── */
-  const pr=await tryFetch(API+'/posts/my-class',h);
-  if(pr.ok) posts=toArray(pr.data);
-
-  /* Init attendance state */
-  students.forEach(s=>{if(!attState[sid(s)])attState[sid(s)]='P';});
-
-  showPage('students');
 }
 
-/* ROUTER */
-function showPage(page,btn){
-  cp=page;
-  document.querySelectorAll('.bb').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  else{const idx={students:0,attendance:1,marks:2,group:3,notify:4}[page];if(idx!=null)document.querySelectorAll('.bb')[idx]?.classList.add('active');}
-  const el=document.getElementById('mainContent');
-  if(page==='students')    el.innerHTML=renderStudents();
-  else if(page==='attendance') el.innerHTML=renderAttendance();
-  else if(page==='marks')  el.innerHTML=renderMarks();
-  else if(page==='group')  el.innerHTML=renderGroup();
-  else if(page==='notify') el.innerHTML=renderNotify();
-  el.scrollTop=0;window.scrollTo(0,0);
+function showPage(p, btn) {
+  cp = p;
+  if (btn) { document.querySelectorAll('.bb').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+  if (!cd) { loadData(); return; }
+  const c = document.getElementById('mainContent');
+  if (p==='students') c.innerHTML = rStudents();
+  else if (p==='attendance') c.innerHTML = rAtt();
+  else if (p==='marks') c.innerHTML = rMarks();
+  else if (p==='group') { rGroup(); return; }
+  else if (p==='notify') c.innerHTML = rNotify();
 }
 
-/* ── RENDER: STUDENTS ── */
-function renderStudents(){
-  const name=extractName(cd)||localStorage.getItem('tch_name')||'Teacher';
-  const cls=extractClass(cd);
-  const subj=cd?.subject||cd?.subjects||'';
+function getUserName() {
+  try { const u=JSON.parse(localStorage.getItem('tch_user')||'{}'); return u.name||'Teacher'; } catch(e){return'Teacher'}
+}
 
-  /* Full debug log shown only when no students */
-  const dbgHtml=!students.length?`
-    <div class="dbg">⚠️ DEBUG LOG (share screenshot with developer):
-
-${debugLog.join('\n\n')}
-
-Teacher object keys: ${cd?JSON.stringify(Object.keys(cd)):'(null)'}
-Teacher data: ${cd?JSON.stringify(cd).slice(0,400):'(null)'}
-    </div>`:'';
-
+function rStudents() {
   return `
-  <div class="hdr">
-    <div class="hg"></div>
-    <div class="hc">
-      <div class="grt">Welcome back</div>
-      <div class="tnm">${name}</div>
-      <div class="cps">
-        ${cls?`<span class="cp">Class ${cls}</span>`:'<span class="cp" style="background:rgba(255,80,80,.25)">No class assigned</span>'}
-        <span class="cp">${students.length} ${t('total')}</span>
-        ${subj?`<span class="cp">${subj}</span>`:''}
-      </div>
+  <div class="hdr"><div class="hg"></div><div class="hc">
+    <div class="grt">Teacher</div>
+    <div class="tnm">${getUserName()}</div>
+    <div class="cps">
+      <span class="cp">Class ${cd.standard||''}</span>
+      <span class="cp">${students.length} ${t('total')}</span>
     </div>
-  </div>
+  </div></div>
   <div class="stats-row">
     <div class="sc"><div class="sv">${students.length}</div><div class="sl">${t('total')}</div></div>
-    <div class="sc"><div class="sv">${students.filter(s=>s.fees_status==='paid').length}</div><div class="sl">Fees OK</div></div>
-    <div class="sc"><div class="sv">${posts.length}</div><div class="sl">Posts</div></div>
+    <div class="sc"><div class="sv">${cd.standard||'N/A'}</div><div class="sl">Class</div></div>
+    <div class="sc"><div class="sv">${cd.section||'A'}</div><div class="sl">Section</div></div>
   </div>
-  ${dbgHtml}
-  <div class="sec">
-    <div class="stt">${t('students')}</div>
-    ${!students.length?`<div class="eb"><p>${t('no_students')}</p></div>`:''}
-    ${students.map(s=>`
-      <div class="si" onclick="viewStudent('${sid(s)}')">
-        <div class="sav">${initials(s.name)}</div>
-        <div style="flex:1">
-          <div class="snm">${s.name}</div>
-          <div class="smeta">Roll ${s.roll_no||'-'} · ${s.parent_phone||s.phone||''}</div>
-        </div>
-        ${fBadge(s)}
-      </div>`).join('')}
+  <div class="sec"><div class="stt">${t('my_class')}</div>
+  ${students.length>0?students.map(s=>`
+    <div class="si" onclick="viewStudent('${s.id}')">
+      <div class="sav">${s.name[0].toUpperCase()}</div>
+      <div style="flex:1">
+        <div class="snm">${s.name}</div>
+        <div class="smeta">Roll ${s.roll_no||'N/A'} · ${s.code}</div>
+      </div>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gray-300)" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>`).join(''):
+  `<div class="eb"><p>${t('no_students')}</p></div>`}
   </div>`;
 }
 
-/* STUDENT DETAIL */
-function viewStudent(id){
-  const s=students.find(x=>sid(x)===id);if(!s)return;
+function viewStudent(id) {
+  const s=students.find(x=>x.id===id); if(!s)return;
+  const SUBS=['Math','Science','English','Hindi','Social Science','Marathi'];
   document.getElementById('mainContent').innerHTML=`
-  <button class="back-btn" onclick="showPage('students')">
-    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg> Back
+  <button class="back-btn" onclick="showPage('students',document.querySelectorAll('.bb')[0])">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back
   </button>
   <div class="det-card">
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
-      <div style="width:52px;height:52px;border-radius:50%;background:var(--m-pale);display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:20px;color:var(--m)">${initials(s.name)}</div>
-      <div><div style="font-family:var(--fd);font-size:18px;font-weight:700">${s.name}</div><div style="font-size:12px;color:var(--g400)">Roll ${s.roll_no||'-'}</div></div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+      <div class="sav" style="width:48px;height:48px;font-size:20px">${s.name[0].toUpperCase()}</div>
+      <div>
+        <div style="font-family:var(--font-display);font-size:18px;font-weight:700">${s.name}</div>
+        <div style="font-size:12px;color:var(--gray-400)">Roll ${s.roll_no||'N/A'} · ${s.code}</div>
+      </div>
     </div>
     <div class="il">
-      ${s.parent_name?`<div class="ir"><div class="irl">Parent</div><div class="irv">${s.parent_name}</div></div>`:''}
-      ${(s.parent_phone||s.phone)?`<div class="ir"><div class="irl">Phone</div><div class="irv">${s.parent_phone||s.phone}</div></div>`:''}
-      ${s.dob?`<div class="ir"><div class="irl">DOB</div><div class="irv">${new Date(s.dob).toLocaleDateString('en-IN')}</div></div>`:''}
-      ${s.blood_group?`<div class="ir"><div class="irl">Blood</div><div class="irv">${s.blood_group}</div></div>`:''}
-      ${s.address?`<div class="ir"><div class="irl">Address</div><div class="irv" style="max-width:60%;text-align:right">${s.address}</div></div>`:''}
-      <div class="ir"><div class="irl">Fees</div><div class="irv">${fBadge(s)}</div></div>
-      <div class="ir"><div class="irl">Bus</div><div class="irv">${s.has_bus?'🚌 Yes':'No'}</div></div>
+      ${ir('Parent',s.parent_name||'N/A')}${ir('Phone',s.parent_phone||s.phone||'N/A')}${ir('Blood',s.blood_group||'N/A')}${ir('Bus',s.has_bus?'Yes':'No')}
     </div>
-    ${s.remarks?`<div style="border-left:3px solid var(--m);padding:8px 12px;border-radius:0 8px 8px 0;background:var(--m-pale)"><div style="font-size:10px;color:var(--m);font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px">Remarks</div><div style="font-size:13px;color:var(--g700)">${s.remarks}</div></div>`:''}
+  </div>
+  <div class="det-card">
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:10px">${t('update_marks')}</div>
+    <div style="margin-bottom:12px"><label style="font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:5px">Exam Type</label><select class="fi" id="etype_${s.id}"><option>Unit Test</option><option>Half Yearly</option><option>Annual</option><option>Monthly Test</option></select></div>
+    ${SUBS.map(sub=>`<div class="mrow"><div class="mlbl">${sub}</div><input type="number" class="minput" id="mk_${s.id}_${sub.replace(/ /g,'_')}" placeholder="0" min="0" max="100"></div>`).join('')}
+    <button class="msave" onclick="saveMks('${s.id}')">Save Marks</button>
+  </div>
+  <div class="det-card">
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:10px">Remarks</div>
+    <textarea class="fita" id="rem_${s.id}" placeholder="Write remarks..."></textarea>
+    <button class="msave" style="margin-top:4px" onclick="toast('Saved')">Save Remark</button>
   </div>`;
 }
 
-/* ── RENDER: ATTENDANCE ── */
-function renderAttendance(){
-  if(!students.length)return`<div class="ls2"><div class="eb"><p>${t('no_students')}</p></div></div>`;
-  students.forEach(s=>{if(!attState[sid(s)])attState[sid(s)]='P';});
-  return `
-  <div class="hdr"><div class="hg"></div>
-    <div class="hc"><div class="grt">${t('mark_att')}</div>
-      <div class="tnm" style="font-size:18px">${extractClass(cd)||t('my_class')}</div>
-    </div>
-  </div>
-  <div class="sec" style="margin-top:14px">
-    <div class="att-sheet">
-      <div class="att-date-row">
-        <div class="att-dl">Date</div>
-        <input type="date" class="di" id="attDate" value="${todayStr()}">
+function ir(l,v){return`<div class="ir"><span class="irl">${l}</span><span class="irv">${v}</span></div>`}
+
+async function saveMks(sid) {
+  const et=document.getElementById('etype_'+sid)?.value||'Unit Test';
+  const SUBS=['Math','Science','English','Hindi','Social Science','Marathi'];
+  let saved=0;
+  for(const sub of SUBS){
+    const el=document.getElementById('mk_'+sid+'_'+sub.replace(/ /g,'_'));
+    if(!el||el.value==='')continue;
+    const val=parseInt(el.value);if(isNaN(val))continue;
+    await fetch(API+'/marks/update',{method:'POST',headers:{Authorization:'Bearer '+activeToken,'Content-Type':'application/json'},body:JSON.stringify({student_id:sid,subject:sub,marks_obtained:val,total_marks:100,exam_type:et})});
+    saved++;
+  }
+  toast(saved>0?t('marks_saved'):'Enter at least one mark');
+}
+
+function rAtt() {
+  const today=new Date().toISOString().split('T')[0];
+  students.forEach(s=>{if(!attState[s.id])attState[s.id]='present'});
+  return `<div style="padding:16px"><div class="stt" style="margin-bottom:12px">${t('mark_att')}</div>
+  <div class="att-sheet">
+    <div class="att-date-row"><div class="att-dl">${t('sel_date')}</div><input type="date" class="di" id="attDate" value="${today}"></div>
+    ${students.map(s=>`<div class="ar">
+      <div class="aroll">${s.roll_no||'-'}</div>
+      <div class="anm">${s.name}</div>
+      <div class="atog">
+        <button class="atb ${attState[s.id]==='present'?'pa':''}" id="pb_${s.id}" onclick="setAtt('${s.id}','present')">${t('P')}</button>
+        <button class="atb ${attState[s.id]==='absent'?'aa':''}" id="ab_${s.id}" onclick="setAtt('${s.id}','absent')">${t('A')}</button>
       </div>
-      ${students.map(s=>{const id=sid(s);const st=attState[id]||'P';return`
-        <div class="ar">
-          <div class="aroll">${s.roll_no||'-'}</div>
-          <div class="anm">${s.name}</div>
-          <div class="atog">
-            <button class="atb ${st==='P'?'pa':''}" onclick="setAtt('${id}','P',this)">${t('P')}</button>
-            <button class="atb ${st==='A'?'aa':''}" onclick="setAtt('${id}','A',this)">${t('A')}</button>
-          </div>
-        </div>`;}).join('')}
-      <button class="save-btn" onclick="saveAttendance()">${t('save_att')}</button>
-    </div>
-  </div>`;
+    </div>`).join('')}
+    <button class="save-btn" onclick="saveAtt()">${t('save_att')}</button>
+  </div></div>`;
 }
-function setAtt(id,val,btn){
-  attState[id]=val;
-  btn.closest('.ar').querySelectorAll('.atb').forEach(b=>b.classList.remove('pa','aa'));
-  btn.classList.add(val==='P'?'pa':'aa');
+
+function setAtt(sid,status) {
+  attState[sid]=status;
+  const pb=document.getElementById('pb_'+sid),ab=document.getElementById('ab_'+sid);
+  if(pb)pb.className='atb '+(status==='present'?'pa':'');
+  if(ab)ab.className='atb '+(status==='absent'?'aa':'');
 }
-async function saveAttendance(){
+
+async function saveAtt() {
   const date=document.getElementById('attDate')?.value;
-  const records=students.map(s=>({student_id:sid(s),status:attState[sid(s)]||'P'}));
-  try{const res=await fetch(API+'/attendance',{method:'POST',headers:{Authorization:`Bearer ${activeToken}`,'Content-Type':'application/json'},body:JSON.stringify({date,records})});showToast(res.ok?t('att_saved'):'Failed. Try again.');}
-  catch(_){showToast('Network error.');}
+  if(!date){toast('Select date');return}
+  const list=students.map(s=>({student_id:s.id,status:attState[s.id]||'present'}));
+  try{
+    const r=await fetch(API+'/attendance/mark',{method:'POST',headers:{Authorization:'Bearer '+activeToken,'Content-Type':'application/json'},body:JSON.stringify({attendance_list:list,date})});
+    const d=await r.json();
+    if(d.success)toast(t('att_saved'));
+    else toast(d.error||'Error');
+  }catch(e){toast('Could not save')}
 }
 
-/* ── RENDER: MARKS ── */
-function renderMarks(){
-  if(!students.length)return`<div class="ls2"><div class="eb"><p>${t('no_students')}</p></div></div>`;
-  return `
-  <div class="hdr"><div class="hg"></div>
-    <div class="hc"><div class="grt">${t('update_marks')}</div>
-      <div class="tnm" style="font-size:18px">${extractClass(cd)||t('my_class')}</div>
-    </div>
-  </div>
-  <div class="sec" style="margin-top:14px">
-    <div style="display:flex;gap:8px;margin-bottom:10px">
-      <select class="fi" id="examType" style="flex:1">
-        <option>Unit Test 1</option><option>Unit Test 2</option>
-        <option>Half Yearly</option><option>Annual</option><option>Prelim</option>
-      </select>
-      <select class="fi" id="subjectSel" style="flex:1">
-        <option>Maths</option><option>Science</option><option>English</option>
-        <option>Hindi</option><option>Marathi</option><option>SST</option>
-        <option>Sanskrit</option><option>Computer</option><option>GK</option>
-      </select>
-    </div>
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;background:var(--white);border:1px solid var(--g200);border-radius:var(--r);padding:10px 14px">
-      <label style="font-size:12px;font-weight:600;color:var(--g500);white-space:nowrap">${t('out_of')} (all):</label>
-      <input type="number" class="fi" id="outOfGlobal" placeholder="100" min="1" style="max-width:85px;margin:0">
-      <button onclick="applyOutOf()" style="padding:8px 14px;background:var(--m);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap">Apply</button>
-    </div>
-    <div class="marks-sheet">
-      ${students.map((s,i)=>{const id=sid(s);return`
-        <div>
-          <div class="ms-header" onclick="toggleMark('mk${i}')">
-            <div class="sav" style="width:32px;height:32px;font-size:13px">${initials(s.name)}</div>
-            <div style="flex:1"><div style="font-size:13px;font-weight:600">${s.name}</div><div style="font-size:11px;color:var(--g400)">Roll ${s.roll_no||'-'}</div></div>
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--g400)" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
-          </div>
-          <div class="ms-fields" id="mk${i}">
-            <div class="mrow"><div class="mlbl">${t('obtained')}</div><input type="number" class="minput" id="obt_${id}" placeholder="0" min="0"></div>
-            <div class="mrow"><div class="mlbl">${t('out_of')}</div><input type="number" class="minput" id="oof_${id}" placeholder="100" min="1"></div>
-            <button class="msave" onclick="saveMark('${id}','${s.name.replace(/'/g,"\\'")}')">Save ${s.name.split(' ')[0]}'s Marks</button>
-          </div>
-        </div>`;}).join('')}
-    </div>
-  </div>`;
-}
-function applyOutOf(){
-  const val=document.getElementById('outOfGlobal')?.value;
-  if(!val){showToast('Enter out of value first');return;}
-  students.forEach(s=>{const e=document.getElementById('oof_'+sid(s));if(e)e.value=val;});
-  showToast('Out of '+val+' applied to all');
-}
-function toggleMark(id){document.getElementById(id)?.classList.toggle('open')}
-async function saveMark(id,name){
-  const exam=document.getElementById('examType')?.value;
-  const subj=document.getElementById('subjectSel')?.value;
-  const obt=document.getElementById('obt_'+id)?.value;
-  const oof=document.getElementById('oof_'+id)?.value;
-  if(!obt||!oof){showToast('Enter marks and out of value');return;}
-  try{const res=await fetch(API+'/marks',{method:'POST',headers:{Authorization:`Bearer ${activeToken}`,'Content-Type':'application/json'},body:JSON.stringify({student_id:id,exam_type:exam,subject:subj,marks_obtained:Number(obt),total_marks:Number(oof)})});showToast(res.ok?name.split(' ')[0]+': '+t('marks_saved'):'Failed. Try again.');}
-  catch(_){showToast('Network error.');}
+function rMarks() {
+  const SUBS=['Math','Science','English','Hindi','Social Science','Marathi'];
+  return `<div style="padding:16px"><div class="stt" style="margin-bottom:12px">${t('update_marks')}</div>
+  <div class="marks-sheet">
+    ${students.map(s=>`<div>
+      <div class="ms-header" onclick="toggleMs('${s.id}')">
+        <div class="sav" style="width:36px;height:36px;font-size:14px">${s.name[0].toUpperCase()}</div>
+        <div style="flex:1"><div style="font-size:13px;font-weight:600">${s.name}</div><div style="font-size:11px;color:var(--gray-400)">Roll ${s.roll_no||'N/A'}</div></div>
+        <svg id="exp_${s.id}" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gray-300)" stroke-width="2" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+      <div class="ms-fields" id="mf_${s.id}">
+        <div style="margin-bottom:10px"><label style="font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:5px">Exam Type</label><select class="fi" id="bulk_et_${s.id}"><option>Unit Test</option><option>Half Yearly</option><option>Annual</option><option>Monthly Test</option></select></div>
+        ${SUBS.map(sub=>`<div class="mrow"><div class="mlbl">${sub}</div><input type="number" class="minput" id="bulk_${s.id}_${sub.replace(/ /g,'_')}" placeholder="0" min="0" max="100"></div>`).join('')}
+        <button class="msave" onclick="bulkSave('${s.id}')">${t('save_marks')}</button>
+      </div>
+    </div>`).join('')}
+  </div></div>`;
 }
 
-/* ── RENDER: GROUP ── */
-function renderGroup(){
-  return `
-  <div class="hdr"><div class="hg"></div>
-    <div class="hc"><div class="grt">Post in Group</div>
-      <div class="tnm" style="font-size:18px">${extractClass(cd)||t('my_class')}</div>
-    </div>
-  </div>
-  <div class="sec" style="margin-top:14px">
-    <div class="composer">
-      <textarea class="ctxt" id="postTxt" placeholder="${t('write')}"></textarea>
-      <input type="text" class="fi" id="postVideo" placeholder="YouTube/video link (optional)" style="margin-bottom:10px">
-      <button class="post-btn" onclick="submitPost()">${t('post')}</button>
-    </div>
-  </div>
-  <div class="sec">
-    <div class="stt">${t('group')}</div>
-    ${!posts.length?`<div class="eb"><p>${t('no_posts')}</p></div>`:''}
-    ${posts.map(p=>`
-      <div class="pi">
-        <div class="ph">
-          <div class="pau">${p.posted_by_name||extractName(cd)||'You'}</div>
-          <div style="display:flex;align-items:center;gap:8px">
-            <div class="ptm">${timeAgo(p.created_at)}</div>
-            <button class="del-btn" onclick="deletePost('${p._id||p.id}')">
-              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
-            </button>
-          </div>
-        </div>
-        <div class="ptxt">${p.text_content||''}</div>
-        ${p.video_link?`<a href="${p.video_link}" target="_blank" style="display:inline-flex;align-items:center;gap:5px;margin-top:6px;font-size:12px;color:var(--m);text-decoration:none;font-weight:500">▶ Watch Video</a>`:''}
-      </div>`).join('')}
-  </div>`;
+function toggleMs(id) {
+  const f=document.getElementById('mf_'+id),e=document.getElementById('exp_'+id);
+  const open=f.classList.toggle('open');
+  if(e)e.style.transform=open?'rotate(180deg)':'';
 }
-async function submitPost(){
+
+async function bulkSave(sid) {
+  const et=document.getElementById('bulk_et_'+sid)?.value||'Unit Test';
+  const SUBS=['Math','Science','English','Hindi','Social Science','Marathi'];
+  let saved=0;
+  for(const sub of SUBS){
+    const el=document.getElementById('bulk_'+sid+'_'+sub.replace(/ /g,'_'));
+    if(!el||el.value==='')continue;
+    const val=parseInt(el.value);if(isNaN(val))continue;
+    await fetch(API+'/marks/update',{method:'POST',headers:{Authorization:'Bearer '+activeToken,'Content-Type':'application/json'},body:JSON.stringify({student_id:sid,subject:sub,marks_obtained:val,total_marks:100,exam_type:et})});
+    saved++;
+  }
+  const s=students.find(x=>x.id===sid);
+  toast(saved>0?t('marks_saved')+' — '+(s?.name||''):'Enter at least one mark');
+}
+
+async function rGroup() {
+  const c=document.getElementById('mainContent');
+  c.innerHTML=`<div style="padding:16px"><div class="stt" style="margin-bottom:12px">${t('post_group')}</div>
+  <div class="composer">
+    <textarea class="ctxt" id="postTxt" placeholder="${t('write')}"></textarea>
+    <button class="post-btn" onclick="submitPost()">${t('post')}</button>
+  </div>
+  <div style="margin-top:16px"><div class="stt" style="margin-bottom:10px">Recent Posts</div>
+  <div id="gpl"><div class="ls2" style="min-height:100px"><div class="sp"></div></div></div></div></div>`;
+  loadPosts();
+}
+
+async function submitPost() {
   const txt=document.getElementById('postTxt')?.value.trim();
-  const vid=document.getElementById('postVideo')?.value.trim();
-  if(!txt&&!vid){showToast('Write something first');return;}
+  if(!txt){toast('Write something first');return}
   try{
-    const res=await fetch(API+'/posts',{method:'POST',headers:{Authorization:`Bearer ${activeToken}`,'Content-Type':'application/json'},body:JSON.stringify({text_content:txt,video_link:vid||null})});
-    if(res.ok){const d=await res.json();posts.unshift(d.post||{text_content:txt,video_link:vid,created_at:new Date(),posted_by_name:extractName(cd)});showToast(t('posted'));showPage('group');}
-    else showToast('Failed. Try again.');
-  }catch(_){showToast('Network error.');}
-}
-async function deletePost(id){
-  if(!confirm('Delete this post?'))return;
-  try{const res=await fetch(API+'/posts/'+id,{method:'DELETE',headers:{Authorization:`Bearer ${activeToken}`}});if(res.ok){posts=posts.filter(p=>(p._id||p.id)!==id);showToast('Deleted');showPage('group');}else showToast('Failed.');}
-  catch(_){showToast('Network error.');}
+    const r=await fetch(API+'/posts',{method:'POST',headers:{Authorization:'Bearer '+activeToken,'Content-Type':'application/json'},body:JSON.stringify({class_id:cd.id,text_content:txt,post_type:'general'})});
+    const d=await r.json();
+    if(d.success){toast(t('posted'));document.getElementById('postTxt').value='';loadPosts();}
+    else toast(d.error||'Error');
+  }catch(e){toast('Could not post')}
 }
 
-/* ── RENDER: NOTIFY ── */
-function renderNotify(){
-  selSet=new Set();
-  return `
-  <div class="hdr"><div class="hg"></div>
-    <div class="hc"><div class="grt">${t('send_notif')}</div>
-      <div class="tnm" style="font-size:18px">${extractClass(cd)||t('my_class')}</div>
-    </div>
-  </div>
-  <div class="sec" style="margin-top:14px">
-    <div class="nf">
-      <div class="fg">
-        <label>Notification Title</label>
-        <input type="text" class="fi" id="ntitle" placeholder="e.g. Exam tomorrow, Holiday notice...">
-      </div>
-      <div class="fg">
-        <label>Message</label>
-        <textarea class="fita" id="nmsg" placeholder="Write your message here..."></textarea>
-      </div>
-      <div class="fg">
-        <label>${t('sel_students')}</label>
-        <div style="display:flex;gap:6px;margin-bottom:8px">
-          <button onclick="selAll(true)" style="flex:1;padding:8px;background:var(--m);color:#fff;border:none;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">✅ ${t('all_students')}</button>
-          <button onclick="selAll(false)" style="flex:1;padding:8px;background:var(--g100);color:var(--g600);border:1px solid var(--g200);border-radius:8px;font-size:12px;font-weight:600;cursor:pointer">✕ Clear</button>
-        </div>
-        <div class="sel-badge" id="selBadge">0 ${t('selected')}</div>
-        ${!students.length
-          ?`<div class="eb"><p>${t('no_students')}</p></div>`
-          :`<div class="stu-sel-box">
-              ${students.map(s=>`
-                <div class="stu-sel-item" id="srow_${sid(s)}" onclick="togStu('${sid(s)}')">
-                  <input type="checkbox" class="stu-chk" id="schk_${sid(s)}" onclick="event.stopPropagation();togStu('${sid(s)}')">
-                  <div style="flex:1">
-                    <div class="stu-sel-name">${s.name}</div>
-                    <div class="stu-sel-roll">Roll ${s.roll_no||'-'}</div>
-                  </div>
-                </div>`).join('')}
-            </div>`}
-      </div>
-      <button class="send-btn" onclick="sendNotif()">${t('send_notif')}</button>
-    </div>
-  </div>`;
+async function loadPosts() {
+  const el=document.getElementById('gpl');if(!el)return;
+  try{
+    const r=await fetch(API+'/posts/'+cd.id,{headers:{Authorization:'Bearer '+activeToken}});
+    const d=await r.json();const posts=d.posts||[];
+    el.innerHTML=posts.length>0?posts.map(p=>`<div class="pi"><div class="ph"><span class="pau">${p.posted_by_name||'Teacher'}</span><div style="display:flex;align-items:center;gap:8px"><span class="ptm">${fmtDate(p.created_at)}</span><button class="del-btn" onclick="delPost('${p.id}')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg></button></div></div>${p.text_content?`<div class="ptxt">${p.text_content}</div>`:''} ${p.video_link?`<a href="${p.video_link}" target="_blank" style="font-size:12px;color:var(--black)">Watch Video</a>`:''}</div>`).join(''):
+    `<div class="eb"><p>${t('no_posts')}</p></div>`;
+  }catch(e){if(el)el.innerHTML=`<div class="eb"><p>Could not load</p></div>`}
 }
 
-function togStu(id){
-  selSet.has(id)?selSet.delete(id):selSet.add(id);
-  const chk=document.getElementById('schk_'+id);
-  const row=document.getElementById('srow_'+id);
-  if(chk)chk.checked=selSet.has(id);
-  if(row)row.classList.toggle('on',selSet.has(id));
-  updBadge();
+async function delPost(id) {
+  try{await fetch(API+'/posts/'+id,{method:'DELETE',headers:{Authorization:'Bearer '+activeToken}});toast('Post deleted');loadPosts();}catch(e){toast('Error')}
 }
-function selAll(val){
-  students.forEach(s=>{
-    const id=sid(s);val?selSet.add(id):selSet.delete(id);
-    const chk=document.getElementById('schk_'+id);
-    const row=document.getElementById('srow_'+id);
-    if(chk)chk.checked=val;
-    if(row)row.classList.toggle('on',val);
-  });updBadge();
-}
-function updBadge(){const el=document.getElementById('selBadge');if(el)el.textContent=selSet.size+' '+t('selected');}
 
-async function sendNotif(){
-  const title=document.getElementById('ntitle')?.value.trim();
+function rNotify() {
+  return `<div style="padding:16px"><div class="stt" style="margin-bottom:12px">${t('send_notif')}</div>
+  <div class="nf">
+    <div class="fg"><label>Title *</label><input type="text" class="fi" id="ntit" placeholder="e.g. Holiday Tomorrow"></div>
+    <div class="fg"><label>Message *</label><textarea class="fita" id="nmsg" placeholder="Write your message..."></textarea></div>
+    <button class="send-btn" onclick="sendNotif()">${t('send_notif')}</button>
+  </div></div>`;
+}
+
+async function sendNotif() {
+  const title=document.getElementById('ntit')?.value.trim();
   const msg=document.getElementById('nmsg')?.value.trim();
-  if(!title||!msg){showToast('Enter title and message');return;}
-  if(!selSet.size){showToast('Select at least one student');return;}
-  const ids=[...selSet];
+  if(!title||!msg){toast('Enter title and message');return}
   try{
-    const res=await fetch(API+'/notifications',{method:'POST',headers:{Authorization:`Bearer ${activeToken}`,'Content-Type':'application/json'},body:JSON.stringify({title,message:msg,student_ids:ids,send_to_all:ids.length===students.length})});
-    if(res.ok){showToast(t('notif_sent'));document.getElementById('ntitle').value='';document.getElementById('nmsg').value='';selAll(false);}
-    else{const e=await res.json().catch(()=>({}));showToast('Failed: '+(e.message||res.status));}
-  }catch(_){showToast('Network error.');}
+    const r=await fetch(API+'/notifications/send',{method:'POST',headers:{Authorization:'Bearer '+activeToken,'Content-Type':'application/json'},body:JSON.stringify({title,message:msg,target_type:'class',target_id:cd.id,type:'general'})});
+    const d=await r.json();
+    if(d.success){toast(t('notif_sent'));document.getElementById('ntit').value='';document.getElementById('nmsg').value='';}
+    else toast(d.error||'Error');
+  }catch(e){toast('Could not send')}
 }
 
-if('serviceWorker' in navigator){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{});})}
+function fmtDate(ts){if(!ts)return'';try{return new Date(ts).toLocaleDateString('en-IN',{day:'numeric',month:'short'})}catch(e){return''}}
+function toast(msg){const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');setTimeout(()=>el.classList.remove('show'),3000)}
+function doLogout(){activeToken=null;localStorage.removeItem('tch_token');localStorage.removeItem('tch_user');cd=null;students=[];showLogin();document.getElementById('lCode').value='';document.getElementById('lPass').value='';document.getElementById('lErr').classList.remove('show')}
+
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}
+init();
 </script>
 </body>
 </html>
