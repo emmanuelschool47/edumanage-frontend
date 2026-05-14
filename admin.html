@@ -21,13 +21,9 @@
   --fd:'Playfair Display',serif;
   --fb:'Inter',sans-serif;
   --fm:'JetBrains Mono',monospace;
-  --r:12px;
-  --sh:0 4px 16px rgba(128,0,32,.12);
-  --tr:all .25s ease;
+  --r:12px;--sh:0 4px 16px rgba(128,0,32,.12);--tr:all .25s ease;
 }
 body{display:flex;min-height:100vh;background:var(--g5);font-family:var(--fb)}
-
-/* SIDEBAR */
 .sidebar{width:240px;background:var(--mp);color:var(--w);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .3s;overflow-y:auto}
 .sb-logo{padding:20px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:10px}
 .sb-lm{width:32px;height:32px;background:var(--w);color:var(--m);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0;font-family:var(--fd)}
@@ -46,8 +42,6 @@ body{display:flex;min-height:100vh;background:var(--g5);font-family:var(--fb)}
 .acd{font-size:10px;color:rgba(255,255,255,.35);font-family:var(--fm)}
 .lo-btn{width:100%;padding:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:8px;color:rgba(255,255,255,.5);font-family:var(--fb);font-size:12px;cursor:pointer;transition:var(--tr)}
 .lo-btn:hover{background:var(--red);border-color:var(--red);color:var(--w)}
-
-/* MAIN */
 .main{margin-left:240px;flex:1;display:flex;flex-direction:column;min-width:0}
 .topbar{position:sticky;top:0;z-index:50;background:var(--w);border-bottom:1px solid var(--g2);padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between}
 .tb-t{font-family:var(--fd);font-size:20px;font-weight:600}
@@ -56,8 +50,6 @@ body{display:flex;min-height:100vh;background:var(--g5);font-family:var(--fb)}
 .hbg{display:none;background:none;border:none;cursor:pointer;padding:4px}
 .hbg svg{width:22px;height:22px;stroke:var(--b);stroke-width:2}
 .pg{padding:24px;flex:1}
-
-/* CARDS */
 .sg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
 .sc{background:var(--w);border:1px solid var(--g2);border-radius:14px;padding:18px;transition:var(--tr)}
 .sc:hover{border-color:var(--m);transform:translateY(-2px);box-shadow:var(--sh)}
@@ -69,8 +61,6 @@ body{display:flex;min-height:100vh;background:var(--g5);font-family:var(--fb)}
 .card{background:var(--w);border:1px solid var(--g2);border-radius:14px;padding:20px;margin-bottom:20px}
 .ct{font-family:var(--fd);font-size:17px;font-weight:600;margin-bottom:16px}
 .ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px;flex-wrap:wrap}
-
-/* TABLE */
 .tw{overflow-x:auto}
 table{width:100%;border-collapse:collapse}
 thead{background:var(--g5)}
@@ -78,15 +68,11 @@ th{padding:10px 14px;text-align:left;font-size:11px;color:var(--g4);text-transfo
 td{padding:10px 14px;font-size:13px;border-bottom:1px solid var(--g1)}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:var(--g5)}
-
-/* BADGES */
 .badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:100px;font-size:11px;font-weight:600}
 .bg{background:var(--gl);color:var(--green)}
 .br{background:var(--rl);color:var(--red)}
 .bo{background:var(--gol);color:var(--gold)}
 .bk{background:var(--g1);color:var(--g6)}
-
-/* BUTTONS */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;border-radius:8px;border:none;font-family:var(--fb);font-size:13px;font-weight:600;cursor:pointer;transition:var(--tr)}
 .btn:active{transform:scale(.97)}
 .bm{background:var(--m);color:var(--w)}
@@ -96,8 +82,6 @@ tr:hover td{background:var(--g5)}
 .bol{background:transparent;border:1.5px solid var(--g2);color:var(--g7)}
 .bol:hover{border-color:var(--m);color:var(--m)}
 .bsm{padding:5px 12px;font-size:11px;border-radius:7px}
-
-/* FORM */
 .si2{padding:9px 14px;border:1.5px solid var(--g2);border-radius:9px;font-family:var(--fb);font-size:13px;color:var(--b);outline:none;min-width:200px;transition:var(--tr)}
 .si2:focus{border-color:var(--m)}
 .fg2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -107,21 +91,15 @@ tr:hover td{background:var(--g5)}
 .fb2{padding:6px 14px;border-radius:100px;border:1.5px solid var(--g2);background:var(--w);font-family:var(--fb);font-size:12px;font-weight:600;color:var(--g5c);cursor:pointer;white-space:nowrap;transition:var(--tr)}
 .fb2.active{background:var(--m);border-color:var(--m);color:var(--w)}
 .filter-row{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;overflow-x:auto;padding-bottom:4px}
-
-/* INFO */
 .ig{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
 .ic{background:var(--g5);border-radius:8px;padding:11px 13px}
 .icl{font-size:10px;color:var(--g4);text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-bottom:3px}
 .icv{font-size:13px;font-weight:600}
-
-/* PROFILE */
 .pr{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--g1)}
 .pav{width:64px;height:64px;background:var(--mp2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:26px;color:var(--m);flex-shrink:0;overflow:hidden}
 .pav img{width:100%;height:100%;object-fit:cover}
 .pnm{font-family:var(--fd);font-size:22px;font-weight:700}
 .pcd{font-family:var(--fm);font-size:12px;color:var(--g4);margin-top:2px}
-
-/* MODAL */
 .mo{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:center;justify-content:center;padding:20px}
 .mo.show{display:flex}
 .mb{background:var(--w);border-radius:16px;padding:24px;width:100%;max-width:540px;max-height:90vh;overflow-y:auto;animation:scIn .3s ease}
@@ -130,14 +108,10 @@ tr:hover td{background:var(--g5)}
 .bbk{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--g1);border:none;border-radius:8px;font-family:var(--fb);font-size:13px;color:var(--g6);cursor:pointer;margin-bottom:18px;transition:var(--tr)}
 .bbk:hover{background:var(--mp2);color:var(--m)}
 .bbk svg{width:14px;height:14px;stroke:currentColor;stroke-width:2}
-
-/* CRED BOX */
 .cred-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
 .cred-item{background:var(--g5);border:2px solid var(--g2);border-radius:10px;padding:16px;text-align:center}
 .cred-label{font-size:11px;color:var(--g4);text-transform:uppercase;letter-spacing:.8px;font-weight:600;margin-bottom:8px}
 .cred-val{font-family:var(--fm);font-size:20px;font-weight:700;color:var(--m);word-break:break-all}
-
-/* CLASS GRID */
 .cg{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .cc{background:var(--w);border:1px solid var(--g2);border-radius:14px;padding:20px;cursor:pointer;transition:var(--tr);text-align:center}
 .cc:hover{border-color:var(--m);transform:translateY(-3px);box-shadow:var(--sh)}
@@ -145,15 +119,13 @@ tr:hover td{background:var(--g5)}
 .cc-ic svg{width:20px;height:20px;stroke:var(--m)}
 .cc-nm{font-family:var(--fd);font-size:17px;font-weight:700;color:var(--m);margin-bottom:4px}
 .cc-ct{font-size:12px;color:var(--g4)}
-
-/* POST */
 .pi{background:var(--w);border:1px solid var(--g2);border-radius:var(--r);padding:14px;margin-bottom:10px}
 .ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
 .pau{font-size:12px;font-weight:700;color:var(--m)}
 .pt{font-size:11px;color:var(--g3)}
 .ptxt{font-size:13px;color:var(--g7);line-height:1.6}
-
-/* UTILS */
+.err-box{display:none;background:var(--rl);color:var(--red);padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:14px;border:1px solid rgba(192,57,43,.2)}
+.err-box.show{display:block}
 .ls{display:flex;align-items:center;justify-content:center;min-height:300px;flex-direction:column;gap:14px}
 .sp{width:28px;height:28px;border:2px solid var(--g2);border-top-color:var(--m);border-radius:50%;animation:spin .8s linear infinite}
 .es{text-align:center;padding:40px;color:var(--g3)}
@@ -162,11 +134,9 @@ tr:hover td{background:var(--g5)}
 .toast.show{transform:translateY(0);opacity:1}
 .tok{background:var(--m);color:var(--w)}
 .ter{background:var(--red);color:var(--w)}
-
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @keyframes scIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
-
 @media(max-width:1200px){.sg{grid-template-columns:repeat(2,1fr)}.cg{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:900px){
   .sidebar{transform:translateX(-100%)}
@@ -177,8 +147,7 @@ tr:hover td{background:var(--g5)}
   .two,.cg,.fg2{grid-template-columns:1fr}
   .pg{padding:16px}
   .topbar{padding:0 16px}
-  .ig{grid-template-columns:1fr}
-  .cred-grid{grid-template-columns:1fr}
+  .ig,.cred-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -195,11 +164,11 @@ tr:hover td{background:var(--g5)}
     <div id="lErr" style="display:none;background:#fdf0ef;color:#c0392b;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:14px;border:1px solid rgba(192,57,43,.2)"></div>
     <div style="margin-bottom:14px">
       <label style="display:block;font-size:11px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Admin Code</label>
-      <input id="aCode" style="width:100%;padding:12px 14px;background:#fafafa;border:1.5px solid #eee;border-radius:10px;font-size:14px;outline:none;text-transform:uppercase;font-family:'Inter',sans-serif;transition:.3s" placeholder="e.g. ADMIN47" onfocus="this.style.borderColor='#800020'" onblur="this.style.borderColor='#eee'" onkeydown="if(event.key==='Enter')doLogin()">
+      <input id="aCode" style="width:100%;padding:12px 14px;background:#fafafa;border:1.5px solid #eee;border-radius:10px;font-size:14px;outline:none;text-transform:uppercase;font-family:'Inter',sans-serif" placeholder="e.g. ADMIN47" onkeydown="if(event.key==='Enter')doLogin()">
     </div>
     <div style="margin-bottom:20px">
       <label style="display:block;font-size:11px;font-weight:600;color:#999;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px">Password</label>
-      <input id="aPass" type="password" style="width:100%;padding:12px 14px;background:#fafafa;border:1.5px solid #eee;border-radius:10px;font-size:14px;outline:none;font-family:'Inter',sans-serif;transition:.3s" placeholder="Enter password" onfocus="this.style.borderColor='#800020'" onblur="this.style.borderColor='#eee'" onkeydown="if(event.key==='Enter')doLogin()">
+      <input id="aPass" type="password" style="width:100%;padding:12px 14px;background:#fafafa;border:1.5px solid #eee;border-radius:10px;font-size:14px;outline:none;font-family:'Inter',sans-serif" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
     </div>
     <button id="lBtn" onclick="doLogin()" style="width:100%;padding:13px;background:linear-gradient(135deg,#800020,#a30027);color:#fff;border:none;border-radius:10px;font-size:14px;font-weight:600;cursor:pointer;font-family:'Inter',sans-serif">Login to Admin Panel</button>
   </div>
@@ -357,7 +326,7 @@ tr:hover td{background:var(--g5)}
 
 <!-- SUCCESS MODAL -->
 <div class="mo" id="okM">
-  <div class="mb" style="max-width:420px">
+  <div class="mb" style="max-width:440px">
     <div class="mt2" id="okT">✅ Added!</div>
     <p style="font-size:13px;color:var(--g5c);margin-bottom:16px" id="okS">Save these credentials.</p>
     <div class="cred-grid">
@@ -366,7 +335,7 @@ tr:hover td{background:var(--g5)}
     </div>
     <div id="okEx"></div>
     <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:10px 14px;font-size:12px;color:#5d4037;margin-bottom:16px">
-      ⚠️ Abhi screenshot lo ya note karo. Yeh credentials student/teacher ko share karo login ke liye. Password baad mein recover nahi hoga.
+      ⚠️ Abhi screenshot lo — password baad mein recover nahi hoga. Yeh credentials student/teacher ko share karo.
     </div>
     <button class="btn bm" style="width:100%" onclick="cM('okM')">Done ✓</button>
   </div>
@@ -382,12 +351,9 @@ let TK=null;
 let studs=[],tchs=[],cPosts=[],curCls=null;
 let eStuId=null,eTchId=null,eFeeId=null;
 
-/* BOOT */
-window.onload=()=>{
-  setTimeout(()=>document.getElementById('aCode').focus(),300);
-};
+window.onload=()=>setTimeout(()=>document.getElementById('aCode')?.focus(),300);
 
-/* LOGIN */
+/* ── LOGIN ── */
 async function doLogin(){
   const code=document.getElementById('aCode').value.trim().toUpperCase();
   const pass=document.getElementById('aPass').value;
@@ -397,11 +363,7 @@ async function doLogin(){
   err.style.display='none';
   btn.textContent='Logging in...';btn.disabled=true;
   try{
-    const res=await fetch(API+'/auth/login',{
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({code,password:pass,role:'admin'})
-    });
+    const res=await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code,password:pass,role:'admin'})});
     const data=await res.json();
     if(data.token){
       TK=data.token;
@@ -436,44 +398,16 @@ function doLogout(){
   document.getElementById('lErr').style.display='none';
 }
 
-/* HELPERS */
+/* ── HELPERS ── */
 function H(){return{Authorization:'Bearer '+TK,'Content-Type':'application/json'};}
-
-function toast(m,ok=true){
-  const e=document.getElementById('tst');
-  e.textContent=m;
-  e.className='toast '+(ok?'tok':'ter');
-  e.classList.add('show');
-  setTimeout(()=>e.classList.remove('show'),4000);
-}
-
+function toast(m,ok=true){const e=document.getElementById('tst');e.textContent=m;e.className='toast '+(ok?'tok':'ter');e.classList.add('show');setTimeout(()=>e.classList.remove('show'),4000);}
 function cM(id){document.getElementById(id).classList.remove('show');}
-
-function setPage(t,h){
-  document.getElementById('pgT').textContent=t;
-  document.getElementById('pgC').innerHTML=h;
-}
-
+function setPage(t,h){document.getElementById('pgT').textContent=t;document.getElementById('pgC').innerHTML=h;}
 function loading(){setPage('Loading...','<div class="ls"><div class="sp"></div></div>');}
-
 function ini(n){if(!n)return'?';return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);}
+function ago(d){if(!d)return'';const s=Math.floor((Date.now()-new Date(d))/1000);if(s<60)return'just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago';}
+function fBadge(st){if(st==='paid')return'<span class="badge bg">Paid</span>';if(st==='partial')return'<span class="badge bo">Partial</span>';return'<span class="badge br">Pending</span>';}
 
-function ago(d){
-  if(!d)return'';
-  const s=Math.floor((Date.now()-new Date(d))/1000);
-  if(s<60)return'just now';
-  if(s<3600)return Math.floor(s/60)+'m ago';
-  if(s<86400)return Math.floor(s/3600)+'h ago';
-  return Math.floor(s/86400)+'d ago';
-}
-
-function fBadge(st){
-  if(st==='paid')return'<span class="badge bg">Paid</span>';
-  if(st==='partial')return'<span class="badge bo">Partial</span>';
-  return'<span class="badge br">Pending</span>';
-}
-
-/* Show success modal with code + password */
 function showOK(title,sub,code,pass,extra=''){
   document.getElementById('okT').textContent='✅ '+title;
   document.getElementById('okS').textContent=sub;
@@ -487,19 +421,11 @@ function go(page,btn){
   document.querySelectorAll('.ni').forEach(b=>b.classList.remove('active'));
   if(btn)btn.classList.add('active');
   document.getElementById('sidebar').classList.remove('open');
-  const m={
-    dashboard:loadDashboard,students:loadStudents,addStudent:pageAddStudent,
-    promote:pagePromote,passout:pagePassout,
-    teachers:loadTeachers,addTeacher:pageAddTeacher,
-    fees:loadFees,payments:loadPayments,
-    notify:pageNotify,classes:loadClasses
-  };
+  const m={dashboard:loadDashboard,students:loadStudents,addStudent:pageAddStudent,promote:pagePromote,passout:pagePassout,teachers:loadTeachers,addTeacher:pageAddTeacher,fees:loadFees,payments:loadPayments,notify:pageNotify,classes:loadClasses};
   if(m[page])m[page]();
 }
 
-/* ════════════════════
-   DASHBOARD
-════════════════════ */
+/* ── DASHBOARD ── */
 async function loadDashboard(){
   loading();
   try{
@@ -515,7 +441,6 @@ async function loadDashboard(){
     const paid=fees.filter(f=>f.status==='paid').length;
     const pend=fees.filter(f=>f.status==='pending').length;
     const cc={};studs.forEach(s=>{const c=s.class_name||s.standard||'Other';cc[c]=(cc[c]||0)+1;});
-
     setPage('Dashboard',`
     <div class="sg">
       <div class="sc"><div class="si"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="sn">${studs.length}</div><div class="sl">Total Students</div></div>
@@ -536,9 +461,7 @@ async function loadDashboard(){
   }catch(e){setPage('Dashboard',`<div class="es"><p>Error: ${e.message}</p></div>`);}
 }
 
-/* ════════════════════
-   STUDENTS
-════════════════════ */
+/* ── STUDENTS ── */
 async function loadStudents(fc='all',q=''){
   if(!studs.length){
     loading();
@@ -548,13 +471,11 @@ async function loadStudents(fc='all',q=''){
   }
   renderStudents(fc,q);
 }
-
 function renderStudents(fc='all',q=''){
   let list=[...studs];
   if(fc!=='all')list=list.filter(s=>(s.class_name||s.standard||'')===fc);
   if(q)list=list.filter(s=>s.name?.toLowerCase().includes(q.toLowerCase())||s.code?.toLowerCase().includes(q.toLowerCase()));
   const cc={};studs.forEach(s=>{const c=s.class_name||s.standard||'Other';cc[c]=(cc[c]||0)+1;});
-
   setPage('All Students',`
   <div class="card">
     <div class="ch">
@@ -571,7 +492,7 @@ function renderStudents(fc='all',q=''){
         ${!list.length?'<tr><td colspan="7" style="text-align:center;padding:30px;color:var(--g4)">No students found</td></tr>':''}
         ${list.map(s=>`<tr>
           <td><div style="font-weight:600">${s.name}</div><div style="font-size:11px;color:var(--g4)">${s.parent_name||''}</div></td>
-          <td><span style="font-family:var(--fm);font-size:12px;background:var(--mp2);color:var(--m);padding:2px 7px;border-radius:5px">${s.code||'-'}</span></td>
+          <td><span style="font-family:var(--fm);font-size:12px;background:var(--mp2);color:var(--m);padding:2px 8px;border-radius:5px">${s.code||'-'}</span></td>
           <td>${s.class_name||s.standard||'-'}</td>
           <td>${s.roll_no||'-'}</td>
           <td>${s.parent_phone||'-'}</td>
@@ -595,7 +516,11 @@ function viewStu(id){
     <div class="pr">
       <div class="pav">${s.photo_url?`<img src="${s.photo_url}" alt="">`:ini(s.name)}</div>
       <div><div class="pnm">${s.name}</div><div class="pcd">${s.code||''}</div>
-        <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap"><span class="badge bk">${s.class_name||s.standard||'-'}</span><span class="badge bk">Roll ${s.roll_no||'-'}</span>${fBadge(s.fees_status)}</div>
+        <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap">
+          <span class="badge bk">${s.class_name||s.standard||'-'}</span>
+          <span class="badge bk">Roll ${s.roll_no||'-'}</span>
+          ${fBadge(s.fees_status)}
+        </div>
       </div>
     </div>
     <div class="ig">
@@ -651,32 +576,32 @@ async function saveStudent(){
     const res=await fetch(API+'/students/'+eStuId,{method:'PUT',headers:H(),body:JSON.stringify(p)});
     const data=await res.json().catch(()=>({}));
     if(res.ok){toast('Student updated!');cM('esM');studs=[];loadStudents();}
-    else toast('Error: '+(data.message||data.error||JSON.stringify(data)||'Failed'),false);
+    else toast('Error: '+(data.message||data.error||'Failed'),false);
   }catch(e){toast('Network error: '+e.message,false);}
 }
 
 async function delStu(id,name){
-  if(!confirm(`"${name}" ko delete karo? Wapas nahi aayega.`))return;
+  if(!confirm(`"${name}" delete karo?`))return;
   try{
     const res=await fetch(API+'/students/'+id,{method:'DELETE',headers:H()});
-    if(res.ok){toast('Student deleted');studs=studs.filter(s=>(s._id||s.id)!==id);renderStudents();}
+    if(res.ok){toast('Deleted');studs=studs.filter(s=>(s._id||s.id)!==id);renderStudents();}
     else toast('Delete failed',false);
-  }catch(e){toast('Network error: '+e.message,false);}
+  }catch(e){toast('Error: '+e.message,false);}
 }
 
-/* ════════════════════
-   ADD STUDENT
-════════════════════ */
+/* ── ADD STUDENT ── */
 function pageAddStudent(){
   setPage('Add Student',`
   <div class="card" style="max-width:720px">
     <div class="ct">New Student</div>
-    <div id="addStuErr" style="display:none;background:#fdf0ef;color:var(--red);padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:14px;border:1px solid rgba(192,57,43,.2)"></div>
+    <div class="err-box" id="asSErr"></div>
     <div class="fg2">
       <div class="fg"><label>Full Name ✱</label><input class="fi" id="as_nm" placeholder="Student full name"></div>
+      <div class="fg"><label>Student Code ✱</label><input class="fi" id="as_cd" placeholder="e.g. AYUSH09" style="text-transform:uppercase" oninput="this.value=this.value.toUpperCase()"></div>
       <div class="fg"><label>Class ✱</label>
         <select class="fi" id="as_cl"><option value="">Select class</option>${CLS.map(c=>`<option value="${c}">${c}</option>`).join('')}</select>
       </div>
+      <div class="fg"><label>Password ✱</label><input class="fi" id="as_pw" type="password" placeholder="Set login password"></div>
       <div class="fg"><label>Roll No</label><input class="fi" id="as_rl" type="number" placeholder="Roll number"></div>
       <div class="fg"><label>Gender</label>
         <select class="fi" id="as_gn"><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select>
@@ -694,9 +619,8 @@ function pageAddStudent(){
       <div class="fg"><label>Bus Route</label><input class="fi" id="as_br" placeholder="Route"></div>
       <div class="fg"><label>Admission Date</label><input class="fi" id="as_am" type="date" value="${new Date().toISOString().slice(0,10)}"></div>
       <div class="fg"><label>Total Fees (Rs.)</label><input class="fi" id="as_fe" type="number" placeholder="e.g. 12000"></div>
-      <div class="fg"><label>Password ✱</label><input class="fi" id="as_pw" type="password" placeholder="Set login password"></div>
     </div>
-    <p style="font-size:12px;color:var(--g4);margin:12px 0">✱ Required. Login code auto-generated hoga — save ke baad dikhega.</p>
+    <p style="font-size:12px;color:var(--g4);margin:12px 0">✱ Required fields.</p>
     <div style="display:flex;gap:10px;margin-top:4px">
       <button class="btn bol" onclick="go('students')">Cancel</button>
       <button class="btn bm" id="asSBtn" onclick="submitAddStudent()">Add Student</button>
@@ -706,29 +630,25 @@ function pageAddStudent(){
 
 async function submitAddStudent(){
   const name=document.getElementById('as_nm').value.trim();
+  const code=document.getElementById('as_cd').value.trim().toUpperCase();
   const cls=document.getElementById('as_cl').value;
   const pass=document.getElementById('as_pw').value.trim();
-  const errEl=document.getElementById('addStuErr');
-  errEl.style.display='none';
+  const errEl=document.getElementById('asSErr');
+  errEl.classList.remove('show');
 
-  if(!name){errEl.textContent='Student ka naam bharo';errEl.style.display='block';return;}
-  if(!cls){errEl.textContent='Class select karo';errEl.style.display='block';return;}
-  if(!pass){errEl.textContent='Password set karo';errEl.style.display='block';return;}
-  if(pass.length<4){errEl.textContent='Password kam se kam 4 characters ka hona chahiye';errEl.style.display='block';return;}
+  if(!name){errEl.textContent='Student ka naam bharo';errEl.classList.add('show');return;}
+  if(!code){errEl.textContent='Student code bharo (e.g. AYUSH09)';errEl.classList.add('show');return;}
+  if(!cls){errEl.textContent='Class select karo';errEl.classList.add('show');return;}
+  if(!pass){errEl.textContent='Password set karo';errEl.classList.add('show');return;}
+  if(pass.length<4){errEl.textContent='Password kam se kam 4 characters ka hona chahiye';errEl.classList.add('show');return;}
 
   const btn=document.getElementById('asSBtn');
   btn.textContent='Adding...';btn.disabled=true;
 
-  /* Send ALL possible class field names */
   const payload={
-    name:name,
-    password:pass,
-    class_name:cls,
-    standard:cls,
-    class:cls,
+    name,code,password:pass,
+    class_name:cls,standard:cls,class:cls,
   };
-
-  /* Optional fields */
   const roll=document.getElementById('as_rl').value;
   const gender=document.getElementById('as_gn').value;
   const dob=document.getElementById('as_db').value;
@@ -754,47 +674,34 @@ async function submitAddStudent(){
   if(fees)payload.total_fees=Number(fees);
 
   try{
-    const res=await fetch(API+'/students',{
-      method:'POST',
-      headers:H(),
-      body:JSON.stringify(payload)
-    });
-
-    /* Read raw text first to see actual response */
+    const res=await fetch(API+'/students',{method:'POST',headers:H(),body:JSON.stringify(payload)});
     const rawText=await res.text();
     let data={};
     try{data=JSON.parse(rawText);}catch(_){data={message:rawText};}
 
     if(res.ok){
-      /* Try all possible places where code might be */
-      const code=data.student?.code||data.code||data.student?.student_code||data.student_code||data.data?.code||'—';
       studs=[];
       showOK(
         'Student Added!',
         'Yeh credentials student/parent ko share karo.',
-        code,
-        pass,
+        code, pass,
         `<div style="background:var(--mp2);border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px">
           <b>Naam:</b> ${name} &nbsp;|&nbsp; <b>Class:</b> ${cls}
         </div>`
       );
     }else{
-      /* Show EXACT error from backend */
-      const errMsg=data.message||data.error||data.msg||JSON.stringify(data)||'Server error';
-      errEl.textContent='Error: '+errMsg;
-      errEl.style.display='block';
+      errEl.textContent='Error: '+(data.message||data.error||data.msg||JSON.stringify(data));
+      errEl.classList.add('show');
       btn.textContent='Add Student';btn.disabled=false;
     }
   }catch(e){
     errEl.textContent='Network error: '+e.message;
-    errEl.style.display='block';
+    errEl.classList.add('show');
     btn.textContent='Add Student';btn.disabled=false;
   }
 }
 
-/* ════════════════════
-   PROMOTE
-════════════════════ */
+/* ── PROMOTE ── */
 function pagePromote(){
   setPage('Promote Class',`
   <div class="card" style="max-width:500px">
@@ -815,12 +722,10 @@ async function doPromote(){
     const d=await res.json().catch(()=>({}));
     if(res.ok){toast(d.message||'Promoted!');studs=[];}
     else toast('Error: '+(d.message||'Failed'),false);
-  }catch(e){toast('Network error: '+e.message,false);}
+  }catch(e){toast('Error: '+e.message,false);}
 }
 
-/* ════════════════════
-   PASSOUT
-════════════════════ */
+/* ── PASSOUT ── */
 function pagePassout(){
   setPage('Passout Students',`
   <div class="card" style="max-width:500px">
@@ -832,18 +737,16 @@ function pagePassout(){
 }
 async function doPassout(){
   const cls=document.getElementById('poCl').value;
-  if(!confirm(`"${cls}" ke sare students ko passout mark karo? Wapas nahi aayenge.`))return;
+  if(!confirm(`"${cls}" ke sare students ko passout mark karo?`))return;
   try{
     const res=await fetch(API+'/students/passout',{method:'POST',headers:H(),body:JSON.stringify({class_name:cls})});
     const d=await res.json().catch(()=>({}));
     if(res.ok){toast(d.message||'Done!');studs=[];}
     else toast('Error: '+(d.message||'Failed'),false);
-  }catch(e){toast('Network error: '+e.message,false);}
+  }catch(e){toast('Error: '+e.message,false);}
 }
 
-/* ════════════════════
-   TEACHERS
-════════════════════ */
+/* ── TEACHERS ── */
 async function loadTeachers(q=''){
   loading();
   const r=await fetch(API+'/teachers',{headers:H()});
@@ -851,7 +754,6 @@ async function loadTeachers(q=''){
   const d=await r.json();tchs=Array.isArray(d)?d:(d.teachers||[]);
   renderTeachers(q);
 }
-
 function renderTeachers(q=''){
   let list=[...tchs];
   if(q)list=list.filter(t=>t.name?.toLowerCase().includes(q.toLowerCase())||t.code?.toLowerCase().includes(q.toLowerCase()));
@@ -867,7 +769,7 @@ function renderTeachers(q=''){
         ${!list.length?'<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--g4)">No teachers found</td></tr>':''}
         ${list.map(t=>`<tr>
           <td style="font-weight:600">${t.name}</td>
-          <td><span style="font-family:var(--fm);font-size:12px;background:var(--mp2);color:var(--m);padding:2px 7px;border-radius:5px">${t.code||'-'}</span></td>
+          <td><span style="font-family:var(--fm);font-size:12px;background:var(--mp2);color:var(--m);padding:2px 8px;border-radius:5px">${t.code||'-'}</span></td>
           <td>${t.subject||'-'}</td>
           <td>${t.class_name||t.assigned_class||t.class||'<span style="color:var(--g4)">Not assigned</span>'}</td>
           <td>${t.phone||'-'}</td>
@@ -891,54 +793,48 @@ function openEditTch(id){
   document.getElementById('et_pw').value='';
   document.getElementById('etM').classList.add('show');
 }
-
 async function saveTeacher(){
   const p={};
   const v=id=>document.getElementById(id).value;
   if(v('et_n').trim())p.name=v('et_n').trim();
   if(v('et_ph').trim())p.phone=v('et_ph').trim();
   if(v('et_sb').trim())p.subject=v('et_sb').trim();
-  /* Send class in ALL possible field names */
   const cls=v('et_cl');
-  p.class_name=cls;
-  p.assigned_class=cls;
-  p.class=cls;
+  p.class_name=cls;p.assigned_class=cls;p.class=cls;
   if(v('et_pw').trim())p.password=v('et_pw').trim();
   try{
     const res=await fetch(API+'/teachers/'+eTchId,{method:'PUT',headers:H(),body:JSON.stringify(p)});
     const data=await res.json().catch(()=>({}));
     if(res.ok){toast('Teacher updated!');cM('etM');tchs=[];loadTeachers();}
     else toast('Error: '+(data.message||data.error||'Failed'),false);
-  }catch(e){toast('Network error: '+e.message,false);}
+  }catch(e){toast('Error: '+e.message,false);}
 }
-
 async function delTch(id,name){
-  if(!confirm(`"${name}" ko delete karo?`))return;
+  if(!confirm(`"${name}" delete karo?`))return;
   try{
     const res=await fetch(API+'/teachers/'+id,{method:'DELETE',headers:H()});
-    if(res.ok){toast('Teacher deleted');tchs=tchs.filter(t=>(t._id||t.id)!==id);renderTeachers();}
+    if(res.ok){toast('Deleted');tchs=tchs.filter(t=>(t._id||t.id)!==id);renderTeachers();}
     else toast('Delete failed',false);
-  }catch(e){toast('Network error: '+e.message,false);}
+  }catch(e){toast('Error: '+e.message,false);}
 }
 
-/* ════════════════════
-   ADD TEACHER
-════════════════════ */
+/* ── ADD TEACHER ── */
 function pageAddTeacher(){
   setPage('Add Teacher',`
   <div class="card" style="max-width:620px">
     <div class="ct">New Teacher</div>
-    <div id="addTchErr" style="display:none;background:#fdf0ef;color:var(--red);padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:14px;border:1px solid rgba(192,57,43,.2)"></div>
+    <div class="err-box" id="atErr"></div>
     <div class="fg2">
       <div class="fg"><label>Full Name ✱</label><input class="fi" id="at_nm" placeholder="Teacher full name"></div>
+      <div class="fg"><label>Teacher Code ✱</label><input class="fi" id="at_cd" placeholder="e.g. TCH001" style="text-transform:uppercase" oninput="this.value=this.value.toUpperCase()"></div>
+      <div class="fg"><label>Password ✱</label><input class="fi" id="at_pw" type="password" placeholder="Set login password"></div>
       <div class="fg"><label>Phone</label><input class="fi" id="at_ph" placeholder="Phone number"></div>
       <div class="fg"><label>Subject</label><input class="fi" id="at_sb" placeholder="Subject taught"></div>
       <div class="fg"><label>Assigned Class</label>
-        <select class="fi" id="at_cl"><option value="">None — baad mein assign karo</option>${CLS.map(c=>`<option value="${c}">${c}</option>`).join('')}</select>
+        <select class="fi" id="at_cl"><option value="">None</option>${CLS.map(c=>`<option value="${c}">${c}</option>`).join('')}</select>
       </div>
-      <div class="fg"><label>Password ✱</label><input class="fi" id="at_pw" type="password" placeholder="Set login password"></div>
     </div>
-    <p style="font-size:12px;color:var(--g4);margin:12px 0">✱ Required. Login code auto-generated hoga — save ke baad dikhega.</p>
+    <p style="font-size:12px;color:var(--g4);margin:12px 0">✱ Required fields.</p>
     <div style="display:flex;gap:10px;margin-top:4px">
       <button class="btn bol" onclick="go('teachers')">Cancel</button>
       <button class="btn bm" id="atBtn" onclick="submitAddTeacher()">Add Teacher</button>
@@ -948,72 +844,54 @@ function pageAddTeacher(){
 
 async function submitAddTeacher(){
   const name=document.getElementById('at_nm').value.trim();
+  const code=document.getElementById('at_cd').value.trim().toUpperCase();
   const pass=document.getElementById('at_pw').value.trim();
-  const errEl=document.getElementById('addTchErr');
-  errEl.style.display='none';
+  const errEl=document.getElementById('atErr');
+  errEl.classList.remove('show');
 
-  if(!name){errEl.textContent='Teacher ka naam bharo';errEl.style.display='block';return;}
-  if(!pass){errEl.textContent='Password set karo';errEl.style.display='block';return;}
-  if(pass.length<4){errEl.textContent='Password kam se kam 4 characters';errEl.style.display='block';return;}
+  if(!name){errEl.textContent='Teacher ka naam bharo';errEl.classList.add('show');return;}
+  if(!code){errEl.textContent='Teacher code bharo (e.g. TCH001)';errEl.classList.add('show');return;}
+  if(!pass){errEl.textContent='Password set karo';errEl.classList.add('show');return;}
+  if(pass.length<4){errEl.textContent='Password kam se kam 4 characters';errEl.classList.add('show');return;}
 
   const btn=document.getElementById('atBtn');
   btn.textContent='Adding...';btn.disabled=true;
 
   const cls=document.getElementById('at_cl').value;
-
-  /* Send ALL possible class field names */
-  const payload={
-    name:name,
-    password:pass,
-  };
-  if(cls){
-    payload.class_name=cls;
-    payload.assigned_class=cls;
-    payload.class=cls;
-  }
+  const payload={name,code,password:pass};
+  if(cls){payload.class_name=cls;payload.assigned_class=cls;payload.class=cls;}
   const ph=document.getElementById('at_ph').value.trim();
   const sb=document.getElementById('at_sb').value.trim();
   if(ph)payload.phone=ph;
   if(sb)payload.subject=sb;
 
   try{
-    const res=await fetch(API+'/teachers',{
-      method:'POST',
-      headers:H(),
-      body:JSON.stringify(payload)
-    });
-
-    /* Read raw response */
+    const res=await fetch(API+'/teachers',{method:'POST',headers:H(),body:JSON.stringify(payload)});
     const rawText=await res.text();
     let data={};
     try{data=JSON.parse(rawText);}catch(_){data={message:rawText};}
 
     if(res.ok){
-      const code=data.teacher?.code||data.code||data.teacher?.teacher_code||data.teacher_code||data.data?.code||'—';
       tchs=[];
       showOK(
         'Teacher Added!',
         'Yeh credentials teacher ko share karo.',
-        code,
-        pass,
+        code, pass,
         cls?`<div style="background:var(--mp2);border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px"><b>Naam:</b> ${name} &nbsp;|&nbsp; <b>Class:</b> ${cls}</div>`:''
       );
     }else{
-      const errMsg=data.message||data.error||data.msg||JSON.stringify(data)||'Server error';
-      errEl.textContent='Error: '+errMsg;
-      errEl.style.display='block';
+      errEl.textContent='Error: '+(data.message||data.error||data.msg||JSON.stringify(data));
+      errEl.classList.add('show');
       btn.textContent='Add Teacher';btn.disabled=false;
     }
   }catch(e){
     errEl.textContent='Network error: '+e.message;
-    errEl.style.display='block';
+    errEl.classList.add('show');
     btn.textContent='Add Teacher';btn.disabled=false;
   }
 }
 
-/* ════════════════════
-   FEES
-════════════════════ */
+/* ── FEES ── */
 async function loadFees(fs='all',q=''){
   loading();
   try{
@@ -1048,7 +926,6 @@ async function loadFees(fs='all',q=''){
     </div>`);
   }catch(e){setPage('Fee Management',`<div class="es"><p>Error: ${e.message}</p></div>`);}
 }
-
 function openFeeM(id,name,total,paid,status){
   eFeeId=id;
   document.getElementById('fMC').innerHTML=`
@@ -1064,7 +941,6 @@ function openFeeM(id,name,total,paid,status){
     <div class="fg"><label>Total Fees (Rs.)</label><input class="fi" id="fm_tt" type="number" value="${total}"></div>`;
   document.getElementById('fM').classList.add('show');
 }
-
 async function saveFees(){
   const p={status:document.getElementById('fm_st').value,paid_amount:Number(document.getElementById('fm_pd').value),total_amount:Number(document.getElementById('fm_tt').value)};
   try{
@@ -1072,12 +948,10 @@ async function saveFees(){
     const data=await res.json().catch(()=>({}));
     if(res.ok){toast('Fees updated!');cM('fM');loadFees();}
     else toast('Error: '+(data.message||'Failed'),false);
-  }catch(e){toast('Network error: '+e.message,false);}
+  }catch(e){toast('Error: '+e.message,false);}
 }
 
-/* ════════════════════
-   PAYMENTS
-════════════════════ */
+/* ── PAYMENTS ── */
 async function loadPayments(){
   loading();
   try{
@@ -1102,17 +976,10 @@ async function loadPayments(){
     </div>`);
   }catch(e){setPage('Payment Requests',`<div class="es"><p>Error: ${e.message}</p></div>`);}
 }
-async function verifyP(id){
-  try{const r=await fetch(API+'/fees/verify-payment/'+id,{method:'PUT',headers:H(),body:JSON.stringify({status:'verified'})});if(r.ok){toast('Verified!');loadPayments();}else toast('Failed',false);}catch(e){toast('Error: '+e.message,false);}
-}
-async function rejectP(id){
-  if(!confirm('Reject karo?'))return;
-  try{const r=await fetch(API+'/fees/verify-payment/'+id,{method:'PUT',headers:H(),body:JSON.stringify({status:'rejected'})});if(r.ok){toast('Rejected');loadPayments();}else toast('Failed',false);}catch(e){toast('Error: '+e.message,false);}
-}
+async function verifyP(id){try{const r=await fetch(API+'/fees/verify-payment/'+id,{method:'PUT',headers:H(),body:JSON.stringify({status:'verified'})});if(r.ok){toast('Verified!');loadPayments();}else toast('Failed',false);}catch(e){toast('Error: '+e.message,false);}}
+async function rejectP(id){if(!confirm('Reject karo?'))return;try{const r=await fetch(API+'/fees/verify-payment/'+id,{method:'PUT',headers:H(),body:JSON.stringify({status:'rejected'})});if(r.ok){toast('Rejected');loadPayments();}else toast('Failed',false);}catch(e){toast('Error: '+e.message,false);}}
 
-/* ════════════════════
-   NOTIFY
-════════════════════ */
+/* ── NOTIFY ── */
 function pageNotify(){
   setPage('Send Notification',`
   <div class="card" style="max-width:600px">
@@ -1143,19 +1010,17 @@ async function sendNotif(){
     const d=await res.json().catch(()=>({}));
     if(res.ok){toast('Notification sent!');document.getElementById('nt_tl').value='';document.getElementById('nt_m').value='';}
     else toast('Error: '+(d.message||'Failed'),false);
-  }catch(e){toast('Network error: '+e.message,false);}
+  }catch(e){toast('Error: '+e.message,false);}
 }
 
-/* ════════════════════
-   CLASSES + GROUP
-════════════════════ */
+/* ── CLASSES + GROUP ── */
 async function loadClasses(){
   loading();
   const r=await fetch(API+'/students',{headers:H()});
   const d=await r.json();const s=Array.isArray(d)?d:(d.students||[]);
   const cc={};s.forEach(x=>{const c=x.class_name||x.standard||'Other';cc[c]=(cc[c]||0)+1;});
   setPage('Classes Overview',`
-  <p style="font-size:13px;color:var(--g5c);margin-bottom:20px">Class pe click karo uska group kholne ke liye — students ko message bhej sako.</p>
+  <p style="font-size:13px;color:var(--g5c);margin-bottom:20px">Class pe click karo uska group kholne ke liye.</p>
   <div class="cg">
     ${CLS.map(c=>`
       <div class="cc" onclick="openGroup('${c}')">
@@ -1175,7 +1040,6 @@ async function openGroup(cls){
   }catch(_){}
   renderGroup(cls);
 }
-
 function renderGroup(cls){
   setPage(cls+' — Group',`
   <button class="bbk" onclick="loadClasses()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>All Classes</button>
@@ -1202,7 +1066,6 @@ function renderGroup(cls){
       </div>`).join('')}
   </div>`);
 }
-
 async function postGroup(cls){
   const txt=document.getElementById('gMsg')?.value.trim();
   const vid=document.getElementById('gVid')?.value.trim();
@@ -1212,21 +1075,20 @@ async function postGroup(cls){
     const d=await res.json().catch(()=>({}));
     if(res.ok){
       cPosts.unshift(d.post||{text_content:txt,video_link:vid,created_at:new Date(),posted_by_name:'Admin'});
-      toast('Posted to '+cls+'!');
+      toast('Posted!');
       document.getElementById('gMsg').value='';
       document.getElementById('gVid').value='';
       renderGroup(cls);
     }else toast('Error: '+(d.message||'Failed'),false);
-  }catch(e){toast('Network error: '+e.message,false);}
+  }catch(e){toast('Error: '+e.message,false);}
 }
-
 async function delPost(id,cls){
   if(!confirm('Delete karo?'))return;
   try{
     const res=await fetch(API+'/posts/'+id,{method:'DELETE',headers:H()});
     if(res.ok){cPosts=cPosts.filter(p=>(p._id||p.id)!==id);toast('Deleted');renderGroup(cls);}
     else toast('Failed',false);
-  }catch(e){toast('Network error: '+e.message,false);}
+  }catch(e){toast('Error: '+e.message,false);}
 }
 </script>
 </body>
