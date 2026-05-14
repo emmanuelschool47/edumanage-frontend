@@ -18,9 +18,7 @@
   --green:#1a7a4a;--gl:#e8f5ee;
   --red:#c0392b;--rl:#fdf0ef;
   --gold:#b8860b;--gol:#fdf8e8;
-  --fd:'Playfair Display',serif;
-  --fb:'Inter',sans-serif;
-  --fm:'JetBrains Mono',monospace;
+  --fd:'Playfair Display',serif;--fb:'Inter',sans-serif;--fm:'JetBrains Mono',monospace;
   --r:12px;--sh:0 4px 16px rgba(128,0,32,.12);--tr:all .25s ease;
 }
 body{display:flex;min-height:100vh;background:var(--g5);font-family:var(--fb)}
@@ -248,6 +246,7 @@ tr:hover td{background:var(--g5)}
 <div class="mo" id="esM">
   <div class="mb">
     <div class="mt2">Edit Student</div>
+    <div class="err-box" id="esErr"></div>
     <div class="fg2">
       <div class="fg"><label>Full Name</label><input class="fi" id="es_n" placeholder="Name"></div>
       <div class="fg"><label>Parent Phone</label><input class="fi" id="es_ph" placeholder="Phone"></div>
@@ -289,13 +288,14 @@ tr:hover td{background:var(--g5)}
 <div class="mo" id="etM">
   <div class="mb">
     <div class="mt2">Edit Teacher</div>
+    <div class="err-box" id="etErr"></div>
     <div class="fg2">
       <div class="fg"><label>Full Name</label><input class="fi" id="et_n" placeholder="Name"></div>
       <div class="fg"><label>Phone</label><input class="fi" id="et_ph" placeholder="Phone"></div>
       <div class="fg"><label>Subject</label><input class="fi" id="et_sb" placeholder="Subject"></div>
       <div class="fg"><label>Assigned Class</label>
         <select class="fi" id="et_cl">
-          <option value="">None</option>
+          <option value="">None / Remove</option>
           <option>Nursery</option><option>LKG</option><option>UKG</option>
           <option>Class 1</option><option>Class 2</option><option>Class 3</option>
           <option>Class 4</option><option>Class 5</option><option>Class 6</option>
@@ -304,6 +304,9 @@ tr:hover td{background:var(--g5)}
         </select>
       </div>
       <div class="fg"><label>New Password (optional)</label><input class="fi" id="et_pw" type="password" placeholder="Leave blank = no change"></div>
+    </div>
+    <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:10px 14px;font-size:12px;color:#5d4037;margin-top:12px">
+      💡 Class assign karne ke baad teacher logout karke wapas login kare — tab students dikhenge.
     </div>
     <div class="mf">
       <button class="btn bol" style="flex:1" onclick="cM('etM')">Cancel</button>
@@ -335,9 +338,18 @@ tr:hover td{background:var(--g5)}
     </div>
     <div id="okEx"></div>
     <div style="background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:10px 14px;font-size:12px;color:#5d4037;margin-bottom:16px">
-      ⚠️ Abhi screenshot lo — password baad mein recover nahi hoga. Yeh credentials student/teacher ko share karo.
+      ⚠️ Abhi screenshot lo — password baad mein recover nahi hoga.
     </div>
     <button class="btn bm" style="width:100%" onclick="cM('okM')">Done ✓</button>
+  </div>
+</div>
+
+<!-- RAW API DEBUG MODAL -->
+<div class="mo" id="dbgM">
+  <div class="mb" style="max-width:500px">
+    <div class="mt2" style="color:var(--red)">⚠️ API Response</div>
+    <pre id="dbgText" style="background:var(--g5);border:1px solid var(--g2);border-radius:8px;padding:14px;font-size:12px;font-family:var(--fm);overflow-x:auto;white-space:pre-wrap;word-break:break-all;max-height:300px;overflow-y:auto"></pre>
+    <div class="mf"><button class="btn bm" style="width:100%" onclick="cM('dbgM')">Close</button></div>
   </div>
 </div>
 
@@ -408,6 +420,7 @@ function ini(n){if(!n)return'?';return n.split(' ').map(w=>w[0]).join('').toUppe
 function ago(d){if(!d)return'';const s=Math.floor((Date.now()-new Date(d))/1000);if(s<60)return'just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago';}
 function fBadge(st){if(st==='paid')return'<span class="badge bg">Paid</span>';if(st==='partial')return'<span class="badge bo">Partial</span>';return'<span class="badge br">Pending</span>';}
 
+/* Show success modal */
 function showOK(title,sub,code,pass,extra=''){
   document.getElementById('okT').textContent='✅ '+title;
   document.getElementById('okS').textContent=sub;
@@ -415,6 +428,21 @@ function showOK(title,sub,code,pass,extra=''){
   document.getElementById('okPass').textContent=pass||'—';
   document.getElementById('okEx').innerHTML=extra;
   document.getElementById('okM').classList.add('show');
+}
+
+/* Show raw API response in debug modal */
+function showDbg(text){
+  document.getElementById('dbgText').textContent=text;
+  document.getElementById('dbgM').classList.add('show');
+}
+
+/* Safe API call — returns {ok, data, raw} */
+async function apiCall(url,opts){
+  const res=await fetch(url,opts);
+  const raw=await res.text();
+  let data={};
+  try{data=JSON.parse(raw);}catch(_){data={message:raw};}
+  return{ok:res.ok,status:res.status,data,raw};
 }
 
 function go(page,btn){
@@ -425,7 +453,7 @@ function go(page,btn){
   if(m[page])m[page]();
 }
 
-/* ── DASHBOARD ── */
+/* ════ DASHBOARD ════ */
 async function loadDashboard(){
   loading();
   try{
@@ -461,7 +489,7 @@ async function loadDashboard(){
   }catch(e){setPage('Dashboard',`<div class="es"><p>Error: ${e.message}</p></div>`);}
 }
 
-/* ── STUDENTS ── */
+/* ════ STUDENTS ════ */
 async function loadStudents(fc='all',q=''){
   if(!studs.length){
     loading();
@@ -516,11 +544,7 @@ function viewStu(id){
     <div class="pr">
       <div class="pav">${s.photo_url?`<img src="${s.photo_url}" alt="">`:ini(s.name)}</div>
       <div><div class="pnm">${s.name}</div><div class="pcd">${s.code||''}</div>
-        <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap">
-          <span class="badge bk">${s.class_name||s.standard||'-'}</span>
-          <span class="badge bk">Roll ${s.roll_no||'-'}</span>
-          ${fBadge(s.fees_status)}
-        </div>
+        <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap"><span class="badge bk">${s.class_name||s.standard||'-'}</span><span class="badge bk">Roll ${s.roll_no||'-'}</span>${fBadge(s.fees_status)}</div>
       </div>
     </div>
     <div class="ig">
@@ -555,6 +579,7 @@ function openEditStu(id){
   document.getElementById('es_br').value=s.bus_route||'';
   document.getElementById('es_rm').value=s.remarks||'';
   document.getElementById('es_pw').value='';
+  document.getElementById('esErr').classList.remove('show');
   document.getElementById('esM').classList.add('show');
 }
 
@@ -572,24 +597,19 @@ async function saveStudent(){
   if(v('es_br').trim())p.bus_route=v('es_br').trim();
   if(v('es_rm').trim())p.remarks=v('es_rm').trim();
   if(v('es_pw').trim())p.password=v('es_pw').trim();
-  try{
-    const res=await fetch(API+'/students/'+eStuId,{method:'PUT',headers:H(),body:JSON.stringify(p)});
-    const data=await res.json().catch(()=>({}));
-    if(res.ok){toast('Student updated!');cM('esM');studs=[];loadStudents();}
-    else toast('Error: '+(data.message||data.error||'Failed'),false);
-  }catch(e){toast('Network error: '+e.message,false);}
+  const r=await apiCall(API+'/students/'+eStuId,{method:'PUT',headers:H(),body:JSON.stringify(p)});
+  if(r.ok){toast('Student updated!');cM('esM');studs=[];loadStudents();}
+  else{document.getElementById('esErr').textContent='Error: '+( r.data.message||r.data.error||r.raw);document.getElementById('esErr').classList.add('show');}
 }
 
 async function delStu(id,name){
   if(!confirm(`"${name}" delete karo?`))return;
-  try{
-    const res=await fetch(API+'/students/'+id,{method:'DELETE',headers:H()});
-    if(res.ok){toast('Deleted');studs=studs.filter(s=>(s._id||s.id)!==id);renderStudents();}
-    else toast('Delete failed',false);
-  }catch(e){toast('Error: '+e.message,false);}
+  const r=await apiCall(API+'/students/'+id,{method:'DELETE',headers:H()});
+  if(r.ok){toast('Deleted');studs=studs.filter(s=>(s._id||s.id)!==id);renderStudents();}
+  else toast('Error: '+(r.data.message||'Failed'),false);
 }
 
-/* ── ADD STUDENT ── */
+/* ════ ADD STUDENT ════ */
 function pageAddStudent(){
   setPage('Add Student',`
   <div class="card" style="max-width:720px">
@@ -597,7 +617,7 @@ function pageAddStudent(){
     <div class="err-box" id="asSErr"></div>
     <div class="fg2">
       <div class="fg"><label>Full Name ✱</label><input class="fi" id="as_nm" placeholder="Student full name"></div>
-      <div class="fg"><label>Student Code ✱</label><input class="fi" id="as_cd" placeholder="e.g. AYUSH09" style="text-transform:uppercase" oninput="this.value=this.value.toUpperCase()"></div>
+      <div class="fg"><label>Student Code ✱</label><input class="fi" id="as_cd" placeholder="e.g. AYUSH09" oninput="this.value=this.value.toUpperCase()"></div>
       <div class="fg"><label>Class ✱</label>
         <select class="fi" id="as_cl"><option value="">Select class</option>${CLS.map(c=>`<option value="${c}">${c}</option>`).join('')}</select>
       </div>
@@ -639,8 +659,7 @@ async function submitAddStudent(){
   if(!name){errEl.textContent='Student ka naam bharo';errEl.classList.add('show');return;}
   if(!code){errEl.textContent='Student code bharo (e.g. AYUSH09)';errEl.classList.add('show');return;}
   if(!cls){errEl.textContent='Class select karo';errEl.classList.add('show');return;}
-  if(!pass){errEl.textContent='Password set karo';errEl.classList.add('show');return;}
-  if(pass.length<4){errEl.textContent='Password kam se kam 4 characters ka hona chahiye';errEl.classList.add('show');return;}
+  if(!pass||pass.length<4){errEl.textContent='Password kam se kam 4 characters';errEl.classList.add('show');return;}
 
   const btn=document.getElementById('asSBtn');
   btn.textContent='Adding...';btn.disabled=true;
@@ -673,35 +692,19 @@ async function submitAddStudent(){
   if(adm)payload.admission_date=adm;
   if(fees)payload.total_fees=Number(fees);
 
-  try{
-    const res=await fetch(API+'/students',{method:'POST',headers:H(),body:JSON.stringify(payload)});
-    const rawText=await res.text();
-    let data={};
-    try{data=JSON.parse(rawText);}catch(_){data={message:rawText};}
-
-    if(res.ok){
-      studs=[];
-      showOK(
-        'Student Added!',
-        'Yeh credentials student/parent ko share karo.',
-        code, pass,
-        `<div style="background:var(--mp2);border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px">
-          <b>Naam:</b> ${name} &nbsp;|&nbsp; <b>Class:</b> ${cls}
-        </div>`
-      );
-    }else{
-      errEl.textContent='Error: '+(data.message||data.error||data.msg||JSON.stringify(data));
-      errEl.classList.add('show');
-      btn.textContent='Add Student';btn.disabled=false;
-    }
-  }catch(e){
-    errEl.textContent='Network error: '+e.message;
+  const r=await apiCall(API+'/students',{method:'POST',headers:H(),body:JSON.stringify(payload)});
+  if(r.ok){
+    studs=[];
+    showOK('Student Added!','Yeh credentials student/parent ko share karo.',code,pass,
+      `<div style="background:var(--mp2);border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px"><b>Naam:</b> ${name} &nbsp;|&nbsp; <b>Class:</b> ${cls}</div>`);
+  }else{
+    errEl.textContent='Error: '+(r.data.message||r.data.error||r.raw);
     errEl.classList.add('show');
     btn.textContent='Add Student';btn.disabled=false;
   }
 }
 
-/* ── PROMOTE ── */
+/* ════ PROMOTE ════ */
 function pagePromote(){
   setPage('Promote Class',`
   <div class="card" style="max-width:500px">
@@ -709,23 +712,20 @@ function pagePromote(){
     <p style="font-size:13px;color:var(--g5c);margin-bottom:20px">Selected class ke sare students next class mein move ho jayenge.</p>
     <div class="fg" style="margin-bottom:14px"><label>From Class</label><select class="fi" id="pFr">${CLS.map(c=>`<option>${c}</option>`).join('')}</select></div>
     <div class="fg" style="margin-bottom:20px"><label>To Class</label><select class="fi" id="pTo">${CLS.map((c,i)=>`<option ${i===1?'selected':''}>${c}</option>`).join('')}</select></div>
-    <button class="btn bm" onclick="doPromote()">Promote Class →</button>
+    <button class="btn bm" onclick="doPromote()">Promote →</button>
   </div>`);
 }
 async function doPromote(){
   const from=document.getElementById('pFr').value;
   const to=document.getElementById('pTo').value;
   if(from===to){toast('From aur To same nahi ho sakti',false);return;}
-  if(!confirm(`"${from}" ke sare students "${to}" mein move karo?`))return;
-  try{
-    const res=await fetch(API+'/students/promote',{method:'POST',headers:H(),body:JSON.stringify({from_class:from,to_class:to})});
-    const d=await res.json().catch(()=>({}));
-    if(res.ok){toast(d.message||'Promoted!');studs=[];}
-    else toast('Error: '+(d.message||'Failed'),false);
-  }catch(e){toast('Error: '+e.message,false);}
+  if(!confirm(`"${from}" → "${to}" move karo?`))return;
+  const r=await apiCall(API+'/students/promote',{method:'POST',headers:H(),body:JSON.stringify({from_class:from,to_class:to})});
+  if(r.ok){toast(r.data.message||'Promoted!');studs=[];}
+  else toast('Error: '+(r.data.message||'Failed'),false);
 }
 
-/* ── PASSOUT ── */
+/* ════ PASSOUT ════ */
 function pagePassout(){
   setPage('Passout Students',`
   <div class="card" style="max-width:500px">
@@ -737,16 +737,13 @@ function pagePassout(){
 }
 async function doPassout(){
   const cls=document.getElementById('poCl').value;
-  if(!confirm(`"${cls}" ke sare students ko passout mark karo?`))return;
-  try{
-    const res=await fetch(API+'/students/passout',{method:'POST',headers:H(),body:JSON.stringify({class_name:cls})});
-    const d=await res.json().catch(()=>({}));
-    if(res.ok){toast(d.message||'Done!');studs=[];}
-    else toast('Error: '+(d.message||'Failed'),false);
-  }catch(e){toast('Error: '+e.message,false);}
+  if(!confirm(`"${cls}" passout mark karo?`))return;
+  const r=await apiCall(API+'/students/passout',{method:'POST',headers:H(),body:JSON.stringify({class_name:cls})});
+  if(r.ok){toast(r.data.message||'Done!');studs=[];}
+  else toast('Error: '+(r.data.message||'Failed'),false);
 }
 
-/* ── TEACHERS ── */
+/* ════ TEACHERS ════ */
 async function loadTeachers(q=''){
   loading();
   const r=await fetch(API+'/teachers',{headers:H()});
@@ -771,7 +768,7 @@ function renderTeachers(q=''){
           <td style="font-weight:600">${t.name}</td>
           <td><span style="font-family:var(--fm);font-size:12px;background:var(--mp2);color:var(--m);padding:2px 8px;border-radius:5px">${t.code||'-'}</span></td>
           <td>${t.subject||'-'}</td>
-          <td>${t.class_name||t.assigned_class||t.class||'<span style="color:var(--g4)">Not assigned</span>'}</td>
+          <td><b style="color:var(--m)">${t.class_name||t.assigned_class||t.class||'<span style="color:var(--g4);font-weight:400">Not assigned</span>'}</b></td>
           <td>${t.phone||'-'}</td>
           <td><div style="display:flex;gap:5px">
             <button class="btn bm bsm" onclick="openEditTch('${t._id||t.id}')">Edit</button>
@@ -791,34 +788,50 @@ function openEditTch(id){
   document.getElementById('et_sb').value=t.subject||'';
   document.getElementById('et_cl').value=t.class_name||t.assigned_class||t.class||'';
   document.getElementById('et_pw').value='';
+  document.getElementById('etErr').classList.remove('show');
   document.getElementById('etM').classList.add('show');
 }
+
 async function saveTeacher(){
-  const p={};
+  const cls=document.getElementById('et_cl').value;
+  const p={
+    /* Send class in EVERY possible field name */
+    class_name:     cls,
+    assigned_class: cls,
+    class:          cls,
+    classAssigned:  cls,
+    class_assigned: cls,
+    teacherClass:   cls,
+  };
   const v=id=>document.getElementById(id).value;
   if(v('et_n').trim())p.name=v('et_n').trim();
   if(v('et_ph').trim())p.phone=v('et_ph').trim();
   if(v('et_sb').trim())p.subject=v('et_sb').trim();
-  const cls=v('et_cl');
-  p.class_name=cls;p.assigned_class=cls;p.class=cls;
   if(v('et_pw').trim())p.password=v('et_pw').trim();
-  try{
-    const res=await fetch(API+'/teachers/'+eTchId,{method:'PUT',headers:H(),body:JSON.stringify(p)});
-    const data=await res.json().catch(()=>({}));
-    if(res.ok){toast('Teacher updated!');cM('etM');tchs=[];loadTeachers();}
-    else toast('Error: '+(data.message||data.error||'Failed'),false);
-  }catch(e){toast('Error: '+e.message,false);}
-}
-async function delTch(id,name){
-  if(!confirm(`"${name}" delete karo?`))return;
-  try{
-    const res=await fetch(API+'/teachers/'+id,{method:'DELETE',headers:H()});
-    if(res.ok){toast('Deleted');tchs=tchs.filter(t=>(t._id||t.id)!==id);renderTeachers();}
-    else toast('Delete failed',false);
-  }catch(e){toast('Error: '+e.message,false);}
+
+  const r=await apiCall(API+'/teachers/'+eTchId,{method:'PUT',headers:H(),body:JSON.stringify(p)});
+
+  if(r.ok){
+    toast('Teacher updated! ✅ Class assigned: '+(cls||'None'));
+    cM('etM');
+    tchs=[];
+    loadTeachers();
+  }else{
+    document.getElementById('etErr').textContent='Error: '+(r.data.message||r.data.error||r.raw);
+    document.getElementById('etErr').classList.add('show');
+    /* Also show raw for debugging */
+    showDbg('PUT /teachers/'+eTchId+'\nPayload: '+JSON.stringify(p,null,2)+'\n\nResponse ('+r.status+'):\n'+r.raw);
+  }
 }
 
-/* ── ADD TEACHER ── */
+async function delTch(id,name){
+  if(!confirm(`"${name}" delete karo?`))return;
+  const r=await apiCall(API+'/teachers/'+id,{method:'DELETE',headers:H()});
+  if(r.ok){toast('Deleted');tchs=tchs.filter(t=>(t._id||t.id)!==id);renderTeachers();}
+  else toast('Error: '+(r.data.message||'Failed'),false);
+}
+
+/* ════ ADD TEACHER ════ */
 function pageAddTeacher(){
   setPage('Add Teacher',`
   <div class="card" style="max-width:620px">
@@ -826,7 +839,7 @@ function pageAddTeacher(){
     <div class="err-box" id="atErr"></div>
     <div class="fg2">
       <div class="fg"><label>Full Name ✱</label><input class="fi" id="at_nm" placeholder="Teacher full name"></div>
-      <div class="fg"><label>Teacher Code ✱</label><input class="fi" id="at_cd" placeholder="e.g. TCH001" style="text-transform:uppercase" oninput="this.value=this.value.toUpperCase()"></div>
+      <div class="fg"><label>Teacher Code ✱</label><input class="fi" id="at_cd" placeholder="e.g. TCH001" oninput="this.value=this.value.toUpperCase()"></div>
       <div class="fg"><label>Password ✱</label><input class="fi" id="at_pw" type="password" placeholder="Set login password"></div>
       <div class="fg"><label>Phone</label><input class="fi" id="at_ph" placeholder="Phone number"></div>
       <div class="fg"><label>Subject</label><input class="fi" id="at_sb" placeholder="Subject taught"></div>
@@ -851,47 +864,43 @@ async function submitAddTeacher(){
 
   if(!name){errEl.textContent='Teacher ka naam bharo';errEl.classList.add('show');return;}
   if(!code){errEl.textContent='Teacher code bharo (e.g. TCH001)';errEl.classList.add('show');return;}
-  if(!pass){errEl.textContent='Password set karo';errEl.classList.add('show');return;}
-  if(pass.length<4){errEl.textContent='Password kam se kam 4 characters';errEl.classList.add('show');return;}
+  if(!pass||pass.length<4){errEl.textContent='Password kam se kam 4 characters';errEl.classList.add('show');return;}
 
   const btn=document.getElementById('atBtn');
   btn.textContent='Adding...';btn.disabled=true;
 
   const cls=document.getElementById('at_cl').value;
-  const payload={name,code,password:pass};
-  if(cls){payload.class_name=cls;payload.assigned_class=cls;payload.class=cls;}
   const ph=document.getElementById('at_ph').value.trim();
   const sb=document.getElementById('at_sb').value.trim();
+
+  const payload={name,code,password:pass};
   if(ph)payload.phone=ph;
   if(sb)payload.subject=sb;
+  /* Send class in EVERY possible field name */
+  if(cls){
+    payload.class_name=cls;
+    payload.assigned_class=cls;
+    payload.class=cls;
+    payload.classAssigned=cls;
+    payload.class_assigned=cls;
+    payload.teacherClass=cls;
+  }
 
-  try{
-    const res=await fetch(API+'/teachers',{method:'POST',headers:H(),body:JSON.stringify(payload)});
-    const rawText=await res.text();
-    let data={};
-    try{data=JSON.parse(rawText);}catch(_){data={message:rawText};}
+  const r=await apiCall(API+'/teachers',{method:'POST',headers:H(),body:JSON.stringify(payload)});
 
-    if(res.ok){
-      tchs=[];
-      showOK(
-        'Teacher Added!',
-        'Yeh credentials teacher ko share karo.',
-        code, pass,
-        cls?`<div style="background:var(--mp2);border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px"><b>Naam:</b> ${name} &nbsp;|&nbsp; <b>Class:</b> ${cls}</div>`:''
-      );
-    }else{
-      errEl.textContent='Error: '+(data.message||data.error||data.msg||JSON.stringify(data));
-      errEl.classList.add('show');
-      btn.textContent='Add Teacher';btn.disabled=false;
-    }
-  }catch(e){
-    errEl.textContent='Network error: '+e.message;
+  if(r.ok){
+    tchs=[];
+    showOK('Teacher Added!','Yeh credentials teacher ko share karo.',code,pass,
+      cls?`<div style="background:var(--mp2);border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:13px"><b>Naam:</b> ${name} &nbsp;|&nbsp; <b>Class:</b> ${cls}</div>`:
+          `<div style="background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:10px 14px;margin-bottom:12px;font-size:12px;color:#5d4037">💡 Class assign karne ke liye All Teachers → Edit → Class select karo.</div>`);
+  }else{
+    errEl.textContent='Error: '+(r.data.message||r.data.error||r.raw);
     errEl.classList.add('show');
     btn.textContent='Add Teacher';btn.disabled=false;
   }
 }
 
-/* ── FEES ── */
+/* ════ FEES ════ */
 async function loadFees(fs='all',q=''){
   loading();
   try{
@@ -926,6 +935,7 @@ async function loadFees(fs='all',q=''){
     </div>`);
   }catch(e){setPage('Fee Management',`<div class="es"><p>Error: ${e.message}</p></div>`);}
 }
+
 function openFeeM(id,name,total,paid,status){
   eFeeId=id;
   document.getElementById('fMC').innerHTML=`
@@ -943,15 +953,12 @@ function openFeeM(id,name,total,paid,status){
 }
 async function saveFees(){
   const p={status:document.getElementById('fm_st').value,paid_amount:Number(document.getElementById('fm_pd').value),total_amount:Number(document.getElementById('fm_tt').value)};
-  try{
-    const res=await fetch(API+'/fees/'+eFeeId,{method:'PUT',headers:H(),body:JSON.stringify(p)});
-    const data=await res.json().catch(()=>({}));
-    if(res.ok){toast('Fees updated!');cM('fM');loadFees();}
-    else toast('Error: '+(data.message||'Failed'),false);
-  }catch(e){toast('Error: '+e.message,false);}
+  const r=await apiCall(API+'/fees/'+eFeeId,{method:'PUT',headers:H(),body:JSON.stringify(p)});
+  if(r.ok){toast('Fees updated!');cM('fM');loadFees();}
+  else toast('Error: '+(r.data.message||'Failed'),false);
 }
 
-/* ── PAYMENTS ── */
+/* ════ PAYMENTS ════ */
 async function loadPayments(){
   loading();
   try{
@@ -976,10 +983,10 @@ async function loadPayments(){
     </div>`);
   }catch(e){setPage('Payment Requests',`<div class="es"><p>Error: ${e.message}</p></div>`);}
 }
-async function verifyP(id){try{const r=await fetch(API+'/fees/verify-payment/'+id,{method:'PUT',headers:H(),body:JSON.stringify({status:'verified'})});if(r.ok){toast('Verified!');loadPayments();}else toast('Failed',false);}catch(e){toast('Error: '+e.message,false);}}
-async function rejectP(id){if(!confirm('Reject karo?'))return;try{const r=await fetch(API+'/fees/verify-payment/'+id,{method:'PUT',headers:H(),body:JSON.stringify({status:'rejected'})});if(r.ok){toast('Rejected');loadPayments();}else toast('Failed',false);}catch(e){toast('Error: '+e.message,false);}}
+async function verifyP(id){const r=await apiCall(API+'/fees/verify-payment/'+id,{method:'PUT',headers:H(),body:JSON.stringify({status:'verified'})});if(r.ok){toast('Verified!');loadPayments();}else toast('Error: '+(r.data.message||'Failed'),false);}
+async function rejectP(id){if(!confirm('Reject karo?'))return;const r=await apiCall(API+'/fees/verify-payment/'+id,{method:'PUT',headers:H(),body:JSON.stringify({status:'rejected'})});if(r.ok){toast('Rejected');loadPayments();}else toast('Error: '+(r.data.message||'Failed'),false);}
 
-/* ── NOTIFY ── */
+/* ════ NOTIFY ════ */
 function pageNotify(){
   setPage('Send Notification',`
   <div class="card" style="max-width:600px">
@@ -1005,15 +1012,12 @@ async function sendNotif(){
   const tgt=document.getElementById('nt_t').value;
   const p={title,message:msg,send_to_all:tgt==='all'};
   if(tgt==='class')p.class_name=document.getElementById('nt_c').value;
-  try{
-    const res=await fetch(API+'/notifications',{method:'POST',headers:H(),body:JSON.stringify(p)});
-    const d=await res.json().catch(()=>({}));
-    if(res.ok){toast('Notification sent!');document.getElementById('nt_tl').value='';document.getElementById('nt_m').value='';}
-    else toast('Error: '+(d.message||'Failed'),false);
-  }catch(e){toast('Error: '+e.message,false);}
+  const r=await apiCall(API+'/notifications',{method:'POST',headers:H(),body:JSON.stringify(p)});
+  if(r.ok){toast('Notification sent!');document.getElementById('nt_tl').value='';document.getElementById('nt_m').value='';}
+  else toast('Error: '+(r.data.message||'Failed'),false);
 }
 
-/* ── CLASSES + GROUP ── */
+/* ════ CLASSES + GROUP ════ */
 async function loadClasses(){
   loading();
   const r=await fetch(API+'/students',{headers:H()});
@@ -1070,25 +1074,20 @@ async function postGroup(cls){
   const txt=document.getElementById('gMsg')?.value.trim();
   const vid=document.getElementById('gVid')?.value.trim();
   if(!txt&&!vid){toast('Kuch likho pehle',false);return;}
-  try{
-    const res=await fetch(API+'/posts',{method:'POST',headers:H(),body:JSON.stringify({text_content:txt,video_link:vid||null,class_name:cls,target_class:cls})});
-    const d=await res.json().catch(()=>({}));
-    if(res.ok){
-      cPosts.unshift(d.post||{text_content:txt,video_link:vid,created_at:new Date(),posted_by_name:'Admin'});
-      toast('Posted!');
-      document.getElementById('gMsg').value='';
-      document.getElementById('gVid').value='';
-      renderGroup(cls);
-    }else toast('Error: '+(d.message||'Failed'),false);
-  }catch(e){toast('Error: '+e.message,false);}
+  const r=await apiCall(API+'/posts',{method:'POST',headers:H(),body:JSON.stringify({text_content:txt,video_link:vid||null,class_name:cls,target_class:cls})});
+  if(r.ok){
+    cPosts.unshift(r.data.post||{text_content:txt,video_link:vid,created_at:new Date(),posted_by_name:'Admin'});
+    toast('Posted!');
+    document.getElementById('gMsg').value='';
+    document.getElementById('gVid').value='';
+    renderGroup(cls);
+  }else toast('Error: '+(r.data.message||'Failed'),false);
 }
 async function delPost(id,cls){
   if(!confirm('Delete karo?'))return;
-  try{
-    const res=await fetch(API+'/posts/'+id,{method:'DELETE',headers:H()});
-    if(res.ok){cPosts=cPosts.filter(p=>(p._id||p.id)!==id);toast('Deleted');renderGroup(cls);}
-    else toast('Failed',false);
-  }catch(e){toast('Error: '+e.message,false);}
+  const r=await apiCall(API+'/posts/'+id,{method:'DELETE',headers:H()});
+  if(r.ok){cPosts=cPosts.filter(p=>(p._id||p.id)!==id);toast('Deleted');renderGroup(cls);}
+  else toast('Failed',false);
 }
 </script>
 </body>
