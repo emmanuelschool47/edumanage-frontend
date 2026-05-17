@@ -657,6 +657,10 @@
       .features-grid { grid-template-columns: repeat(2, 1fr); }
     }
   </style>
+  <link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="EduManage">
+<link rel="apple-touch-icon" href="icons/icon-192x192.png">
 </head>
 <body>
 
@@ -895,6 +899,11 @@
   }, { threshold: 0.1 });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+  <script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/sw.js');
+}
 </script>
 </body>
 </html>
