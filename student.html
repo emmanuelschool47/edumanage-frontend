@@ -201,6 +201,10 @@ body{font-family:var(--fb);background:var(--g5);color:var(--b);padding-bottom:80
 .bPar{background:var(--gol);color:var(--gold);padding:2px 8px;border-radius:100px;font-size:11px;font-weight:600}
 @keyframes spin{to{transform:rotate(360deg)}}
 </style>
+  <link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="EduManage">
+<link rel="apple-touch-icon" href="icons/icon-192x192.png">
 </head>
 <body>
 
@@ -629,6 +633,11 @@ async function submitPayment(){
 /* ── SERVICE WORKER ── */
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})});
+}
+</script>
+  <script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/sw.js');
 }
 </script>
 </body>
