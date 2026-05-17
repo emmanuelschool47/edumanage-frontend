@@ -172,6 +172,10 @@ body{font-family:var(--fb);background:var(--g5);color:var(--b);padding-bottom:80
 .badge-no{background:var(--rl);color:var(--red);padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600}
 @keyframes spin{to{transform:rotate(360deg)}}
 </style>
+  <link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="EduManage">
+<link rel="apple-touch-icon" href="icons/icon-192x192.png">
 </head>
 <body>
 
@@ -702,6 +706,11 @@ async function sendNotification(){
       document.getElementById('nMsg').value='';
     }else{const d=await res.json().catch(()=>({}));showToast('Error: '+(d.message||'Failed'),false);}
   }catch(e){showToast('Network error',false);}
+}
+</script>
+  <script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/sw.js');
 }
 </script>
 </body>
