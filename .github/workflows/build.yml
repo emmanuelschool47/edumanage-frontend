@@ -1,9 +1,63 @@
-name: Build APK
+name: Build EduManage APK
+
 on:
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     steps:
-      - name: Test
-        run: echo "Working!"
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Bubblewrap
+        run: npm install -g @bubblewrap/cli
+
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v2
+
+      - name: Accept Licenses
+        run: yes | sdkmanager --licenses || true
+
+      - name: Install SDK Tools
+        run: |
+          sdkmanager "platforms;android-34"
+          sdkmanager "build-tools;34.0.0"
+
+      - name: Create TWA Project
+        run: |
+          mkdir twa && cd twa
+          bubblewrap init \
+            --manifest https://emmanuel-school.vercel.app/manifest.json \
+            --directory . \
+            --packageId com.emmanuelschool.edumanage \
+            --name "EduManage" \
+            --themeColor "#800020" \
+            --backgroundColor "#800020" \
+            --startUrl "/student.html"
+
+      - name: Build APK
+        run: |
+          cd twa
+          bubblewrap build --skipPwaValidation
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: EduManage-APK
+          path: |
+            twa/*.apk
+            twa/app/build/outputs/apk/**/*.apk
+          if-no-files-found: warn
