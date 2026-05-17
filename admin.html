@@ -188,6 +188,10 @@ tr:hover td{background:var(--gray-50)}
   .cred-grid{grid-template-columns:1fr}
 }
 </style>
+  <link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="EduManage">
+<link rel="apple-touch-icon" href="icons/icon-192x192.png">
 </head>
 <body>
 
@@ -1182,6 +1186,11 @@ async function deleteGroupPost(id,cls){
   if(!confirm('Delete karo?'))return;
   try{const r=await fetch(API+'/posts/'+id,{method:'DELETE',headers:H()});if(r.ok){classPosts=classPosts.filter(p=>(p._id||p.id)!==id);showToast('Deleted');renderClassGroup(cls);}else showToast('Failed',false);}
   catch(e){showToast('Network error',false);}
+}
+</script>
+  <script>
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('/sw.js');
 }
 </script>
 </body>
