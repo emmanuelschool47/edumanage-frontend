@@ -20,107 +20,235 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install Bubblewrap
-        run: npm install -g @bubblewrap/cli
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
-
-      - name: Accept All Licenses
-        run: yes | sdkmanager --licenses || true
-
-      - name: Install SDK
+      - name: Create Android TWA Project
         run: |
-          sdkmanager "platforms;android-34" "build-tools;34.0.0"
+          mkdir -p twa/app/src/main/res/values
+          mkdir -p twa/app/src/main/res/xml
+          mkdir -p twa/app/src/main/res/drawable
+          mkdir -p twa/app/src/main/res/mipmap-hdpi
+          mkdir -p twa/app/src/main/res/mipmap-mdpi
+          mkdir -p twa/app/src/main/res/mipmap-xhdpi
+          mkdir -p twa/app/src/main/res/mipmap-xxhdpi
+          mkdir -p twa/app/src/main/res/mipmap-xxxhdpi
+          mkdir -p twa/gradle/wrapper
 
-      - name: Create twa.json config
-        run: |
-          mkdir -p twa
-          cat > twa/twa-manifest.json << 'EOF'
-          {
-            "packageId": "com.emmanuelschool.edumanage",
-            "host": "emmanuel-school.vercel.app",
-            "name": "EduManage",
-            "launcherName": "EduManage",
-            "display": "standalone",
-            "themeColor": "#800020",
-            "navigationColor": "#800020",
-            "navigationColorDark": "#3d0010",
-            "navigationDividerColor": "#800020",
-            "navigationDividerColorDark": "#3d0010",
-            "backgroundColor": "#800020",
-            "startUrl": "/student.html",
-            "iconUrl": "https://emmanuel-school.vercel.app/icons/icon-512x512.png",
-            "maskableIconUrl": "https://emmanuel-school.vercel.app/icons/icon-512x512.png",
-            "monochromeIconUrl": "https://emmanuel-school.vercel.app/icons/icon-512x512.png",
-            "appVersion": "1",
-            "appVersionCode": 1,
-            "signingKey": {
-              "path": "./android.keystore",
-              "alias": "edumanage"
-            },
-            "splashScreenFadeOutDuration": 300,
-            "enableNotifications": false,
-            "shortcuts": [],
-            "generatorApp": "bubblewrap-cli",
-            "webManifestUrl": "https://emmanuel-school.vercel.app/manifest.json",
-            "fallbackType": "customtabs",
-            "features": {},
-            "alphaDependencies": {
-              "enabled": false
-            },
-            "enableSiteSettingsShortcut": true,
-            "isChromeOSOnly": false,
-            "isMetaQuest": false,
-            "fullScopeUrl": "https://emmanuel-school.vercel.app/",
-            "minSdkVersion": 19,
-            "orientation": "default",
-            "fingerprints": []
+          # settings.gradle
+          cat > twa/settings.gradle << 'EOF'
+          pluginManagement {
+              repositories {
+                  google()
+                  mavenCentral()
+                  gradlePluginPortal()
+              }
+          }
+          dependencyResolutionManagement {
+              repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+              repositories {
+                  google()
+                  mavenCentral()
+              }
+          }
+          rootProject.name = "EduManage"
+          include ':app'
+          EOF
+
+          # root build.gradle
+          cat > twa/build.gradle << 'EOF'
+          plugins {
+              id 'com.android.application' version '8.2.0' apply false
           }
           EOF
 
-      - name: Generate Android Project
-        run: |
-          cd twa
-          bubblewrap generate --manifest ./twa-manifest.json
+          # app build.gradle
+          cat > twa/app/build.gradle << 'EOF'
+          plugins {
+              id 'com.android.application'
+          }
+          android {
+              namespace 'com.emmanuelschool.edumanage'
+              compileSdk 34
+              defaultConfig {
+                  applicationId "com.emmanuelschool.edumanage"
+                  minSdk 19
+                  targetSdk 34
+                  versionCode 1
+                  versionName "1.0"
+              }
+              buildTypes {
+                  release {
+                      minifyEnabled false
+                  }
+                  debug {
+                      applicationIdSuffix ".debug"
+                  }
+              }
+              compileOptions {
+                  sourceCompatibility JavaVersion.VERSION_1_8
+                  targetCompatibility JavaVersion.VERSION_1_8
+              }
+          }
+          dependencies {
+              implementation 'com.google.androidbrowserhelper:androidbrowserhelper:2.5.0'
+          }
+          EOF
 
-      - name: Generate Keystore
-        run: |
-          cd twa
-          keytool -genkey -v \
-            -keystore android.keystore \
-            -alias edumanage \
-            -keyalg RSA \
-            -keysize 2048 \
-            -validity 10000 \
-            -storepass edumanage123 \
-            -keypass edumanage123 \
-            -dname "CN=EduManage, OU=Emmanuel School, O=Emmanuel, L=India, S=India, C=IN" \
-            -noprompt
+          # gradle wrapper
+          cat > twa/gradle/wrapper/gradle-wrapper.properties << 'EOF'
+          distributionBase=GRADLE_USER_HOME
+          distributionPath=wrapper/dists
+          distributionUrl=https\://services.gradle.org/distributions/gradle-8.2-bin.zip
+          zipStoreBase=GRADLE_USER_HOME
+          zipStorePath=wrapper/dists
+          EOF
 
-      - name: Build APK
+          # AndroidManifest.xml
+          cat > twa/app/src/main/AndroidManifest.xml << 'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+              <uses-permission android:name="android.permission.INTERNET" />
+              <application
+                  android:label="EduManage"
+                  android:theme="@style/AppTheme"
+                  android:allowBackup="true">
+                  <activity
+                      android:name="com.google.androidbrowserhelper.trusted.LauncherActivity"
+                      android:label="EduManage"
+                      android:exported="true">
+                      <meta-data
+                          android:name="android.support.customtabs.trusted.DEFAULT_URL"
+                          android:value="https://emmanuel-school.vercel.app/student.html" />
+                      <meta-data
+                          android:name="android.support.customtabs.trusted.STATUS_BAR_COLOR"
+                          android:resource="@color/colorPrimary" />
+                      <meta-data
+                          android:name="android.support.customtabs.trusted.NAVIGATION_BAR_COLOR"
+                          android:resource="@color/colorPrimary" />
+                      <meta-data
+                          android:name="android.support.customtabs.trusted.SPLASH_SCREEN_BACKGROUND_COLOR"
+                          android:resource="@color/colorPrimary" />
+                      <meta-data
+                          android:name="android.support.customtabs.trusted.SPLASH_SCREEN_FADE_OUT_DURATION"
+                          android:value="300" />
+                      <meta-data
+                          android:name="android.support.customtabs.trusted.FILE_PROVIDER_AUTHORITY"
+                          android:value="com.emmanuelschool.edumanage.fileprovider" />
+                      <intent-filter>
+                          <action android:name="android.intent.action.MAIN" />
+                          <category android:name="android.intent.category.LAUNCHER" />
+                      </intent-filter>
+                      <intent-filter android:autoVerify="true">
+                          <action android:name="android.intent.action.VIEW"/>
+                          <category android:name="android.intent.category.DEFAULT" />
+                          <category android:name="android.intent.category.BROWSABLE"/>
+                          <data android:scheme="https"
+                                android:host="emmanuel-school.vercel.app"/>
+                      </intent-filter>
+                  </activity>
+                  <activity
+                      android:name="com.google.androidbrowserhelper.trusted.FocusActivity"
+                      android:exported="true"/>
+                  <activity
+                      android:name="com.google.androidbrowserhelper.trusted.WebViewFallbackActivity"
+                      android:exported="true"/>
+                  <provider
+                      android:name="androidx.core.content.FileProvider"
+                      android:authorities="com.emmanuelschool.edumanage.fileprovider"
+                      android:exported="false"
+                      android:grantUriPermissions="true">
+                      <meta-data
+                          android:name="android.support.FILE_PROVIDER_PATHS"
+                          android:resource="@xml/filepaths" />
+                  </provider>
+                  <service
+                      android:name="com.google.androidbrowserhelper.trusted.DelegationService"
+                      android:exported="true">
+                      <intent-filter>
+                          <action android:name="android.support.customtabs.trusted.TRUSTED_WEB_ACTIVITY_SERVICE"/>
+                          <category android:name="android.intent.category.DEFAULT"/>
+                      </intent-filter>
+                  </service>
+              </application>
+          </manifest>
+          EOF
+
+          # colors.xml
+          cat > twa/app/src/main/res/values/colors.xml << 'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources>
+              <color name="colorPrimary">#800020</color>
+              <color name="colorPrimaryDark">#3d0010</color>
+          </resources>
+          EOF
+
+          # strings.xml
+          cat > twa/app/src/main/res/values/strings.xml << 'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources>
+              <string name="app_name">EduManage</string>
+          </resources>
+          EOF
+
+          # styles.xml
+          cat > twa/app/src/main/res/values/styles.xml << 'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <resources>
+              <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+                  <item name="android:windowBackground">@color/colorPrimary</item>
+                  <item name="colorPrimary">@color/colorPrimary</item>
+                  <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+              </style>
+          </resources>
+          EOF
+
+          # filepaths.xml
+          cat > twa/app/src/main/res/xml/filepaths.xml << 'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <paths>
+              <external-path name="downloads" path="Download/" />
+          </paths>
+          EOF
+
+          # splash drawable
+          cat > twa/app/src/main/res/drawable/splash.xml << 'EOF'
+          <?xml version="1.0" encoding="utf-8"?>
+          <shape xmlns:android="http://schemas.android.com/apk/res/android">
+              <solid android:color="#800020"/>
+          </shape>
+          EOF
+
+          # Copy icon to all densities
+          for density in mdpi hdpi xhdpi xxhdpi xxxhdpi; do
+            cp icons/icon-192x192.png twa/app/src/main/res/mipmap-$density/ic_launcher.png
+          done
+
+          echo "Project created!"
+
+      - name: Setup Gradle Wrapper
         run: |
           cd twa
-          bubblewrap build \
-            --skipPwaValidation \
-            --signingKeyPath ./android.keystore \
-            --signingKeyAlias edumanage \
-            --signingKeyPassword edumanage123 \
-            --signingKeyStorePassword edumanage123
+          wget -q https://services.gradle.org/distributions/gradle-8.2-bin.zip -O gradle.zip
+          mkdir -p gradle_install
+          unzip -q gradle.zip -d gradle_install
+          export GRADLE_HOME=$(ls -d $PWD/gradle_install/gradle-*)
+          export PATH=$GRADLE_HOME/bin:$PATH
+          gradle wrapper
+          chmod +x gradlew
+
+      - name: Build Debug APK
+        run: |
+          cd twa
+          export GRADLE_HOME=$(ls -d $PWD/gradle_install/gradle-*)
+          export PATH=$GRADLE_HOME/bin:$PATH
+          ./gradlew assembleDebug --no-daemon --stacktrace
 
       - name: Find APK
-        run: find twa -name "*.apk" 2>/dev/null || echo "No APK found"
+        run: |
+          echo "APK files:"
+          find twa -name "*.apk"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: EduManage-APK
-          path: |
-            twa/*.apk
-            twa/app/build/outputs/apk/**/*.apk
-          if-no-files-found: warn
+          path: twa/app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
