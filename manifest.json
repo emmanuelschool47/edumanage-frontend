@@ -1,33 +1,43 @@
 {
-  "name": "EduManage Pro",
+  "name": "EduManage Pro — Emmanuel School",
   "short_name": "EduManage",
-  "description": "School Management System",
-  "start_url": "/login.html",
+  "description": "Emmanuel School Management System",
+  "start_url": "/student.html",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#0a0a0a",
+  "background_color": "#800020",
+  "theme_color": "#800020",
   "orientation": "portrait-primary",
   "lang": "en",
   "icons": [
+    { "src": "icons/icon-72x72.png",   "sizes": "72x72",   "type": "image/png", "purpose": "maskable any" },
+    { "src": "icons/icon-96x96.png",   "sizes": "96x96",   "type": "image/png", "purpose": "maskable any" },
+    { "src": "icons/icon-128x128.png", "sizes": "128x128", "type": "image/png", "purpose": "maskable any" },
+    { "src": "icons/icon-144x144.png", "sizes": "144x144", "type": "image/png", "purpose": "maskable any" },
+    { "src": "icons/icon-152x152.png", "sizes": "152x152", "type": "image/png", "purpose": "maskable any" },
+    { "src": "icons/icon-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable any" },
+    { "src": "icons/icon-384x384.png", "sizes": "384x384", "type": "image/png", "purpose": "maskable any" },
+    { "src": "icons/icon-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable any" }
+  ],
+  "shortcuts": [
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%230a0a0a'/><text y='140' x='28' font-size='120' font-family='Georgia,serif' fill='white'>E</text></svg>",
-      "sizes": "192x192",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "name": "Student Portal",
+      "short_name": "Student",
+      "url": "/student.html",
+      "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
     },
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='80' fill='%230a0a0a'/><text y='380' x='60' font-size='320' font-family='Georgia,serif' fill='white'>E</text></svg>",
-      "sizes": "512x512",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "name": "Teacher Panel",
+      "short_name": "Teacher",
+      "url": "/teacher.html",
+      "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Admin Panel",
+      "short_name": "Admin",
+      "url": "/admin.html",
+      "icons": [{ "src": "icons/icon-96x96.png", "sizes": "96x96" }]
     }
   ],
   "categories": ["education", "productivity"],
-  "shortcuts": [
-    {
-      "name": "Login",
-      "url": "/login.html",
-      "description": "Go to login page"
-    }
-  ]
+  "screenshots": []
 }
