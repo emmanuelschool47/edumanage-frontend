@@ -5,10 +5,11 @@ on:
 
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+  ACTIONS_ALLOW_USE_UNSECURE_NODE_VERSION: false
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout
@@ -20,20 +21,19 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Create Android TWA Project
+      - name: Create Project Files
         run: |
           mkdir -p twa/app/src/main/res/values
           mkdir -p twa/app/src/main/res/xml
           mkdir -p twa/app/src/main/res/drawable
-          mkdir -p twa/app/src/main/res/mipmap-hdpi
           mkdir -p twa/app/src/main/res/mipmap-mdpi
+          mkdir -p twa/app/src/main/res/mipmap-hdpi
           mkdir -p twa/app/src/main/res/mipmap-xhdpi
           mkdir -p twa/app/src/main/res/mipmap-xxhdpi
           mkdir -p twa/app/src/main/res/mipmap-xxxhdpi
           mkdir -p twa/gradle/wrapper
 
-          # settings.gradle
-          cat > twa/settings.gradle << 'EOF'
+          cat > twa/settings.gradle << 'GRADLE'
           pluginManagement {
               repositories {
                   google()
@@ -50,17 +50,15 @@ jobs:
           }
           rootProject.name = "EduManage"
           include ':app'
-          EOF
+          GRADLE
 
-          # root build.gradle
-          cat > twa/build.gradle << 'EOF'
+          cat > twa/build.gradle << 'GRADLE'
           plugins {
               id 'com.android.application' version '8.2.0' apply false
           }
-          EOF
+          GRADLE
 
-          # app build.gradle
-          cat > twa/app/build.gradle << 'EOF'
+          cat > twa/app/build.gradle << 'GRADLE'
           plugins {
               id 'com.android.application'
           }
@@ -69,17 +67,14 @@ jobs:
               compileSdk 34
               defaultConfig {
                   applicationId "com.emmanuelschool.edumanage"
-                  minSdk 19
+                  minSdk 21
                   targetSdk 34
                   versionCode 1
                   versionName "1.0"
               }
               buildTypes {
-                  release {
-                      minifyEnabled false
-                  }
                   debug {
-                      applicationIdSuffix ".debug"
+                      debuggable true
                   }
               }
               compileOptions {
@@ -90,19 +85,17 @@ jobs:
           dependencies {
               implementation 'com.google.androidbrowserhelper:androidbrowserhelper:2.5.0'
           }
-          EOF
+          GRADLE
 
-          # gradle wrapper
-          cat > twa/gradle/wrapper/gradle-wrapper.properties << 'EOF'
+          cat > twa/gradle/wrapper/gradle-wrapper.properties << 'PROPS'
           distributionBase=GRADLE_USER_HOME
           distributionPath=wrapper/dists
           distributionUrl=https\://services.gradle.org/distributions/gradle-8.2-bin.zip
           zipStoreBase=GRADLE_USER_HOME
           zipStorePath=wrapper/dists
-          EOF
+          PROPS
 
-          # AndroidManifest.xml
-          cat > twa/app/src/main/AndroidManifest.xml << 'EOF'
+          cat > twa/app/src/main/AndroidManifest.xml << 'XML'
           <?xml version="1.0" encoding="utf-8"?>
           <manifest xmlns:android="http://schemas.android.com/apk/res/android">
               <uses-permission android:name="android.permission.INTERNET" />
@@ -126,9 +119,6 @@ jobs:
                       <meta-data
                           android:name="android.support.customtabs.trusted.SPLASH_SCREEN_BACKGROUND_COLOR"
                           android:resource="@color/colorPrimary" />
-                      <meta-data
-                          android:name="android.support.customtabs.trusted.SPLASH_SCREEN_FADE_OUT_DURATION"
-                          android:value="300" />
                       <meta-data
                           android:name="android.support.customtabs.trusted.FILE_PROVIDER_AUTHORITY"
                           android:value="com.emmanuelschool.edumanage.fileprovider" />
@@ -169,27 +159,24 @@ jobs:
                   </service>
               </application>
           </manifest>
-          EOF
+          XML
 
-          # colors.xml
-          cat > twa/app/src/main/res/values/colors.xml << 'EOF'
+          cat > twa/app/src/main/res/values/colors.xml << 'XML'
           <?xml version="1.0" encoding="utf-8"?>
           <resources>
               <color name="colorPrimary">#800020</color>
               <color name="colorPrimaryDark">#3d0010</color>
           </resources>
-          EOF
+          XML
 
-          # strings.xml
-          cat > twa/app/src/main/res/values/strings.xml << 'EOF'
+          cat > twa/app/src/main/res/values/strings.xml << 'XML'
           <?xml version="1.0" encoding="utf-8"?>
           <resources>
               <string name="app_name">EduManage</string>
           </resources>
-          EOF
+          XML
 
-          # styles.xml
-          cat > twa/app/src/main/res/values/styles.xml << 'EOF'
+          cat > twa/app/src/main/res/values/styles.xml << 'XML'
           <?xml version="1.0" encoding="utf-8"?>
           <resources>
               <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
@@ -198,53 +185,50 @@ jobs:
                   <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
               </style>
           </resources>
-          EOF
+          XML
 
-          # filepaths.xml
-          cat > twa/app/src/main/res/xml/filepaths.xml << 'EOF'
+          cat > twa/app/src/main/res/xml/filepaths.xml << 'XML'
           <?xml version="1.0" encoding="utf-8"?>
           <paths>
               <external-path name="downloads" path="Download/" />
           </paths>
-          EOF
+          XML
 
-          # splash drawable
-          cat > twa/app/src/main/res/drawable/splash.xml << 'EOF'
+          cat > twa/app/src/main/res/drawable/splash.xml << 'XML'
           <?xml version="1.0" encoding="utf-8"?>
           <shape xmlns:android="http://schemas.android.com/apk/res/android">
               <solid android:color="#800020"/>
           </shape>
-          EOF
+          XML
 
-          # Copy icon to all densities
-          for density in mdpi hdpi xhdpi xxhdpi xxxhdpi; do
-            cp icons/icon-192x192.png twa/app/src/main/res/mipmap-$density/ic_launcher.png
+          # Icons
+          for d in mdpi hdpi xhdpi xxhdpi xxxhdpi; do
+            cp icons/icon-192x192.png twa/app/src/main/res/mipmap-$d/ic_launcher.png 2>/dev/null || \
+            curl -s "https://emmanuel-school.vercel.app/icons/icon-192x192.png" \
+              -o twa/app/src/main/res/mipmap-$d/ic_launcher.png
           done
 
-          echo "Project created!"
+          echo "✅ All files created"
 
       - name: Setup Gradle Wrapper
         run: |
           cd twa
-          wget -q https://services.gradle.org/distributions/gradle-8.2-bin.zip -O gradle.zip
-          mkdir -p gradle_install
-          unzip -q gradle.zip -d gradle_install
-          export GRADLE_HOME=$(ls -d $PWD/gradle_install/gradle-*)
-          export PATH=$GRADLE_HOME/bin:$PATH
-          gradle wrapper
+          gradle wrapper --gradle-version=8.2 || true
+          if [ ! -f gradlew ]; then
+            wget -q https://raw.githubusercontent.com/gradle/gradle/v8.2.0/gradlew -O gradlew
+          fi
           chmod +x gradlew
 
       - name: Build Debug APK
         run: |
           cd twa
-          export GRADLE_HOME=$(ls -d $PWD/gradle_install/gradle-*)
-          export PATH=$GRADLE_HOME/bin:$PATH
-          ./gradlew assembleDebug --no-daemon --stacktrace
+          ./gradlew assembleDebug \
+            --no-daemon \
+            --warning-mode=all \
+            -Dorg.gradle.jvmargs="-Xmx2048m"
 
-      - name: Find APK
-        run: |
-          echo "APK files:"
-          find twa -name "*.apk"
+      - name: Show APK location
+        run: find twa -name "*.apk" -type f
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
