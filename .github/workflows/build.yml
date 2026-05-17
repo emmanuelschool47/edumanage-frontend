@@ -3,6 +3,9 @@ name: Build EduManage APK
 on:
   workflow_dispatch:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -20,7 +23,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install Bubblewrap
         run: npm install -g @bubblewrap/cli
@@ -28,30 +31,90 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
 
-      - name: Accept Licenses
+      - name: Accept All Licenses
         run: yes | sdkmanager --licenses || true
 
-      - name: Install SDK Tools
+      - name: Install SDK
         run: |
-          sdkmanager "platforms;android-34"
-          sdkmanager "build-tools;34.0.0"
+          sdkmanager "platforms;android-34" "build-tools;34.0.0"
 
-      - name: Create TWA Project
+      - name: Create twa.json config
         run: |
-          mkdir twa && cd twa
-          bubblewrap init \
-            --manifest https://emmanuel-school.vercel.app/manifest.json \
-            --directory . \
-            --packageId com.emmanuelschool.edumanage \
-            --name "EduManage" \
-            --themeColor "#800020" \
-            --backgroundColor "#800020" \
-            --startUrl "/student.html"
+          mkdir -p twa
+          cat > twa/twa-manifest.json << 'EOF'
+          {
+            "packageId": "com.emmanuelschool.edumanage",
+            "host": "emmanuel-school.vercel.app",
+            "name": "EduManage",
+            "launcherName": "EduManage",
+            "display": "standalone",
+            "themeColor": "#800020",
+            "navigationColor": "#800020",
+            "navigationColorDark": "#3d0010",
+            "navigationDividerColor": "#800020",
+            "navigationDividerColorDark": "#3d0010",
+            "backgroundColor": "#800020",
+            "startUrl": "/student.html",
+            "iconUrl": "https://emmanuel-school.vercel.app/icons/icon-512x512.png",
+            "maskableIconUrl": "https://emmanuel-school.vercel.app/icons/icon-512x512.png",
+            "monochromeIconUrl": "https://emmanuel-school.vercel.app/icons/icon-512x512.png",
+            "appVersion": "1",
+            "appVersionCode": 1,
+            "signingKey": {
+              "path": "./android.keystore",
+              "alias": "edumanage"
+            },
+            "splashScreenFadeOutDuration": 300,
+            "enableNotifications": false,
+            "shortcuts": [],
+            "generatorApp": "bubblewrap-cli",
+            "webManifestUrl": "https://emmanuel-school.vercel.app/manifest.json",
+            "fallbackType": "customtabs",
+            "features": {},
+            "alphaDependencies": {
+              "enabled": false
+            },
+            "enableSiteSettingsShortcut": true,
+            "isChromeOSOnly": false,
+            "isMetaQuest": false,
+            "fullScopeUrl": "https://emmanuel-school.vercel.app/",
+            "minSdkVersion": 19,
+            "orientation": "default",
+            "fingerprints": []
+          }
+          EOF
+
+      - name: Generate Android Project
+        run: |
+          cd twa
+          bubblewrap generate --manifest ./twa-manifest.json
+
+      - name: Generate Keystore
+        run: |
+          cd twa
+          keytool -genkey -v \
+            -keystore android.keystore \
+            -alias edumanage \
+            -keyalg RSA \
+            -keysize 2048 \
+            -validity 10000 \
+            -storepass edumanage123 \
+            -keypass edumanage123 \
+            -dname "CN=EduManage, OU=Emmanuel School, O=Emmanuel, L=India, S=India, C=IN" \
+            -noprompt
 
       - name: Build APK
         run: |
           cd twa
-          bubblewrap build --skipPwaValidation
+          bubblewrap build \
+            --skipPwaValidation \
+            --signingKeyPath ./android.keystore \
+            --signingKeyAlias edumanage \
+            --signingKeyPassword edumanage123 \
+            --signingKeyStorePassword edumanage123
+
+      - name: Find APK
+        run: find twa -name "*.apk" 2>/dev/null || echo "No APK found"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
