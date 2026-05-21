@@ -2,125 +2,239 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#800020">
 <title>Admin Login — Emmanuel School</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--p:#800020;--dk:#5c0018;--dp:#3d0010;--w:#fff}
-html,body{height:100%;font-family:'Inter',sans-serif}
-body{
-  background:linear-gradient(135deg,var(--dp),var(--p),#a30027);
-  display:flex;align-items:center;justify-content:center;
-  padding:20px;min-height:100vh;
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --p:#800020;--dk:#5c0018;--dp:#3d0010;--ac:#a30027;
+  --w:#fff;--bg:#fdf5f7;--border:#eedde0;--text:#1a1a1a;--muted:#888;
+  --red:#c0001a;--green:#1a7a3e;
+  --ff:'Playfair Display',serif;--fb:'Inter',sans-serif;--fm:'JetBrains Mono',monospace;
 }
-.card{
-  background:#fff;border-radius:24px;
-  padding:42px 34px 36px;
-  width:100%;max-width:400px;
-  box-shadow:0 28px 72px rgba(0,0,0,.32);
+html,body{
+  height:100%;min-height:100vh;min-height:100dvh;
+  font-family:var(--fb);
+  background:linear-gradient(155deg,var(--dp) 0%,var(--p) 60%,var(--ac) 100%);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:24px 20px;
+  padding-top:max(24px,env(safe-area-inset-top));
+  padding-bottom:max(24px,env(safe-area-inset-bottom));
 }
-.logo-wrap{text-align:center;margin-bottom:28px}
-.logo-box{
+
+/* BG GRID */
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:32px 32px;
+  pointer-events:none;
+}
+
+/* TOP BRAND */
+.brand{
+  text-align:center;margin-bottom:28px;
+  position:relative;z-index:1;
+}
+.brand-logo-wrap{
   width:76px;height:76px;
   border-radius:20px;
+  background:rgba(255,255,255,.12);
+  border:2px solid rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;
   margin:0 auto 14px;
   overflow:hidden;
-  border:2.5px solid rgba(128,0,32,.15);
-  box-shadow:0 6px 20px rgba(128,0,32,.2);
-  background:#f9f0f2;
-  display:flex;align-items:center;justify-content:center;
+  backdrop-filter:blur(8px);
 }
-.logo-box img{width:100%;height:100%;object-fit:cover}
-.logo-box .fallback{
-  font-family:'Playfair Display',serif;
-  font-size:28px;font-weight:700;color:var(--p);
+.brand-logo-wrap img{
+  width:100%;height:100%;object-fit:cover;border-radius:18px;
+}
+.brand-logo-fb{
+  font-family:var(--ff);font-size:28px;
+  font-weight:700;color:var(--w);
   display:none;
 }
-.app-title{
-  font-family:'Playfair Display',serif;
-  font-size:24px;font-weight:700;
-  color:#1a1a1a;margin-bottom:4px;
+.brand-title{
+  font-family:var(--ff);font-size:22px;
+  font-weight:700;color:var(--w);
+  margin-bottom:4px;
 }
-.app-sub{font-size:13px;color:#aaa}
+.brand-sub{
+  font-size:13px;
+  color:rgba(255,255,255,.55);
+  font-weight:400;
+}
+
+/* CARD */
+.card{
+  background:var(--w);
+  border-radius:24px;
+  padding:32px 28px 28px;
+  width:100%;max-width:420px;
+  box-shadow:0 24px 72px rgba(0,0,0,.32);
+  position:relative;z-index:1;
+}
+.card-title{
+  font-family:var(--ff);font-size:22px;
+  font-weight:700;color:var(--dp);
+  margin-bottom:4px;
+}
+.card-sub{
+  font-size:13px;color:var(--muted);
+  margin-bottom:24px;
+}
+
+/* ERROR */
 .err{
   display:none;
-  background:#fdf0ef;color:#c0392b;
-  padding:10px 14px;border-radius:9px;
-  font-size:13px;font-weight:500;
+  background:#fff0f2;border:1.5px solid #ffc8d0;
+  color:var(--red);font-size:13px;font-weight:500;
+  padding:10px 14px;border-radius:10px;
   margin-bottom:16px;
-  border:1px solid rgba(192,57,43,.18);
 }
 .err.show{display:block}
-.field{margin-bottom:16px}
+
+/* FIELDS */
+.field{margin-bottom:18px}
 .field label{
   display:block;font-size:11px;font-weight:700;
-  color:#999;text-transform:uppercase;
+  color:var(--muted);text-transform:uppercase;
   letter-spacing:.9px;margin-bottom:7px;
 }
-.field .inp-wrap{position:relative}
-.field input{
-  width:100%;padding:13px 44px 13px 14px;
+.inp-wrap{position:relative}
+.inp-wrap input{
+  width:100%;
+  padding:13px 46px 13px 14px;
   background:#f8f8f8;border:2px solid #eee;
   border-radius:11px;font-size:14px;
-  font-family:'Inter',sans-serif;color:#1a1a1a;
+  font-family:var(--fb);color:var(--text);
   outline:none;transition:border-color .2s,background .2s;
 }
-.field input:focus{border-color:var(--p);background:#fff}
-.field input::placeholder{color:#ccc}
-.eye-btn{
+.inp-wrap input:focus{border-color:var(--p);background:var(--w)}
+.inp-wrap input::placeholder{color:#ccc}
+.eye{
   position:absolute;right:13px;top:50%;
   transform:translateY(-50%);
   background:none;border:none;cursor:pointer;
-  color:#bbb;display:flex;padding:2px;
+  color:#bbb;display:flex;padding:4px;
   transition:color .18s;
 }
-.eye-btn:hover{color:var(--p)}
-.eye-btn svg{width:19px;height:19px}
+.eye:hover{color:var(--p)}
+.eye svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+
+/* LOGIN BTN */
 .login-btn{
   width:100%;padding:14px;
-  background:linear-gradient(135deg,var(--p),#a30027);
-  color:#fff;border:none;border-radius:11px;
+  background:linear-gradient(135deg,var(--p),var(--ac));
+  color:var(--w);border:none;border-radius:12px;
   font-size:15px;font-weight:700;
-  font-family:'Inter',sans-serif;
-  cursor:pointer;
+  font-family:var(--fb);cursor:pointer;
   display:flex;align-items:center;justify-content:center;gap:8px;
-  transition:opacity .2s,transform .15s;
-  margin-top:4px;
+  box-shadow:0 6px 20px rgba(128,0,32,.28);
+  transition:opacity .18s,transform .15s;
+  margin-bottom:0;
 }
 .login-btn:hover{opacity:.9}
 .login-btn:active{transform:scale(.98)}
-.login-btn:disabled{opacity:.6;cursor:not-allowed}
+.login-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
 .spin{
   display:none;width:18px;height:18px;
   border:2.5px solid rgba(255,255,255,.3);
-  border-top-color:#fff;border-radius:50%;
+  border-top-color:var(--w);border-radius:50%;
   animation:spin .7s linear infinite;
 }
-@keyframes spin{to{transform:rotate(360deg)}}
+
+/* DIVIDER */
+.divider{
+  display:flex;align-items:center;gap:12px;
+  margin:20px 0;color:#ddd;font-size:12px;
+}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:#eee}
+
+/* DOWNLOAD SECTION */
+.dl-wrap{
+  background:var(--bg);
+  border:1.5px solid var(--border);
+  border-radius:14px;
+  padding:16px;
+}
+.dl-title{
+  font-family:var(--ff);font-size:15px;
+  font-weight:700;color:var(--dp);
+  margin-bottom:4px;
+}
+.dl-sub{
+  font-size:12px;color:var(--muted);
+  margin-bottom:14px;line-height:1.5;
+}
+.dl-btn{
+  width:100%;padding:12px;
+  background:var(--dp);
+  color:var(--w);border:none;border-radius:10px;
+  font-size:14px;font-weight:700;
+  font-family:var(--fb);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:opacity .18s;
+  margin-bottom:10px;
+}
+.dl-btn:hover{opacity:.88}
+.dl-btn:disabled{opacity:.55;cursor:not-allowed}
+.dl-btn svg{width:17px;height:17px;stroke:var(--w);fill:none;stroke-width:2;stroke-linecap:round}
+
+/* PROGRESS */
+.dl-prog-wrap{display:none;margin-top:2px}
+.dl-prog-wrap.show{display:block}
+.dl-prog-label{font-size:12px;font-weight:600;color:var(--dp);margin-bottom:7px}
+.dl-prog-track{background:#e0d0d4;border-radius:6px;height:8px;overflow:hidden;margin-bottom:5px}
+.dl-prog-fill{height:100%;background:linear-gradient(90deg,var(--p),var(--ac));border-radius:6px;width:0%;transition:width .35s ease}
+.dl-prog-pct{font-size:11px;color:var(--muted);text-align:right;font-family:var(--fm)}
+
+/* DONE */
+.dl-done{display:none;gap:8px;margin-top:10px}
+.dl-done.show{display:flex}
+.dl-done-btn{
+  flex:1;padding:11px;border-radius:10px;
+  font-size:13px;font-weight:700;
+  font-family:var(--fb);border:none;cursor:pointer;
+}
+.dl-done-btn.open{background:var(--p);color:var(--w)}
+.dl-done-btn.later{background:var(--bg);color:var(--muted);border:1.5px solid var(--border)}
+
+/* BACK */
 .back-link{
   display:block;text-align:center;
-  margin-top:18px;font-size:13px;
-  color:#bbb;text-decoration:none;
-  transition:color .18s;
+  margin-top:20px;font-size:13px;
+  color:rgba(255,255,255,.5);text-decoration:none;
+  transition:color .18s;position:relative;z-index:1;
 }
-.back-link:hover{color:var(--p)}
+.back-link:hover{color:rgba(255,255,255,.85)}
+
+@keyframes spin{to{transform:rotate(360deg)}}
 </style>
 </head>
 <body>
 
-<div class="card">
-  <div class="logo-wrap">
-    <div class="logo-box">
-      <img src="logo.webp" alt="Emmanuel School"
-        onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
-      <span class="fallback">E</span>
-    </div>
-    <div class="app-title">EduManage Pro</div>
-    <div class="app-sub">Emmanuel School &middot; Admin Panel</div>
+<!-- BRAND -->
+<div class="brand">
+  <div class="brand-logo-wrap">
+    <img src="logo.webp" alt="Emmanuel School"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+    <span class="brand-logo-fb">E</span>
   </div>
+  <div class="brand-title">Emmanuel School</div>
+  <div class="brand-sub">EduManage — Admin Panel</div>
+</div>
+
+<!-- CARD -->
+<div class="card">
+  <div class="card-title">Admin Login</div>
+  <div class="card-sub">Enter your admin code and password</div>
 
   <div class="err" id="err"></div>
 
@@ -130,7 +244,7 @@ body{
       <input type="text" id="aCode" placeholder="e.g. ADMIN47"
         autocomplete="off" spellcheck="false"
         oninput="this.value=this.value.toUpperCase()"
-        onkeydown="if(event.key==='Enter')document.getElementById('aPass').focus()"/>
+        onkeydown="if(event.key==='Enter')document.getElementById('aPass').focus()">
     </div>
   </div>
 
@@ -139,17 +253,10 @@ body{
     <div class="inp-wrap">
       <input type="password" id="aPass" placeholder="Enter password"
         autocomplete="current-password"
-        onkeydown="if(event.key==='Enter')doLogin()"/>
-      <button class="eye-btn" onclick="togglePw()" type="button" id="eyeBtn">
-        <svg id="eyeShow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-          <circle cx="12" cy="12" r="3"/>
-        </svg>
-        <svg id="eyeHide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none">
-          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
-          <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
-          <line x1="1" y1="1" x2="23" y2="23"/>
-        </svg>
+        onkeydown="if(event.key==='Enter')doLogin()">
+      <button class="eye" type="button" onclick="togglePw()" id="eyeBtn">
+        <svg id="eyeShow" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        <svg id="eyeHide" viewBox="0 0 24 24" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
       </button>
     </div>
   </div>
@@ -159,287 +266,184 @@ body{
     <div class="spin" id="lSpin"></div>
   </button>
 
-  <a href="index.html" class="back-link">Back to Home</a>
+  <div class="divider">or</div>
+
+  <!-- DOWNLOAD SECTION -->
+  <div class="dl-wrap">
+    <div class="dl-title">Download Admin App</div>
+    <div class="dl-sub">Install this app on your device for quick access. Works offline too.</div>
+
+    <button class="dl-btn" id="dlBtn" onclick="startDL()">
+      <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download App
+    </button>
+
+    <div class="dl-prog-wrap" id="dlProg">
+      <div class="dl-prog-label" id="dlLabel">Preparing...</div>
+      <div class="dl-prog-track"><div class="dl-prog-fill" id="dlFill"></div></div>
+      <div class="dl-prog-pct" id="dlPct">0%</div>
+    </div>
+
+    <div class="dl-done" id="dlDone">
+      <button class="dl-done-btn open" onclick="openAdminApp()">Open App</button>
+      <button class="dl-done-btn later" onclick="resetDL()">Later</button>
+    </div>
+  </div>
 </div>
 
-<script>
-  // If already logged in this session, go straight to admin
-  if(sessionStorage.getItem('admin_token')){
-    window.location.replace('admin.html');
-  }
-
-  function togglePw(){
-    const inp=document.getElementById('aPass');
-    const show=document.getElementById('eyeShow');
-    const hide=document.getElementById('eyeHide');
-    if(inp.type==='password'){
-      inp.type='text';show.style.display='none';hide.style.display='block';
-    } else {
-      inp.type='password';show.style.display='block';hide.style.display='none';
-    }
-  }
-
-  function showErr(msg){
-    const e=document.getElementById('err');
-    e.textContent=msg;e.classList.add('show');
-  }
-  function hideErr(){document.getElementById('err').classList.remove('show')}
-
-  async function doLogin(){
-    hideErr();
-    const code=document.getElementById('aCode').value.trim().toUpperCase();
-    const pass=document.getElementById('aPass').value;
-    if(!code){showErr('Admin Code daalo');return}
-    if(!pass){showErr('Password daalo');return}
-
-    document.getElementById('lTxt').style.display='none';
-    document.getElementById('lSpin').style.display='block';
-    document.getElementById('lBtn').disabled=true;
-
-    try{
-      const res=await fetch('https://edumanage-backend-xi.vercel.app/api/auth/login',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({code,password:pass,role:'admin'})
-      });
-      const data=await res.json();
-      if(res.ok && data.token){
-        sessionStorage.setItem('admin_token',data.token);
-        sessionStorage.setItem('admin_code',code);
-        sessionStorage.setItem('admin_name',data.user?.name||'Administrator');
-        window.location.replace('admin.html');
-      } else {
-        showErr(data.message||'Invalid admin code or password');
-      }
-    } catch(e){
-      showErr('Network error. Check your connection.');
-    }
-    document.getElementById('lTxt').style.display='block';
-    document.getElementById('lSpin').style.display='none';
-    document.getElementById('lBtn').disabled=false;
-  }
-</script>
-</body>
-</html><!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#800020">
-<title>Admin Login — Emmanuel School</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-:root{--p:#800020;--dk:#5c0018;--dp:#3d0010;--w:#fff}
-html,body{height:100%;font-family:'Inter',sans-serif}
-body{
-  background:linear-gradient(135deg,var(--dp),var(--p),#a30027);
-  display:flex;align-items:center;justify-content:center;
-  padding:20px;min-height:100vh;
-}
-.card{
-  background:#fff;border-radius:24px;
-  padding:42px 34px 36px;
-  width:100%;max-width:400px;
-  box-shadow:0 28px 72px rgba(0,0,0,.32);
-}
-.logo-wrap{text-align:center;margin-bottom:28px}
-.logo-box{
-  width:76px;height:76px;
-  border-radius:20px;
-  margin:0 auto 14px;
-  overflow:hidden;
-  border:2.5px solid rgba(128,0,32,.15);
-  box-shadow:0 6px 20px rgba(128,0,32,.2);
-  background:#f9f0f2;
-  display:flex;align-items:center;justify-content:center;
-}
-.logo-box img{width:100%;height:100%;object-fit:cover}
-.logo-box .fallback{
-  font-family:'Playfair Display',serif;
-  font-size:28px;font-weight:700;color:var(--p);
-  display:none;
-}
-.app-title{
-  font-family:'Playfair Display',serif;
-  font-size:24px;font-weight:700;
-  color:#1a1a1a;margin-bottom:4px;
-}
-.app-sub{font-size:13px;color:#aaa}
-.err{
-  display:none;
-  background:#fdf0ef;color:#c0392b;
-  padding:10px 14px;border-radius:9px;
-  font-size:13px;font-weight:500;
-  margin-bottom:16px;
-  border:1px solid rgba(192,57,43,.18);
-}
-.err.show{display:block}
-.field{margin-bottom:16px}
-.field label{
-  display:block;font-size:11px;font-weight:700;
-  color:#999;text-transform:uppercase;
-  letter-spacing:.9px;margin-bottom:7px;
-}
-.field .inp-wrap{position:relative}
-.field input{
-  width:100%;padding:13px 44px 13px 14px;
-  background:#f8f8f8;border:2px solid #eee;
-  border-radius:11px;font-size:14px;
-  font-family:'Inter',sans-serif;color:#1a1a1a;
-  outline:none;transition:border-color .2s,background .2s;
-}
-.field input:focus{border-color:var(--p);background:#fff}
-.field input::placeholder{color:#ccc}
-.eye-btn{
-  position:absolute;right:13px;top:50%;
-  transform:translateY(-50%);
-  background:none;border:none;cursor:pointer;
-  color:#bbb;display:flex;padding:2px;
-  transition:color .18s;
-}
-.eye-btn:hover{color:var(--p)}
-.eye-btn svg{width:19px;height:19px}
-.login-btn{
-  width:100%;padding:14px;
-  background:linear-gradient(135deg,var(--p),#a30027);
-  color:#fff;border:none;border-radius:11px;
-  font-size:15px;font-weight:700;
-  font-family:'Inter',sans-serif;
-  cursor:pointer;
-  display:flex;align-items:center;justify-content:center;gap:8px;
-  transition:opacity .2s,transform .15s;
-  margin-top:4px;
-}
-.login-btn:hover{opacity:.9}
-.login-btn:active{transform:scale(.98)}
-.login-btn:disabled{opacity:.6;cursor:not-allowed}
-.spin{
-  display:none;width:18px;height:18px;
-  border:2.5px solid rgba(255,255,255,.3);
-  border-top-color:#fff;border-radius:50%;
-  animation:spin .7s linear infinite;
-}
-@keyframes spin{to{transform:rotate(360deg)}}
-.back-link{
-  display:block;text-align:center;
-  margin-top:18px;font-size:13px;
-  color:#bbb;text-decoration:none;
-  transition:color .18s;
-}
-.back-link:hover{color:var(--p)}
-</style>
-</head>
-<body>
-
-<div class="card">
-  <div class="logo-wrap">
-    <div class="logo-box">
-      <img src="logo.webp" alt="Emmanuel School"
-        onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
-      <span class="fallback">E</span>
-    </div>
-    <div class="app-title">EduManage Pro</div>
-    <div class="app-sub">Emmanuel School &middot; Admin Panel</div>
-  </div>
-
-  <div class="err" id="err"></div>
-
-  <div class="field">
-    <label>Admin Code</label>
-    <div class="inp-wrap">
-      <input type="text" id="aCode" placeholder="e.g. ADMIN47"
-        autocomplete="off" spellcheck="false"
-        oninput="this.value=this.value.toUpperCase()"
-        onkeydown="if(event.key==='Enter')document.getElementById('aPass').focus()"/>
-    </div>
-  </div>
-
-  <div class="field">
-    <label>Password</label>
-    <div class="inp-wrap">
-      <input type="password" id="aPass" placeholder="Enter password"
-        autocomplete="current-password"
-        onkeydown="if(event.key==='Enter')doLogin()"/>
-      <button class="eye-btn" onclick="togglePw()" type="button" id="eyeBtn">
-        <svg id="eyeShow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
-          <circle cx="12" cy="12" r="3"/>
-        </svg>
-        <svg id="eyeHide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none">
-          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
-          <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
-          <line x1="1" y1="1" x2="23" y2="23"/>
-        </svg>
-      </button>
-    </div>
-  </div>
-
-  <button class="login-btn" id="lBtn" onclick="doLogin()">
-    <span id="lTxt">Login to Admin Panel</span>
-    <div class="spin" id="lSpin"></div>
-  </button>
-
-  <a href="index.html" class="back-link">Back to Home</a>
-</div>
+<a href="index.html" class="back-link">Back to Home</a>
 
 <script>
-  // If already logged in this session, go straight to admin
-  if(sessionStorage.getItem('admin_token')){
-    window.location.replace('admin.html');
-  }
+/* REDIRECT if already admin session */
+if(sessionStorage.getItem('admin_token')){
+  window.location.replace('admin.html');
+}
 
-  function togglePw(){
-    const inp=document.getElementById('aPass');
-    const show=document.getElementById('eyeShow');
-    const hide=document.getElementById('eyeHide');
-    if(inp.type==='password'){
-      inp.type='text';show.style.display='none';hide.style.display='block';
-    } else {
-      inp.type='password';show.style.display='block';hide.style.display='none';
+/* SERVICE WORKER */
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  });
+}
+
+const API='https://edumanage-backend-xi.vercel.app/api';
+
+/* PASSWORD TOGGLE */
+function togglePw(){
+  const inp=document.getElementById('aPass');
+  const show=document.getElementById('eyeShow');
+  const hide=document.getElementById('eyeHide');
+  if(inp.type==='password'){
+    inp.type='text';show.style.display='none';hide.style.display='block';
+  }else{
+    inp.type='password';show.style.display='block';hide.style.display='none';
+  }
+}
+
+/* ERROR */
+function showErr(msg){
+  const e=document.getElementById('err');
+  e.textContent=msg;e.classList.add('show');
+}
+function hideErr(){document.getElementById('err').classList.remove('show')}
+
+/* LOGIN */
+async function doLogin(){
+  hideErr();
+  const code=document.getElementById('aCode').value.trim().toUpperCase();
+  const pass=document.getElementById('aPass').value;
+  if(!code){showErr('Admin code enter karo');document.getElementById('aCode').focus();return}
+  if(!pass){showErr('Password enter karo');document.getElementById('aPass').focus();return}
+
+  const btn=document.getElementById('lBtn');
+  const txt=document.getElementById('lTxt');
+  const spin=document.getElementById('lSpin');
+  btn.disabled=true;txt.style.display='none';spin.style.display='block';
+
+  try{
+    const res=await fetch(API+'/auth/login',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({code,password:pass,role:'admin'})
+    });
+    const data=await res.json();
+    if(res.ok&&data.token){
+      /* sessionStorage only — admin must login every browser session */
+      sessionStorage.setItem('admin_token',data.token);
+      sessionStorage.setItem('admin_code',code);
+      sessionStorage.setItem('admin_name',data.user?.name||'Administrator');
+      window.location.replace('admin.html');
+    }else{
+      showErr(data.message||'Invalid admin code or password');
+      btn.disabled=false;txt.style.display='block';spin.style.display='none';
     }
+  }catch(e){
+    showErr('Network error. Check your connection.');
+    btn.disabled=false;txt.style.display='block';spin.style.display='none';
   }
+}
 
-  function showErr(msg){
-    const e=document.getElementById('err');
-    e.textContent=msg;e.classList.add('show');
+/* PWA INSTALL */
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',function(e){
+  e.preventDefault();
+  deferredPrompt=e;
+  document.getElementById('dlBtn').disabled=false;
+});
+window.addEventListener('appinstalled',function(){
+  deferredPrompt=null;
+  showDLDone();
+});
+
+const DL_STEPS=['Preparing install...','Downloading files...','Installing app...','Setting up...','Almost done...','Complete!'];
+const DL_PCTS=[5,25,50,72,90,100];
+let dlInterval=null;
+
+function showDLProgress(){
+  document.getElementById('dlProg').classList.add('show');
+  document.getElementById('dlFill').style.width='0%';
+  document.getElementById('dlPct').textContent='0%';
+  let i=0;
+  dlInterval=setInterval(function(){
+    if(i<DL_STEPS.length){
+      document.getElementById('dlLabel').textContent=DL_STEPS[i];
+      document.getElementById('dlFill').style.width=DL_PCTS[i]+'%';
+      document.getElementById('dlPct').textContent=DL_PCTS[i]+'%';
+      i++;
+    }else clearInterval(dlInterval);
+  },550);
+}
+
+function finishDLProgress(){
+  clearInterval(dlInterval);
+  document.getElementById('dlFill').style.width='100%';
+  document.getElementById('dlPct').textContent='100%';
+  document.getElementById('dlLabel').textContent='Complete!';
+  setTimeout(showDLDone,400);
+}
+
+function hideDLProgress(){
+  clearInterval(dlInterval);
+  document.getElementById('dlProg').classList.remove('show');
+}
+
+function showDLDone(){
+  hideDLProgress();
+  document.getElementById('dlBtn').style.display='none';
+  document.getElementById('dlDone').classList.add('show');
+}
+
+function resetDL(){
+  document.getElementById('dlDone').classList.remove('show');
+  document.getElementById('dlBtn').style.display='flex';
+  document.getElementById('dlBtn').disabled=false;
+}
+
+function openAdminApp(){window.location.href='login.html'}
+
+function startDL(){
+  const btn=document.getElementById('dlBtn');
+  btn.disabled=true;
+  if(!deferredPrompt){
+    showDLProgress();
+    setTimeout(finishDLProgress,3200);
+    return;
   }
-  function hideErr(){document.getElementById('err').classList.remove('show')}
-
-  async function doLogin(){
-    hideErr();
-    const code=document.getElementById('aCode').value.trim().toUpperCase();
-    const pass=document.getElementById('aPass').value;
-    if(!code){showErr('Admin Code daalo');return}
-    if(!pass){showErr('Password daalo');return}
-
-    document.getElementById('lTxt').style.display='none';
-    document.getElementById('lSpin').style.display='block';
-    document.getElementById('lBtn').disabled=true;
-
-    try{
-      const res=await fetch('https://edumanage-backend-xi.vercel.app/api/auth/login',{
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify({code,password:pass,role:'admin'})
-      });
-      const data=await res.json();
-      if(res.ok && data.token){
-        sessionStorage.setItem('admin_token',data.token);
-        sessionStorage.setItem('admin_code',code);
-        sessionStorage.setItem('admin_name',data.user?.name||'Administrator');
-        window.location.replace('admin.html');
-      } else {
-        showErr(data.message||'Invalid admin code or password');
-      }
-    } catch(e){
-      showErr('Network error. Check your connection.');
+  showDLProgress();
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(function(result){
+    deferredPrompt=null;
+    if(result.outcome==='accepted'){
+      finishDLProgress();
+    }else{
+      hideDLProgress();
+      btn.disabled=false;
     }
-    document.getElementById('lTxt').style.display='block';
-    document.getElementById('lSpin').style.display='none';
-    document.getElementById('lBtn').disabled=false;
-  }
+  }).catch(function(){
+    hideDLProgress();
+    btn.disabled=false;
+  });
+}
 </script>
 </body>
 </html>
