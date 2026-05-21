@@ -1,831 +1,718 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#800020" />
-  <meta name="description" content="Emmanuel English Medium School - EduManage App" />
-  <title>Emmanuel School</title>
-  <link rel="manifest" href="manifest.json" />
-  <link rel="icon" href="icons/icon-192x192.png" />
-  <link rel="apple-touch-icon" href="icons/icon-192x192.png" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#800020">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Emmanuel School">
+<meta name="description" content="Emmanuel English Medium School — Student, Teacher and Admin Portal">
+<title>Emmanuel School</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192x192.png">
+<link rel="apple-touch-icon" href="icons/icon-192x192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --p:#800020;--dk:#5c0018;--dp:#3d0010;--ac:#a30027;
+  --w:#fff;--bg:#fdf5f7;--card:#fff;
+  --border:#eedde0;--text:#1a1a1a;--muted:#888;
+  --green:#1a7a3e;--red:#c0001a;--gold:#b8860b;
+  --ff:'Playfair Display',serif;
+  --fb:'Inter',sans-serif;
+  --fm:'JetBrains Mono',monospace;
+  --r:16px;--sh:0 4px 20px rgba(128,0,32,.1);
+}
+html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--text);overflow-x:hidden}
 
-    :root {
-      --primary: #800020;
-      --dark: #5c0018;
-      --deeper: #3d0010;
-      --white: #ffffff;
-      --light-bg: #fdf6f6;
-      --border: #e8d0d5;
-      --text: #1a1a1a;
-      --muted: #6b6b6b;
-      --success: #1a7a3e;
-      --radius: 14px;
-      --shadow: 0 4px 24px rgba(128,0,32,0.10);
-    }
+/* FULL SCREEN LAYOUT */
+.page{
+  min-height:100vh;
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+}
 
-    html, body {
-      height: 100%;
-      font-family: 'Inter', sans-serif;
-      background: var(--light-bg);
-      color: var(--text);
-      overflow-x: hidden;
-    }
+/* TOP BAR */
+.topbar{
+  background:var(--dp);
+  padding:12px 20px;
+  padding-top:max(12px,env(safe-area-inset-top));
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  position:sticky;
+  top:0;
+  z-index:99;
+  flex-shrink:0;
+}
+.topbar-brand{display:flex;align-items:center;gap:10px}
+.topbar-logo{
+  width:32px;height:32px;
+  border-radius:8px;
+  object-fit:cover;
+  border:1.5px solid rgba(255,255,255,.2);
+  background:rgba(255,255,255,.1);
+  flex-shrink:0;
+}
+.topbar-logo-fb{
+  width:32px;height:32px;
+  border-radius:8px;
+  background:rgba(255,255,255,.15);
+  border:1.5px solid rgba(255,255,255,.2);
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--ff);font-size:14px;font-weight:700;color:var(--w);
+}
+.topbar-name{
+  font-family:var(--ff);
+  font-size:15px;font-weight:700;
+  color:var(--w);letter-spacing:.2px;
+}
+.lang-row{display:flex;gap:3px}
+.lang-btn{
+  background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.15);
+  color:rgba(255,255,255,.55);
+  font-size:11px;font-weight:700;
+  padding:5px 10px;border-radius:20px;
+  cursor:pointer;font-family:var(--fb);
+  transition:all .18s;letter-spacing:.5px;
+}
+.lang-btn.on,
+.lang-btn:hover{background:var(--w);color:var(--dp);border-color:var(--w)}
 
-    /* ---- TOP HEADER ---- */
-    .top-bar {
-      background: var(--deeper);
-      padding: 10px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .top-bar .school-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .top-bar .school-brand img {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid rgba(255,255,255,0.3);
-    }
-    .top-bar .school-brand span {
-      font-family: 'Playfair Display', serif;
-      font-size: 15px;
-      font-weight: 700;
-      color: var(--white);
-      letter-spacing: 0.3px;
-    }
-    .lang-switch {
-      display: flex;
-      gap: 4px;
-    }
-    .lang-btn {
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.25);
-      color: rgba(255,255,255,0.7);
-      font-size: 11px;
-      font-weight: 600;
-      padding: 4px 9px;
-      border-radius: 20px;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      transition: all 0.2s;
-      letter-spacing: 0.5px;
-    }
-    .lang-btn.active, .lang-btn:hover {
-      background: var(--white);
-      color: var(--deeper);
-      border-color: var(--white);
-    }
+/* HERO */
+.hero{
+  background:linear-gradient(155deg,var(--p) 0%,var(--dp) 100%);
+  padding:48px 24px 56px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  flex-shrink:0;
+}
+.hero::before{
+  content:'';position:absolute;
+  top:-60px;right:-60px;
+  width:220px;height:220px;
+  background:rgba(255,255,255,.04);border-radius:50%;
+}
+.hero::after{
+  content:'';position:absolute;
+  bottom:-80px;left:-50px;
+  width:280px;height:280px;
+  background:rgba(255,255,255,.03);border-radius:50%;
+}
+/* grid lines */
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:32px 32px;
+}
+.hero-inner{position:relative;z-index:1}
+.hero-logo{
+  width:88px;height:88px;
+  border-radius:22px;
+  object-fit:cover;
+  border:3px solid rgba(255,255,255,.28);
+  box-shadow:0 8px 32px rgba(0,0,0,.28);
+  margin-bottom:18px;
+  background:rgba(255,255,255,.1);
+}
+.hero-logo-fb{
+  width:88px;height:88px;
+  border-radius:22px;
+  background:rgba(255,255,255,.15);
+  border:3px solid rgba(255,255,255,.28);
+  display:none;align-items:center;justify-content:center;
+  font-family:var(--ff);font-size:34px;font-weight:700;color:var(--w);
+  margin:0 auto 18px;
+}
+.hero h1{
+  font-family:var(--ff);
+  font-size:26px;font-weight:700;
+  color:var(--w);line-height:1.25;
+  margin-bottom:8px;
+}
+.hero-motto{
+  font-size:13px;
+  color:rgba(255,255,255,.6);
+  font-style:italic;
+  font-family:var(--ff);
+  margin-bottom:20px;
+}
+.hero-live{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:20px;padding:7px 16px;
+  font-size:12px;color:rgba(255,255,255,.88);font-weight:600;
+}
+.live-dot{
+  width:7px;height:7px;
+  background:#4ade80;border-radius:50%;
+  animation:blink 1.8s infinite;
+}
+@keyframes blink{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.5)}}
 
-    /* ---- HERO ---- */
-    .hero {
-      background: linear-gradient(160deg, var(--primary) 0%, var(--deeper) 100%);
-      padding: 48px 24px 56px;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -60px; right: -60px;
-      width: 220px; height: 220px;
-      background: rgba(255,255,255,0.04);
-      border-radius: 50%;
-    }
-    .hero::after {
-      content: '';
-      position: absolute;
-      bottom: -80px; left: -50px;
-      width: 280px; height: 280px;
-      background: rgba(255,255,255,0.03);
-      border-radius: 50%;
-    }
-    .hero-logo {
-      width: 90px;
-      height: 90px;
-      border-radius: 22px;
-      object-fit: cover;
-      border: 3px solid rgba(255,255,255,0.3);
-      box-shadow: 0 8px 32px rgba(0,0,0,0.25);
-      margin-bottom: 18px;
-      background: var(--white);
-    }
-    .hero h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 26px;
-      font-weight: 700;
-      color: var(--white);
-      line-height: 1.25;
-      margin-bottom: 6px;
-    }
-    .hero .motto {
-      font-size: 13px;
-      color: rgba(255,255,255,0.65);
-      font-style: italic;
-      font-family: 'Playfair Display', serif;
-      margin-bottom: 18px;
-    }
-    .hero .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255,255,255,0.13);
-      border: 1px solid rgba(255,255,255,0.22);
-      border-radius: 20px;
-      padding: 6px 14px;
-      font-size: 12px;
-      color: rgba(255,255,255,0.85);
-      font-weight: 500;
-      margin-bottom: 8px;
-    }
-    .badge-dot {
-      width: 7px;
-      height: 7px;
-      background: #4ade80;
-      border-radius: 50%;
-      animation: pulse 1.8s infinite;
-    }
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(1.4); }
-    }
+/* INSTALL SECTION - MAIN FOCUS */
+.install-section{
+  flex:1;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:32px 20px;
+  max-width:480px;
+  margin:0 auto;
+  width:100%;
+}
+.install-card{
+  background:var(--card);
+  border:1.5px solid var(--border);
+  border-radius:24px;
+  padding:32px 24px;
+  width:100%;
+  box-shadow:var(--sh);
+  text-align:center;
+}
+.install-icon{
+  width:72px;height:72px;
+  background:linear-gradient(135deg,var(--p),var(--dp));
+  border-radius:20px;
+  display:flex;align-items:center;justify-content:center;
+  margin:0 auto 20px;
+  box-shadow:0 8px 24px rgba(128,0,32,.3);
+}
+.install-icon img{
+  width:48px;height:48px;
+  object-fit:contain;border-radius:10px;
+}
+.install-icon-fb{
+  font-family:var(--ff);
+  font-size:22px;font-weight:700;color:var(--w);
+}
+.install-title{
+  font-family:var(--ff);
+  font-size:24px;font-weight:700;
+  color:var(--dp);margin-bottom:8px;
+}
+.install-sub{
+  font-size:14px;color:var(--muted);
+  line-height:1.55;margin-bottom:28px;
+}
+.install-btn{
+  width:100%;padding:16px;
+  background:linear-gradient(135deg,var(--p),var(--ac));
+  color:var(--w);border:none;border-radius:14px;
+  font-size:17px;font-weight:700;
+  font-family:var(--fb);cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  box-shadow:0 6px 20px rgba(128,0,32,.3);
+  transition:opacity .18s,transform .15s;
+  margin-bottom:14px;
+}
+.install-btn:hover{opacity:.9}
+.install-btn:active{transform:scale(.98)}
+.install-btn:disabled{opacity:.55;cursor:not-allowed}
+.install-btn svg{width:20px;height:20px;stroke:var(--w);fill:none;stroke-width:2;stroke-linecap:round}
 
-    /* ---- CARDS SECTION ---- */
-    .section-title {
-      font-family: 'Playfair Display', serif;
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--deeper);
-      margin-bottom: 4px;
-    }
-    .section-sub {
-      font-size: 13px;
-      color: var(--muted);
-      margin-bottom: 18px;
-    }
-    .cards-section {
-      padding: 28px 20px 0;
-    }
+/* PROGRESS */
+.progress-wrap{
+  display:none;margin-bottom:14px;
+  background:var(--bg);border-radius:12px;
+  padding:16px 18px;border:1.5px solid var(--border);
+}
+.progress-wrap.show{display:block}
+.progress-label{
+  font-size:13px;font-weight:600;
+  color:var(--dp);margin-bottom:10px;
+  text-align:left;
+}
+.progress-track{
+  background:#eee;border-radius:8px;
+  height:10px;overflow:hidden;
+  margin-bottom:8px;
+}
+.progress-fill{
+  height:100%;
+  background:linear-gradient(90deg,var(--p),var(--ac));
+  border-radius:8px;width:0%;
+  transition:width .35s ease;
+}
+.progress-pct{
+  font-family:var(--fm);
+  font-size:12px;color:var(--muted);
+  text-align:right;
+}
 
-    .portal-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
+/* DONE STATE */
+.done-wrap{display:none}
+.done-wrap.show{display:block}
+.done-msg{
+  background:#e8f5ee;border:1.5px solid rgba(26,122,62,.2);
+  border-radius:12px;padding:14px 16px;
+  font-size:14px;font-weight:600;color:var(--green);
+  margin-bottom:14px;text-align:center;
+}
+.done-btns{display:flex;gap:10px}
+.done-btn{
+  flex:1;padding:14px;border-radius:12px;
+  font-size:15px;font-weight:700;
+  font-family:var(--fb);border:none;cursor:pointer;
+  transition:opacity .18s;
+}
+.done-btn:hover{opacity:.88}
+.done-btn.open{background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);box-shadow:0 4px 14px rgba(128,0,32,.25)}
+.done-btn.later{background:var(--bg);color:var(--muted);border:1.5px solid var(--border)}
 
-    .portal-card {
-      background: var(--white);
-      border: 1.5px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px 18px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      text-decoration: none;
-      color: inherit;
-      box-shadow: var(--shadow);
-      transition: transform 0.18s, box-shadow 0.18s, border-color 0.18s;
-      cursor: pointer;
-    }
-    .portal-card:hover, .portal-card:active {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 32px rgba(128,0,32,0.15);
-      border-color: var(--primary);
-    }
-    .card-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .card-icon svg {
-      width: 26px;
-      height: 26px;
-    }
-    .card-icon.student-icon { background: #fef2f5; }
-    .card-icon.teacher-icon { background: #fff8f0; }
-    .card-icon.admin-icon   { background: #f5f0ff; }
-    .card-body { flex: 1; }
-    .card-body h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--deeper);
-      margin-bottom: 3px;
-    }
-    .card-body p {
-      font-size: 12.5px;
-      color: var(--muted);
-      line-height: 1.45;
-    }
-    .card-arrow {
-      width: 32px;
-      height: 32px;
-      background: var(--light-bg);
-      border: 1px solid var(--border);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: background 0.18s;
-    }
-    .portal-card:hover .card-arrow { background: var(--primary); }
-    .portal-card:hover .card-arrow svg path { stroke: white; }
-    .card-arrow svg { width: 16px; height: 16px; }
+/* FEATURES */
+.features{
+  display:flex;gap:8px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-bottom:20px;
+}
+.feature-chip{
+  display:flex;align-items:center;gap:5px;
+  background:var(--bg);border:1px solid var(--border);
+  border-radius:20px;padding:5px 12px;
+  font-size:12px;font-weight:500;color:var(--muted);
+}
+.feature-chip svg{width:13px;height:13px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
 
-    /* ---- INSTALL SECTION ---- */
-    .install-section {
-      margin: 24px 20px 0;
-    }
-    .install-card {
-      background: linear-gradient(135deg, var(--primary), var(--deeper));
-      border-radius: var(--radius);
-      padding: 22px 20px;
-      color: var(--white);
-      position: relative;
-      overflow: hidden;
-    }
-    .install-card::after {
-      content: '';
-      position: absolute;
-      bottom: -30px; right: -30px;
-      width: 130px; height: 130px;
-      background: rgba(255,255,255,0.06);
-      border-radius: 50%;
-    }
-    .install-card h3 {
-      font-family: 'Playfair Display', serif;
-      font-size: 17px;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
-    .install-card p {
-      font-size: 12.5px;
-      color: rgba(255,255,255,0.72);
-      margin-bottom: 16px;
-      line-height: 1.5;
-    }
-    .install-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--white);
-      color: var(--deeper);
-      font-size: 13.5px;
-      font-weight: 600;
-      padding: 11px 20px;
-      border-radius: 10px;
-      border: none;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      transition: opacity 0.18s, transform 0.18s;
-      position: relative;
-      z-index: 1;
-    }
-    .install-btn:hover { opacity: 0.9; transform: scale(1.02); }
-    .install-btn svg { width: 18px; height: 18px; }
-    .install-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+/* STAFF LINKS */
+.staff-links{
+  padding:0 20px 32px;
+  padding-bottom:max(32px,env(safe-area-inset-bottom));
+  max-width:480px;margin:0 auto;width:100%;
+}
+.staff-label{
+  font-size:11px;font-weight:700;
+  text-transform:uppercase;letter-spacing:1px;
+  color:var(--muted);text-align:center;
+  margin-bottom:12px;
+}
+.staff-row{display:flex;gap:10px}
+.staff-link{
+  flex:1;
+  display:flex;align-items:center;justify-content:center;gap:7px;
+  padding:12px;
+  background:var(--card);
+  border:1.5px solid var(--border);
+  border-radius:12px;
+  text-decoration:none;
+  font-size:13px;font-weight:600;color:var(--dp);
+  box-shadow:0 2px 8px rgba(128,0,32,.06);
+  transition:border-color .18s,box-shadow .18s,transform .15s;
+}
+.staff-link:hover{border-color:var(--p);box-shadow:0 4px 16px rgba(128,0,32,.12);transform:translateY(-2px)}
+.staff-link:active{transform:scale(.97)}
+.staff-link svg{width:16px;height:16px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
 
-    /* progress bar */
-    .progress-wrap {
-      display: none;
-      margin-top: 14px;
-      position: relative;
-      z-index: 1;
-    }
-    .progress-wrap.show { display: block; }
-    .progress-label {
-      font-size: 12px;
-      color: rgba(255,255,255,0.75);
-      margin-bottom: 6px;
-    }
-    .progress-bar-bg {
-      background: rgba(255,255,255,0.2);
-      border-radius: 6px;
-      height: 8px;
-      overflow: hidden;
-    }
-    .progress-bar-fill {
-      height: 100%;
-      background: var(--white);
-      border-radius: 6px;
-      width: 0%;
-      transition: width 0.3s ease;
-    }
-    .install-done-btns {
-      display: none;
-      gap: 10px;
-      margin-top: 14px;
-      position: relative;
-      z-index: 1;
-    }
-    .install-done-btns.show { display: flex; }
-    .done-btn {
-      flex: 1;
-      padding: 10px;
-      border-radius: 10px;
-      font-size: 13px;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      transition: opacity 0.18s;
-    }
-    .done-btn.open { background: var(--white); color: var(--deeper); }
-    .done-btn.dismiss { background: rgba(255,255,255,0.15); color: var(--white); border: 1px solid rgba(255,255,255,0.3); }
-    .done-btn:hover { opacity: 0.88; }
+/* PWA BOTTOM BANNER */
+#pwa-bar{
+  position:fixed;bottom:0;left:0;right:0;
+  background:var(--w);
+  border-top:2px solid var(--border);
+  box-shadow:0 -4px 20px rgba(128,0,32,.1);
+  padding:12px 18px;
+  padding-bottom:max(12px,env(safe-area-inset-bottom));
+  display:none;align-items:center;gap:12px;
+  z-index:999;animation:slideUp .32s ease;
+}
+#pwa-bar.show{display:flex}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.pwa-bar-logo{
+  width:40px;height:40px;border-radius:10px;
+  object-fit:cover;flex-shrink:0;
+  border:1.5px solid var(--border);
+  background:var(--bg);
+}
+.pwa-bar-txt{flex:1}
+.pwa-bar-txt strong{
+  display:block;font-size:13.5px;
+  font-weight:700;color:var(--dp);
+  font-family:var(--ff);
+}
+.pwa-bar-txt span{font-size:11.5px;color:var(--muted)}
+.pwa-bar-add{
+  background:var(--p);color:var(--w);
+  border:none;padding:9px 16px;
+  border-radius:9px;font-size:13px;
+  font-weight:700;cursor:pointer;
+  font-family:var(--fb);white-space:nowrap;
+}
+.pwa-bar-later{
+  background:none;border:1.5px solid var(--border);
+  color:var(--muted);padding:9px 11px;
+  border-radius:9px;font-size:12px;
+  cursor:pointer;font-family:var(--fb);
+}
 
-    /* ---- FOOTER ---- */
-    .footer {
-      padding: 28px 20px 36px;
-      text-align: center;
-    }
-    .footer-divider {
-      height: 1px;
-      background: var(--border);
-      margin-bottom: 20px;
-    }
-    .footer p {
-      font-size: 12px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-    .footer strong {
-      color: var(--primary);
-      font-weight: 600;
-    }
+/* LANG HIDDEN */
+.l{display:none}.l.on{display:inline}
 
-    /* ---- PWA INSTALL BANNER (bottom) ---- */
-    #pwa-banner {
-      position: fixed;
-      bottom: 0; left: 0; right: 0;
-      background: var(--white);
-      border-top: 2px solid var(--border);
-      box-shadow: 0 -4px 24px rgba(128,0,32,0.12);
-      padding: 16px 20px;
-      display: none;
-      align-items: center;
-      gap: 14px;
-      z-index: 999;
-      animation: slideUp 0.35s ease;
-    }
-    #pwa-banner.show { display: flex; }
-    @keyframes slideUp {
-      from { transform: translateY(100%); opacity: 0; }
-      to   { transform: translateY(0);    opacity: 1; }
-    }
-    .pwa-banner-logo {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      object-fit: cover;
-      flex-shrink: 0;
-      border: 1.5px solid var(--border);
-    }
-    .pwa-banner-text { flex: 1; }
-    .pwa-banner-text strong {
-      display: block;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--deeper);
-      font-family: 'Playfair Display', serif;
-    }
-    .pwa-banner-text span {
-      font-size: 12px;
-      color: var(--muted);
-    }
-    .pwa-banner-btns { display: flex; gap: 8px; }
-    .pwa-add-btn {
-      background: var(--primary);
-      color: var(--white);
-      border: none;
-      padding: 9px 16px;
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-      white-space: nowrap;
-    }
-    .pwa-close-btn {
-      background: none;
-      border: 1.5px solid var(--border);
-      color: var(--muted);
-      padding: 9px 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      cursor: pointer;
-      font-family: 'Inter', sans-serif;
-    }
-
-    /* ---- RESPONSIVE (desktop) ---- */
-    @media (min-width: 600px) {
-      .portal-cards { flex-direction: row; flex-wrap: wrap; }
-      .portal-card { flex: 1 1 calc(50% - 7px); }
-      .hero h1 { font-size: 32px; }
-      .hero { padding: 60px 40px 68px; }
-      .cards-section, .install-section, .footer { padding-left: 40px; padding-right: 40px; }
-    }
-    @media (min-width: 900px) {
-      body { max-width: 520px; margin: 0 auto; }
-      #pwa-banner { max-width: 520px; left: 50%; transform: translateX(-50%); }
-      #pwa-banner.show { display: flex; transform: translateX(-50%); }
-    }
-
-    /* ---- HIDDEN TEXTS (multilang) ---- */
-    [data-lang] { display: none; }
-    [data-lang].active { display: inline; }
-    [data-lang-block] { display: none; }
-    [data-lang-block].active { display: block; }
-  </style>
+/* PC */
+@media(min-width:600px){
+  .hero h1{font-size:32px}
+  .hero{padding:64px 40px 72px}
+  .install-section{padding:40px 24px}
+  .install-card{padding:40px 32px}
+  .staff-row{max-width:320px;margin:0 auto}
+}
+@media(min-width:900px){
+  .page{flex-direction:row;flex-wrap:wrap}
+  .topbar{width:100%;flex:0 0 100%}
+  .hero{
+    flex:0 0 45%;min-height:calc(100vh - 56px);
+    display:flex;flex-direction:column;
+    justify-content:center;padding:60px 48px;
+    text-align:left;
+  }
+  .hero h1{font-size:36px}
+  .hero-live{align-self:flex-start}
+  .install-section{
+    flex:0 0 55%;min-height:calc(100vh - 56px);
+    justify-content:center;padding:60px 48px;
+  }
+  .staff-links{display:none}
+}
+</style>
 </head>
 <body>
 
-  <!-- TOP BAR -->
-  <div class="top-bar">
-    <div class="school-brand">
-      <img src="icons/icon-72x72.png" alt="Emmanuel School Logo" onerror="this.style.display='none'" />
-      <span>Emmanuel School</span>
-    </div>
-    <div class="lang-switch">
-      <button class="lang-btn active" onclick="setLang('en')">EN</button>
-      <button class="lang-btn" onclick="setLang('hi')">HI</button>
-      <button class="lang-btn" onclick="setLang('mr')">MR</button>
-    </div>
-  </div>
+<div class="page">
 
-  <!-- HERO -->
-  <div class="hero">
-    <img src="logo.webp" alt="Emmanuel School" class="hero-logo" onerror="this.src='icons/icon-192x192.png'" />
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="topbar-brand">
+    <img src="logo.webp" class="topbar-logo" alt="E"
+      onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+    <div class="topbar-logo-fb" style="display:none">E</div>
+    <span class="topbar-name">Emmanuel School</span>
+  </div>
+  <div class="lang-row">
+    <button class="lang-btn on" onclick="setLang('en')">EN</button>
+    <button class="lang-btn" onclick="setLang('hi')">HI</button>
+    <button class="lang-btn" onclick="setLang('mr')">MR</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-inner">
+    <img src="logo.webp" class="hero-logo" alt="Emmanuel School"
+      onerror="this.style.display='none';document.querySelector('.hero-logo-fb').style.display='flex'">
+    <div class="hero-logo-fb">E</div>
     <h1>
-      <span data-lang="en" class="active">Emmanuel English<br>Medium School</span>
-      <span data-lang="hi">इमैनुएल इंग्लिश<br>मीडियम स्कूल</span>
-      <span data-lang="mr">इमॅन्युएल इंग्रजी<br>माध्यम शाळा</span>
+      <span class="l en on">Emmanuel English<br>Medium School</span>
+      <span class="l hi">Emmanuel English<br>Medium School</span>
+      <span class="l mr">Emmanuel English<br>Medium School</span>
     </h1>
-    <div class="motto">
-      <span data-lang="en" class="active">"To be salt and light of the world"</span>
-      <span data-lang="hi">"दुनिया के नमक और रोशनी बनो"</span>
-      <span data-lang="mr">"जगाचे मीठ आणि प्रकाश व्हा"</span>
+    <div class="hero-motto">
+      <span class="l en on">"To be salt and light of the world"</span>
+      <span class="l hi">"Duniya ke namak aur roshni bano"</span>
+      <span class="l mr">"Jagache mith ani prakash vha"</span>
     </div>
-    <div class="badge">
-      <span class="badge-dot"></span>
-      <span data-lang="en" class="active">School Management App - Live</span>
-      <span data-lang="hi">स्कूल मैनेजमेंट ऐप - लाइव</span>
-      <span data-lang="mr">शाळा व्यवस्थापन ऐप - लाइव्ह</span>
-    </div>
-  </div>
-
-  <!-- PORTAL CARDS -->
-  <div class="cards-section">
-    <p class="section-title">
-      <span data-lang="en" class="active">Choose Your Portal</span>
-      <span data-lang="hi">अपना पोर्टल चुनें</span>
-      <span data-lang="mr">तुमचा पोर्टल निवडा</span>
-    </p>
-    <p class="section-sub">
-      <span data-lang="en" class="active">Login to access your dashboard</span>
-      <span data-lang="hi">डैशबोर्ड एक्सेस के लिए लॉगिन करें</span>
-      <span data-lang="mr">डॅशबोर्ड ऍक्सेस करण्यासाठी लॉगिन करा</span>
-    </p>
-
-    <div class="portal-cards">
-      <!-- Student -->
-      <a href="student.html" class="portal-card">
-        <div class="card-icon student-icon">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="#800020" stroke-width="2" stroke-linejoin="round"/>
-            <path d="M2 17l10 5 10-5" stroke="#800020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M2 12l10 5 10-5" stroke="#800020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="card-body">
-          <h3>
-            <span data-lang="en" class="active">Student Portal</span>
-            <span data-lang="hi">छात्र पोर्टल</span>
-            <span data-lang="mr">विद्यार्थी पोर्टल</span>
-          </h3>
-          <p>
-            <span data-lang="en" class="active">Marks, attendance, fees &amp; notices</span>
-            <span data-lang="hi">अंक, उपस्थिति, फीस और सूचनाएं</span>
-            <span data-lang="mr">गुण, उपस्थिती, फी आणि सूचना</span>
-          </p>
-        </div>
-        <div class="card-arrow">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M9 18l6-6-6-6" stroke="#800020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-      </a>
-
-      <!-- Teacher -->
-      <a href="teacher.html" class="portal-card">
-        <div class="card-icon teacher-icon">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="2" y="3" width="20" height="14" rx="2" stroke="#c25a00" stroke-width="2"/>
-            <path d="M8 21h8M12 17v4" stroke="#c25a00" stroke-width="2" stroke-linecap="round"/>
-            <path d="M7 8h10M7 11h6" stroke="#c25a00" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </div>
-        <div class="card-body">
-          <h3>
-            <span data-lang="en" class="active">Teacher Panel</span>
-            <span data-lang="hi">शिक्षक पैनल</span>
-            <span data-lang="mr">शिक्षक पॅनेल</span>
-          </h3>
-          <p>
-            <span data-lang="en" class="active">Attendance, marks &amp; class posts</span>
-            <span data-lang="hi">उपस्थिति, अंक और क्लास पोस्ट</span>
-            <span data-lang="mr">उपस्थिती, गुण आणि वर्ग पोस्ट</span>
-          </p>
-        </div>
-        <div class="card-arrow">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M9 18l6-6-6-6" stroke="#800020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-      </a>
-
-      <!-- Admin -->
-      <a href="login.html" class="portal-card">
-        <div class="card-icon admin-icon">
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" stroke="#6d28d9" stroke-width="2" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div class="card-body">
-          <h3>
-            <span data-lang="en" class="active">Admin Panel</span>
-            <span data-lang="hi">एडमिन पैनल</span>
-            <span data-lang="mr">ॲडमिन पॅनेल</span>
-          </h3>
-          <p>
-            <span data-lang="en" class="active">Manage school, students &amp; staff</span>
-            <span data-lang="hi">स्कूल, छात्र और स्टाफ प्रबंधन</span>
-            <span data-lang="mr">शाळा, विद्यार्थी आणि कर्मचारी व्यवस्थापन</span>
-          </p>
-        </div>
-        <div class="card-arrow">
-          <svg viewBox="0 0 24 24" fill="none">
-            <path d="M9 18l6-6-6-6" stroke="#800020" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-      </a>
+    <div class="hero-live">
+      <span class="live-dot"></span>
+      <span class="l en on">School App is Live</span>
+      <span class="l hi">School App Live Hai</span>
+      <span class="l mr">School App Live Ahe</span>
     </div>
   </div>
+</div>
 
-  <!-- INSTALL SECTION -->
-  <div class="install-section">
-    <div class="install-card">
-      <h3>
-        <span data-lang="en" class="active">Install the App</span>
-        <span data-lang="hi">ऐप इंस्टॉल करें</span>
-        <span data-lang="mr">ऐप इन्स्टॉल करा</span>
-      </h3>
-      <p>
-        <span data-lang="en" class="active">Works offline. Fast. No Play Store needed.</span>
-        <span data-lang="hi">ऑफलाइन काम करता है। तेज़। Play Store की जरूरत नहीं।</span>
-        <span data-lang="mr">ऑफलाइन काम करते. वेगवान. Play Store लागत नाही.</span>
-      </p>
+<!-- INSTALL SECTION -->
+<div class="install-section">
+  <div class="install-card">
 
-      <button class="install-btn" id="install-btn" onclick="triggerInstall()">
-        <svg viewBox="0 0 24 24" fill="none">
-          <path d="M12 16l-5-5h3V4h4v7h3l-5 5z" fill="#800020"/>
-          <path d="M4 18h16v2H4v-2z" fill="#800020"/>
-        </svg>
-        <span data-lang="en" class="active">Download App</span>
-        <span data-lang="hi">ऐप डाउनलोड करें</span>
-        <span data-lang="mr">ऐप डाउनलोड करा</span>
-      </button>
+    <div class="install-icon">
+      <img src="logo.webp" alt="E"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="install-icon-fb" style="display:none">E</span>
+    </div>
 
-      <!-- Progress bar -->
-      <div class="progress-wrap" id="progress-wrap">
-        <div class="progress-label" id="progress-label">Preparing install...</div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="progress-fill"></div>
-        </div>
+    <div class="install-title">
+      <span class="l en on">Download School App</span>
+      <span class="l hi">School App Download Karo</span>
+      <span class="l mr">School App Download Kara</span>
+    </div>
+
+    <div class="install-sub">
+      <span class="l en on">Install the Emmanuel School app for instant access to marks, fees, attendance and notifications.</span>
+      <span class="l hi">Marks, fees, attendance aur notifications ke liye Emmanuel School app install karo.</span>
+      <span class="l mr">Marks, fees, attendance aur notifications sathi Emmanuel School app install kara.</span>
+    </div>
+
+    <div class="features">
+      <div class="feature-chip">
+        <svg viewBox="0 0 24 24"><path d="M1 6s4-2 11-2 11 2 11 2"/><path d="M1 18s4 2 11 2 11-2 11-2"/><line x1="1" y1="12" x2="23" y2="12"/></svg>
+        <span class="l en on">Works Offline</span>
+        <span class="l hi">Offline Kaam Kare</span>
+        <span class="l mr">Offline Kaam Karte</span>
       </div>
+      <div class="feature-chip">
+        <svg viewBox="0 0 24 24"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+        <span class="l en on">Fast</span>
+        <span class="l hi">Tez</span>
+        <span class="l mr">Vegvan</span>
+      </div>
+      <div class="feature-chip">
+        <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        <span class="l en on">No Play Store</span>
+        <span class="l hi">Play Store Nahi</span>
+        <span class="l mr">Play Store Nahi</span>
+      </div>
+    </div>
 
-      <!-- Post-install buttons -->
-      <div class="install-done-btns" id="done-btns">
+    <!-- INSTALL BUTTON -->
+    <button class="install-btn" id="installBtn" onclick="startInstall()">
+      <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <span class="l en on">Download App</span>
+      <span class="l hi">App Download Karo</span>
+      <span class="l mr">App Download Kara</span>
+    </button>
+
+    <!-- PROGRESS -->
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-label" id="progressLabel">Preparing...</div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <div class="progress-pct" id="progressPct">0%</div>
+    </div>
+
+    <!-- DONE -->
+    <div class="done-wrap" id="doneWrap">
+      <div class="done-msg">
+        <span class="l en on">App installed successfully!</span>
+        <span class="l hi">App install ho gaya!</span>
+        <span class="l mr">App install zale!</span>
+      </div>
+      <div class="done-btns">
         <button class="done-btn open" onclick="openApp()">
-          <span data-lang="en" class="active">Open App</span>
-          <span data-lang="hi">ऐप खोलें</span>
-          <span data-lang="mr">ऐप उघडा</span>
+          <span class="l en on">Open App</span>
+          <span class="l hi">App Kholo</span>
+          <span class="l mr">App Ughada</span>
         </button>
-        <button class="done-btn dismiss" onclick="hideDone()">
-          <span data-lang="en" class="active">Done</span>
-          <span data-lang="hi">हो गया</span>
-          <span data-lang="mr">झाले</span>
+        <button class="done-btn later" onclick="resetInstall()">
+          <span class="l en on">Later</span>
+          <span class="l hi">Baad Mein</span>
+          <span class="l mr">Nantar</span>
         </button>
       </div>
     </div>
+
   </div>
+</div>
 
-  <!-- FOOTER -->
-  <div class="footer">
-    <div class="footer-divider"></div>
-    <p>
-      <strong>Emmanuel English Medium School</strong><br/>
-      <span data-lang="en" class="active">
-        Powered by EduManage &bull; Classes Nursery to Class 10<br/>
-        For support, contact the school office
-      </span>
-      <span data-lang="hi">
-        EduManage द्वारा संचालित &bull; नर्सरी से कक्षा 10 तक<br/>
-        सहायता के लिए स्कूल कार्यालय से संपर्क करें
-      </span>
-      <span data-lang="mr">
-        EduManage द्वारे चालवले &bull; नर्सरी ते वर्ग 10<br/>
-        मदतीसाठी शाळेच्या कार्यालयाशी संपर्क करा
-      </span>
-    </p>
+<!-- STAFF LINKS (mobile only) -->
+<div class="staff-links">
+  <div class="staff-label">
+    <span class="l en on">Staff Login</span>
+    <span class="l hi">Staff Login</span>
+    <span class="l mr">Staff Login</span>
   </div>
-
-  <!-- PWA INSTALL BANNER (bottom) -->
-  <div id="pwa-banner">
-    <img src="logo.webp" alt="Emmanuel School" class="pwa-banner-logo" onerror="this.src='icons/icon-72x72.png'" />
-    <div class="pwa-banner-text">
-      <strong>Emmanuel School</strong>
-      <span>
-        <span data-lang="en" class="active">Add to Home Screen for quick access</span>
-        <span data-lang="hi">होम स्क्रीन पर जोड़ें</span>
-        <span data-lang="mr">होम स्क्रीनवर जोडा</span>
-      </span>
-    </div>
-    <div class="pwa-banner-btns">
-      <button class="pwa-add-btn" onclick="triggerInstall()">
-        <span data-lang="en" class="active">Add</span>
-        <span data-lang="hi">जोड़ें</span>
-        <span data-lang="mr">जोडा</span>
-      </button>
-      <button class="pwa-close-btn" onclick="closeBanner()">
-        <span data-lang="en" class="active">Later</span>
-        <span data-lang="hi">बाद में</span>
-        <span data-lang="mr">नंतर</span>
-      </button>
-    </div>
+  <div class="staff-row">
+    <a href="teacher-login.html" class="staff-link">
+      <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      <span class="l en on">Teacher</span>
+      <span class="l hi">Teacher</span>
+      <span class="l mr">Shikshak</span>
+    </a>
+    <a href="login.html" class="staff-link">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+      <span class="l en on">Admin</span>
+      <span class="l hi">Admin</span>
+      <span class="l mr">Admin</span>
+    </a>
   </div>
+</div>
 
-  <!-- SERVICE WORKER + JS -->
-  <script>
-    // ---- SERVICE WORKER ----
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('sw.js').catch(() => {});
-      });
+</div><!-- end page -->
+
+<!-- PWA BANNER -->
+<div id="pwa-bar">
+  <img src="logo.webp" class="pwa-bar-logo" alt="E"
+    onerror="this.src='icons/icon-72x72.png'">
+  <div class="pwa-bar-txt">
+    <strong>Emmanuel School</strong>
+    <span>
+      <span class="l en on">Add to Home Screen</span>
+      <span class="l hi">Home Screen Par Add Karo</span>
+      <span class="l mr">Home Screen Var Add Kara</span>
+    </span>
+  </div>
+  <button class="pwa-bar-add" onclick="startInstall()">
+    <span class="l en on">Add</span>
+    <span class="l hi">Add</span>
+    <span class="l mr">Add</span>
+  </button>
+  <button class="pwa-bar-later" onclick="closePWABar()">
+    <span class="l en on">Later</span>
+    <span class="l hi">Baad</span>
+    <span class="l mr">Nantar</span>
+  </button>
+</div>
+
+<script>
+/* SERVICE WORKER */
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('sw.js').catch(()=>{});
+  });
+}
+
+/* LANG */
+const LANG_KEY='ems_lang';
+let curLang=localStorage.getItem(LANG_KEY)||'en';
+
+function setLang(l){
+  curLang=l;
+  localStorage.setItem(LANG_KEY,l);
+  const langs=['en','hi','mr'];
+  langs.forEach(x=>{
+    document.querySelectorAll('.l.'+x).forEach(el=>el.classList.toggle('on',x===l));
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn=>{
+    btn.classList.toggle('on',btn.textContent.trim().toLowerCase()===l);
+  });
+}
+setLang(curLang);
+
+/* AUTO REDIRECT if already logged in */
+(function checkSession(){
+  try{
+    const token=localStorage.getItem('edu_token');
+    const role=localStorage.getItem('edu_role');
+    const tchToken=localStorage.getItem('tch_token');
+    /* Student already logged in */
+    if(token&&role==='student'){
+      window.location.replace('student.html');
+      return;
     }
-
-    // ---- LANGUAGE ----
-    const LANG_KEY = 'edu_lang';
-    let currentLang = localStorage.getItem(LANG_KEY) || 'en';
-
-    function setLang(lang) {
-      currentLang = lang;
-      localStorage.setItem(LANG_KEY, lang);
-
-      // Update all [data-lang] spans
-      document.querySelectorAll('[data-lang]').forEach(el => {
-        el.classList.toggle('active', el.getAttribute('data-lang') === lang);
-      });
-      document.querySelectorAll('[data-lang-block]').forEach(el => {
-        el.classList.toggle('active', el.getAttribute('data-lang-block') === lang);
-      });
-
-      // Update lang buttons
-      document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
-      });
+    /* Teacher already logged in */
+    if(tchToken&&tchToken.length>20){
+      window.location.replace('teacher.html');
+      return;
     }
+  }catch(e){}
+})();
 
-    // Init lang on load
-    setLang(currentLang);
+/* PWA INSTALL */
+let deferredPrompt=null;
+let pwaBarClosed=sessionStorage.getItem('pwa_bar_closed');
 
-    // ---- PWA INSTALL ----
-    let deferredPrompt = null;
-    let bannerDismissed = sessionStorage.getItem('pwa_banner_dismissed');
+window.addEventListener('beforeinstallprompt',function(e){
+  e.preventDefault();
+  deferredPrompt=e;
+  if(!pwaBarClosed){
+    setTimeout(()=>document.getElementById('pwa-bar').classList.add('show'),2500);
+  }
+});
 
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      if (!bannerDismissed) {
-        setTimeout(() => {
-          document.getElementById('pwa-banner').classList.add('show');
-        }, 2200);
-      }
-    });
+window.addEventListener('appinstalled',function(){
+  deferredPrompt=null;
+  document.getElementById('pwa-bar').classList.remove('show');
+  showDone();
+});
 
-    window.addEventListener('appinstalled', () => {
-      deferredPrompt = null;
-      document.getElementById('pwa-banner').classList.remove('show');
-      showInstallDone();
-    });
+function closePWABar(){
+  sessionStorage.setItem('pwa_bar_closed','1');
+  document.getElementById('pwa-bar').classList.remove('show');
+}
 
-    function closeBanner() {
-      sessionStorage.setItem('pwa_banner_dismissed', '1');
-      document.getElementById('pwa-banner').classList.remove('show');
+/* INSTALL STEPS */
+const STEPS={
+  en:['Preparing download...','Downloading resources...','Installing app...','Setting up...','Almost done...','Install complete!'],
+  hi:['Download taiyar ho raha hai...','Resources download ho rahe hain...','App install ho rahi hai...','Setup ho raha hai...','Bas thoda aur...','Install complete!'],
+  mr:['Download tayar hot ahe...','Resources download hot ahet...','App install hot ahe...','Setup hot ahe...','Bas thodi vel...','Install complete!']
+};
+const PCTS=[5,25,50,72,90,100];
+let progInterval=null;
+
+function showProgress(){
+  document.getElementById('progressWrap').classList.add('show');
+  document.getElementById('progressFill').style.width='0%';
+  document.getElementById('progressPct').textContent='0%';
+  let i=0;
+  const steps=STEPS[curLang]||STEPS.en;
+  progInterval=setInterval(function(){
+    if(i<steps.length){
+      document.getElementById('progressLabel').textContent=steps[i];
+      document.getElementById('progressFill').style.width=PCTS[i]+'%';
+      document.getElementById('progressPct').textContent=PCTS[i]+'%';
+      i++;
+    }else{
+      clearInterval(progInterval);
     }
+  },550);
+}
 
-    function triggerInstall() {
-      document.getElementById('pwa-banner').classList.remove('show');
-      if (!deferredPrompt) {
-        // iOS / already installed fallback
-        showProgressThenDone();
-        return;
-      }
-      const btn = document.getElementById('install-btn');
-      btn.disabled = true;
-      showProgress();
-      deferredPrompt.prompt();
-      deferredPrompt.userChoice.then(choice => {
-        deferredPrompt = null;
-        if (choice.outcome === 'accepted') {
-          finishProgress();
-        } else {
-          hideProgress();
-          btn.disabled = false;
-        }
-      });
+function finishProgress(){
+  clearInterval(progInterval);
+  document.getElementById('progressFill').style.width='100%';
+  document.getElementById('progressPct').textContent='100%';
+  const steps=STEPS[curLang]||STEPS.en;
+  document.getElementById('progressLabel').textContent=steps[steps.length-1];
+  setTimeout(showDone,500);
+}
+
+function hideProgress(){
+  clearInterval(progInterval);
+  document.getElementById('progressWrap').classList.remove('show');
+}
+
+function showDone(){
+  hideProgress();
+  document.getElementById('installBtn').style.display='none';
+  document.getElementById('doneWrap').classList.add('show');
+}
+
+function resetInstall(){
+  document.getElementById('doneWrap').classList.remove('show');
+  document.getElementById('installBtn').style.display='flex';
+  document.getElementById('installBtn').disabled=false;
+}
+
+function openApp(){
+  window.location.href='student.html';
+}
+
+function startInstall(){
+  document.getElementById('pwa-bar').classList.remove('show');
+  const btn=document.getElementById('installBtn');
+  btn.disabled=true;
+
+  if(!deferredPrompt){
+    /* iOS or already installed: show fake progress then done */
+    showProgress();
+    setTimeout(finishProgress,3200);
+    return;
+  }
+
+  showProgress();
+  deferredPrompt.prompt();
+  deferredPrompt.userChoice.then(function(result){
+    deferredPrompt=null;
+    if(result.outcome==='accepted'){
+      finishProgress();
+    }else{
+      hideProgress();
+      btn.disabled=false;
     }
-
-    function showProgress() {
-      const wrap = document.getElementById('progress-wrap');
-      const fill = document.getElementById('progress-fill');
-      const label = document.getElementById('progress-label');
-      wrap.classList.add('show');
-      fill.style.width = '0%';
-      const labels = {
-        en: ['Preparing install...', 'Downloading resources...', 'Installing app...', 'Almost done...', 'Install complete!'],
-        hi: ['इंस्टॉल की तैयारी...', 'रिसोर्स डाउनलोड...', 'ऐप इंस्टॉल हो रहा है...', 'लगभग हो गया...', 'इंस्टॉल पूर्ण!'],
-        mr: ['इन्स्टॉल तयारी...', 'रिसोर्स डाउनलोड...', 'ऐप इन्स्टॉल होत आहे...', 'जवळपास पूर्ण...', 'इन्स्टॉल पूर्ण!']
-      };
-      const steps = labels[currentLang] || labels['en'];
-      const pcts = [10, 35, 65, 88, 100];
-      let i = 0;
-      window._progressInterval = setInterval(() => {
-        if (i < steps.length) {
-          label.textContent = steps[i];
-          fill.style.width = pcts[i] + '%';
-          i++;
-        }
-      }, 600);
-    }
-
-    function finishProgress() {
-      clearInterval(window._progressInterval);
-      const fill = document.getElementById('progress-fill');
-      fill.style.width = '100%';
-      setTimeout(showInstallDone, 500);
-    }
-
-    function hideProgress() {
-      clearInterval(window._progressInterval);
-      document.getElementById('progress-wrap').classList.remove('show');
-    }
-
-    function showProgressThenDone() {
-      showProgress();
-      setTimeout(finishProgress, 3200);
-    }
-
-    function showInstallDone() {
-      document.getElementById('progress-wrap').classList.remove('show');
-      document.getElementById('install-btn').style.display = 'none';
-      document.getElementById('done-btns').classList.add('show');
-    }
-
-    function openApp() {
-      window.location.href = 'student.html';
-    }
-
-    function hideDone() {
-      document.getElementById('done-btns').classList.remove('show');
-      document.getElementById('install-btn').style.display = 'inline-flex';
-      document.getElementById('install-btn').disabled = false;
-    }
-
-    // ---- AUTO REDIRECT if already logged in ----
-    (function checkSession() {
-      const role = localStorage.getItem('edu_role');
-      const token = localStorage.getItem('edu_token');
-      const tchToken = localStorage.getItem('tch_token');
-      if (role === 'student' && token) { window.location.href = 'student.html'; return; }
-      if (tchToken) { window.location.href = 'teacher.html'; return; }
-    })();
-  </script>
+  }).catch(function(){
+    hideProgress();
+    btn.disabled=false;
+  });
+}
+</script>
 </body>
 </html>
