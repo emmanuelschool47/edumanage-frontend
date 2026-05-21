@@ -1,358 +1,445 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#800020" />
-  <title>Admin Login - Emmanuel School</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --primary: #800020;
-      --dark: #5c0018;
-      --deeper: #3d0010;
-      --white: #ffffff;
-      --bg-input: #f4f4f4;
-      --label: #888;
-      --text: #1a1a1a;
-      --radius: 16px;
-    }
-
-    html, body {
-      height: 100%;
-      font-family: 'Inter', sans-serif;
-      background: radial-gradient(ellipse at top, var(--dark) 0%, var(--deeper) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      padding: 24px 16px;
-    }
-
-    .card {
-      background: var(--white);
-      border-radius: 28px;
-      padding: 40px 32px 36px;
-      width: 100%;
-      max-width: 400px;
-      text-align: center;
-      box-shadow: 0 24px 80px rgba(0,0,0,0.35);
-    }
-
-    .logo-box {
-      width: 80px;
-      height: 80px;
-      background: var(--primary);
-      border-radius: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 20px;
-      box-shadow: 0 8px 24px rgba(128,0,32,0.35);
-    }
-    .logo-box img {
-      width: 54px;
-      height: 54px;
-      object-fit: contain;
-      border-radius: 10px;
-    }
-    .logo-box .logo-letter {
-      font-family: 'Playfair Display', serif;
-      font-size: 38px;
-      font-weight: 700;
-      color: var(--white);
-    }
-
-    .card h1 {
-      font-family: 'Playfair Display', serif;
-      font-size: 26px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-    .card .subtitle {
-      font-size: 13.5px;
-      color: #999;
-      margin-bottom: 32px;
-      font-weight: 400;
-    }
-    .card .subtitle span {
-      color: #bbb;
-    }
-
-    .field {
-      text-align: left;
-      margin-bottom: 18px;
-    }
-    .field label {
-      display: block;
-      font-size: 11px;
-      font-weight: 700;
-      color: var(--label);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 8px;
-    }
-    .input-wrap {
-      position: relative;
-    }
-    .field input {
-      width: 100%;
-      padding: 15px 48px 15px 16px;
-      background: var(--bg-input);
-      border: 2px solid transparent;
-      border-radius: 12px;
-      font-size: 15px;
-      font-family: 'Inter', sans-serif;
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .field input::placeholder { color: #b0b0b0; }
-    .field input:focus {
-      border-color: var(--primary);
-      background: #fff;
-    }
-    .toggle-pw {
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 4px;
-      display: flex;
-      align-items: center;
-      color: #aaa;
-      transition: color 0.2s;
-    }
-    .toggle-pw:hover { color: var(--primary); }
-    .toggle-pw svg { width: 20px; height: 20px; }
-
-    .error-msg {
-      display: none;
-      background: #fff0f2;
-      border: 1.5px solid #ffc0cb;
-      color: #c0001a;
-      font-size: 13px;
-      padding: 11px 14px;
-      border-radius: 10px;
-      margin-bottom: 16px;
-      text-align: left;
-      font-weight: 500;
-    }
-    .error-msg.show { display: block; }
-
-    .login-btn {
-      width: 100%;
-      padding: 16px;
-      background: var(--primary);
-      color: var(--white);
-      border: none;
-      border-radius: 14px;
-      font-size: 16px;
-      font-weight: 700;
-      font-family: 'Inter', sans-serif;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s, opacity 0.2s;
-      margin-top: 4px;
-      letter-spacing: 0.2px;
-    }
-    .login-btn:hover { background: var(--dark); }
-    .login-btn:active { transform: scale(0.98); }
-    .login-btn:disabled { opacity: 0.65; cursor: not-allowed; }
-
-    .spinner {
-      display: none;
-      width: 20px;
-      height: 20px;
-      border: 2.5px solid rgba(255,255,255,0.35);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-      margin: 0 auto;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
-    .back-link {
-      display: block;
-      margin-top: 20px;
-      font-size: 13px;
-      color: #aaa;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    .back-link:hover { color: var(--primary); }
-
-    @media (max-width: 380px) {
-      .card { padding: 32px 22px 28px; }
-      .card h1 { font-size: 22px; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#800020">
+<title>Admin Login — Emmanuel School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--p:#800020;--dk:#5c0018;--dp:#3d0010;--w:#fff}
+html,body{height:100%;font-family:'Inter',sans-serif}
+body{
+  background:linear-gradient(135deg,var(--dp),var(--p),#a30027);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;min-height:100vh;
+}
+.card{
+  background:#fff;border-radius:24px;
+  padding:42px 34px 36px;
+  width:100%;max-width:400px;
+  box-shadow:0 28px 72px rgba(0,0,0,.32);
+}
+.logo-wrap{text-align:center;margin-bottom:28px}
+.logo-box{
+  width:76px;height:76px;
+  border-radius:20px;
+  margin:0 auto 14px;
+  overflow:hidden;
+  border:2.5px solid rgba(128,0,32,.15);
+  box-shadow:0 6px 20px rgba(128,0,32,.2);
+  background:#f9f0f2;
+  display:flex;align-items:center;justify-content:center;
+}
+.logo-box img{width:100%;height:100%;object-fit:cover}
+.logo-box .fallback{
+  font-family:'Playfair Display',serif;
+  font-size:28px;font-weight:700;color:var(--p);
+  display:none;
+}
+.app-title{
+  font-family:'Playfair Display',serif;
+  font-size:24px;font-weight:700;
+  color:#1a1a1a;margin-bottom:4px;
+}
+.app-sub{font-size:13px;color:#aaa}
+.err{
+  display:none;
+  background:#fdf0ef;color:#c0392b;
+  padding:10px 14px;border-radius:9px;
+  font-size:13px;font-weight:500;
+  margin-bottom:16px;
+  border:1px solid rgba(192,57,43,.18);
+}
+.err.show{display:block}
+.field{margin-bottom:16px}
+.field label{
+  display:block;font-size:11px;font-weight:700;
+  color:#999;text-transform:uppercase;
+  letter-spacing:.9px;margin-bottom:7px;
+}
+.field .inp-wrap{position:relative}
+.field input{
+  width:100%;padding:13px 44px 13px 14px;
+  background:#f8f8f8;border:2px solid #eee;
+  border-radius:11px;font-size:14px;
+  font-family:'Inter',sans-serif;color:#1a1a1a;
+  outline:none;transition:border-color .2s,background .2s;
+}
+.field input:focus{border-color:var(--p);background:#fff}
+.field input::placeholder{color:#ccc}
+.eye-btn{
+  position:absolute;right:13px;top:50%;
+  transform:translateY(-50%);
+  background:none;border:none;cursor:pointer;
+  color:#bbb;display:flex;padding:2px;
+  transition:color .18s;
+}
+.eye-btn:hover{color:var(--p)}
+.eye-btn svg{width:19px;height:19px}
+.login-btn{
+  width:100%;padding:14px;
+  background:linear-gradient(135deg,var(--p),#a30027);
+  color:#fff;border:none;border-radius:11px;
+  font-size:15px;font-weight:700;
+  font-family:'Inter',sans-serif;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:opacity .2s,transform .15s;
+  margin-top:4px;
+}
+.login-btn:hover{opacity:.9}
+.login-btn:active{transform:scale(.98)}
+.login-btn:disabled{opacity:.6;cursor:not-allowed}
+.spin{
+  display:none;width:18px;height:18px;
+  border:2.5px solid rgba(255,255,255,.3);
+  border-top-color:#fff;border-radius:50%;
+  animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.back-link{
+  display:block;text-align:center;
+  margin-top:18px;font-size:13px;
+  color:#bbb;text-decoration:none;
+  transition:color .18s;
+}
+.back-link:hover{color:var(--p)}
+</style>
 </head>
 <body>
 
-  <div class="card">
-
-    <!-- LOGO -->
+<div class="card">
+  <div class="logo-wrap">
     <div class="logo-box">
       <img src="logo.webp" alt="Emmanuel School"
-        onerror="this.style.display='none'; this.nextElementSibling.style.display='block';" />
-      <span class="logo-letter" style="display:none;">E</span>
+        onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+      <span class="fallback">E</span>
     </div>
-
-    <h1>EduManage Pro</h1>
-    <p class="subtitle">Emmanuel School &nbsp;<span>&middot;</span>&nbsp; Admin Panel</p>
-
-    <!-- ERROR -->
-    <div class="error-msg" id="error-msg">Invalid admin code or password.</div>
-
-    <!-- ADMIN CODE -->
-    <div class="field">
-      <label for="admin-code">Admin Code</label>
-      <div class="input-wrap">
-        <input
-          type="text"
-          id="admin-code"
-          placeholder="E.G. ADMIN47"
-          autocomplete="off"
-          autocapitalize="characters"
-          spellcheck="false"
-          oninput="this.value = this.value.toUpperCase()"
-          onkeydown="if(event.key==='Enter') document.getElementById('admin-pw').focus()"
-        />
-      </div>
-    </div>
-
-    <!-- PASSWORD -->
-    <div class="field">
-      <label for="admin-pw">Password</label>
-      <div class="input-wrap">
-        <input
-          type="password"
-          id="admin-pw"
-          placeholder="Enter password"
-          autocomplete="current-password"
-          onkeydown="if(event.key==='Enter') doLogin()"
-        />
-        <button class="toggle-pw" type="button" onclick="togglePw()" id="pw-toggle" aria-label="Show password">
-          <!-- Eye icon (show) -->
-          <svg id="eye-show" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="2"/>
-          </svg>
-          <!-- Eye-off icon (hide) -->
-          <svg id="eye-hide" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="display:none;">
-            <path d="M17.94 17.94A10.07 10.07 0 0112 20c-7 0-11-8-11-8a18.45 18.45 0 015.06-5.94" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M9.9 4.24A9.12 9.12 0 0112 4c7 0 11 8 11 8a18.5 18.5 0 01-2.16 3.19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M1 1l22 22" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </button>
-      </div>
-    </div>
-
-    <!-- LOGIN BUTTON -->
-    <button class="login-btn" id="login-btn" onclick="doLogin()">
-      <span id="btn-text">Login to Admin Panel</span>
-      <div class="spinner" id="spinner"></div>
-    </button>
-
-    <a href="index.html" class="back-link">Back to Home</a>
-
+    <div class="app-title">EduManage Pro</div>
+    <div class="app-sub">Emmanuel School &middot; Admin Panel</div>
   </div>
 
-  <script src="js/config.js"></script>
-  <script>
-    // Block if already on admin session (session-only, no localStorage for admin)
-    // Admin uses sessionStorage
-    if (sessionStorage.getItem('admin_token')) {
-      window.location.replace('admin.html');
-    }
+  <div class="err" id="err"></div>
 
-    function togglePw() {
-      const input = document.getElementById('admin-pw');
-      const showIcon = document.getElementById('eye-show');
-      const hideIcon = document.getElementById('eye-hide');
-      if (input.type === 'password') {
-        input.type = 'text';
-        showIcon.style.display = 'none';
-        hideIcon.style.display = 'block';
+  <div class="field">
+    <label>Admin Code</label>
+    <div class="inp-wrap">
+      <input type="text" id="aCode" placeholder="e.g. ADMIN47"
+        autocomplete="off" spellcheck="false"
+        oninput="this.value=this.value.toUpperCase()"
+        onkeydown="if(event.key==='Enter')document.getElementById('aPass').focus()"/>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Password</label>
+    <div class="inp-wrap">
+      <input type="password" id="aPass" placeholder="Enter password"
+        autocomplete="current-password"
+        onkeydown="if(event.key==='Enter')doLogin()"/>
+      <button class="eye-btn" onclick="togglePw()" type="button" id="eyeBtn">
+        <svg id="eyeShow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+        <svg id="eyeHide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none">
+          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+          <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+          <line x1="1" y1="1" x2="23" y2="23"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <button class="login-btn" id="lBtn" onclick="doLogin()">
+    <span id="lTxt">Login to Admin Panel</span>
+    <div class="spin" id="lSpin"></div>
+  </button>
+
+  <a href="index.html" class="back-link">Back to Home</a>
+</div>
+
+<script>
+  // If already logged in this session, go straight to admin
+  if(sessionStorage.getItem('admin_token')){
+    window.location.replace('admin.html');
+  }
+
+  function togglePw(){
+    const inp=document.getElementById('aPass');
+    const show=document.getElementById('eyeShow');
+    const hide=document.getElementById('eyeHide');
+    if(inp.type==='password'){
+      inp.type='text';show.style.display='none';hide.style.display='block';
+    } else {
+      inp.type='password';show.style.display='block';hide.style.display='none';
+    }
+  }
+
+  function showErr(msg){
+    const e=document.getElementById('err');
+    e.textContent=msg;e.classList.add('show');
+  }
+  function hideErr(){document.getElementById('err').classList.remove('show')}
+
+  async function doLogin(){
+    hideErr();
+    const code=document.getElementById('aCode').value.trim().toUpperCase();
+    const pass=document.getElementById('aPass').value;
+    if(!code){showErr('Admin Code daalo');return}
+    if(!pass){showErr('Password daalo');return}
+
+    document.getElementById('lTxt').style.display='none';
+    document.getElementById('lSpin').style.display='block';
+    document.getElementById('lBtn').disabled=true;
+
+    try{
+      const res=await fetch('https://edumanage-backend-xi.vercel.app/api/auth/login',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({code,password:pass,role:'admin'})
+      });
+      const data=await res.json();
+      if(res.ok && data.token){
+        sessionStorage.setItem('admin_token',data.token);
+        sessionStorage.setItem('admin_code',code);
+        sessionStorage.setItem('admin_name',data.user?.name||'Administrator');
+        window.location.replace('admin.html');
       } else {
-        input.type = 'password';
-        showIcon.style.display = 'block';
-        hideIcon.style.display = 'none';
+        showErr(data.message||'Invalid admin code or password');
       }
+    } catch(e){
+      showErr('Network error. Check your connection.');
     }
+    document.getElementById('lTxt').style.display='block';
+    document.getElementById('lSpin').style.display='none';
+    document.getElementById('lBtn').disabled=false;
+  }
+</script>
+</body>
+</html><!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#800020">
+<title>Admin Login — Emmanuel School</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--p:#800020;--dk:#5c0018;--dp:#3d0010;--w:#fff}
+html,body{height:100%;font-family:'Inter',sans-serif}
+body{
+  background:linear-gradient(135deg,var(--dp),var(--p),#a30027);
+  display:flex;align-items:center;justify-content:center;
+  padding:20px;min-height:100vh;
+}
+.card{
+  background:#fff;border-radius:24px;
+  padding:42px 34px 36px;
+  width:100%;max-width:400px;
+  box-shadow:0 28px 72px rgba(0,0,0,.32);
+}
+.logo-wrap{text-align:center;margin-bottom:28px}
+.logo-box{
+  width:76px;height:76px;
+  border-radius:20px;
+  margin:0 auto 14px;
+  overflow:hidden;
+  border:2.5px solid rgba(128,0,32,.15);
+  box-shadow:0 6px 20px rgba(128,0,32,.2);
+  background:#f9f0f2;
+  display:flex;align-items:center;justify-content:center;
+}
+.logo-box img{width:100%;height:100%;object-fit:cover}
+.logo-box .fallback{
+  font-family:'Playfair Display',serif;
+  font-size:28px;font-weight:700;color:var(--p);
+  display:none;
+}
+.app-title{
+  font-family:'Playfair Display',serif;
+  font-size:24px;font-weight:700;
+  color:#1a1a1a;margin-bottom:4px;
+}
+.app-sub{font-size:13px;color:#aaa}
+.err{
+  display:none;
+  background:#fdf0ef;color:#c0392b;
+  padding:10px 14px;border-radius:9px;
+  font-size:13px;font-weight:500;
+  margin-bottom:16px;
+  border:1px solid rgba(192,57,43,.18);
+}
+.err.show{display:block}
+.field{margin-bottom:16px}
+.field label{
+  display:block;font-size:11px;font-weight:700;
+  color:#999;text-transform:uppercase;
+  letter-spacing:.9px;margin-bottom:7px;
+}
+.field .inp-wrap{position:relative}
+.field input{
+  width:100%;padding:13px 44px 13px 14px;
+  background:#f8f8f8;border:2px solid #eee;
+  border-radius:11px;font-size:14px;
+  font-family:'Inter',sans-serif;color:#1a1a1a;
+  outline:none;transition:border-color .2s,background .2s;
+}
+.field input:focus{border-color:var(--p);background:#fff}
+.field input::placeholder{color:#ccc}
+.eye-btn{
+  position:absolute;right:13px;top:50%;
+  transform:translateY(-50%);
+  background:none;border:none;cursor:pointer;
+  color:#bbb;display:flex;padding:2px;
+  transition:color .18s;
+}
+.eye-btn:hover{color:var(--p)}
+.eye-btn svg{width:19px;height:19px}
+.login-btn{
+  width:100%;padding:14px;
+  background:linear-gradient(135deg,var(--p),#a30027);
+  color:#fff;border:none;border-radius:11px;
+  font-size:15px;font-weight:700;
+  font-family:'Inter',sans-serif;
+  cursor:pointer;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  transition:opacity .2s,transform .15s;
+  margin-top:4px;
+}
+.login-btn:hover{opacity:.9}
+.login-btn:active{transform:scale(.98)}
+.login-btn:disabled{opacity:.6;cursor:not-allowed}
+.spin{
+  display:none;width:18px;height:18px;
+  border:2.5px solid rgba(255,255,255,.3);
+  border-top-color:#fff;border-radius:50%;
+  animation:spin .7s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.back-link{
+  display:block;text-align:center;
+  margin-top:18px;font-size:13px;
+  color:#bbb;text-decoration:none;
+  transition:color .18s;
+}
+.back-link:hover{color:var(--p)}
+</style>
+</head>
+<body>
 
-    function showError(msg) {
-      const el = document.getElementById('error-msg');
-      el.textContent = msg || 'Invalid admin code or password.';
-      el.classList.add('show');
+<div class="card">
+  <div class="logo-wrap">
+    <div class="logo-box">
+      <img src="logo.webp" alt="Emmanuel School"
+        onerror="this.style.display='none';this.nextElementSibling.style.display='block'"/>
+      <span class="fallback">E</span>
+    </div>
+    <div class="app-title">EduManage Pro</div>
+    <div class="app-sub">Emmanuel School &middot; Admin Panel</div>
+  </div>
+
+  <div class="err" id="err"></div>
+
+  <div class="field">
+    <label>Admin Code</label>
+    <div class="inp-wrap">
+      <input type="text" id="aCode" placeholder="e.g. ADMIN47"
+        autocomplete="off" spellcheck="false"
+        oninput="this.value=this.value.toUpperCase()"
+        onkeydown="if(event.key==='Enter')document.getElementById('aPass').focus()"/>
+    </div>
+  </div>
+
+  <div class="field">
+    <label>Password</label>
+    <div class="inp-wrap">
+      <input type="password" id="aPass" placeholder="Enter password"
+        autocomplete="current-password"
+        onkeydown="if(event.key==='Enter')doLogin()"/>
+      <button class="eye-btn" onclick="togglePw()" type="button" id="eyeBtn">
+        <svg id="eyeShow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>
+        </svg>
+        <svg id="eyeHide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="display:none">
+          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/>
+          <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/>
+          <line x1="1" y1="1" x2="23" y2="23"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <button class="login-btn" id="lBtn" onclick="doLogin()">
+    <span id="lTxt">Login to Admin Panel</span>
+    <div class="spin" id="lSpin"></div>
+  </button>
+
+  <a href="index.html" class="back-link">Back to Home</a>
+</div>
+
+<script>
+  // If already logged in this session, go straight to admin
+  if(sessionStorage.getItem('admin_token')){
+    window.location.replace('admin.html');
+  }
+
+  function togglePw(){
+    const inp=document.getElementById('aPass');
+    const show=document.getElementById('eyeShow');
+    const hide=document.getElementById('eyeHide');
+    if(inp.type==='password'){
+      inp.type='text';show.style.display='none';hide.style.display='block';
+    } else {
+      inp.type='password';show.style.display='block';hide.style.display='none';
     }
+  }
 
-    function hideError() {
-      document.getElementById('error-msg').classList.remove('show');
-    }
+  function showErr(msg){
+    const e=document.getElementById('err');
+    e.textContent=msg;e.classList.add('show');
+  }
+  function hideErr(){document.getElementById('err').classList.remove('show')}
 
-    function setLoading(on) {
-      const btn = document.getElementById('login-btn');
-      const txt = document.getElementById('btn-text');
-      const spin = document.getElementById('spinner');
-      btn.disabled = on;
-      txt.style.display = on ? 'none' : 'block';
-      spin.style.display = on ? 'block' : 'none';
-    }
+  async function doLogin(){
+    hideErr();
+    const code=document.getElementById('aCode').value.trim().toUpperCase();
+    const pass=document.getElementById('aPass').value;
+    if(!code){showErr('Admin Code daalo');return}
+    if(!pass){showErr('Password daalo');return}
 
-    async function doLogin() {
-      hideError();
-      const code = document.getElementById('admin-code').value.trim().toUpperCase();
-      const password = document.getElementById('admin-pw').value;
+    document.getElementById('lTxt').style.display='none';
+    document.getElementById('lSpin').style.display='block';
+    document.getElementById('lBtn').disabled=true;
 
-      if (!code) {
-        showError('Please enter your Admin Code.');
-        document.getElementById('admin-code').focus();
-        return;
+    try{
+      const res=await fetch('https://edumanage-backend-xi.vercel.app/api/auth/login',{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({code,password:pass,role:'admin'})
+      });
+      const data=await res.json();
+      if(res.ok && data.token){
+        sessionStorage.setItem('admin_token',data.token);
+        sessionStorage.setItem('admin_code',code);
+        sessionStorage.setItem('admin_name',data.user?.name||'Administrator');
+        window.location.replace('admin.html');
+      } else {
+        showErr(data.message||'Invalid admin code or password');
       }
-      if (!password) {
-        showError('Please enter your password.');
-        document.getElementById('admin-pw').focus();
-        return;
-      }
-
-      setLoading(true);
-
-      try {
-        const API = (typeof CONFIG !== 'undefined') ? CONFIG.API : 'https://edumanage-backend-xi.vercel.app/api';
-
-        const res = await fetch(API + '/auth/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ code, password, role: 'admin' })
-        });
-
-        const data = await res.json();
-
-        if (res.ok && data.token) {
-          // Admin: sessionStorage only (no localStorage - login every time)
-          sessionStorage.setItem('admin_token', data.token);
-          sessionStorage.setItem('admin_code', code);
-          sessionStorage.setItem('admin_name', data.user?.name || 'Administrator');
-          window.location.replace('admin.html');
-        } else {
-          showError(data.message || 'Invalid admin code or password.');
-          setLoading(false);
-        }
-      } catch (err) {
-        showError('Network error. Please check your connection.');
-        setLoading(false);
-      }
+    } catch(e){
+      showErr('Network error. Check your connection.');
     }
-  </script>
-
+    document.getElementById('lTxt').style.display='block';
+    document.getElementById('lSpin').style.display='none';
+    document.getElementById('lBtn').disabled=false;
+  }
+</script>
 </body>
 </html>
