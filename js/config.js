@@ -1,3 +1,3 @@
 const CONFIG = {
-  API: 'https://edumanage-backend-liard.vercel.app/api'
+  API: 'https://edumanage-backend-xi.vercel.app/api'
 };
