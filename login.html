@@ -7,21 +7,18 @@
 <title>Admin Login — Emmanuel School</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
   --p:#800020;--dk:#5c0018;--dp:#3d0010;--ac:#a30027;
   --w:#fff;--bg:#fdf5f7;--border:#eedde0;
-  --text:#1a1a1a;--muted:#888;
-  --red:#c0001a;--green:#1a7a3e;
-  --ff:'Playfair Display',serif;
-  --fb:'Inter',sans-serif;
-  --fm:'JetBrains Mono',monospace;
+  --text:#1a1a1a;--muted:#888;--red:#c0001a;
 }
-html,body{
-  height:100%;min-height:100vh;min-height:100dvh;
-  font-family:var(--fb);
+html{height:100%}
+body{
+  min-height:100vh;min-height:100dvh;
+  font-family:'Inter',sans-serif;
   background:linear-gradient(155deg,var(--dp) 0%,var(--p) 55%,var(--ac) 100%);
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
@@ -31,75 +28,59 @@ html,body{
   overflow-y:auto;
 }
 body::before{
-  content:'';position:fixed;inset:0;pointer-events:none;
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   background-image:
     linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
     linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
   background-size:32px 32px;
 }
-
 .wrap{
   width:100%;max-width:400px;
   position:relative;z-index:1;
   display:flex;flex-direction:column;
-  align-items:center;gap:0;
+  align-items:center;
 }
-
 /* BRAND */
-.brand{text-align:center;margin-bottom:24px;width:100%}
-.logo-wrap{
+.brand{text-align:center;margin-bottom:20px;width:100%}
+.logo-box{
   width:80px;height:80px;
-  border-radius:20px;
-  margin:0 auto 12px;
+  border-radius:20px;margin:0 auto 12px;
   overflow:hidden;
   border:2.5px solid rgba(255,255,255,.25);
   box-shadow:0 8px 28px rgba(0,0,0,.25);
   background:rgba(255,255,255,.12);
   display:flex;align-items:center;justify-content:center;
 }
-.logo-wrap img{
-  width:100%;height:100%;
-  object-fit:cover;
-  display:block;
-}
+.logo-box img{width:100%;height:100%;object-fit:cover;display:block}
 .logo-fb{
-  font-family:var(--ff);font-size:30px;
-  font-weight:700;color:var(--w);
-  display:none;
+  font-family:'Playfair Display',serif;
+  font-size:30px;font-weight:700;color:var(--w);display:none;
 }
 .brand-name{
-  font-family:var(--ff);font-size:20px;
-  font-weight:700;color:var(--w);
-  margin-bottom:3px;
-  text-shadow:0 2px 8px rgba(0,0,0,.2);
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:700;color:var(--w);margin-bottom:3px;
 }
 .brand-sub{font-size:13px;color:rgba(255,255,255,.55)}
-
 /* CARD */
 .card{
-  background:var(--w);
-  border-radius:24px;
-  padding:28px 24px 24px;
-  width:100%;
+  background:var(--w);border-radius:22px;
+  padding:26px 22px 22px;width:100%;
   box-shadow:0 20px 60px rgba(0,0,0,.28);
 }
 .card-title{
-  font-family:var(--ff);font-size:20px;
-  font-weight:700;color:var(--dp);
-  margin-bottom:3px;
+  font-family:'Playfair Display',serif;
+  font-size:20px;font-weight:700;color:var(--dp);margin-bottom:3px;
 }
-.card-sub{font-size:13px;color:var(--muted);margin-bottom:20px}
-
+.card-sub{font-size:13px;color:var(--muted);margin-bottom:18px}
 .err{
-  display:none;
-  background:#fff0f2;border:1.5px solid #ffc8d0;
-  color:var(--red);font-size:13px;font-weight:500;
-  padding:10px 14px;border-radius:10px;
-  margin-bottom:14px;
+  display:none;background:#fff0f2;
+  border:1.5px solid #ffc8d0;color:var(--red);
+  font-size:13px;font-weight:500;padding:10px 14px;
+  border-radius:10px;margin-bottom:14px;
 }
 .err.show{display:block}
-
-.field{margin-bottom:16px}
+/* FIELDS */
+.field{margin-bottom:14px}
 .field label{
   display:block;font-size:11px;font-weight:700;
   color:var(--muted);text-transform:uppercase;
@@ -107,12 +88,12 @@ body::before{
 }
 .inp-w{position:relative}
 .inp-w input{
-  width:100%;
-  padding:12px 44px 12px 14px;
-  background:#f8f8f8;border:2px solid #eeeeee;
-  border-radius:11px;font-size:14px;
-  font-family:var(--fb);color:var(--text);
+  width:100%;padding:13px 44px 13px 14px;
+  background:#f8f8f8;border:2px solid #eee;
+  border-radius:11px;font-size:15px;
+  font-family:'Inter',sans-serif;color:var(--text);
   outline:none;transition:border-color .2s,background .2s;
+  -webkit-appearance:none;
 }
 .inp-w input:focus{border-color:var(--p);background:var(--w)}
 .inp-w input::placeholder{color:#ccc}
@@ -120,21 +101,21 @@ body::before{
   position:absolute;right:12px;top:50%;
   transform:translateY(-50%);
   background:none;border:none;cursor:pointer;
-  color:#bbb;display:flex;padding:4px;
-  transition:color .18s;
+  color:#bbb;display:flex;padding:4px;transition:color .18s;
 }
 .eye:hover{color:var(--p)}
 .eye svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
-
+/* LOGIN BTN */
 .login-btn{
-  width:100%;padding:13px;
+  width:100%;padding:14px;
   background:linear-gradient(135deg,var(--p),var(--ac));
   color:var(--w);border:none;border-radius:12px;
   font-size:15px;font-weight:700;
-  font-family:var(--fb);cursor:pointer;
+  font-family:'Inter',sans-serif;cursor:pointer;
   display:flex;align-items:center;justify-content:center;gap:8px;
   box-shadow:0 5px 18px rgba(128,0,32,.25);
   transition:opacity .18s,transform .15s;
+  -webkit-appearance:none;
 }
 .login-btn:hover{opacity:.9}
 .login-btn:active{transform:scale(.98)}
@@ -145,64 +126,64 @@ body::before{
   border-top-color:var(--w);border-radius:50%;
   animation:spin .7s linear infinite;
 }
-
-.divider{
+/* DIVIDER */
+.dvdr{
   display:flex;align-items:center;gap:10px;
-  margin:18px 0;color:#ddd;font-size:12px;
+  margin:16px 0;color:#ddd;font-size:12px;
 }
-.divider::before,.divider::after{content:'';flex:1;height:1px;background:#eee}
-
+.dvdr::before,.dvdr::after{content:'';flex:1;height:1px;background:#eee}
 /* DOWNLOAD */
 .dl-box{
-  background:var(--bg);
-  border:1.5px solid var(--border);
-  border-radius:14px;padding:16px;
+  background:var(--bg);border:1.5px solid var(--border);
+  border-radius:14px;padding:14px;
 }
 .dl-box-title{
-  font-family:var(--ff);font-size:14px;
-  font-weight:700;color:var(--dp);margin-bottom:4px;
+  font-family:'Playfair Display',serif;
+  font-size:14px;font-weight:700;color:var(--dp);margin-bottom:4px;
 }
-.dl-box-sub{
-  font-size:12px;color:var(--muted);
-  margin-bottom:12px;line-height:1.5;
-}
+.dl-box-sub{font-size:12px;color:var(--muted);margin-bottom:10px;line-height:1.5}
 .dl-btn{
   width:100%;padding:11px;
   background:var(--dp);color:var(--w);
   border:none;border-radius:10px;
   font-size:13px;font-weight:700;
-  font-family:var(--fb);cursor:pointer;
+  font-family:'Inter',sans-serif;cursor:pointer;
   display:flex;align-items:center;justify-content:center;gap:7px;
-  transition:opacity .18s;
+  transition:opacity .18s;-webkit-appearance:none;
 }
 .dl-btn:hover{opacity:.88}
 .dl-btn:disabled{opacity:.5;cursor:not-allowed}
 .dl-btn svg{width:15px;height:15px;stroke:var(--w);fill:none;stroke-width:2;stroke-linecap:round}
-
 .dl-prog{display:none;margin-top:10px}
 .dl-prog.show{display:block}
 .dl-prog-lbl{font-size:12px;font-weight:600;color:var(--dp);margin-bottom:6px}
 .dl-prog-track{background:#e0d0d4;border-radius:6px;height:8px;overflow:hidden;margin-bottom:4px}
 .dl-prog-fill{height:100%;background:linear-gradient(90deg,var(--p),var(--ac));border-radius:6px;width:0%;transition:width .35s ease}
-.dl-prog-pct{font-size:11px;color:var(--muted);text-align:right;font-family:var(--fm)}
-
+.dl-prog-pct{font-size:11px;color:var(--muted);text-align:right}
 .dl-done{display:none;gap:8px;margin-top:10px}
 .dl-done.show{display:flex}
-.dl-done-open{flex:1;padding:10px;border-radius:9px;background:var(--p);color:var(--w);border:none;font-size:13px;font-weight:700;font-family:var(--fb);cursor:pointer}
-.dl-done-later{flex:1;padding:10px;border-radius:9px;background:var(--bg);color:var(--muted);border:1.5px solid var(--border);font-size:13px;font-weight:600;font-family:var(--fb);cursor:pointer}
-
+.dl-done-open{flex:1;padding:10px;border-radius:9px;background:var(--p);color:var(--w);border:none;font-size:13px;font-weight:700;font-family:'Inter',sans-serif;cursor:pointer}
+.dl-done-later{flex:1;padding:10px;border-radius:9px;background:var(--bg);color:var(--muted);border:1.5px solid var(--border);font-size:13px;font-weight:600;font-family:'Inter',sans-serif;cursor:pointer}
 .back-link{
   display:block;text-align:center;
-  margin-top:18px;font-size:13px;
+  margin-top:16px;font-size:13px;
   color:rgba(255,255,255,.45);text-decoration:none;
-  position:relative;z-index:1;
-  transition:color .18s;
+  position:relative;z-index:1;transition:color .18s;
 }
 .back-link:hover{color:rgba(255,255,255,.85)}
-
 @keyframes spin{to{transform:rotate(360deg)}}
-@media(max-width:360px){
-  .card{padding:22px 16px 18px}
+
+/* MOBILE SPECIFIC */
+@media(max-width:400px){
+  .card{padding:22px 16px 18px;border-radius:18px}
+  .brand-name{font-size:18px}
+  .card-title{font-size:18px}
+  .logo-box{width:70px;height:70px;border-radius:18px}
+}
+@media(max-height:700px){
+  body{justify-content:flex-start;padding-top:16px}
+  .brand{margin-bottom:14px}
+  .logo-box{width:60px;height:60px}
   .brand-name{font-size:17px}
 }
 </style>
@@ -211,10 +192,10 @@ body::before{
 
 <div class="wrap">
   <div class="brand">
-    <div class="logo-wrap">
-      <img src="logo.webp" alt="Emmanuel School"
-        onerror="this.style.display='none';document.getElementById('logoFb').style.display='block'">
-      <span class="logo-fb" id="logoFb"></span>
+    <div class="logo-box">
+      <img src="logo.webp" alt="E"
+        onerror="this.style.display='none';document.getElementById('lFb').style.display='block'">
+      <span class="logo-fb" id="lFb">E</span>
     </div>
     <div class="brand-name">Emmanuel School</div>
     <div class="brand-sub">EduManage — Admin Panel</div>
@@ -254,7 +235,7 @@ body::before{
       <div class="spin" id="lSpin"></div>
     </button>
 
-    <div class="divider">or</div>
+    <div class="dvdr">or</div>
 
     <div class="dl-box">
       <div class="dl-box-title">Download Admin App</div>
@@ -279,14 +260,18 @@ body::before{
 </div>
 
 <script>
+/* AUTH CHECK */
 if(sessionStorage.getItem('admin_token')){
   window.location.replace('admin.html');
 }
+
+/* SERVICE WORKER */
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 }
 
-const API='https://edumanage-backend-xi.vercel.app/api';
+/* CORRECT API URL */
+const API = 'https://edumanage-backend-xi.vercel.app/api';
 
 function togglePw(){
   const i=document.getElementById('aPass');
@@ -296,7 +281,10 @@ function togglePw(){
   else{i.type='password';s.style.display='block';h.style.display='none';}
 }
 
-function showErr(m){const e=document.getElementById('err');e.textContent=m;e.classList.add('show')}
+function showErr(m){
+  const e=document.getElementById('err');
+  e.textContent=m;e.classList.add('show');
+}
 function hideErr(){document.getElementById('err').classList.remove('show')}
 
 async function doLogin(){
@@ -305,13 +293,16 @@ async function doLogin(){
   const pass=document.getElementById('aPass').value;
   if(!code){showErr('Admin code enter karo');return}
   if(!pass){showErr('Password enter karo');return}
+
   const btn=document.getElementById('lBtn');
   const txt=document.getElementById('lTxt');
   const spin=document.getElementById('lSpin');
   btn.disabled=true;txt.style.display='none';spin.style.display='block';
+
   try{
     const res=await fetch(API+'/auth/login',{
-      method:'POST',headers:{'Content-Type':'application/json'},
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
       body:JSON.stringify({code,password:pass,role:'admin'})
     });
     const data=await res.json();
@@ -321,19 +312,18 @@ async function doLogin(){
       sessionStorage.setItem('admin_name',data.user?.name||'Administrator');
       window.location.replace('admin.html');
     }else{
-      showErr(data.message||'Invalid admin code or password');
+      showErr(data.message||data.error||'Invalid admin code or password');
       btn.disabled=false;txt.style.display='block';spin.style.display='none';
     }
   }catch(e){
-    showErr('Network error. Check connection.');
+    showErr('Network error — backend se connect nahi ho raha. Check karo: '+API);
     btn.disabled=false;txt.style.display='block';spin.style.display='none';
   }
 }
 
+/* PWA INSTALL */
 let deferredPrompt=null;
-window.addEventListener('beforeinstallprompt',e=>{
-  e.preventDefault();deferredPrompt=e;
-});
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;});
 window.addEventListener('appinstalled',()=>{deferredPrompt=null;showDLDone();});
 
 const STEPS=['Preparing...','Downloading...','Installing...','Setting up...','Almost done...','Done!'];
