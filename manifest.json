@@ -1,6 +1,6 @@
 {
-  "name": "EduManage Pro — Emmanuel School",
-  "short_name": "EduManage",
+  "name": "Emmanuel School",
+  "short_name": "Emmanuel School",
   "description": "Emmanuel School Management System",
   "start_url": "/student.html",
   "display": "standalone",
