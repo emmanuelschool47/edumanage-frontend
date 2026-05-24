@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#800020">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Student Portal — Emmanuel School</title>
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,24 +23,8 @@
   --r:12px;--tr:all .22s ease;
 }
 html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)}
-
-/* LOGIN */
-#loginScreen{
-  position:fixed;inset:0;z-index:999;
-  background:linear-gradient(155deg,var(--dp),var(--p),var(--ac));
-  display:flex;flex-direction:column;
-  align-items:center;justify-content:center;
-  padding:20px;
-  padding-top:max(20px,env(safe-area-inset-top));
-  padding-bottom:max(20px,env(safe-area-inset-bottom));
-  overflow-y:auto;
-}
-#loginScreen::before{
-  content:'';position:fixed;inset:0;pointer-events:none;
-  background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
-  background-size:32px 32px;
-}
+#loginScreen{position:fixed;inset:0;z-index:999;background:linear-gradient(155deg,var(--dp),var(--p),var(--ac));display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;padding-top:max(20px,env(safe-area-inset-top));padding-bottom:max(20px,env(safe-area-inset-bottom));overflow-y:auto}
+#loginScreen::before{content:'';position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
 .lw{width:100%;max-width:400px;position:relative;z-index:1}
 .brand{text-align:center;margin-bottom:22px}
 .logo-box{width:76px;height:76px;border-radius:20px;margin:0 auto 12px;overflow:hidden;border:2.5px solid rgba(255,255,255,.25);box-shadow:0 8px 28px rgba(0,0,0,.25);background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center}
@@ -70,11 +53,7 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .lspin{display:none;width:17px;height:17px;border:2.5px solid rgba(255,255,255,.3);border-top-color:var(--w);border-radius:50%;animation:spin .7s linear infinite}
 .lhint{text-align:center;margin-top:16px;font-size:13px;color:rgba(255,255,255,.45);position:relative;z-index:1}
 .lhint strong{color:rgba(255,255,255,.8)}
-
-/* APP */
 #appScreen{display:none;flex-direction:column;height:100vh;height:100dvh}
-
-/* TOPBAR */
 .topbar{background:var(--w);border-bottom:1px solid var(--b2);padding:0 16px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:100}
 .topbar-left{display:flex;align-items:center;gap:10px}
 .topbar-logo{width:32px;height:32px;border-radius:8px;overflow:hidden;border:1.5px solid var(--b2);background:var(--b1);flex-shrink:0;display:flex;align-items:center;justify-content:center}
@@ -87,14 +66,10 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .lang-btn.active{background:var(--w);color:var(--p);box-shadow:0 1px 3px rgba(0,0,0,.1)}
 .out-btn{background:none;border:1px solid var(--b2);border-radius:7px;padding:6px 10px;font-size:11px;font-weight:600;color:var(--b5);cursor:pointer;font-family:var(--fb);transition:var(--tr)}
 .out-btn:hover{border-color:var(--p);color:var(--p)}
-
-/* SCROLL */
 .scroll-area{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .scroll-area::-webkit-scrollbar{width:3px}
 .scroll-area::-webkit-scrollbar-thumb{background:var(--b3);border-radius:3px}
 .cnt{max-width:600px;margin:0 auto;padding-bottom:80px}
-
-/* HERO */
 .hero{background:linear-gradient(135deg,var(--dp),var(--p));color:var(--w);padding:22px 16px 26px;position:relative;overflow:hidden}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
 .hero-inner{position:relative;z-index:1;display:flex;align-items:flex-start;gap:14px}
@@ -104,8 +79,6 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .hero-name{font-family:var(--ff);font-size:22px;font-weight:700;line-height:1.15;margin-bottom:8px}
 .hero-chips{display:flex;gap:6px;flex-wrap:wrap}
 .hero-chip{padding:3px 10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:100px;font-size:10px;color:rgba(255,255,255,.85);font-weight:500}
-
-/* STATS */
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 16px}
 .stat-tile{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px;cursor:pointer;transition:var(--tr)}
 .stat-tile:hover{border-color:var(--p)}
@@ -113,8 +86,6 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .stat-ic svg{width:15px;height:15px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
 .stat-val{font-family:var(--ff);font-size:24px;font-weight:700;color:var(--p);line-height:1;margin-bottom:3px}
 .stat-lbl{font-size:10px;color:var(--b4);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-
-/* FEES */
 .sec{padding:0 16px;margin-bottom:16px}
 .sec-title{font-family:var(--ff);font-size:16px;font-weight:700;color:var(--dp);margin-bottom:10px}
 .fees-card{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:16px}
@@ -124,35 +95,25 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .pay-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px rgba(128,0,32,.25);transition:opacity .18s}
 .pay-btn:hover{opacity:.9}
 .pay-btn svg{width:16px;height:16px;stroke:var(--w);fill:none;stroke-width:2;stroke-linecap:round}
-
-/* TEACHER */
 .teacher-card{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px;display:flex;align-items:center;gap:12px}
 .teacher-av{width:42px;height:42px;background:rgba(128,0,32,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:16px;color:var(--p);flex-shrink:0}
-
-/* MARKS */
 .mark-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--b1)}
 .mark-row:last-child{border-bottom:none}
-.mark-sub{font-size:13px;font-weight:600;min-width:90px}
+.mark-sub{font-size:13px;font-weight:600;min-width:100px}
 .mark-bar{flex:1;height:5px;background:var(--b1);border-radius:3px;overflow:hidden}
 .mark-fill{height:100%;background:var(--p);border-radius:3px;transition:width 1s ease}
-.mark-score{font-family:var(--fm);font-size:12px;font-weight:600;color:var(--b6);min-width:50px;text-align:right}
-
-/* POSTS */
+.mark-score{font-family:var(--fm);font-size:12px;font-weight:600;color:var(--b6);min-width:55px;text-align:right}
 .post-item{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px;margin-bottom:8px}
 .post-head{display:flex;justify-content:space-between;margin-bottom:6px}
 .post-author{font-size:12px;font-weight:700;color:var(--p)}
 .post-time{font-size:11px;color:var(--b3)}
 .post-text{font-size:13px;color:var(--b6);line-height:1.6}
-
-/* NOTIFS */
 .notif-item{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--b1)}
 .notif-item:last-child{border-bottom:none}
 .notif-dot{width:7px;height:7px;background:var(--p);border-radius:50%;flex-shrink:0;margin-top:5px}
 .notif-title{font-size:13px;font-weight:700;margin-bottom:3px;color:#1a1a1a}
 .notif-msg{font-size:12px;color:var(--b5);line-height:1.5}
 .notif-time{font-size:10px;color:var(--b3);margin-top:4px}
-
-/* PROFILE */
 .prof-hero{background:linear-gradient(135deg,var(--dp),var(--p));border-radius:var(--r);padding:20px;text-align:center;margin-bottom:12px;position:relative;overflow:hidden}
 .prof-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
 .prof-av{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.25);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:24px;color:var(--w);position:relative;z-index:1}
@@ -163,13 +124,9 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .info-row:last-child{border-bottom:none}
 .info-lbl{font-size:12px;color:var(--b4);font-weight:500}
 .info-val{font-size:13px;font-weight:600;color:#1a1a1a;text-align:right;max-width:60%}
-
-/* BADGES */
 .badge-ok{background:var(--gl);color:var(--green);padding:3px 9px;border-radius:100px;font-size:11px;font-weight:600}
 .badge-no{background:var(--rl);color:var(--red);padding:3px 9px;border-radius:100px;font-size:11px;font-weight:600}
 .badge-ho{background:var(--goldl);color:var(--gold);padding:3px 9px;border-radius:100px;font-size:11px;font-weight:600}
-
-/* PAYMENT MODAL */
 .mo{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;display:none;align-items:flex-end}
 .mo.show{display:flex}
 .mo-sheet{background:var(--w);border-radius:20px 20px 0 0;padding:20px 16px;padding-bottom:max(36px,env(safe-area-inset-bottom));width:100%;animation:slideUp .3s ease;max-height:92vh;overflow-y:auto}
@@ -182,7 +139,7 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .upi-id{font-family:var(--fm);font-size:15px;font-weight:700;color:var(--dp)}
 .upi-apps{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
 .upi-app{padding:11px 6px;background:var(--b1);border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:12px;font-weight:700;color:var(--p);cursor:pointer;text-align:center;transition:var(--tr);display:block;text-decoration:none}
-.upi-app:hover{background:var(--p);color:var(--w);border-color:var(--p)}
+.upi-app:active{background:var(--p);color:var(--w);border-color:var(--p)}
 .dvdr{display:flex;align-items:center;gap:10px;color:var(--b3);font-size:12px;margin-bottom:14px}
 .dvdr::before,.dvdr::after{content:'';flex:1;height:1px;background:var(--b2)}
 .fi{width:100%;padding:11px 13px;background:var(--b1);border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:#1a1a1a;outline:none;margin-bottom:12px;transition:var(--tr)}
@@ -192,23 +149,21 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .submit-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer;margin-bottom:8px;box-shadow:0 4px 14px rgba(128,0,32,.25)}
 .submit-btn:disabled{opacity:.6;cursor:not-allowed}
 .cancel-btn{width:100%;padding:11px;background:none;border:1px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:var(--b5);cursor:pointer}
-
-/* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--w);border-top:1px solid var(--b2);display:flex;padding:6px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));z-index:100}
 .nav-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 4px;background:none;border:none;cursor:pointer;transition:var(--tr)}
 .nav-tab svg{width:21px;height:21px;stroke:var(--b3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:var(--tr)}
 .nav-tab span{font-size:9px;font-weight:700;color:var(--b3);text-transform:uppercase;letter-spacing:.5px;font-family:var(--fb)}
 .nav-tab.active svg{stroke:var(--p)}
 .nav-tab.active span{color:var(--p)}
-
-/* UTILS */
 .loading{display:flex;align-items:center;justify-content:center;min-height:40vh;flex-direction:column;gap:12px}
 .spin-el{width:26px;height:26px;border:2px solid var(--b2);border-top-color:var(--p);border-radius:50%;animation:spin .8s linear infinite}
 .empty{text-align:center;padding:28px;color:var(--b4);font-size:13px}
+.tt-table{width:100%;border-collapse:collapse;font-size:11px}
+.tt-table th{padding:7px 8px;background:var(--b1);border:1px solid var(--b2);text-align:center;font-weight:700;color:var(--p)}
+.tt-table td{padding:7px 8px;border:1px solid var(--b2);text-align:center;color:var(--b6)}
 .toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dp);color:var(--w);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.2)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.err{background:var(--red)}
-
 @keyframes spin{to{transform:rotate(360deg)}}
 @media(max-width:400px){.lcard{padding:22px 16px 18px}}
 @media(max-height:700px){#loginScreen{justify-content:flex-start;padding-top:16px}.brand{margin-bottom:14px}.logo-box{width:60px;height:60px}}
@@ -216,13 +171,11 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="loginScreen">
   <div class="lw">
     <div class="brand">
       <div class="logo-box">
-        <img src="logo.webp" alt="E"
-          onerror="this.style.display='none';document.getElementById('lFb').style.display='block'">
+        <img src="logo.webp" alt="E" onerror="this.style.display='none';document.getElementById('lFb').style.display='block'">
         <span class="logo-fb" id="lFb">E</span>
       </div>
       <div class="brand-name">Emmanuel School</div>
@@ -235,18 +188,13 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
       <div class="lfield">
         <label>Student Code</label>
         <div class="linp-w">
-          <input type="text" id="lCode" placeholder="e.g. AYUSH09"
-            autocomplete="off" spellcheck="false"
-            oninput="this.value=this.value.toUpperCase()"
-            onkeydown="if(event.key==='Enter')document.getElementById('lPass').focus()">
+          <input type="text" id="lCode" placeholder="e.g. AYUSH09" autocomplete="off" spellcheck="false" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')document.getElementById('lPass').focus()">
         </div>
       </div>
       <div class="lfield">
         <label>Password</label>
         <div class="linp-w">
-          <input type="password" id="lPass" placeholder="Enter password"
-            autocomplete="current-password"
-            onkeydown="if(event.key==='Enter')doLogin()">
+          <input type="password" id="lPass" placeholder="Enter password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
           <button class="leye" type="button" onclick="toggleLPw()">
             <svg id="leyeS" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             <svg id="leyeH" viewBox="0 0 24 24" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
@@ -262,13 +210,11 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
   </div>
 </div>
 
-<!-- APP -->
 <div id="appScreen">
   <div class="topbar">
     <div class="topbar-left">
       <div class="topbar-logo">
-        <img src="logo.webp" alt="E"
-          onerror="this.style.display='none';document.getElementById('tlFb').style.display='block'">
+        <img src="logo.webp" alt="E" onerror="this.style.display='none';document.getElementById('tlFb').style.display='block'">
         <span class="topbar-logo-fb" id="tlFb">E</span>
       </div>
       <div class="topbar-name">Emmanuel School</div>
@@ -282,13 +228,11 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
       <button class="out-btn" onclick="doLogout()">Logout</button>
     </div>
   </div>
-
   <div class="scroll-area" id="scrollArea">
     <div class="cnt" id="mainContent">
       <div class="loading"><div class="spin-el"></div></div>
     </div>
   </div>
-
   <nav class="bottom-nav">
     <button class="nav-tab active" onclick="showTab('home',this)">
       <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -313,7 +257,6 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
   </nav>
 </div>
 
-<!-- PAY MODAL -->
 <div class="mo" id="payMo">
   <div class="mo-sheet">
     <div class="mo-handle"></div>
@@ -324,11 +267,11 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
       <div class="upi-id" id="upiIdTxt">Loading...</div>
     </div>
     <div class="upi-apps">
-      <a class="upi-app" id="ppBtn" href="#" onclick="openUPI('phonepe',event)">PhonePe</a>
-      <a class="upi-app" id="gpBtn" href="#" onclick="openUPI('gpay',event)">GPay</a>
-      <a class="upi-app" id="ptBtn" href="#" onclick="openUPI('paytm',event)">Paytm</a>
+      <a class="upi-app" href="#" onclick="openUPI('phonepe',event)">PhonePe</a>
+      <a class="upi-app" href="#" onclick="openUPI('gpay',event)">GPay</a>
+      <a class="upi-app" href="#" onclick="openUPI('paytm',event)">Paytm</a>
     </div>
-    <div class="dvdr">Payment ke baad details submit karo</div>
+    <div class="dvdr">Payment ke baad yahan submit karo</div>
     <div class="fgl">
       <label>UPI Transaction ID *</label>
       <input type="text" class="fi" id="upiRef" placeholder="e.g. 123456789012">
@@ -347,28 +290,30 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 <script>
 const API = 'https://edumanage-backend-xi.vercel.app/api';
 
+/* STATE — all loaded from /students/me in one call */
 let TOKEN = null;
-let studentData = null;
-let marksData = [];
-let attData = {};
-let feesData = null;
-let postsData = [];
-let notifsData = [];
-let upiId = '';
+let SD = null; /* studentData */
+let MARKS = [];
+let FEES = null;
+let ATT = {};
+let TT = [];
+let POSTS = [];
+let NOTIFS = [];
+let UPI = '';
 let curTab = 'home';
 let curLang = localStorage.getItem('edu_lang') || 'en';
 
-const LANGS = {
-  en:{greeting:'Good day,',avg:'Average',grade:'Grade',att:'Attendance',fees:'Fees',teacher:'Class Teacher',no_marks:'No marks yet',no_posts:'No posts yet',no_notif:'No notifications yet',pay:'Pay Fees',fees_paid:'Fees fully paid',amt_due:'Amount Due',amt_paid:'Amount Paid'},
-  hi:{greeting:'नमस्ते,',avg:'औसत',grade:'ग्रेड',att:'उपस्थिति',fees:'फीस',teacher:'कक्षा शिक्षक',no_marks:'अभी कोई अंक नहीं',no_posts:'अभी कोई पोस्ट नहीं',no_notif:'अभी कोई सूचना नहीं',pay:'फीस भरें',fees_paid:'फीस पूरी तरह भुगतान हुई',amt_due:'बकाया राशि',amt_paid:'भुगतान राशि'},
-  mr:{greeting:'नमस्कार,',avg:'सरासरी',grade:'श्रेणी',att:'उपस्थिती',fees:'फी',teacher:'वर्ग शिक्षक',no_marks:'अद्याप गुण नाहीत',no_posts:'अद्याप पोस्ट नाहीत',no_notif:'अद्याप सूचना नाहीत',pay:'फी भरा',fees_paid:'फी पूर्ण भरली',amt_due:'बाकी रक्कम',amt_paid:'भरलेली रक्कम'}
+const TR = {
+  en:{greeting:'Good day,',avg:'Average',grade:'Grade',att:'Attendance',fees:'Fees',teacher:'Class Teacher',no_marks:'No marks uploaded yet',no_posts:'No posts yet',no_notif:'No notifications',pay:'Pay Fees',fees_paid:'Fees fully paid',amt_due:'Amount Due',amt_paid:'Amount Paid',timetable:'Timetable'},
+  hi:{greeting:'नमस्ते,',avg:'औसत',grade:'ग्रेड',att:'उपस्थिति',fees:'फीस',teacher:'कक्षा शिक्षक',no_marks:'अभी कोई अंक नहीं',no_posts:'अभी कोई पोस्ट नहीं',no_notif:'कोई सूचना नहीं',pay:'फीस भरें',fees_paid:'फीस पूरी तरह भुगतान हुई',amt_due:'बकाया राशि',amt_paid:'भुगतान राशि',timetable:'टाइमटेबल'},
+  mr:{greeting:'नमस्कार,',avg:'सरासरी',grade:'श्रेणी',att:'उपस्थिती',fees:'फी',teacher:'वर्ग शिक्षक',no_marks:'अद्याप गुण नाहीत',no_posts:'अद्याप पोस्ट नाहीत',no_notif:'सूचना नाही',pay:'फी भरा',fees_paid:'फी पूर्ण भरली',amt_due:'बाकी रक्कम',amt_paid:'भरलेली रक्कम',timetable:'वेळापत्रक'}
 };
-function L(k){return(LANGS[curLang]&&LANGS[curLang][k])||LANGS.en[k]||k}
+function L(k){return(TR[curLang]&&TR[curLang][k])||TR.en[k]||k}
 
 function H(){return{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN}}
 function ini(n){if(!n)return'?';return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}
 function ago(d){if(!d)return'';const s=Math.floor((Date.now()-new Date(d))/1000);if(s<60)return'just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago'}
-function avgPct(){if(!marksData.length)return 0;return Math.round(marksData.reduce((a,m)=>a+(m.marks_obtained/m.total_marks*100),0)/marksData.length)}
+function avgPct(){if(!MARKS.length)return 0;return Math.round(MARKS.reduce((a,m)=>a+(m.marks_obtained/m.total_marks*100),0)/MARKS.length)}
 function grade(p){return p>=90?'A+':p>=80?'A':p>=70?'B+':p>=60?'B':p>=50?'C':'D'}
 
 let toastT;
@@ -384,13 +329,12 @@ function setLang(l){
   document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase()===l));
   showTab(curTab);
 }
-setLang(curLang);
 
-/* ── BOOT — forever login ── */
+/* BOOT */
 (function boot(){
   const token=localStorage.getItem('edu_token');
   const role=localStorage.getItem('edu_role');
-  if(token&&role==='student'){TOKEN=token;showApp();loadAllData();}
+  if(token&&role==='student'){TOKEN=token;showApp();loadMe();}
   else showLogin();
 })();
 
@@ -404,7 +348,6 @@ function showApp(){
   document.getElementById('appScreen').style.display='flex';
 }
 
-/* ── LOGIN ── */
 function toggleLPw(){
   const i=document.getElementById('lPass');
   const s=document.getElementById('leyeS');
@@ -423,25 +366,19 @@ async function doLogin(){
   document.getElementById('lSpin').style.display='block';
   document.getElementById('lBtn').disabled=true;
   try{
-    const res=await fetch(API+'/auth/login',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({code,password:pass,role:'student'})
-    });
+    const res=await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code,password:pass,role:'student'})});
     const data=await res.json();
     if(res.ok&&data.token){
       TOKEN=data.token;
       localStorage.setItem('edu_token',TOKEN);
       localStorage.setItem('edu_role','student');
       localStorage.setItem('edu_code',code);
-      showApp();loadAllData();
+      showApp();loadMe();
     }else{
       err.textContent=data.message||data.error||'Invalid code or password';
       err.classList.add('show');
     }
-  }catch(e){
-    err.textContent='Network error: '+e.message;
-    err.classList.add('show');
-  }
+  }catch(e){err.textContent='Network error: '+e.message;err.classList.add('show')}
   document.getElementById('lTxt').style.display='block';
   document.getElementById('lSpin').style.display='none';
   document.getElementById('lBtn').disabled=false;
@@ -449,46 +386,53 @@ async function doLogin(){
 
 function doLogout(){
   if(!confirm('Logout?'))return;
-  TOKEN=null;studentData=null;marksData=[];feesData=null;postsData=[];notifsData=[];
+  TOKEN=null;SD=null;MARKS=[];FEES=null;ATT={};TT=[];POSTS=[];NOTIFS=[];
   localStorage.removeItem('edu_token');localStorage.removeItem('edu_role');localStorage.removeItem('edu_code');
   showLogin();
 }
 
-/* ── LOAD ALL ── */
-async function loadAllData(){
+/* LOAD — single /students/me call returns everything */
+async function loadMe(){
   document.getElementById('mainContent').innerHTML='<div class="loading"><div class="spin-el"></div></div>';
   try{
-    const [meR,mkR,atR,feR,poR,noR]=await Promise.allSettled([
-      fetch(API+'/students/me',{headers:H()}),
-      fetch(API+'/marks/me',{headers:H()}),
-      fetch(API+'/attendance/me',{headers:H()}),
-      fetch(API+'/fees/me',{headers:H()}),
-      fetch(API+'/posts/my-class',{headers:H()}),
-      fetch(API+'/notifications',{headers:H()})
-    ]);
-    if(meR.status==='fulfilled'&&meR.value.ok){
-      const d=await meR.value.json();
-      studentData=d.student||d;
-    } else if(meR.status==='fulfilled'&&meR.value.status===401){
-      doLogout();return;
+    /* Backend: GET /api/students/me → {student, marks, fees, attendance, timetable} */
+    const res=await fetch(API+'/students/me',{headers:H()});
+    if(res.status===401){doLogout();return}
+    const d=await res.json();
+
+    SD=d.student||null;
+    MARKS=d.marks||[];
+    FEES=d.fees||null;
+    ATT=d.attendance||{};
+    TT=d.timetable||[];
+
+    /* Load posts separately using class_id from student */
+    if(SD?.class_id){
+      try{
+        const pr=await fetch(API+'/posts/'+SD.class_id,{headers:H()});
+        if(pr.ok){const pd=await pr.json();POSTS=pd.posts||[];}
+      }catch(_){}
     }
-    if(mkR.status==='fulfilled'&&mkR.value.ok){const d=await mkR.value.json();marksData=d.marks||[];}
-    if(atR.status==='fulfilled'&&atR.value.ok){const d=await atR.value.json();attData=d.summary||d.attendance||d;}
-    if(feR.status==='fulfilled'&&feR.value.ok){const d=await feR.value.json();feesData=d.fees||d;}
-    if(poR.status==='fulfilled'&&poR.value.ok){const d=await poR.value.json();postsData=d.posts||[];}
-    if(noR.status==='fulfilled'&&noR.value.ok){const d=await noR.value.json();notifsData=d.notifications||[];}
+
+    /* Load notifications */
+    try{
+      const nr=await fetch(API+'/notifications',{headers:H()});
+      if(nr.ok){const nd=await nr.json();NOTIFS=nd.notifications||[];}
+    }catch(_){}
+
     /* Load UPI */
     try{
       const ur=await fetch(API+'/fees/upi-details',{headers:H()});
-      if(ur.ok){const ud=await ur.json();upiId=ud.upi_id||ud.upi||'';}
+      if(ur.ok){const ud=await ur.json();UPI=ud.upi_id||'';}
     }catch(_){}
+
     showTab(curTab);
   }catch(e){
     document.getElementById('mainContent').innerHTML=`<div class="loading"><div style="color:var(--red);font-size:13px">Error: ${e.message}</div></div>`;
   }
 }
 
-/* ── ROUTER ── */
+/* ROUTER */
 function showTab(tab,btn){
   curTab=tab;
   document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
@@ -505,32 +449,29 @@ function showTab(tab,btn){
   else if(tab==='profile')el.innerHTML=renderProfile();
   document.getElementById('scrollArea').scrollTop=0;
   window.scrollTo(0,0);
-  /* Animate mark bars */
-  if(tab==='marks'){
-    setTimeout(()=>{
-      document.querySelectorAll('.mark-fill').forEach(el=>{el.style.width=el.dataset.w||'0%'});
-    },100);
-  }
+  if(tab==='marks'){setTimeout(()=>{document.querySelectorAll('.mark-fill').forEach(el=>{el.style.width=el.dataset.w||'0%'})},100)}
 }
 
-/* ── HOME ── */
+/* HOME */
 function renderHome(){
-  if(!studentData) return'<div class="loading"><div class="spin-el"></div></div>';
-  const s=studentData;
+  if(!SD)return'<div class="loading"><div class="spin-el"></div></div>';
   const a=avgPct();
-  const attPct=attData.percentage||attData.attendance_percentage||0;
-  const fStatus=feesData?.status||'pending';
+  const attPct=ATT.total>0?Math.round((ATT.present/ATT.total)*100):0;
+  const fStatus=FEES?.status||'pending';
+  const total=parseFloat(FEES?.total_amount)||0;
+  const paid=parseFloat(FEES?.paid_amount)||0;
+  const rem=parseFloat(FEES?.remaining_amount)||Math.max(0,total-paid);
   return`
   <div class="hero"><div class="hero-grid"></div>
     <div class="hero-inner">
-      <div class="hero-av">${ini(s.name)}</div>
+      <div class="hero-av">${ini(SD.name)}</div>
       <div class="hero-info">
         <div class="hero-grt">${L('greeting')}</div>
-        <div class="hero-name">${s.name||'Student'}</div>
+        <div class="hero-name">${SD.name||'Student'}</div>
         <div class="hero-chips">
-          <span class="hero-chip">${s.standard||s.class_name||'Class'}</span>
-          <span class="hero-chip">Roll ${s.roll_no||'-'}</span>
-          ${s.has_bus?'<span class="hero-chip">Bus</span>':''}
+          <span class="hero-chip">${SD.standard||'Class'}</span>
+          <span class="hero-chip">Roll ${SD.roll_no||'-'}</span>
+          ${SD.has_bus?'<span class="hero-chip">Bus</span>':''}
         </div>
       </div>
     </div>
@@ -546,111 +487,82 @@ function renderHome(){
     </div>
     <div class="stat-tile">
       <div class="stat-ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-      <div class="stat-val">${Math.round(attPct)}%</div><div class="stat-lbl">${L('att')}</div>
+      <div class="stat-val">${attPct}%</div><div class="stat-lbl">${L('att')}</div>
     </div>
     <div class="stat-tile">
       <div class="stat-ic"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-      <div class="stat-val" style="font-size:14px">
+      <div class="stat-val" style="font-size:14px;padding-top:4px">
         <span class="${fStatus==='paid'?'badge-ok':fStatus==='partial'?'badge-ho':'badge-no'}">${fStatus}</span>
       </div>
       <div class="stat-lbl">${L('fees')}</div>
     </div>
   </div>
-  ${studentData.teacher_name?`
+  ${SD.teacher_name?`
   <div class="sec">
     <div class="sec-title">${L('teacher')}</div>
     <div class="teacher-card">
-      <div class="teacher-av">${ini(studentData.teacher_name)}</div>
+      <div class="teacher-av">${ini(SD.teacher_name)}</div>
       <div>
-        <div style="font-size:14px;font-weight:700;color:#1a1a1a">${studentData.teacher_name}</div>
-        <div style="font-size:12px;color:var(--b4)">${studentData.teacher_phone?'Phone: '+studentData.teacher_phone:'Class Teacher'}</div>
+        <div style="font-size:14px;font-weight:700;color:#1a1a1a">${SD.teacher_name}</div>
+        <div style="font-size:12px;color:var(--b4)">${SD.teacher_phone||'Class Teacher'}</div>
       </div>
     </div>
   </div>`:''}
-  ${feesData&&feesData.status!=='paid'?`
+  ${FEES&&fStatus!=='paid'?`
   <div class="sec">
     <div class="sec-title">${L('fees')}</div>
     <div class="fees-card">
       <div class="fees-row">
-        <div>
-          <div class="fees-amt" style="color:var(--red)">Rs ${parseFloat(feesData.remaining_amount||feesData.due_amount||0).toLocaleString('en-IN')}</div>
-          <div class="fees-lbl">${L('amt_due')}</div>
-        </div>
-        <div style="text-align:right">
-          <div class="fees-amt" style="color:var(--green)">Rs ${parseFloat(feesData.paid_amount||0).toLocaleString('en-IN')}</div>
-          <div class="fees-lbl">${L('amt_paid')}</div>
-        </div>
+        <div><div class="fees-amt" style="color:var(--red)">Rs ${rem.toLocaleString('en-IN')}</div><div class="fees-lbl">${L('amt_due')}</div></div>
+        <div style="text-align:right"><div class="fees-amt" style="color:var(--green)">Rs ${paid.toLocaleString('en-IN')}</div><div class="fees-lbl">${L('amt_paid')}</div></div>
       </div>
       <button class="pay-btn" onclick="openPay()">
         <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
         ${L('pay')}
       </button>
     </div>
-  </div>`:feesData?`
-  <div class="sec">
-    <div class="card" style="text-align:center;padding:16px;color:var(--green);font-weight:700">
-      ${L('fees_paid')}
-    </div>
-  </div>`:''}`;
+  </div>`:FEES?`<div class="sec"><div style="background:var(--gl);border-radius:var(--r);padding:14px;text-align:center;color:var(--green);font-weight:700">${L('fees_paid')}</div></div>`:''}`;
 }
 
-/* ── MARKS ── */
+/* MARKS */
 function renderMarks(){
-  if(!marksData.length) return`<div class="hero"><div class="hero-grid"></div><div class="hero-inner"><div class="hero-av" style="margin:0">${ini(studentData?.name)}</div><div class="hero-info"><div class="hero-grt">Marks</div><div class="hero-name">${studentData?.name||'Student'}</div></div></div></div><div style="padding:20px 16px"><div class="empty">${L('no_marks')}</div></div>`;
+  if(!MARKS.length)return`
+  <div class="hero"><div class="hero-grid"></div><div class="hero-inner" style="display:block"><div class="hero-grt">Marks</div><div class="hero-name">${SD?.name||'Student'}</div></div></div>
+  <div style="padding:20px 16px"><div class="empty">${L('no_marks')}</div></div>`;
   const a=avgPct();
-  const exams=[...new Set(marksData.map(m=>m.exam_type).filter(Boolean))];
+  const exams=[...new Set(MARKS.map(m=>m.exam_type).filter(Boolean))];
   return`
   <div class="hero"><div class="hero-grid"></div>
     <div class="hero-inner">
-      <div class="hero-av">${ini(studentData?.name)}</div>
+      <div class="hero-av">${ini(SD?.name)}</div>
       <div class="hero-info">
         <div class="hero-grt">Overall Average</div>
-        <div class="hero-name" style="font-size:36px">${a}% <span style="font-size:20px;opacity:.7">${grade(a)}</span></div>
-        <div class="hero-chips"><span class="hero-chip">${marksData.length} subjects</span></div>
+        <div class="hero-name" style="font-size:34px">${a}% <span style="font-size:18px;opacity:.7">${grade(a)}</span></div>
+        <div class="hero-chips"><span class="hero-chip">${MARKS.length} subjects recorded</span></div>
       </div>
     </div>
   </div>
   ${exams.length
     ?exams.map(exam=>{
-        const mks=marksData.filter(m=>m.exam_type===exam);
+        const mks=MARKS.filter(m=>m.exam_type===exam);
         return`<div class="sec" style="margin-top:16px">
           <div class="sec-title">${exam}</div>
           <div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px">
-            ${mks.map(m=>{
-              const pct=Math.round((m.marks_obtained/m.total_marks)*100);
-              return`<div class="mark-row">
-                <div class="mark-sub">${m.subject}</div>
-                <div class="mark-bar"><div class="mark-fill" style="width:0%" data-w="${pct}%"></div></div>
-                <div class="mark-score">${m.marks_obtained}/${m.total_marks}</div>
-              </div>`;
-            }).join('')}
+            ${mks.map(m=>{const pct=Math.round((m.marks_obtained/m.total_marks)*100);return`<div class="mark-row"><div class="mark-sub">${m.subject}</div><div class="mark-bar"><div class="mark-fill" style="width:0%" data-w="${pct}%"></div></div><div class="mark-score">${m.marks_obtained}/${m.total_marks}</div></div>`;}).join('')}
           </div>
         </div>`;
       }).join('')
-    :`<div class="sec" style="margin-top:16px">
-        <div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px">
-          ${marksData.map(m=>{
-            const pct=Math.round((m.marks_obtained/m.total_marks)*100);
-            return`<div class="mark-row">
-              <div class="mark-sub">${m.subject}</div>
-              <div class="mark-bar"><div class="mark-fill" style="width:0%" data-w="${pct}%"></div></div>
-              <div class="mark-score">${m.marks_obtained}/${m.total_marks}</div>
-            </div>`;
-          }).join('')}
-        </div>
-      </div>`}`;
+    :`<div class="sec" style="margin-top:16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px">${MARKS.map(m=>{const pct=Math.round((m.marks_obtained/m.total_marks)*100);return`<div class="mark-row"><div class="mark-sub">${m.subject}</div><div class="mark-bar"><div class="mark-fill" style="width:0%" data-w="${pct}%"></div></div><div class="mark-score">${m.marks_obtained}/${m.total_marks}</div></div>`;}).join('')}</div></div>`}
+  ${TT.length?`<div class="sec" style="margin-top:16px"><div class="sec-title">${L('timetable')}</div><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);overflow:hidden;overflow-x:auto"><table class="tt-table"><thead><tr><th>Day</th><th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th><th>P6</th><th>P7</th></tr></thead><tbody>${TT.map(row=>`<tr><td style="font-weight:700;color:var(--p);white-space:nowrap">${row.day?.slice(0,3)}</td>${[1,2,3,4,5,6,7].map(n=>`<td>${row['period_'+n]||''}</td>`).join('')}</tr>`).join('')}</tbody></table></div></div>`:''}`;
 }
 
-/* ── GROUP ── */
+/* GROUP */
 function renderGroup(){
   return`
-  <div class="hero"><div class="hero-grid"></div><div class="hero-inner" style="display:block">
-    <div class="hero-grt">Class Group</div>
-    <div class="hero-name">${studentData?.standard||studentData?.class_name||'Class'}</div>
-  </div></div>
+  <div class="hero"><div class="hero-grid"></div><div class="hero-inner" style="display:block"><div class="hero-grt">Class Group</div><div class="hero-name">${SD?.standard||'Class'}</div></div></div>
   <div style="padding:14px 16px">
-    ${!postsData.length?`<div class="empty">${L('no_posts')}</div>`:''}
-    ${postsData.map(p=>`
+    ${!POSTS.length?`<div class="empty">${L('no_posts')}</div>`:''}
+    ${POSTS.map(p=>`
       <div class="post-item">
         <div class="post-head">
           <span class="post-author">${p.posted_by_name||'Teacher'}</span>
@@ -658,21 +570,19 @@ function renderGroup(){
         </div>
         <div class="post-text">${p.text_content||''}</div>
         ${p.video_link?`<a href="${p.video_link}" target="_blank" style="display:inline-flex;align-items:center;gap:5px;margin-top:6px;font-size:12px;color:var(--p);font-weight:600;text-decoration:none">Watch Video</a>`:''}
+        ${p.file_url&&p.file_type==='image'?`<img src="${p.file_url}" style="width:100%;border-radius:8px;margin-top:8px;max-height:220px;object-fit:cover" loading="lazy">`:''}
       </div>`).join('')}
   </div>`;
 }
 
-/* ── ALERTS ── */
+/* ALERTS */
 function renderAlerts(){
   return`
-  <div class="hero"><div class="hero-grid"></div><div class="hero-inner" style="display:block">
-    <div class="hero-grt">Notifications</div>
-    <div class="hero-name">Alerts</div>
-  </div></div>
+  <div class="hero"><div class="hero-grid"></div><div class="hero-inner" style="display:block"><div class="hero-grt">Notifications</div><div class="hero-name">Alerts</div></div></div>
   <div style="padding:14px 16px">
-    ${!notifsData.length?`<div class="empty">${L('no_notif')}</div>`:''}
-    ${notifsData.length?`<div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:0 14px">
-      ${notifsData.map(n=>`
+    ${!NOTIFS.length?`<div class="empty">${L('no_notif')}</div>`:''}
+    ${NOTIFS.length?`<div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:0 14px">
+      ${NOTIFS.map(n=>`
         <div class="notif-item">
           <div class="notif-dot"></div>
           <div>
@@ -685,88 +595,79 @@ function renderAlerts(){
   </div>`;
 }
 
-/* ── PROFILE ── */
+/* PROFILE */
 function renderProfile(){
-  if(!studentData) return'<div class="loading"><div class="spin-el"></div></div>';
-  const s=studentData;
-  const total=parseFloat(feesData?.total_amount)||0;
-  const paid=parseFloat(feesData?.paid_amount)||0;
-  const rem=parseFloat(feesData?.remaining_amount)||Math.max(0,total-paid);
-  const fStatus=feesData?.status||'pending';
-  const attPct=attData.percentage||attData.attendance_percentage||0;
+  if(!SD)return'<div class="loading"><div class="spin-el"></div></div>';
+  const total=parseFloat(FEES?.total_amount)||0;
+  const paid=parseFloat(FEES?.paid_amount)||0;
+  const rem=parseFloat(FEES?.remaining_amount)||Math.max(0,total-paid);
+  const fStatus=FEES?.status||'pending';
+  const attPct=ATT.total>0?Math.round((ATT.present/ATT.total)*100):0;
   return`
   <div class="sec" style="margin-top:16px">
     <div class="prof-hero">
       <div class="prof-hero-grid"></div>
-      <div class="prof-av">${ini(s.name)}</div>
-      <div class="prof-name">${s.name}</div>
-      <div class="prof-code">${s.code||localStorage.getItem('edu_code')||''}</div>
+      <div class="prof-av">${ini(SD.name)}</div>
+      <div class="prof-name">${SD.name}</div>
+      <div class="prof-code">${SD.code||localStorage.getItem('edu_code')||''}</div>
       <div style="display:flex;gap:6px;justify-content:center;margin-top:8px;position:relative;z-index:1;flex-wrap:wrap">
-        <span style="background:rgba(255,255,255,.12);padding:3px 10px;border-radius:100px;font-size:10px;color:rgba(255,255,255,.8)">${s.standard||s.class_name||''}</span>
-        <span style="background:rgba(255,255,255,.12);padding:3px 10px;border-radius:100px;font-size:10px;color:rgba(255,255,255,.8)">Roll ${s.roll_no||'-'}</span>
-        ${s.gender?`<span style="background:rgba(255,255,255,.12);padding:3px 10px;border-radius:100px;font-size:10px;color:rgba(255,255,255,.8)">${s.gender}</span>`:''}
+        <span style="background:rgba(255,255,255,.12);padding:3px 10px;border-radius:100px;font-size:10px;color:rgba(255,255,255,.8)">${SD.standard||''}</span>
+        <span style="background:rgba(255,255,255,.12);padding:3px 10px;border-radius:100px;font-size:10px;color:rgba(255,255,255,.8)">Roll ${SD.roll_no||'-'}</span>
+        ${SD.gender?`<span style="background:rgba(255,255,255,.12);padding:3px 10px;border-radius:100px;font-size:10px;color:rgba(255,255,255,.8)">${SD.gender}</span>`:''}
       </div>
     </div>
-
     <div class="info-list">
-      ${s.dob?`<div class="info-row"><span class="info-lbl">Date of Birth</span><span class="info-val">${new Date(s.dob).toLocaleDateString('en-IN')}</span></div>`:''}
-      ${s.blood_group?`<div class="info-row"><span class="info-lbl">Blood Group</span><span class="info-val">${s.blood_group}</span></div>`:''}
-      ${s.parent_name?`<div class="info-row"><span class="info-lbl">Parent/Guardian</span><span class="info-val">${s.parent_name}</span></div>`:''}
-      ${s.parent_phone?`<div class="info-row"><span class="info-lbl">Parent Phone</span><span class="info-val">${s.parent_phone}</span></div>`:''}
-      ${s.address?`<div class="info-row"><span class="info-lbl">Address</span><span class="info-val">${s.address}</span></div>`:''}
-      <div class="info-row"><span class="info-lbl">Bus</span><span class="info-val">${s.has_bus?(s.bus_route?'Yes — '+s.bus_route:'Yes'):'No'}</span></div>
-      ${s.teacher_name?`<div class="info-row"><span class="info-lbl">Class Teacher</span><span class="info-val">${s.teacher_name}</span></div>`:''}
-      ${s.teacher_phone?`<div class="info-row"><span class="info-lbl">Teacher Phone</span><span class="info-val">${s.teacher_phone}</span></div>`:''}
+      ${SD.dob?`<div class="info-row"><span class="info-lbl">Date of Birth</span><span class="info-val">${new Date(SD.dob).toLocaleDateString('en-IN')}</span></div>`:''}
+      ${SD.blood_group?`<div class="info-row"><span class="info-lbl">Blood Group</span><span class="info-val">${SD.blood_group}</span></div>`:''}
+      ${SD.parent_name?`<div class="info-row"><span class="info-lbl">Parent / Guardian</span><span class="info-val">${SD.parent_name}</span></div>`:''}
+      ${SD.parent_phone?`<div class="info-row"><span class="info-lbl">Parent Phone</span><span class="info-val">${SD.parent_phone}</span></div>`:''}
+      ${SD.address?`<div class="info-row"><span class="info-lbl">Address</span><span class="info-val" style="font-size:12px">${SD.address}</span></div>`:''}
+      <div class="info-row"><span class="info-lbl">Bus</span><span class="info-val">${SD.has_bus?(SD.bus_route?'Yes — '+SD.bus_route:'Yes'):'No'}</span></div>
+      ${SD.teacher_name?`<div class="info-row"><span class="info-lbl">Class Teacher</span><span class="info-val">${SD.teacher_name}</span></div>`:''}
+      ${SD.teacher_phone?`<div class="info-row"><span class="info-lbl">Teacher Phone</span><span class="info-val">${SD.teacher_phone}</span></div>`:''}
     </div>
-
-    ${feesData?`<div class="info-list">
+    ${FEES?`<div class="info-list">
       <div class="info-row"><span class="info-lbl">Total Fees</span><span class="info-val">Rs ${total.toLocaleString('en-IN')}</span></div>
       <div class="info-row"><span class="info-lbl">${L('amt_paid')}</span><span class="info-val" style="color:var(--green)">Rs ${paid.toLocaleString('en-IN')}</span></div>
       <div class="info-row"><span class="info-lbl">${L('amt_due')}</span><span class="info-val" style="color:var(--red)">Rs ${rem.toLocaleString('en-IN')}</span></div>
       <div class="info-row"><span class="info-lbl">Status</span><span class="info-val"><span class="${fStatus==='paid'?'badge-ok':fStatus==='partial'?'badge-ho':'badge-no'}">${fStatus}</span></span></div>
     </div>`:''}
-
-    ${Object.keys(attData).length?`<div class="info-list">
-      <div class="info-row"><span class="info-lbl">Present Days</span><span class="info-val" style="color:var(--green)">${attData.present||0}</span></div>
-      <div class="info-row"><span class="info-lbl">Absent Days</span><span class="info-val" style="color:var(--red)">${attData.absent||0}</span></div>
-      <div class="info-row"><span class="info-lbl">Total Days</span><span class="info-val">${attData.total||0}</span></div>
-      <div class="info-row"><span class="info-lbl">Attendance %</span><span class="info-val">${Math.round(attPct)}%</span></div>
+    ${ATT.total?`<div class="info-list">
+      <div class="info-row"><span class="info-lbl">Present Days</span><span class="info-val" style="color:var(--green)">${ATT.present||0}</span></div>
+      <div class="info-row"><span class="info-lbl">Absent Days</span><span class="info-val" style="color:var(--red)">${ATT.absent||0}</span></div>
+      <div class="info-row"><span class="info-lbl">Total Days</span><span class="info-val">${ATT.total||0}</span></div>
+      <div class="info-row"><span class="info-lbl">Attendance %</span><span class="info-val">${attPct}%</span></div>
     </div>`:''}
-
     <button class="cancel-btn" style="margin-top:8px" onclick="doLogout()">Logout</button>
   </div>`;
 }
 
-/* ── PAY FEES ── */
+/* PAY */
 function openPay(){
-  if(!feesData) return;
-  const rem=parseFloat(feesData.remaining_amount||feesData.due_amount)||0;
+  if(!FEES)return;
+  const rem=parseFloat(FEES.remaining_amount)||0;
   document.getElementById('payMoSub').textContent='Due: Rs '+rem.toLocaleString('en-IN');
-  document.getElementById('upiIdTxt').textContent=upiId||'Contact school for UPI';
+  document.getElementById('upiIdTxt').textContent=UPI||'Contact school for UPI ID';
   document.getElementById('payAmt').value=rem||'';
   document.getElementById('upiRef').value='';
   document.getElementById('payMo').classList.add('show');
 }
-
 function closePay(){document.getElementById('payMo').classList.remove('show')}
-
-document.getElementById('payMo').addEventListener('click',function(e){
-  if(e.target===this)closePay();
-});
+document.getElementById('payMo').addEventListener('click',function(e){if(e.target===this)closePay()});
 
 function openUPI(app,e){
   e.preventDefault();
-  if(!upiId){showToast('UPI ID not available',true);return}
+  if(!UPI){showToast('UPI ID not available',true);return}
   const amt=document.getElementById('payAmt').value||'';
-  const upi=encodeURIComponent(upiId);
+  const upi=encodeURIComponent(UPI);
   const am=encodeURIComponent(amt);
   const pn=encodeURIComponent('Emmanuel School');
-  let url='';
-  if(app==='phonepe') url=`phonepe://pay?pa=${upi}&pn=${pn}&am=${am}&cu=INR`;
-  if(app==='gpay') url=`tez://upi/pay?pa=${upi}&pn=${pn}&am=${am}&cu=INR`;
-  if(app==='paytm') url=`paytmmp://pay?pa=${upi}&pn=${pn}&am=${am}&cu=INR`;
-  window.location.href=url;
-  /* Fallback after 2s */
+  const urls={
+    phonepe:`phonepe://pay?pa=${upi}&pn=${pn}&am=${am}&cu=INR`,
+    gpay:`tez://upi/pay?pa=${upi}&pn=${pn}&am=${am}&cu=INR`,
+    paytm:`paytmmp://pay?pa=${upi}&pn=${pn}&am=${am}&cu=INR`
+  };
+  window.location.href=urls[app];
   setTimeout(()=>{
     const fb={phonepe:'https://phon.pe/',gpay:'https://pay.google.com/',paytm:'https://paytm.com/'};
     window.open(fb[app],'_blank');
@@ -786,18 +687,12 @@ async function submitPayment(){
       method:'POST',headers:H(),
       body:JSON.stringify({upi_ref:ref,amount:parseFloat(amt)})
     });
-    if(res.ok){
-      showToast('Payment submitted! Admin will verify soon.');
-      closePay();
-    }else{
-      const d=await res.json().catch(()=>({}));
-      showToast(d.error||d.message||'Failed',true);
-    }
+    if(res.ok){showToast('Payment submitted! Admin will verify.');closePay();}
+    else{const d=await res.json().catch(()=>({}));showToast(d.error||'Failed',true);}
   }catch(e){showToast('Network error',true)}
   btn.disabled=false;btn.textContent='Submit Payment';
 }
 
-/* SERVICE WORKER */
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 }
