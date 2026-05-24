@@ -2,239 +2,310 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="theme-color" content="#800020">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>Teacher Panel — EduManage</title>
+<title>Teacher Panel — Emmanuel School</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --m:#800020;--md:#5c0018;--mp:#3d0010;--ml:#a30027;--mp2:rgba(128,0,32,.09);
-  --w:#fff;--b:#0a0a0a;
-  --g5:#fafafa;--g1:#f5f5f5;--g2:#eee;--g3:#e0e0e0;--g4:#bdbdbd;--g5c:#9e9e9e;--g6:#757575;
-  --green:#1a7a4a;--gl:#e8f5ee;--red:#c0392b;--rl:#fdf0ef;--gold:#b8860b;
-  --fd:'Playfair Display',serif;--fb:'Inter',sans-serif;--fm:'JetBrains Mono',monospace;
-  --r:12px;--tr:all .25s ease;
+  --p:#800020;--dk:#5c0018;--dp:#3d0010;--ac:#a30027;
+  --w:#fff;--bg:#fafafa;
+  --b1:#f5f5f5;--b2:#eeeeee;--b3:#e0e0e0;--b4:#bdbdbd;--b5:#9e9e9e;--b6:#757575;
+  --green:#1a7a4a;--gl:#e8f5ee;
+  --red:#c0392b;--rl:#fdf0ef;
+  --gold:#b8860b;--goldl:#fdf8e8;
+  --ff:'Playfair Display',serif;--fb:'Inter',sans-serif;--fm:'JetBrains Mono',monospace;
+  --r:12px;--tr:all .22s ease;
 }
-body{font-family:var(--fb);background:var(--g5);color:var(--b);padding-bottom:80px;min-height:100vh}
+html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)}
 
 /* LOGIN */
-.login-screen{min-height:100vh;background:linear-gradient(135deg,var(--mp),var(--m),var(--ml));display:flex;align-items:center;justify-content:center;padding:20px}
-.login-card{background:var(--w);border-radius:20px;padding:32px 24px;width:100%;max-width:380px;box-shadow:0 24px 60px rgba(0,0,0,.35)}
-.login-logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:6px}
-.login-lm{width:38px;height:38px;background:var(--m);color:var(--w);border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;font-family:var(--fd)}
-.login-name{font-family:var(--fd);font-size:22px;font-weight:700}
-.login-sub{text-align:center;font-size:12px;color:var(--g4);margin-bottom:24px}
-.login-label{display:block;font-size:11px;font-weight:600;color:var(--g5c);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
-.login-input{width:100%;padding:12px 14px;background:var(--g5);border:1.5px solid var(--g2);border-radius:var(--r);font-family:var(--fb);font-size:14px;color:var(--b);outline:none;margin-bottom:14px;transition:var(--tr)}
-.login-input:focus{border-color:var(--m);background:var(--w)}
-.login-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--m),var(--ml));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px rgba(128,0,32,.3)}
-.login-err{background:var(--rl);border:1px solid rgba(192,57,43,.2);border-radius:var(--r);padding:10px 14px;font-size:13px;color:var(--red);margin-top:10px;display:none}
-.login-err.show{display:block}
-.login-sp{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:var(--w);border-radius:50%;animation:spin .7s linear infinite}
+#loginScreen{
+  position:fixed;inset:0;z-index:999;
+  background:linear-gradient(155deg,var(--dp),var(--p),var(--ac));
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:20px;
+  padding-top:max(20px,env(safe-area-inset-top));
+  padding-bottom:max(20px,env(safe-area-inset-bottom));
+  overflow-y:auto;
+}
+#loginScreen::before{
+  content:'';position:fixed;inset:0;pointer-events:none;
+  background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:32px 32px;
+}
+.lw{width:100%;max-width:400px;position:relative;z-index:1}
+.brand{text-align:center;margin-bottom:22px}
+.logo-box{width:76px;height:76px;border-radius:20px;margin:0 auto 12px;overflow:hidden;border:2.5px solid rgba(255,255,255,.25);box-shadow:0 8px 28px rgba(0,0,0,.25);background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center}
+.logo-box img{width:100%;height:100%;object-fit:cover;display:block}
+.logo-fb{font-family:var(--ff);font-size:28px;font-weight:700;color:var(--w);display:none}
+.brand-name{font-family:var(--ff);font-size:20px;font-weight:700;color:var(--w);margin-bottom:3px}
+.brand-sub{font-size:13px;color:rgba(255,255,255,.55)}
+.lcard{background:var(--w);border-radius:22px;padding:26px 22px 22px;box-shadow:0 20px 60px rgba(0,0,0,.28)}
+.lcard-title{font-family:var(--ff);font-size:20px;font-weight:700;color:var(--dp);margin-bottom:3px}
+.lcard-sub{font-size:13px;color:var(--b5);margin-bottom:18px}
+.lerr{display:none;background:#fff0f2;border:1.5px solid #ffc8d0;color:var(--red);font-size:13px;font-weight:500;padding:10px 14px;border-radius:10px;margin-bottom:14px}
+.lerr.show{display:block}
+.lfield{margin-bottom:14px}
+.lfield label{display:block;font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.9px;margin-bottom:6px}
+.linp-w{position:relative}
+.linp-w input{width:100%;padding:13px 44px 13px 14px;background:#f8f8f8;border:2px solid #eee;border-radius:11px;font-size:15px;font-family:var(--fb);color:#1a1a1a;outline:none;transition:border-color .2s,background .2s;-webkit-appearance:none}
+.linp-w input:focus{border-color:var(--p);background:var(--w)}
+.linp-w input::placeholder{color:#ccc}
+.leye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#bbb;display:flex;padding:4px;transition:color .18s}
+.leye:hover{color:var(--p)}
+.leye svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.lbtn{width:100%;padding:14px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:12px;font-size:15px;font-weight:700;font-family:var(--fb);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 5px 18px rgba(128,0,32,.25);transition:opacity .18s,transform .15s;-webkit-appearance:none}
+.lbtn:hover{opacity:.9}
+.lbtn:active{transform:scale(.98)}
+.lbtn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.lspin{display:none;width:17px;height:17px;border:2.5px solid rgba(255,255,255,.3);border-top-color:var(--w);border-radius:50%;animation:spin .7s linear infinite}
+.lhint{text-align:center;margin-top:16px;font-size:13px;color:rgba(255,255,255,.45);position:relative;z-index:1}
+
+/* APP */
+#appScreen{display:none;flex-direction:column;height:100vh;height:100dvh}
 
 /* TOPBAR */
-.topbar{position:sticky;top:0;z-index:100;background:var(--w);border-bottom:1px solid var(--g2);padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
-.tl{font-family:var(--fd);font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
-.lm{width:28px;height:28px;background:var(--m);color:var(--w);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
-.tr{display:flex;align-items:center;gap:8px}
-.ls{display:flex;gap:2px;background:var(--g1);border-radius:100px;padding:2px}
-.lb{padding:4px 9px;border-radius:100px;border:none;background:transparent;font-family:var(--fb);font-size:10px;font-weight:700;color:var(--g4);cursor:pointer}
-.lb.active{background:var(--w);color:var(--m)}
-.ob{background:none;border:1px solid var(--g2);border-radius:7px;padding:6px 10px;font-size:11px;font-weight:600;color:var(--g5c);cursor:pointer;font-family:var(--fb);transition:var(--tr)}
-.ob:hover{border-color:var(--m);color:var(--m)}
-.cnt{max-width:600px;margin:0 auto}
+.topbar{background:var(--w);border-bottom:1px solid var(--b2);padding:0 16px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:100}
+.topbar-left{display:flex;align-items:center;gap:10px}
+.topbar-logo{width:32px;height:32px;border-radius:8px;overflow:hidden;border:1.5px solid var(--b2);background:var(--b1);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.topbar-logo img{width:100%;height:100%;object-fit:cover;display:block}
+.topbar-logo-fb{font-family:var(--ff);font-size:13px;font-weight:700;color:var(--p);display:none}
+.topbar-name{font-family:var(--ff);font-size:16px;font-weight:700;color:var(--dp)}
+.topbar-right{display:flex;align-items:center;gap:8px}
+.lang-grp{display:flex;gap:2px;background:var(--b1);border-radius:20px;padding:2px}
+.lang-btn{padding:4px 9px;border-radius:20px;border:none;background:transparent;font-family:var(--fb);font-size:10px;font-weight:700;color:var(--b4);cursor:pointer;transition:var(--tr)}
+.lang-btn.active{background:var(--w);color:var(--p);box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.out-btn{background:none;border:1px solid var(--b2);border-radius:7px;padding:6px 10px;font-size:11px;font-weight:600;color:var(--b5);cursor:pointer;font-family:var(--fb);transition:var(--tr)}
+.out-btn:hover{border-color:var(--p);color:var(--p)}
 
-/* HEADER */
-.hdr{background:linear-gradient(135deg,var(--mp),var(--m));color:var(--w);padding:20px 16px 24px;position:relative;overflow:hidden}
-.hg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
-.hc{position:relative;z-index:1}
-.grt{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:600}
-.tnm{font-family:var(--fd);font-size:24px;font-weight:700;line-height:1.1;margin-bottom:6px}
-.cps{display:flex;gap:6px;flex-wrap:wrap}
-.cp{padding:3px 10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.15);border-radius:100px;font-size:10px;color:rgba(255,255,255,.8);font-weight:500}
+/* SCROLL */
+.scroll-area{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.scroll-area::-webkit-scrollbar{width:3px}
+.scroll-area::-webkit-scrollbar-thumb{background:var(--b3);border-radius:3px}
+.cnt{max-width:600px;margin:0 auto;padding-bottom:80px}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--dp),var(--p));color:var(--w);padding:22px 16px 26px;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
+.hero-inner{position:relative;z-index:1}
+.hero-grt{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:600}
+.hero-name{font-family:var(--ff);font-size:24px;font-weight:700;line-height:1.15;margin-bottom:8px}
+.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
+.hero-chip{padding:3px 10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:100px;font-size:10px;color:rgba(255,255,255,.85);font-weight:500}
 
 /* STATS */
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px 16px}
-.sc{background:var(--w);border:1px solid var(--g2);border-radius:var(--r);padding:14px;text-align:center}
-.sv{font-family:var(--fd);font-size:24px;font-weight:700;line-height:1;margin-bottom:2px;color:var(--m)}
-.sl{font-size:10px;color:var(--g4);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.stat-tile{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px;text-align:center}
+.stat-val{font-family:var(--ff);font-size:24px;font-weight:700;color:var(--p);margin-bottom:3px}
+.stat-lbl{font-size:10px;color:var(--b4);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
 
 /* SECTIONS */
 .sec{padding:0 16px;margin-bottom:18px}
-.stt{font-family:var(--fd);font-size:16px;font-weight:600;margin-bottom:10px}
-.card{background:var(--w);border:1px solid var(--g2);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.sec-title{font-family:var(--ff);font-size:16px;font-weight:700;color:var(--dp);margin-bottom:10px}
+.card{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px;margin-bottom:10px}
 
 /* STUDENT ITEM */
-.si{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--w);border:1px solid var(--g2);border-radius:var(--r);margin-bottom:8px;cursor:pointer;transition:var(--tr)}
-.si:hover{border-color:var(--m)}
-.sav{width:40px;height:40px;background:var(--mp2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:16px;color:var(--m);flex-shrink:0}
-.snm{font-size:14px;font-weight:600;margin-bottom:2px}
-.smeta{font-size:11px;color:var(--g4)}
-
-/* ATTENDANCE */
-.att-sheet{background:var(--w);border:1px solid var(--g2);border-radius:var(--r);overflow:hidden}
-.att-date-row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--g1)}
-.att-dl{font-size:13px;font-weight:600}
-.di{padding:6px 10px;border:1.5px solid var(--g2);border-radius:8px;font-family:var(--fm);font-size:12px;color:var(--b);outline:none;transition:var(--tr)}
-.di:focus{border-color:var(--m)}
-.ar{display:flex;align-items:center;padding:11px 14px;border-bottom:1px solid var(--g1);gap:10px}
-.ar:last-child{border-bottom:none}
-.aroll{font-family:var(--fm);font-size:12px;color:var(--g4);min-width:26px}
-.anm{font-size:13px;font-weight:500;flex:1}
-.atog{display:flex;border:1.5px solid var(--g2);border-radius:8px;overflow:hidden}
-.atb{padding:6px 13px;border:none;font-family:var(--fb);font-size:12px;font-weight:600;cursor:pointer;background:transparent;color:var(--g4);transition:var(--tr)}
-.atb.pa{background:var(--green);color:var(--w)}
-.atb.aa{background:var(--red);color:var(--w)}
-.save-btn{width:calc(100% - 28px);margin:14px;padding:12px;background:var(--m);color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:600;cursor:pointer;transition:var(--tr)}
-.save-btn:hover{background:var(--md)}
-
-/* MARKS */
-.marks-sheet{background:var(--w);border:1px solid var(--g2);border-radius:var(--r);overflow:hidden;margin-bottom:10px}
-.ms-header{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;border-bottom:1px solid var(--g1);background:var(--g5)}
-.ms-fields{padding:10px 14px 14px;display:none}
-.ms-fields.open{display:block}
-.ms-top{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
-.ms-top input,.ms-top select{flex:1;min-width:120px;padding:7px 10px;border:1.5px solid var(--g2);border-radius:8px;font-family:var(--fb);font-size:12px;color:var(--b);outline:none}
-.ms-top input:focus,.ms-top select:focus{border-color:var(--m)}
-.mrow{display:flex;align-items:center;gap:10px;margin-bottom:8px}
-.mlbl{font-size:13px;font-weight:500;flex:1;color:var(--g6)}
-.minput{padding:7px 10px;border:1.5px solid var(--g2);border-radius:8px;font-family:var(--fm);font-size:13px;color:var(--b);outline:none;text-align:center;width:70px}
-.minput:focus{border-color:var(--m)}
-.of-lbl{font-size:12px;color:var(--g4);min-width:30px}
-.msave{width:100%;padding:9px;background:var(--m);color:var(--w);border:none;border-radius:8px;font-family:var(--fb);font-size:12px;font-weight:600;cursor:pointer;margin-top:6px}
-.apply-all{padding:6px 12px;background:var(--mp2);border:1px solid rgba(128,0,32,.2);border-radius:8px;font-family:var(--fb);font-size:11px;font-weight:600;color:var(--m);cursor:pointer;transition:var(--tr)}
-
-/* GROUP */
-.composer{background:var(--w);border:1px solid var(--g2);border-radius:var(--r);padding:14px;margin-bottom:10px}
-.ctxt{width:100%;min-height:90px;padding:11px;border:1.5px solid var(--g2);border-radius:var(--r);font-family:var(--fb);font-size:14px;color:var(--b);resize:none;outline:none;margin-bottom:10px}
-.ctxt:focus{border-color:var(--m)}
-.post-btn{width:100%;padding:12px;background:var(--m);color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:600;cursor:pointer}
-.pi{background:var(--w);border:1px solid var(--g2);border-radius:var(--r);padding:12px;margin-bottom:8px}
-.ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.pau{font-size:12px;font-weight:700;color:var(--m)}
-.ptm{font-size:10px;color:var(--g3)}
-.ptxt{font-size:13px;color:var(--g6);line-height:1.6}
-.del-btn{background:none;border:none;cursor:pointer;color:var(--g3);padding:2px}
-.del-btn:hover{color:var(--red)}
-.del-btn svg{width:13px;height:13px;stroke:currentColor}
-
-/* NOTIFY */
-.nf{background:var(--w);border:1px solid var(--g2);border-radius:var(--r);padding:14px}
-.fg{margin-bottom:12px}
-.fg label{display:block;font-size:11px;font-weight:600;color:var(--g5c);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px}
-.fi{width:100%;padding:10px 13px;background:var(--g5);border:1.5px solid var(--g2);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:var(--b);outline:none;transition:var(--tr)}
-.fi:focus{border-color:var(--m);background:var(--w)}
-.fita{width:100%;padding:10px 13px;background:var(--g5);border:1.5px solid var(--g2);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:var(--b);outline:none;resize:none;min-height:80px;transition:var(--tr)}
-.fita:focus{border-color:var(--m);background:var(--w)}
-.send-btn{width:100%;padding:12px;background:var(--m);color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:600;cursor:pointer}
-
-/* STUDENT DETAIL */
-.back-btn{display:inline-flex;align-items:center;gap:6px;background:var(--g1);border:none;border-radius:8px;padding:9px 14px;font-family:var(--fb);font-size:13px;color:var(--g6);cursor:pointer;margin:14px 16px 10px;transition:var(--tr)}
-.back-btn:hover{background:var(--mp2);color:var(--m)}
-.back-btn svg{width:14px;height:14px;stroke:currentColor;stroke-width:2}
-.det-card{background:var(--w);border:1px solid var(--g2);border-radius:var(--r);padding:16px;margin:0 16px 12px}
-.il{background:var(--w);border:1px solid var(--g2);border-radius:var(--r);overflow:hidden;margin-bottom:10px;margin:0 16px 12px}
-.ir{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--g1)}
-.ir:last-child{border-bottom:none}
-.irl{font-size:12px;color:var(--g4);font-weight:500}
-.irv{font-size:13px;font-weight:600}
-
-/* CHECKBOXES FOR NOTIFY */
-.stu-check-list{max-height:220px;overflow-y:auto;border:1px solid var(--g2);border-radius:8px;margin-bottom:10px}
-.stu-check-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid var(--g1);cursor:pointer}
-.stu-check-item:last-child{border-bottom:none}
-.stu-check-item:hover{background:var(--mp2)}
-.stu-check-item input{accent-color:var(--m);width:15px;height:15px;cursor:pointer}
-.check-actions{display:flex;gap:8px;margin-bottom:8px}
-.ca-btn{padding:5px 12px;border:1px solid var(--g2);border-radius:7px;font-size:11px;font-weight:600;color:var(--g5c);background:var(--w);cursor:pointer;transition:var(--tr)}
-.ca-btn:hover{border-color:var(--m);color:var(--m)}
-
-/* BOTTOM NAV */
-.bn{position:fixed;bottom:0;left:0;right:0;background:var(--w);border-top:1px solid var(--g2);display:flex;padding:6px 0 8px;z-index:100}
-.bb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 4px;background:none;border:none;cursor:pointer;transition:var(--tr)}
-.bi{width:21px;height:21px;stroke:var(--g3);transition:var(--tr)}
-.bla{font-size:9px;font-weight:600;color:var(--g3);text-transform:uppercase;letter-spacing:.5px}
-.bb.active .bi{stroke:var(--m)}
-.bb.active .bla{color:var(--m)}
-
-/* UTILS */
-.ls2{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:12px}
-.sp{width:26px;height:26px;border:2px solid var(--g2);border-top-color:var(--m);border-radius:50%;animation:spin .8s linear infinite}
-.lt{font-size:13px;color:var(--g4);text-align:center}
-.eb{text-align:center;padding:28px;color:var(--g3)}
-.eb p{font-size:13px}
-.toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--m);color:var(--w);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:999;white-space:nowrap}
-.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.si{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--w);border:1px solid var(--b2);border-radius:var(--r);margin-bottom:8px;cursor:pointer;transition:var(--tr)}
+.si:hover{border-color:var(--p)}
+.si-av{width:40px;height:40px;background:rgba(128,0,32,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:16px;color:var(--p);flex-shrink:0}
+.si-name{font-size:14px;font-weight:600;margin-bottom:2px}
+.si-meta{font-size:11px;color:var(--b4)}
 .badge-ok{background:var(--gl);color:var(--green);padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600}
 .badge-no{background:var(--rl);color:var(--red);padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600}
+.badge-ho{background:var(--goldl);color:var(--gold);padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600}
+
+/* ATTENDANCE */
+.att-sheet{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);overflow:hidden}
+.att-date-row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--b1)}
+.att-date-lbl{font-size:13px;font-weight:600;color:var(--dp)}
+.date-inp{padding:7px 10px;border:1.5px solid var(--b2);border-radius:8px;font-family:var(--fm);font-size:12px;color:#1a1a1a;outline:none;transition:var(--tr)}
+.date-inp:focus{border-color:var(--p)}
+.att-row{display:flex;align-items:center;padding:11px 14px;border-bottom:1px solid var(--b1);gap:10px}
+.att-row:last-of-type{border-bottom:none}
+.att-roll{font-family:var(--fm);font-size:12px;color:var(--b4);min-width:26px}
+.att-name{font-size:13px;font-weight:500;flex:1}
+.att-tog{display:flex;border:1.5px solid var(--b2);border-radius:8px;overflow:hidden}
+.att-btn{padding:6px 13px;border:none;font-family:var(--fb);font-size:12px;font-weight:700;cursor:pointer;background:transparent;color:var(--b4);transition:var(--tr)}
+.att-btn.p-on{background:var(--green);color:var(--w)}
+.att-btn.a-on{background:var(--red);color:var(--w)}
+.save-btn{width:calc(100% - 28px);margin:12px 14px;padding:12px;background:var(--p);color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr)}
+.save-btn:hover{background:var(--dk)}
+.save-btn:disabled{opacity:.6;cursor:not-allowed}
+
+/* MARKS */
+.fi{width:100%;padding:10px 13px;background:var(--b1);border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:#1a1a1a;outline:none;transition:var(--tr)}
+.fi:focus{border-color:var(--p);background:var(--w)}
+.fgl{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.fgl label{font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px}
+.mk-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--b1)}
+.mk-row:last-child{border-bottom:none}
+.mk-name{font-size:13px;font-weight:500;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mk-inp{padding:7px 10px;border:1.5px solid var(--b2);border-radius:8px;font-family:var(--fm);font-size:13px;color:#1a1a1a;outline:none;width:70px;text-align:center}
+.mk-inp:focus{border-color:var(--p)}
+.mk-sep{font-size:12px;color:var(--b4)}
+.mk-of{padding:7px 10px;border:1.5px solid var(--b2);border-radius:8px;font-family:var(--fm);font-size:13px;color:#1a1a1a;outline:none;width:70px;text-align:center}
+.mk-of:focus{border-color:var(--p)}
+.apply-all{padding:6px 12px;background:rgba(128,0,32,.08);border:1px solid rgba(128,0,32,.2);border-radius:8px;font-family:var(--fb);font-size:11px;font-weight:700;color:var(--p);cursor:pointer}
+
+/* GROUP */
+.composer{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px;margin-bottom:10px}
+.ctxt{width:100%;min-height:90px;padding:11px;border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:14px;color:#1a1a1a;resize:none;outline:none;margin-bottom:10px;transition:var(--tr)}
+.ctxt:focus{border-color:var(--p)}
+.post-btn{width:100%;padding:12px;background:var(--p);color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
+.post-btn:disabled{opacity:.6;cursor:not-allowed}
+.post-item{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px;margin-bottom:8px}
+.post-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.post-author{font-size:12px;font-weight:700;color:var(--p)}
+.post-time{font-size:11px;color:var(--b3)}
+.post-text{font-size:13px;color:var(--b6);line-height:1.6}
+.del-post{background:none;border:none;cursor:pointer;color:var(--b4);font-size:16px;padding:2px;line-height:1}
+.del-post:hover{color:var(--red)}
+
+/* NOTIFY */
+.nf-card{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px}
+.stu-list{max-height:220px;overflow-y:auto;border:1px solid var(--b2);border-radius:8px;margin-bottom:10px}
+.stu-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid var(--b1);cursor:pointer}
+.stu-item:last-child{border-bottom:none}
+.stu-item:hover{background:rgba(128,0,32,.04)}
+.stu-item input{accent-color:var(--p);width:15px;height:15px;cursor:pointer;flex-shrink:0}
+.ca-row{display:flex;gap:8px;margin-bottom:8px}
+.ca-btn{padding:5px 12px;border:1px solid var(--b2);border-radius:7px;font-size:11px;font-weight:600;color:var(--b5);background:var(--w);cursor:pointer}
+.ca-btn:hover{border-color:var(--p);color:var(--p)}
+.send-btn{width:100%;padding:12px;background:var(--p);color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
+
+/* STUDENT DETAIL */
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:var(--b1);border:none;border-radius:8px;padding:9px 14px;font-family:var(--fb);font-size:13px;color:var(--b6);cursor:pointer;margin:14px 16px 10px;transition:var(--tr)}
+.back-btn:hover{background:rgba(128,0,32,.08);color:var(--p)}
+.back-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
+.info-list{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);overflow:hidden;margin:0 16px 12px}
+.info-row{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-bottom:1px solid var(--b1)}
+.info-row:last-child{border-bottom:none}
+.info-lbl{font-size:12px;color:var(--b4);font-weight:500}
+.info-val{font-size:13px;font-weight:600;color:#1a1a1a;text-align:right;max-width:60%}
+
+/* BOTTOM NAV */
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--w);border-top:1px solid var(--b2);display:flex;padding:6px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));z-index:100}
+.nav-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 4px;background:none;border:none;cursor:pointer;transition:var(--tr)}
+.nav-tab svg{width:21px;height:21px;stroke:var(--b3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:var(--tr)}
+.nav-tab span{font-size:9px;font-weight:700;color:var(--b3);text-transform:uppercase;letter-spacing:.5px;font-family:var(--fb)}
+.nav-tab.active svg{stroke:var(--p)}
+.nav-tab.active span{color:var(--p)}
+
+/* UTILS */
+.loading{display:flex;align-items:center;justify-content:center;min-height:40vh;flex-direction:column;gap:12px}
+.spin-el{width:26px;height:26px;border:2px solid var(--b2);border-top-color:var(--p);border-radius:50%;animation:spin .8s linear infinite}
+.empty{text-align:center;padding:28px;color:var(--b4);font-size:13px}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dp);color:var(--w);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:999;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.toast.err{background:var(--red)}
+
 @keyframes spin{to{transform:rotate(360deg)}}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
+@media(max-width:400px){.lcard{padding:22px 16px 18px}}
+@media(max-height:700px){#loginScreen{justify-content:flex-start;padding-top:16px}.brand{margin-bottom:14px}.logo-box{width:60px;height:60px}}
 </style>
-  <link rel="manifest" href="manifest.json">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="EduManage">
-<link rel="apple-touch-icon" href="icons/icon-192x192.png">
 </head>
 <body>
 
 <!-- LOGIN -->
-<div class="login-screen" id="loginScreen">
-  <div class="login-card">
-    <div class="login-logo">
-      <div class="login-lm">E</div>
-      <div class="login-name">EduManage</div>
+<div id="loginScreen">
+  <div class="lw">
+    <div class="brand">
+      <div class="logo-box">
+        <img src="logo.webp" alt="E"
+          onerror="this.style.display='none';document.getElementById('lFb').style.display='block'">
+        <span class="logo-fb" id="lFb">E</span>
+      </div>
+      <div class="brand-name">Emmanuel School</div>
+      <div class="brand-sub">EduManage — Teacher Panel</div>
     </div>
-    <div class="login-sub">Teacher Panel · Emmanuel School</div>
-    <label class="login-label">Teacher Code</label>
-    <input type="text" class="login-input" id="lCode" placeholder="e.g. TCH001" autocomplete="off" spellcheck="false" style="text-transform:uppercase" onkeydown="if(event.key==='Enter')document.getElementById('lPass').focus()">
-    <label class="login-label">Password</label>
-    <input type="password" class="login-input" id="lPass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
-    <button class="login-btn" id="lBtn" onclick="doLogin()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
-      Sign In
-    </button>
-    <div class="login-err" id="lErr"></div>
+    <div class="lcard">
+      <div class="lcard-title">Teacher Login</div>
+      <div class="lcard-sub">Enter your teacher code and password</div>
+      <div class="lerr" id="lerr"></div>
+      <div class="lfield">
+        <label>Teacher Code</label>
+        <div class="linp-w">
+          <input type="text" id="lCode" placeholder="e.g. TCH001"
+            autocomplete="off" spellcheck="false"
+            oninput="this.value=this.value.toUpperCase()"
+            onkeydown="if(event.key==='Enter')document.getElementById('lPass').focus()">
+        </div>
+      </div>
+      <div class="lfield">
+        <label>Password</label>
+        <div class="linp-w">
+          <input type="password" id="lPass" placeholder="Enter password"
+            autocomplete="current-password"
+            onkeydown="if(event.key==='Enter')doLogin()">
+          <button class="leye" type="button" onclick="toggleLPw()">
+            <svg id="leyeS" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg id="leyeH" viewBox="0 0 24 24" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          </button>
+        </div>
+      </div>
+      <button class="lbtn" id="lBtn" onclick="doLogin()">
+        <span id="lTxt">Login</span>
+        <div class="lspin" id="lSpin"></div>
+      </button>
+    </div>
+    <div class="lhint">Credentials bhool gaye? Admin se contact karo</div>
   </div>
 </div>
 
 <!-- APP -->
-<div id="appScreen" style="display:none">
+<div id="appScreen">
   <div class="topbar">
-    <div class="tl"><div class="lm">E</div>EduManage</div>
-    <div class="tr">
-      <div class="ls">
-        <button class="lb active" onclick="setLang('en')">EN</button>
-        <button class="lb" onclick="setLang('hi')">HI</button>
-        <button class="lb" onclick="setLang('mr')">MR</button>
+    <div class="topbar-left">
+      <div class="topbar-logo">
+        <img src="logo.webp" alt="E"
+          onerror="this.style.display='none';document.getElementById('tlFb').style.display='block'">
+        <span class="topbar-logo-fb" id="tlFb">E</span>
       </div>
-      <button class="ob" onclick="doLogout()">Logout</button>
+      <div class="topbar-name">Emmanuel School</div>
+    </div>
+    <div class="topbar-right">
+      <div class="lang-grp">
+        <button class="lang-btn active" onclick="setLang('en')">EN</button>
+        <button class="lang-btn" onclick="setLang('hi')">HI</button>
+        <button class="lang-btn" onclick="setLang('mr')">MR</button>
+      </div>
+      <button class="out-btn" onclick="doLogout()">Logout</button>
     </div>
   </div>
-  <div class="cnt" id="mainContent">
-    <div class="ls2"><div class="sp"></div><div class="lt">Loading...</div></div>
+
+  <div class="scroll-area" id="scrollArea">
+    <div class="cnt" id="mainContent">
+      <div class="loading"><div class="spin-el"></div></div>
+    </div>
   </div>
-  <nav class="bn">
-    <button class="bb active" onclick="showPage('students',this)">
-      <svg class="bi" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-      <span class="bla">Students</span>
+
+  <nav class="bottom-nav">
+    <button class="nav-tab active" onclick="showTab('home',this)">
+      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+      <span>Students</span>
     </button>
-    <button class="bb" onclick="showPage('attendance',this)">
-      <svg class="bi" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-      <span class="bla">Attend.</span>
+    <button class="nav-tab" onclick="showTab('attendance',this)">
+      <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span>Attend.</span>
     </button>
-    <button class="bb" onclick="showPage('marks',this)">
-      <svg class="bi" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-      <span class="bla">Marks</span>
+    <button class="nav-tab" onclick="showTab('marks',this)">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      <span>Marks</span>
     </button>
-    <button class="bb" onclick="showPage('group',this)">
-      <svg class="bi" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      <span class="bla">Group</span>
+    <button class="nav-tab" onclick="showTab('group',this)">
+      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span>Group</span>
     </button>
-    <button class="bb" onclick="showPage('notify',this)">
-      <svg class="bi" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-      <span class="bla">Notify</span>
+    <button class="nav-tab" onclick="showTab('notify',this)">
+      <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span>Notify</span>
     </button>
   </nav>
 </div>
@@ -245,390 +316,384 @@ body{font-family:var(--fb);background:var(--g5);color:var(--b);padding-bottom:80
 const API = 'https://edumanage-backend-xi.vercel.app/api';
 
 let TOKEN = null;
-let teacherData = null;   /* {name, code, phone} from login */
-let classData = null;     /* {id, standard, section} from my-class */
-let students = [];        /* students array from my-class */
+let teacherData = null;
+let classData = null;
+let students = [];
 let posts = [];
 let attState = {};
-let cp = 'students';
-let lang = localStorage.getItem('edu-lang') || 'en';
+let curTab = 'home';
+let curLang = localStorage.getItem('tch_lang') || 'en';
 
-const T = {
-  en:{no_class:'No class assigned yet. Contact admin.',no_students:'No students in your class.',loading:'Loading...'},
-  hi:{no_class:'कोई कक्षा नहीं। एडमिन से संपर्क करें।',no_students:'कोई छात्र नहीं।',loading:'लोड हो रहा है...'},
-  mr:{no_class:'वर्ग नाही. एडमिनशी संपर्क करा.',no_students:'विद्यार्थी नाहीत.',loading:'लोड होत आहे...'}
+const LANGS = {
+  en:{greeting:'Class Teacher',no_class:'No class assigned. Contact admin.',no_students:'No students in your class.',loading:'Loading...'},
+  hi:{greeting:'कक्षा शिक्षक',no_class:'कोई कक्षा नहीं। एडमिन से संपर्क करें।',no_students:'कोई छात्र नहीं।',loading:'लोड हो रहा है...'},
+  mr:{greeting:'वर्ग शिक्षक',no_class:'वर्ग नाही. एडमिनशी संपर्क करा.',no_students:'विद्यार्थी नाहीत.',loading:'लोड होत आहे...'}
 };
-function t(k){return(T[lang]&&T[lang][k])?T[lang][k]:(T.en[k]||k)}
+function L(k){return(LANGS[curLang]&&LANGS[curLang][k])||LANGS.en[k]||k}
+
+function H(){return{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN}}
+function ini(n){if(!n)return'?';return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}
+function ago(d){if(!d)return'';const s=Math.floor((Date.now()-new Date(d))/1000);if(s<60)return'just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago'}
+
+let toastT;
+function showToast(msg,err){
+  const e=document.getElementById('toast');
+  e.textContent=msg;e.className='toast'+(err?' err':'');
+  e.classList.add('show');clearTimeout(toastT);
+  toastT=setTimeout(()=>e.classList.remove('show'),3000);
+}
 
 function setLang(l){
-  lang=l;localStorage.setItem('edu-lang',l);
-  document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase()===l));
-  showPage(cp);
+  curLang=l;localStorage.setItem('tch_lang',l);
+  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase()===l));
+  showTab(curTab);
 }
-setLang(lang);
+setLang(curLang);
 
-function H(){return{Authorization:'Bearer '+TOKEN,'Content-Type':'application/json'};}
-
-function showToast(msg,ok=true){
-  const e=document.getElementById('toast');
-  e.textContent=msg;
-  e.style.background=ok?'var(--m)':'var(--red)';
-  e.classList.add('show');
-  setTimeout(()=>e.classList.remove('show'),3000);
-}
-
-function ini(n){if(!n)return'?';return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2);}
-function ago(d){if(!d)return'';const s=Math.floor((Date.now()-new Date(d))/1000);if(s<60)return'just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago';}
-
-/* ══════════════════
-   BOOT
-══════════════════ */
+/* ── BOOT ── */
 (function boot(){
-  const saved = localStorage.getItem('tch_token');
-  if(saved && saved.length > 20){
-    TOKEN = saved;
-    showApp();
-    loadData();
-  } else {
-    showLogin();
-  }
+  const saved=localStorage.getItem('tch_token');
+  if(saved&&saved.length>20){TOKEN=saved;showApp();loadData();}
+  else showLogin();
 })();
 
 function showLogin(){
   document.getElementById('loginScreen').style.display='flex';
   document.getElementById('appScreen').style.display='none';
-  setTimeout(()=>document.getElementById('lCode').focus(),300);
+  setTimeout(()=>document.getElementById('lCode')?.focus(),300);
 }
 function showApp(){
   document.getElementById('loginScreen').style.display='none';
-  document.getElementById('appScreen').style.display='block';
+  document.getElementById('appScreen').style.display='flex';
 }
 
-/* ══════════════════
-   LOGIN
-   FIX: check data.token not data.success&&data.token
-══════════════════ */
-async function doLogin(){
-  const code = document.getElementById('lCode').value.trim().toUpperCase();
-  const pass = document.getElementById('lPass').value.trim();
-  const errEl = document.getElementById('lErr');
-  const btn   = document.getElementById('lBtn');
-  if(!code||!pass){errEl.textContent='Code aur password bharo';errEl.classList.add('show');return;}
-  errEl.classList.remove('show');
-  btn.innerHTML='<div class="login-sp"></div> Signing in...';
-  btn.disabled=true;
-  try{
-    const res  = await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code,password:pass,role:'teacher'})});
-    const data = await res.json();
+/* ── LOGIN ── */
+function toggleLPw(){
+  const i=document.getElementById('lPass');
+  const s=document.getElementById('leyeS');
+  const h=document.getElementById('leyeH');
+  if(i.type==='password'){i.type='text';s.style.display='none';h.style.display='block';}
+  else{i.type='password';s.style.display='block';h.style.display='none';}
+}
 
-    /* KEY FIX: backend returns {token, user} — check data.token */
-    if(data.token){
-      if(data.user && data.user.role !== 'teacher'){
-        errEl.textContent='Yeh login sirf teachers ke liye hai.';
-        errEl.classList.add('show');
-        btn.innerHTML='Sign In';btn.disabled=false;
-        return;
-      }
-      TOKEN = data.token;
-      teacherData = data.user || {name:code,code};
-      localStorage.setItem('tch_token', TOKEN);
-      showApp();
-      loadData();
-    } else {
-      errEl.textContent = data.message || data.error || 'Invalid code or password.';
-      errEl.classList.add('show');
-      btn.innerHTML='Sign In';btn.disabled=false;
+async function doLogin(){
+  const code=document.getElementById('lCode').value.trim().toUpperCase();
+  const pass=document.getElementById('lPass').value;
+  const err=document.getElementById('lerr');
+  if(!code||!pass){err.textContent='Code aur password daalo';err.classList.add('show');return}
+  err.classList.remove('show');
+  document.getElementById('lTxt').style.display='none';
+  document.getElementById('lSpin').style.display='block';
+  document.getElementById('lBtn').disabled=true;
+  try{
+    const res=await fetch(API+'/auth/login',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({code,password:pass,role:'teacher'})
+    });
+    const data=await res.json();
+    if(res.ok&&data.token){
+      TOKEN=data.token;
+      teacherData=data.user||{name:code,code};
+      localStorage.setItem('tch_token',TOKEN);
+      localStorage.setItem('tch_name',teacherData.name||code);
+      showApp();loadData();
+    }else{
+      err.textContent=data.message||data.error||'Invalid code or password';
+      err.classList.add('show');
     }
   }catch(e){
-    errEl.textContent='Network error: '+e.message;
-    errEl.classList.add('show');
-    btn.innerHTML='Sign In';btn.disabled=false;
+    err.textContent='Network error: '+e.message;
+    err.classList.add('show');
   }
+  document.getElementById('lTxt').style.display='block';
+  document.getElementById('lSpin').style.display='none';
+  document.getElementById('lBtn').disabled=false;
 }
 
 function doLogout(){
   if(!confirm('Logout?'))return;
-  TOKEN=null;teacherData=null;classData=null;students=[];posts=[];
-  localStorage.removeItem('tch_token');
+  TOKEN=null;teacherData=null;classData=null;students=[];posts=[];attState={};
+  localStorage.removeItem('tch_token');localStorage.removeItem('tch_name');
   showLogin();
 }
 
-/* ══════════════════
-   LOAD DATA
-   FIX: GET /teachers/my-class returns {class, students}
-══════════════════ */
+/* ── LOAD DATA ── */
 async function loadData(){
-  document.getElementById('mainContent').innerHTML='<div class="ls2"><div class="sp"></div><div class="lt">'+t('loading')+'</div></div>';
+  document.getElementById('mainContent').innerHTML='<div class="loading"><div class="spin-el"></div><div style="font-size:13px;color:var(--b4)">'+L('loading')+'</div></div>';
   try{
-    const res  = await fetch(API+'/teachers/my-class',{headers:H()});
-    if(res.status===401){localStorage.removeItem('tch_token');showLogin();return;}
-    const data = await res.json();
-
-    /* Backend returns: {class: {...}, students: [...]} */
-    classData = data.class  || null;
-    students  = data.students || [];
-
+    /* Backend: GET /api/teachers/my-class → {class:{id,standard,section,teacher_name},students:[...]} */
+    const res=await fetch(API+'/teachers/my-class',{headers:H()});
+    if(res.status===401){localStorage.removeItem('tch_token');showLogin();return}
+    const data=await res.json();
+    classData=data.class||null;
+    students=data.students||[];
+    /* Default all to Present */
+    students.forEach(s=>{if(!attState[s.id])attState[s.id]='P';});
     /* Load posts */
     if(classData){
       try{
-        const pr = await fetch(API+'/posts?class='+encodeURIComponent(classData.standard),{headers:H()});
-        if(pr.ok){const pd=await pr.json();posts=Array.isArray(pd)?pd:(pd.posts||[]);}
+        const pr=await fetch(API+'/posts/'+classData.id,{headers:H()});
+        if(pr.ok){const pd=await pr.json();posts=pd.posts||[];}
       }catch(_){}
     }
-
-    showPage(cp);
+    showTab(curTab);
   }catch(e){
-    document.getElementById('mainContent').innerHTML=`<div class="ls2"><div class="eb"><p>Error loading data: ${e.message}</p></div></div>`;
+    document.getElementById('mainContent').innerHTML=`<div class="loading"><div style="color:var(--red);font-size:13px">Error: ${e.message}</div></div>`;
   }
 }
 
-/* ══════════════════
-   ROUTER
-══════════════════ */
-function showPage(page, btn){
-  cp=page;
-  document.querySelectorAll('.bb').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
+/* ── ROUTER ── */
+function showTab(tab,btn){
+  curTab=tab;
+  document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
+  if(btn)btn.classList.add('active');
   else{
-    const idx={students:0,attendance:1,marks:2,group:3,notify:4}[page]??0;
-    document.querySelectorAll('.bb')[idx]?.classList.add('active');
+    const idx={home:0,attendance:1,marks:2,group:3,notify:4}[tab]??0;
+    document.querySelectorAll('.nav-tab')[idx]?.classList.add('active');
   }
   const el=document.getElementById('mainContent');
-  if(page==='students')    el.innerHTML=renderStudents();
-  else if(page==='attendance') el.innerHTML=renderAttendance();
-  else if(page==='marks')  el.innerHTML=renderMarks();
-  else if(page==='group')  el.innerHTML=renderGroup();
-  else if(page==='notify') el.innerHTML=renderNotify();
-  el.scrollTop=0;window.scrollTo(0,0);
+  if(tab==='home')el.innerHTML=renderHome();
+  else if(tab==='attendance')el.innerHTML=renderAttendance();
+  else if(tab==='marks')el.innerHTML=renderMarks();
+  else if(tab==='group')el.innerHTML=renderGroup();
+  else if(tab==='notify')el.innerHTML=renderNotify();
+  document.getElementById('scrollArea').scrollTop=0;
+  window.scrollTo(0,0);
 }
 
-/* ══════════════════
-   STUDENTS PAGE
-   Shows teacher name, class info, student list
-══════════════════ */
-function renderStudents(){
-  const tname = teacherData?.name || localStorage.getItem('tch_name') || 'Teacher';
-  const present = Object.values(attState).filter(v=>v==='P').length;
-  const absent  = Object.values(attState).filter(v=>v==='A').length;
-
+/* ── HOME ── */
+function renderHome(){
+  const name=teacherData?.name||localStorage.getItem('tch_name')||'Teacher';
+  const present=Object.values(attState).filter(v=>v==='P').length;
+  const absent=Object.values(attState).filter(v=>v==='A').length;
   if(!classData){
-    return `
-    <div class="hdr"><div class="hg"></div><div class="hc">
-      <div class="grt">Welcome</div>
-      <div class="tnm">${tname}</div>
-      <div class="cps"><span class="cp">No class assigned</span></div>
+    return`<div class="hero"><div class="hero-grid"></div><div class="hero-inner">
+      <div class="hero-grt">${L('greeting')}</div>
+      <div class="hero-name">${name}</div>
+      <div class="hero-chips"><span class="hero-chip">No class assigned</span></div>
     </div></div>
-    <div style="padding:20px 16px">
-      <div class="card" style="text-align:center;padding:24px;color:var(--g4)">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--g3)" stroke-width="2" style="margin:0 auto 12px;display:block"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-        <p style="font-size:14px;font-weight:600;margin-bottom:6px">No class assigned</p>
-        <p style="font-size:13px">${t('no_class')}</p>
-      </div>
-    </div>`;
+    <div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--b4)"><p>${L('no_class')}</p></div></div>`;
   }
-
-  const cls = classData.standard + (classData.section?' - '+classData.section:'');
-  return `
-  <div class="hdr"><div class="hg"></div><div class="hc">
-    <div class="grt">Class Teacher</div>
-    <div class="tnm">${tname}</div>
-    <div class="cps">
-      <span class="cp">${cls}</span>
-      <span class="cp">${students.length} Students</span>
-      ${classData.section?`<span class="cp">Section ${classData.section}</span>`:''}
+  const cls=classData.standard+(classData.section?' - '+classData.section:'');
+  return`
+  <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
+    <div class="hero-grt">${L('greeting')}</div>
+    <div class="hero-name">${name}</div>
+    <div class="hero-chips">
+      <span class="hero-chip">${cls}</span>
+      <span class="hero-chip">${students.length} Students</span>
     </div>
   </div></div>
   <div class="stats-row">
-    <div class="sc"><div class="sv">${students.length}</div><div class="sl">Total</div></div>
-    <div class="sc"><div class="sv" style="color:var(--green)">${present}</div><div class="sl">Present</div></div>
-    <div class="sc"><div class="sv" style="color:var(--red)">${absent}</div><div class="sl">Absent</div></div>
+    <div class="stat-tile"><div class="stat-val">${students.length}</div><div class="stat-lbl">Total</div></div>
+    <div class="stat-tile"><div class="stat-val" style="color:var(--green)">${present}</div><div class="stat-lbl">Present</div></div>
+    <div class="stat-tile"><div class="stat-val" style="color:var(--red)">${absent}</div><div class="stat-lbl">Absent</div></div>
   </div>
   <div class="sec">
-    <div class="stt">My Students</div>
-    ${!students.length?`<div class="eb"><p>${t('no_students')}</p></div>`:''}
+    <div class="sec-title">My Students</div>
+    ${!students.length?`<div class="empty">${L('no_students')}</div>`:''}
     ${students.map(s=>`
-      <div class="si" onclick="viewStudentDetail('${s._id||s.id||s.user_id}')">
-        <div class="sav">${ini(s.name)}</div>
+      <div class="si" onclick="viewStudentDetail(${s.id})">
+        <div class="si-av">${ini(s.name)}</div>
         <div style="flex:1">
-          <div class="snm">${s.name}</div>
-          <div class="smeta">Roll ${s.roll_no||'-'} · ${s.parent_phone||'No phone'}</div>
+          <div class="si-name">${s.name}</div>
+          <div class="si-meta">Roll ${s.roll_no||'-'} &nbsp;|&nbsp; ${s.parent_phone||'No phone'}</div>
         </div>
-        <span class="${attState[s._id||s.id||s.user_id]==='P'?'badge-ok':attState[s._id||s.id||s.user_id]==='A'?'badge-no':''}">${attState[s._id||s.id||s.user_id]||''}</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--g3)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        <span class="${attState[s.id]==='P'?'badge-ok':attState[s.id]==='A'?'badge-no':''}">${attState[s.id]||''}</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--b3)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
       </div>`).join('')}
   </div>`;
 }
 
 function viewStudentDetail(id){
-  const s=students.find(x=>(x._id||x.id||x.user_id)===id);if(!s)return;
+  const s=students.find(x=>x.id===id);if(!s)return;
   const el=document.getElementById('mainContent');
   el.innerHTML=`
-  <button class="back-btn" onclick="showPage('students')"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back</button>
-  <div class="det-card">
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px">
-      <div style="width:52px;height:52px;background:var(--mp2);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--fd);font-size:20px;color:var(--m)">${ini(s.name)}</div>
-      <div><div style="font-family:var(--fd);font-size:20px;font-weight:700">${s.name}</div><div style="font-size:12px;color:var(--g4)">Roll ${s.roll_no||'-'}</div></div>
+  <button class="back-btn" onclick="showTab('home')">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back
+  </button>
+  <div style="padding:0 16px 12px">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
+      <div style="width:52px;height:52px;background:rgba(128,0,32,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:20px;color:var(--p);flex-shrink:0">${ini(s.name)}</div>
+      <div>
+        <div style="font-family:var(--ff);font-size:20px;font-weight:700;color:#1a1a1a">${s.name}</div>
+        <div style="font-size:12px;color:var(--b4)">Roll ${s.roll_no||'-'}</div>
+      </div>
     </div>
   </div>
-  <div class="il">
-    ${s.parent_name?`<div class="ir"><div class="irl">Parent</div><div class="irv">${s.parent_name}</div></div>`:''}
-    ${s.parent_phone?`<div class="ir"><div class="irl">Parent Phone</div><div class="irv">${s.parent_phone}</div></div>`:''}
-    ${s.dob?`<div class="ir"><div class="irl">DOB</div><div class="irv">${new Date(s.dob).toLocaleDateString('en-IN')}</div></div>`:''}
-    ${s.blood_group?`<div class="ir"><div class="irl">Blood Group</div><div class="irv">${s.blood_group}</div></div>`:''}
-    ${s.address?`<div class="ir"><div class="irl">Address</div><div class="irv">${s.address}</div></div>`:''}
-    <div class="ir"><div class="irl">Bus</div><div class="irv">${s.has_bus?'🚌 Yes':'No'}</div></div>
-    <div class="ir"><div class="irl">Attendance Today</div><div class="irv">${attState[s._id||s.id||s.user_id]==='P'?'<span class="badge-ok">Present</span>':attState[s._id||s.id||s.user_id]==='A'?'<span class="badge-no">Absent</span>':'Not marked'}</div></div>
+  <div class="info-list">
+    ${s.parent_name?`<div class="info-row"><span class="info-lbl">Parent</span><span class="info-val">${s.parent_name}</span></div>`:''}
+    ${s.parent_phone?`<div class="info-row"><span class="info-lbl">Parent Phone</span><span class="info-val">${s.parent_phone}</span></div>`:''}
+    ${s.dob?`<div class="info-row"><span class="info-lbl">DOB</span><span class="info-val">${new Date(s.dob).toLocaleDateString('en-IN')}</span></div>`:''}
+    ${s.blood_group?`<div class="info-row"><span class="info-lbl">Blood Group</span><span class="info-val">${s.blood_group}</span></div>`:''}
+    ${s.address?`<div class="info-row"><span class="info-lbl">Address</span><span class="info-val">${s.address}</span></div>`:''}
+    <div class="info-row"><span class="info-lbl">Bus</span><span class="info-val">${s.has_bus?(s.bus_route?'Yes — '+s.bus_route:'Yes'):'No'}</span></div>
+    <div class="info-row"><span class="info-lbl">Fees Status</span><span class="info-val">
+      <span class="${s.fees_status==='paid'?'badge-ok':s.fees_status==='partial'?'badge-ho':'badge-no'}">${s.fees_status||'pending'}</span>
+    </span></div>
+    <div class="info-row"><span class="info-lbl">Today's Attendance</span><span class="info-val">
+      ${attState[s.id]==='P'?'<span class="badge-ok">Present</span>':attState[s.id]==='A'?'<span class="badge-no">Absent</span>':'Not marked'}
+    </span></div>
   </div>`;
 }
 
-/* ══════════════════
-   ATTENDANCE
-══════════════════ */
+/* ── ATTENDANCE ── */
 function renderAttendance(){
-  if(!classData) return `<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--g4)"><p>${t('no_class')}</p></div></div>`;
-  const today = new Date().toISOString().slice(0,10);
-  if(!students.length) return `<div style="padding:20px 16px"><div class="eb"><p>${t('no_students')}</p></div></div>`;
-  return `
-  <div class="hdr"><div class="hg"></div><div class="hc">
-    <div class="grt">Attendance</div>
-    <div class="tnm">${classData.standard}</div>
+  if(!classData) return`<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--b4)"><p>${L('no_class')}</p></div></div>`;
+  if(!students.length) return`<div style="padding:20px 16px"><div class="empty">${L('no_students')}</div></div>`;
+  const today=new Date().toISOString().slice(0,10);
+  return`
+  <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
+    <div class="hero-grt">Attendance</div>
+    <div class="hero-name">${classData.standard}</div>
   </div></div>
   <div style="padding:14px 16px">
     <div class="att-sheet">
       <div class="att-date-row">
-        <div class="att-dl">Date</div>
-        <input type="date" class="di" id="attDate" value="${today}">
+        <div class="att-date-lbl">Date</div>
+        <input type="date" class="date-inp" id="attDate" value="${today}">
       </div>
       ${students.map(s=>{
-        const sid=s._id||s.id||s.user_id;
-        if(!attState[sid]) attState[sid]='P';
-        return`<div class="ar">
-          <div class="aroll">${s.roll_no||'-'}</div>
-          <div class="anm">${s.name}</div>
-          <div class="atog">
-            <button class="atb ${attState[sid]==='P'?'pa':''}" onclick="toggleAtt('${sid}','P',this)">P</button>
-            <button class="atb ${attState[sid]==='A'?'aa':''}" onclick="toggleAtt('${sid}','A',this)">A</button>
+        const sid=s.id;
+        if(!attState[sid])attState[sid]='P';
+        return`<div class="att-row">
+          <div class="att-roll">${s.roll_no||'-'}</div>
+          <div class="att-name">${s.name}</div>
+          <div class="att-tog">
+            <button class="att-btn ${attState[sid]==='P'?'p-on':''}" onclick="setAtt(${sid},'P',this)">P</button>
+            <button class="att-btn ${attState[sid]==='A'?'a-on':''}" onclick="setAtt(${sid},'A',this)">A</button>
           </div>
-        </div>`;}).join('')}
-      <button class="save-btn" onclick="saveAttendance()">Save Attendance</button>
+        </div>`;
+      }).join('')}
+      <button class="save-btn" id="saveAttBtn" onclick="saveAttendance()">Save Attendance</button>
     </div>
   </div>`;
 }
 
-function toggleAtt(sid,val,btn){
+function setAtt(sid,val,btn){
   attState[sid]=val;
-  const row=btn.closest('.atog');
-  row.querySelectorAll('.atb').forEach(b=>{b.classList.remove('pa','aa');});
-  if(val==='P') btn.classList.add('pa');
-  else btn.classList.add('aa');
+  const row=btn.closest('.att-tog');
+  row.querySelectorAll('.att-btn').forEach(b=>{b.classList.remove('p-on','a-on');});
+  btn.classList.add(val==='P'?'p-on':'a-on');
 }
 
 async function saveAttendance(){
   const date=document.getElementById('attDate')?.value||new Date().toISOString().slice(0,10);
-  const records=students.map(s=>{
-    const sid=s._id||s.id||s.user_id;
-    return{student_id:sid,status:attState[sid]||'P',date};
-  });
+  const btn=document.getElementById('saveAttBtn');
+  btn.disabled=true;btn.textContent='Saving...';
+  /* Backend: POST /api/attendance → {class_id, date, records:[{student_id,status}]} */
+  const records=students.map(s=>({student_id:s.id,status:attState[s.id]||'P'}));
   try{
-    const res=await fetch(API+'/attendance',{method:'POST',headers:H(),body:JSON.stringify({records,class_id:classData?.id,date})});
-    if(res.ok) showToast('✅ Attendance saved!');
-    else{const d=await res.json().catch(()=>({}));showToast('Error: '+(d.message||'Failed'),false);}
-  }catch(e){showToast('Network error',false);}
+    const res=await fetch(API+'/attendance',{
+      method:'POST',headers:H(),
+      body:JSON.stringify({class_id:classData?.id,date,records})
+    });
+    if(res.ok)showToast('Attendance saved!');
+    else{const d=await res.json().catch(()=>({}));showToast(d.error||'Failed',true);}
+  }catch(e){showToast('Network error',true)}
+  btn.disabled=false;btn.textContent='Save Attendance';
 }
 
-/* ══════════════════
-   MARKS
-══════════════════ */
+/* ── MARKS ── */
 function renderMarks(){
-  if(!classData) return `<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--g4)"><p>${t('no_class')}</p></div></div>`;
-  if(!students.length) return `<div style="padding:20px 16px"><div class="eb"><p>${t('no_students')}</p></div></div>`;
-  return `
-  <div class="hdr"><div class="hg"></div><div class="hc">
-    <div class="grt">Marks</div>
-    <div class="tnm">${classData.standard}</div>
+  if(!classData) return`<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--b4)"><p>${L('no_class')}</p></div></div>`;
+  if(!students.length) return`<div style="padding:20px 16px"><div class="empty">${L('no_students')}</div></div>`;
+  return`
+  <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
+    <div class="hero-grt">Marks Entry</div>
+    <div class="hero-name">${classData.standard}</div>
   </div></div>
   <div style="padding:14px 16px">
-    <div class="card" style="margin-bottom:14px">
-      <div class="fg"><label>Subject</label><input class="fi" id="mk_sub" placeholder="e.g. Mathematics"></div>
-      <div class="fg"><label>Exam Type</label>
+    <div class="card" style="margin-bottom:12px">
+      <div class="fgl"><label>Subject *</label><input class="fi" id="mk_sub" placeholder="e.g. Mathematics"></div>
+      <div class="fgl"><label>Exam Type *</label>
         <select class="fi" id="mk_exam">
-          <option>Unit Test 1</option><option>Unit Test 2</option>
-          <option>Mid Term</option><option>Final Exam</option>
-          <option>Class Test</option><option>Assignment</option>
+          <option value="Unit Test 1">Unit Test 1</option>
+          <option value="Unit Test 2">Unit Test 2</option>
+          <option value="Mid Term">Mid Term</option>
+          <option value="Final Exam">Final Exam</option>
+          <option value="Class Test">Class Test</option>
+          <option value="Assignment">Assignment</option>
         </select>
       </div>
-      <div class="fg"><label>Out of (Total Marks)</label>
-        <input type="number" class="fi" id="mk_total" placeholder="e.g. 100" value="100">
+      <div class="fgl"><label>Total Marks</label>
+        <input type="number" class="fi" id="mk_total" value="100" placeholder="100">
       </div>
-      <button class="apply-all" onclick="applyTotalToAll()">Apply total to all ↓</button>
+      <button class="apply-all" onclick="applyTotal()">Apply total to all students</button>
     </div>
-    ${students.map(s=>{
-      const sid=s._id||s.id||s.user_id;
-      return`<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--w);border:1px solid var(--g2);border-radius:var(--r);margin-bottom:8px">
-        <div class="sav" style="width:34px;height:34px;font-size:13px">${ini(s.name)}</div>
-        <div class="mlbl" style="flex:1;font-size:13px;min-width:0"><div style="font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.name}</div><div style="font-size:10px;color:var(--g4)">Roll ${s.roll_no||'-'}</div></div>
-        <input type="number" class="minput mk-obtained" data-sid="${sid}" placeholder="Marks" min="0">
-        <span style="font-size:12px;color:var(--g4)">/</span>
-        <input type="number" class="minput mk-outof" data-sid="${sid}" placeholder="100" value="100" min="1">
-      </div>`;}).join('')}
-    <button class="save-btn" style="margin:14px 0 0 0;width:100%" onclick="saveMarks()">Save All Marks</button>
+    <div class="card">
+      ${students.map(s=>`
+        <div class="mk-row">
+          <div class="si-av" style="width:34px;height:34px;font-size:13px">${ini(s.name)}</div>
+          <div class="mk-name">${s.name}<div style="font-size:10px;color:var(--b4)">Roll ${s.roll_no||'-'}</div></div>
+          <input type="number" class="mk-inp" data-sid="${s.id}" placeholder="--" min="0">
+          <span class="mk-sep">/</span>
+          <input type="number" class="mk-of" data-sid="${s.id}" value="100" min="1">
+        </div>`).join('')}
+      <button class="save-btn" id="saveMarksBtn" onclick="saveMarks()" style="margin:12px 0 0 0;width:100%">Save All Marks</button>
+    </div>
   </div>`;
 }
 
-function applyTotalToAll(){
+function applyTotal(){
   const total=document.getElementById('mk_total')?.value||'100';
-  document.querySelectorAll('.mk-outof').forEach(el=>el.value=total);
+  document.querySelectorAll('.mk-of').forEach(el=>el.value=total);
 }
 
 async function saveMarks(){
   const sub=document.getElementById('mk_sub')?.value.trim();
   const exam=document.getElementById('mk_exam')?.value;
-  if(!sub){showToast('Subject likhao',false);return;}
+  if(!sub){showToast('Subject likhao',true);return}
   const records=[];
-  document.querySelectorAll('.mk-obtained').forEach(el=>{
+  document.querySelectorAll('.mk-inp').forEach(el=>{
     const val=el.value.trim();
     if(val!==''){
-      const sid=el.dataset.sid;
-      const outof=document.querySelector(`.mk-outof[data-sid="${sid}"]`)?.value||'100';
-      records.push({student_id:sid,subject:sub,exam_type:exam,marks_obtained:Number(val),total_marks:Number(outof)});
+      const sid=parseInt(el.dataset.sid);
+      const of=document.querySelector(`.mk-of[data-sid="${sid}"]`)?.value||'100';
+      records.push({student_id:sid,subject:sub,exam_type:exam,marks_obtained:Number(val),total_marks:Number(of)});
     }
   });
-  if(!records.length){showToast('Koi marks enter karo',false);return;}
+  if(!records.length){showToast('Koi marks enter karo',true);return}
+  const btn=document.getElementById('saveMarksBtn');
+  btn.disabled=true;btn.textContent='Saving...';
   try{
-    const res=await fetch(API+'/marks',{method:'POST',headers:H(),body:JSON.stringify({records,class_id:classData?.id})});
-    if(res.ok) showToast('✅ Marks saved!');
-    else{const d=await res.json().catch(()=>({}));showToast('Error: '+(d.message||'Failed'),false);}
-  }catch(e){showToast('Network error',false);}
+    /* Backend: POST /api/marks → {class_id, records:[{student_id,subject,exam_type,marks_obtained,total_marks}]} */
+    const res=await fetch(API+'/marks',{
+      method:'POST',headers:H(),
+      body:JSON.stringify({class_id:classData?.id,records})
+    });
+    if(res.ok)showToast('Marks saved!');
+    else{const d=await res.json().catch(()=>({}));showToast(d.error||'Failed',true);}
+  }catch(e){showToast('Network error',true)}
+  btn.disabled=false;btn.textContent='Save All Marks';
 }
 
-/* ══════════════════
-   GROUP
-══════════════════ */
+/* ── GROUP ── */
 function renderGroup(){
-  if(!classData) return `<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--g4)"><p>${t('no_class')}</p></div></div>`;
-  return `
-  <div class="hdr"><div class="hg"></div><div class="hc">
-    <div class="grt">Class Group</div>
-    <div class="tnm">${classData.standard}</div>
+  if(!classData) return`<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--b4)"><p>${L('no_class')}</p></div></div>`;
+  return`
+  <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
+    <div class="hero-grt">Class Group</div>
+    <div class="hero-name">${classData.standard}</div>
   </div></div>
   <div style="padding:14px 16px">
     <div class="composer">
       <textarea class="ctxt" id="postTxt" placeholder="Write something for your class..."></textarea>
       <input class="fi" id="postVid" placeholder="Video link (optional)" style="margin-bottom:10px">
-      <button class="post-btn" onclick="doPost()">📢 Post</button>
+      <button class="post-btn" id="postBtn" onclick="doPost()">Post</button>
     </div>
-    ${!posts.length?`<div class="eb"><p>No posts yet</p></div>`:''}
+    ${!posts.length?'<div class="empty">No posts yet</div>':''}
     ${posts.map(p=>`
-      <div class="pi">
-        <div class="ph">
-          <div class="pau">${p.posted_by_name||'Teacher'}</div>
+      <div class="post-item">
+        <div class="post-head">
+          <span class="post-author">${p.posted_by_name||'Teacher'}</span>
           <div style="display:flex;align-items:center;gap:8px">
-            <div class="ptm">${ago(p.created_at)}</div>
-            <button class="del-btn" onclick="deletePost('${p._id||p.id}')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/></svg></button>
+            <span class="post-time">${ago(p.created_at)}</span>
+            <button class="del-post" onclick="delPost(${p.id})">x</button>
           </div>
         </div>
-        <div class="ptxt">${p.text_content||''}</div>
-        ${p.video_link?`<a href="${p.video_link}" target="_blank" style="display:inline-flex;align-items:center;gap:5px;margin-top:6px;font-size:12px;color:var(--m);font-weight:500;text-decoration:none">▶ Watch Video</a>`:''}
+        <div class="post-text">${p.text_content||''}</div>
+        ${p.video_link?`<a href="${p.video_link}" target="_blank" style="display:inline-flex;align-items:center;gap:5px;margin-top:6px;font-size:12px;color:var(--p);font-weight:600;text-decoration:none">Watch Video</a>`:''}
       </div>`).join('')}
   </div>`;
 }
@@ -636,81 +701,85 @@ function renderGroup(){
 async function doPost(){
   const txt=document.getElementById('postTxt')?.value.trim();
   const vid=document.getElementById('postVid')?.value.trim();
-  if(!txt&&!vid){showToast('Kuch likho',false);return;}
+  if(!txt&&!vid){showToast('Kuch likho',true);return}
+  const btn=document.getElementById('postBtn');
+  btn.disabled=true;btn.textContent='Posting...';
   try{
-    const res=await fetch(API+'/posts',{method:'POST',headers:H(),body:JSON.stringify({text_content:txt,video_link:vid||null,class_name:classData?.standard,target_class:classData?.standard})});
+    /* Backend: POST /api/posts → {class_id, text_content, video_link} */
+    const res=await fetch(API+'/posts',{
+      method:'POST',headers:H(),
+      body:JSON.stringify({class_id:classData?.id,text_content:txt,video_link:vid||null})
+    });
     const d=await res.json().catch(()=>({}));
     if(res.ok){
-      posts.unshift(d.post||{text_content:txt,video_link:vid,created_at:new Date(),posted_by_name:teacherData?.name||'Teacher'});
-      showToast('✅ Posted!');
-      showPage('group');
-    }else showToast('Error: '+(d.message||'Failed'),false);
-  }catch(e){showToast('Network error',false);}
+      posts.unshift(d.post||{text_content:txt,video_link:vid,created_at:new Date(),posted_by_name:teacherData?.name||'Teacher',id:Date.now()});
+      showToast('Posted!');
+      showTab('group');
+    }else showToast(d.error||'Failed',true);
+  }catch(e){showToast('Network error',true)}
+  btn.disabled=false;btn.textContent='Post';
 }
 
-async function deletePost(id){
-  if(!confirm('Delete karo?'))return;
+async function delPost(id){
+  if(!confirm('Delete?'))return;
   try{
+    /* Backend: DELETE /api/posts/:id */
     const res=await fetch(API+'/posts/'+id,{method:'DELETE',headers:H()});
-    if(res.ok){posts=posts.filter(p=>(p._id||p.id)!==id);showToast('Deleted');showPage('group');}
-    else showToast('Failed',false);
-  }catch(e){showToast('Network error',false);}
+    if(res.ok){posts=posts.filter(p=>p.id!==id);showToast('Deleted');showTab('group');}
+    else showToast('Failed',true);
+  }catch(e){showToast('Network error',true)}
 }
 
-/* ══════════════════
-   NOTIFY
-══════════════════ */
+/* ── NOTIFY ── */
 function renderNotify(){
-  if(!classData) return `<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--g4)"><p>${t('no_class')}</p></div></div>`;
-  return `
-  <div class="hdr"><div class="hg"></div><div class="hc">
-    <div class="grt">Notifications</div>
-    <div class="tnm">${classData.standard}</div>
+  if(!classData) return`<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--b4)"><p>${L('no_class')}</p></div></div>`;
+  return`
+  <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
+    <div class="hero-grt">Notifications</div>
+    <div class="hero-name">${classData.standard}</div>
   </div></div>
   <div style="padding:14px 16px">
-    <div class="nf">
-      <div class="fg"><label>Title ✱</label><input class="fi" id="nTitle" placeholder="Notification title"></div>
-      <div class="fg"><label>Message ✱</label><textarea class="fita" id="nMsg" placeholder="Write your message..."></textarea></div>
-      <div class="fg"><label>Send To</label>
-        <div class="check-actions">
-          <button class="ca-btn" onclick="checkAll(true)">Select All</button>
-          <button class="ca-btn" onclick="checkAll(false)">Clear All</button>
-        </div>
-        <div class="stu-check-list">
-          ${students.map(s=>`
-            <label class="stu-check-item">
-              <input type="checkbox" class="stu-check" value="${s._id||s.id||s.user_id}" checked>
-              <span style="font-size:13px;font-weight:500">${s.name}</span>
-              <span style="font-size:11px;color:var(--g4);margin-left:auto">Roll ${s.roll_no||'-'}</span>
-            </label>`).join('')}
-        </div>
+    <div class="nf-card">
+      <div class="fgl"><label>Title *</label><input class="fi" id="nTitle" placeholder="Notification title"></div>
+      <div class="fgl" style="margin-bottom:12px"><label>Message *</label><textarea class="fi" id="nMsg" rows="4" style="resize:none;min-height:80px" placeholder="Write message..."></textarea></div>
+      <label style="font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:6px">Send To</label>
+      <div class="ca-row">
+        <button class="ca-btn" onclick="checkAll(true)">Select All</button>
+        <button class="ca-btn" onclick="checkAll(false)">Clear All</button>
       </div>
-      <button class="send-btn" onclick="sendNotification()">📢 Send Notification</button>
+      <div class="stu-list">
+        ${students.map(s=>`
+          <label class="stu-item">
+            <input type="checkbox" class="stu-check" value="${s.id}" checked>
+            <span style="font-size:13px;font-weight:500;flex:1">${s.name}</span>
+            <span style="font-size:11px;color:var(--b4)">Roll ${s.roll_no||'-'}</span>
+          </label>`).join('')}
+      </div>
+      <button class="send-btn" onclick="sendNotif()">Send Notification</button>
     </div>
   </div>`;
 }
 
-function checkAll(val){document.querySelectorAll('.stu-check').forEach(c=>c.checked=val);}
+function checkAll(val){document.querySelectorAll('.stu-check').forEach(c=>c.checked=val)}
 
-async function sendNotification(){
+async function sendNotif(){
   const title=document.getElementById('nTitle')?.value.trim();
   const msg=document.getElementById('nMsg')?.value.trim();
-  if(!title||!msg){showToast('Title aur message bharo',false);return;}
-  const checked=[...document.querySelectorAll('.stu-check:checked')].map(c=>c.value);
-  if(!checked.length){showToast('Koi student select karo',false);return;}
+  if(!title||!msg){showToast('Title aur message daalo',true);return}
+  const checked=[...document.querySelectorAll('.stu-check:checked')].map(c=>parseInt(c.value));
+  if(!checked.length){showToast('Koi student select karo',true);return}
   try{
-    const res=await fetch(API+'/notifications',{method:'POST',headers:H(),body:JSON.stringify({title,message:msg,class_name:classData?.standard,student_ids:checked})});
+    /* Backend: POST /api/notifications/send → {title,message,target_type,student_ids} */
+    const res=await fetch(API+'/notifications/send',{
+      method:'POST',headers:H(),
+      body:JSON.stringify({title,message:msg,target_type:'students',student_ids:checked})
+    });
     if(res.ok){
-      showToast('✅ Notification sent!');
+      showToast('Notification sent!');
       document.getElementById('nTitle').value='';
       document.getElementById('nMsg').value='';
-    }else{const d=await res.json().catch(()=>({}));showToast('Error: '+(d.message||'Failed'),false);}
-  }catch(e){showToast('Network error',false);}
-}
-</script>
-  <script>
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('/sw.js');
+    }else{const d=await res.json().catch(()=>({}));showToast(d.error||'Failed',true);}
+  }catch(e){showToast('Network error',true)}
 }
 </script>
 </body>
