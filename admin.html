@@ -181,7 +181,6 @@ tr:hover td{background:#fdf5f7}
     <button class="ni" onclick="goto('notify',this)"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Send Notification</button>
     <div class="nav-grp">School</div>
     <button class="ni" onclick="goto('classes',this)"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Classes Overview</button>
-    <button class="ni" onclick="goto('timetable',this)"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Timetable</button>
   </nav>
   <div class="sb-foot">
     <div class="sb-admin-row">
@@ -262,11 +261,10 @@ tr:hover td{background:#fdf5f7}
 <div class="toast" id="toast"></div>
 
 <script>
-/* ══════════════════════════════
-   CORRECT API URL — backend running
-══════════════════════════════ */
+/* ═══════════════════════════
+   CORRECT API — backend routes
+═══════════════════════════ */
 const API = 'https://edumanage-backend-xi.vercel.app/api';
-
 const TOKEN = sessionStorage.getItem('admin_token');
 if(!TOKEN) window.location.replace('login.html');
 
@@ -295,7 +293,7 @@ const TITLES={
   dashboard:'Dashboard',students:'All Students',addStudent:'Add Student',
   editStudent:'Edit Student',teachers:'All Teachers',addTeacher:'Add Teacher',
   editTeacher:'Edit Teacher',fees:'Fee Management',payments:'Payment Requests',
-  notify:'Send Notification',classes:'Classes Overview',timetable:'Timetable',
+  notify:'Send Notification',classes:'Classes Overview',
   promote:'Promote Class',passout:'Passout Students'
 };
 
@@ -319,26 +317,19 @@ function goto(name,btn){
     teachers:loadTeachers,addTeacher:showAddTeacher,
     fees:loadFees,payments:loadPayments,
     notify:showNotify,classes:loadClasses,
-    timetable:showTimetable,promote:showPromote,passout:showPassout
+    promote:showPromote,passout:showPassout
   };
   if(map[name]) map[name](p);
 }
 
 function ini(n){if(!n)return'?';return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}
-
 function feeB(st){
   if(st==='paid') return'<span class="badge bg">Paid</span>';
   if(st==='partial') return'<span class="badge bo">Partial</span>';
   return'<span class="badge br">Pending</span>';
 }
-
-function spin(){
-  return'<div style="display:flex;align-items:center;justify-content:center;padding:60px"><div style="width:26px;height:26px;border:2px solid var(--b2);border-top-color:var(--p);border-radius:50%;animation:spin .8s linear infinite"></div></div>';
-}
-
-function errH(m){
-  return`<div style="background:var(--rl);color:var(--red);padding:14px;border-radius:10px;font-size:13px;margin-bottom:16px">${m}</div>`;
-}
+function spin(){return'<div style="display:flex;align-items:center;justify-content:center;padding:60px"><div style="width:26px;height:26px;border:2px solid var(--b2);border-top-color:var(--p);border-radius:50%;animation:spin .8s linear infinite"></div></div>'}
+function errH(m){return`<div style="background:var(--rl);color:var(--red);padding:14px;border-radius:10px;font-size:13px;margin-bottom:16px">${m}</div>`}
 
 function calcMF(){
   const t=parseFloat(document.getElementById('mfTotal').value)||0;
@@ -363,32 +354,19 @@ function togglePwF(id,btn){
   btn.querySelector('svg').style.opacity=i.type==='text'?'.4':'1';
 }
 
+/* Classes dropdown uses standard (string) as value */
 function classOpts(ph){
   const base=allClasses.length
-    ?allClasses.map(c=>`<option value="${c.id}">${c.standard}${c.section?' - '+c.section:''}</option>`).join('')
-    :['Nursery','LKG','UKG','Class 1','Class 2','Class 3','Class 4','Class 5',
-      'Class 6','Class 7','Class 8','Class 9','Class 10']
-      .map(c=>`<option value="${c}">${c}</option>`).join('');
-  return`<option value="">${ph||'Select'}</option>${base}`;
-}
-
-function classOptsName(ph){
-  const base=allClasses.length
     ?allClasses.map(c=>`<option value="${c.standard}">${c.standard}${c.section?' - '+c.section:''}</option>`).join('')
-    :['Nursery','LKG','UKG','Class 1','Class 2','Class 3','Class 4','Class 5',
-      'Class 6','Class 7','Class 8','Class 9','Class 10']
-      .map(c=>`<option value="${c}">${c}</option>`).join('');
+    :['Nursery','LKG','UKG','Class 1','Class 2','Class 3','Class 4','Class 5','Class 6','Class 7','Class 8','Class 9','Class 10'].map(c=>`<option value="${c}">${c}</option>`).join('');
   return`<option value="">${ph||'Select'}</option>${base}`;
 }
 
-/* ══ FETCH CLASSES ══ */
 async function fetchClasses(){
   try{
+    /* Backend: GET /api/teachers/classes → {classes:[{id,standard,section,teacher_name}]} */
     const r=await fetch(API+'/teachers/classes',{headers:H()});
-    if(r.ok){
-      const d=await r.json();
-      allClasses=d.classes||[];
-    }
+    if(r.ok){const d=await r.json();allClasses=d.classes||[];}
   }catch(e){}
 }
 
@@ -397,41 +375,30 @@ async function loadDash(p){
   if(!p) p=getP('dashboard');
   p.innerHTML=spin();
   try{
-    const [sr,tr]=await Promise.all([
+    const [sr,tr,fsr]=await Promise.all([
+      /* GET /api/students → {students:[...each has fees_status,total_amount,paid_amount,remaining_amount]} */
       fetch(API+'/students',{headers:H()}),
-      fetch(API+'/teachers',{headers:H()})
+      /* GET /api/teachers → {teachers:[...]} */
+      fetch(API+'/teachers',{headers:H()}),
+      /* GET /api/fees/stats → {stats:{paid,pending,partial}} */
+      fetch(API+'/fees/stats',{headers:H()})
     ]);
     if(sr.status===401){doLogout();return}
     const sd=await sr.json(); allStudents=sd.students||[];
     const td=await tr.json(); allTeachers=td.teachers||[];
+    const fsd=await fsr.json(); const stats=fsd.stats||{};
 
-    /* Count fees from students array */
-    const paid=allStudents.filter(s=>s.fees_status==='paid').length;
-    const pend=allStudents.filter(s=>s.fees_status==='pending'||!s.fees_status).length;
-    const part=allStudents.filter(s=>s.fees_status==='partial').length;
+    /* Count from students array as fallback */
+    const paid=stats.paid??allStudents.filter(s=>s.fees_status==='paid').length;
+    const pend=stats.pending??allStudents.filter(s=>s.fees_status==='pending'||!s.fees_status).length;
+    const part=stats.partial??allStudents.filter(s=>s.fees_status==='partial').length;
 
     p.innerHTML=`
     <div class="stats-grid">
-      <div class="sc">
-        <div class="sc-ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
-        <div class="sc-num">${allStudents.length}</div>
-        <div class="sc-lbl">Total Students</div>
-      </div>
-      <div class="sc">
-        <div class="sc-ic"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-        <div class="sc-num">${allTeachers.length}</div>
-        <div class="sc-lbl">Total Teachers</div>
-      </div>
-      <div class="sc">
-        <div class="sc-ic"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/></svg></div>
-        <div class="sc-num">${paid}</div>
-        <div class="sc-lbl">Fees Paid</div>
-      </div>
-      <div class="sc">
-        <div class="sc-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
-        <div class="sc-num">${pend}</div>
-        <div class="sc-lbl">Fees Pending</div>
-      </div>
+      <div class="sc"><div class="sc-ic"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div class="sc-num">${allStudents.length}</div><div class="sc-lbl">Total Students</div></div>
+      <div class="sc"><div class="sc-ic"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div><div class="sc-num">${allTeachers.length}</div><div class="sc-lbl">Total Teachers</div></div>
+      <div class="sc"><div class="sc-ic"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/></svg></div><div class="sc-num">${paid}</div><div class="sc-lbl">Fees Paid</div></div>
+      <div class="sc"><div class="sc-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="sc-num">${pend}</div><div class="sc-lbl">Fees Pending</div></div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
       <div class="card" style="margin-bottom:0">
@@ -439,10 +406,7 @@ async function loadDash(p){
         ${allStudents.slice(0,6).map(s=>`
           <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--b1)">
             <div style="width:32px;height:32px;background:rgba(128,0,32,.07);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:12px;color:var(--p);font-weight:700;flex-shrink:0">${ini(s.name)}</div>
-            <div style="flex:1;min-width:0">
-              <div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.name}</div>
-              <div style="font-size:11px;color:var(--b4)">${s.standard||'-'}</div>
-            </div>
+            <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.name}</div><div style="font-size:11px;color:var(--b4)">${s.standard||'-'}</div></div>
             ${feeB(s.fees_status)}
           </div>`).join('')}
         <button class="btn btn-o btn-sm" style="width:100%;margin-top:12px" onclick="goto('students')">View All</button>
@@ -450,18 +414,9 @@ async function loadDash(p){
       <div class="card" style="margin-bottom:0">
         <div class="card-title">Fees Overview</div>
         <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px">
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--gl);border-radius:8px">
-            <span style="font-size:13px;font-weight:600;color:var(--green)">Paid</span>
-            <span style="font-family:var(--ff);font-size:22px;font-weight:700;color:var(--green)">${paid}</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--goldl);border-radius:8px">
-            <span style="font-size:13px;font-weight:600;color:var(--gold)">Partial</span>
-            <span style="font-family:var(--ff);font-size:22px;font-weight:700;color:var(--gold)">${part}</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--rl);border-radius:8px">
-            <span style="font-size:13px;font-weight:600;color:var(--red)">Pending</span>
-            <span style="font-family:var(--ff);font-size:22px;font-weight:700;color:var(--red)">${pend}</span>
-          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--gl);border-radius:8px"><span style="font-size:13px;font-weight:600;color:var(--green)">Paid</span><span style="font-family:var(--ff);font-size:22px;font-weight:700;color:var(--green)">${paid}</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--goldl);border-radius:8px"><span style="font-size:13px;font-weight:600;color:var(--gold)">Partial</span><span style="font-family:var(--ff);font-size:22px;font-weight:700;color:var(--gold)">${part}</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--rl);border-radius:8px"><span style="font-size:13px;font-weight:600;color:var(--red)">Pending</span><span style="font-family:var(--ff);font-size:22px;font-weight:700;color:var(--red)">${pend}</span></div>
         </div>
         <button class="btn btn-o btn-sm" style="width:100%" onclick="goto('fees')">Manage Fees</button>
       </div>
@@ -475,15 +430,15 @@ async function loadStudents(p,fc,q){
   fc=fc||'all'; q=q||'';
   p.innerHTML=spin();
   try{
+    /* GET /api/students?search=X&standard=Y → {students:[...]} */
     let url=API+'/students';
     const params=[];
     if(q) params.push('search='+encodeURIComponent(q));
-    if(fc!=='all') params.push('standard='+encodeURIComponent(fc));
+    else if(fc!=='all') params.push('standard='+encodeURIComponent(fc));
     if(params.length) url+='?'+params.join('&');
     const r=await fetch(url,{headers:H()});
     if(r.status===401){doLogout();return}
-    const d=await r.json();
-    allStudents=d.students||[];
+    const d=await r.json(); allStudents=d.students||[];
     renderStudents(p,fc,q);
   }catch(e){p.innerHTML=errH(e.message)}
 }
@@ -491,15 +446,14 @@ async function loadStudents(p,fc,q){
 function renderStudents(p,fc,q){
   if(!p) p=getP('students');
   fc=fc||'all'; q=q||'';
-  const cc={};
-  allStudents.forEach(s=>{const c=s.standard||'Other';cc[c]=(cc[c]||0)+1;});
+  /* Build class counts */
+  const cc={};allStudents.forEach(s=>{const c=s.standard||'Other';cc[c]=(cc[c]||0)+1;});
   p.classList.add('active');
   p.innerHTML=`
   <div class="card">
     <div class="card-hdr">
       <div style="display:flex;gap:8px;flex:1;flex-wrap:wrap">
-        <input class="srch" placeholder="Search name or code..." id="sSrch" value="${q}"
-          style="flex:1;min-width:160px"
+        <input class="srch" placeholder="Search name or code..." id="sSrch" value="${q}" style="flex:1;min-width:160px"
           onkeydown="if(event.key==='Enter'){allStudents=[];loadStudents(document.getElementById('p-students'),'all',this.value)}">
         <button class="btn btn-o btn-sm" onclick="allStudents=[];loadStudents(document.getElementById('p-students'),'all',document.getElementById('sSrch').value)">Search</button>
       </div>
@@ -557,20 +511,14 @@ function viewStudent(id){
   <div style="background:var(--b1);border-radius:10px;padding:14px">
     <div style="font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">Fees</div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px">
-      <div style="text-align:center">
-        <div style="font-family:var(--ff);font-size:18px;font-weight:700;color:var(--dp)">Rs ${total.toLocaleString('en-IN')}</div>
-        <div style="font-size:10px;color:var(--b4);text-transform:uppercase">Total</div>
-      </div>
-      <div style="text-align:center">
-        <div style="font-family:var(--ff);font-size:18px;font-weight:700;color:var(--green)">Rs ${paid.toLocaleString('en-IN')}</div>
-        <div style="font-size:10px;color:var(--b4);text-transform:uppercase">Paid</div>
-      </div>
-      <div style="text-align:center">
-        <div style="font-family:var(--ff);font-size:18px;font-weight:700;color:var(--red)">Rs ${rem.toLocaleString('en-IN')}</div>
-        <div style="font-size:10px;color:var(--b4);text-transform:uppercase">Remaining</div>
-      </div>
+      <div style="text-align:center"><div style="font-family:var(--ff);font-size:18px;font-weight:700;color:var(--dp)">Rs ${total.toLocaleString('en-IN')}</div><div style="font-size:10px;color:var(--b4);text-transform:uppercase">Total</div></div>
+      <div style="text-align:center"><div style="font-family:var(--ff);font-size:18px;font-weight:700;color:var(--green)">Rs ${paid.toLocaleString('en-IN')}</div><div style="font-size:10px;color:var(--b4);text-transform:uppercase">Paid</div></div>
+      <div style="text-align:center"><div style="font-family:var(--ff);font-size:18px;font-weight:700;color:var(--red)">Rs ${rem.toLocaleString('en-IN')}</div><div style="font-size:10px;color:var(--b4);text-transform:uppercase">Remaining</div></div>
     </div>
     <div style="text-align:center">${feeB(s.fees_status)}</div>
+  </div>
+  <div style="margin-top:14px;display:flex;gap:8px">
+    <button class="btn btn-o btn-sm" onclick="closeMo('moVS');editSPage(${s.id})">Edit Student</button>
   </div>`;
   openMo('moVS');
 }
@@ -578,6 +526,7 @@ function viewStudent(id){
 async function delStudent(id,name){
   if(!confirm('"'+name+'" delete karo?')) return;
   try{
+    /* DELETE /api/students/:id */
     const r=await fetch(API+'/students/'+id,{method:'DELETE',headers:H()});
     if(r.ok){toast('Student deleted');allStudents=[];loadStudents(getP('students'));}
     else toast('Delete failed',false);
@@ -594,11 +543,8 @@ function showAddStudent(p){
     <div class="fg2">
       <div class="fgl"><label>Full Name *</label><input class="fi" id="as_name" placeholder="Student full name"></div>
       <div class="fgl"><label>Student Code *</label><input class="fi" id="as_code" placeholder="e.g. AYUSH09" oninput="this.value=this.value.toUpperCase()"></div>
-      <div class="fgl"><label>Password *</label>
-        <div class="pw-wrap"><input class="fi" type="password" id="as_pass" placeholder="Set password">
-        <button class="pw-eye" type="button" onclick="togglePwF('as_pass',this)"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
-      </div>
-      <div class="fgl"><label>Class *</label><select class="fi" id="as_cls">${classOptsName('Select class')}</select></div>
+      <div class="fgl"><label>Password *</label><div class="pw-wrap"><input class="fi" type="password" id="as_pass" placeholder="Set password"><button class="pw-eye" type="button" onclick="togglePwF('as_pass',this)"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
+      <div class="fgl"><label>Class *</label><select class="fi" id="as_cls">${classOpts('Select class')}</select></div>
       <div class="fgl"><label>Roll No</label><input class="fi" type="number" id="as_roll" placeholder="Roll number"></div>
       <div class="fgl"><label>Gender</label><select class="fi" id="as_gen"><option value="">Select</option><option>Male</option><option>Female</option><option>Other</option></select></div>
       <div class="fgl"><label>Date of Birth</label><input class="fi" type="date" id="as_dob"></div>
@@ -640,6 +586,7 @@ async function submitAS(){
   if(!pass||pass.length<4){e.textContent='Password min 4 chars';e.classList.add('show');return}
   if(!cls){e.textContent='Class select karo';e.classList.add('show');return}
   const btn=document.getElementById('asSBtn'); btn.disabled=true; btn.textContent='Adding...';
+  /* POST /api/students → {name,code,password,class_name,roll_no,dob,gender,parent_name,parent_phone,address,blood_group,has_bus,bus_route,total_fees} */
   const payload={
     name,code,password:pass,class_name:cls,
     roll_no:parseInt(document.getElementById('as_roll').value)||undefined,
@@ -659,12 +606,16 @@ async function submitAS(){
     const d=await r.json().catch(()=>({}));
     if(r.ok){
       allStudents=[];
-      showOK('Student Added!','Share with student/parent:',code,pass,
-        `<div style="background:rgba(128,0,32,.06);border-radius:8px;padding:10px;margin-bottom:12px;font-size:13px"><b>${name}</b> — ${cls}</div>`);
-    }else{
-      e.textContent=d.error||d.message||'Error adding student';
-      e.classList.add('show');
-    }
+      /* If paid fees > 0, update fees separately */
+      const pf=parseFloat(document.getElementById('as_pf').value)||0;
+      if(pf>0&&d.student_id){
+        await fetch(API+'/students/'+d.student_id+'/fees',{
+          method:'PUT',headers:H(),
+          body:JSON.stringify({total_amount:parseFloat(document.getElementById('as_tf').value)||0,paid_amount:pf})
+        }).catch(()=>{});
+      }
+      showOK('Student Added!','Share with student/parent:',code,pass,`<div style="background:rgba(128,0,32,.06);border-radius:8px;padding:10px;margin-bottom:12px;font-size:13px"><b>${name}</b> — ${cls}</div>`);
+    }else{e.textContent=d.error||d.message||'Error';e.classList.add('show');}
   }catch(ex){e.textContent='Network error: '+ex.message;e.classList.add('show')}
   btn.disabled=false; btn.textContent='Add Student';
 }
@@ -686,26 +637,14 @@ function editSPage(id){
     <div class="fg2">
       <div class="fgl"><label>Full Name</label><input class="fi" id="es_name" value="${s.name||''}"></div>
       <div class="fgl"><label>Code (read-only)</label><input class="fi" value="${s.code||''}" readonly></div>
-      <div class="fgl"><label>New Password</label>
-        <div class="pw-wrap"><input class="fi" type="password" id="es_pass" placeholder="Leave blank = no change">
-        <button class="pw-eye" type="button" onclick="togglePwF('es_pass',this)"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
-      </div>
-      <div class="fgl"><label>Class</label><select class="fi" id="es_cls">${classOptsName()}</select></div>
+      <div class="fgl"><label>New Password</label><div class="pw-wrap"><input class="fi" type="password" id="es_pass" placeholder="Leave blank = no change"><button class="pw-eye" type="button" onclick="togglePwF('es_pass',this)"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
+      <div class="fgl"><label>Class</label><select class="fi" id="es_cls">${classOpts()}</select></div>
       <div class="fgl"><label>Roll No</label><input class="fi" type="number" id="es_roll" value="${s.roll_no||''}"></div>
       <div class="fgl"><label>Parent Phone</label><input class="fi" id="es_ph" value="${s.parent_phone||''}"></div>
       <div class="fgl"><label>Parent Name</label><input class="fi" id="es_par" value="${s.parent_name||''}"></div>
-      <div class="fgl"><label>Blood Group</label>
-        <select class="fi" id="es_blood"><option value="">Select</option>
-          ${['A+','A-','B+','B-','O+','O-','AB+','AB-'].map(b=>`<option ${s.blood_group===b?'selected':''}>${b}</option>`).join('')}
-        </select>
-      </div>
+      <div class="fgl"><label>Blood Group</label><select class="fi" id="es_blood"><option value="">Select</option>${['A+','A-','B+','B-','O+','O-','AB+','AB-'].map(b=>`<option ${s.blood_group===b?'selected':''}>${b}</option>`).join('')}</select></div>
       <div class="fgl"><label>Address</label><input class="fi" id="es_addr" value="${s.address||''}"></div>
-      <div class="fgl"><label>Bus</label>
-        <select class="fi" id="es_bus">
-          <option value="false" ${!s.has_bus?'selected':''}>No</option>
-          <option value="true" ${s.has_bus?'selected':''}>Yes</option>
-        </select>
-      </div>
+      <div class="fgl"><label>Bus</label><select class="fi" id="es_bus"><option value="false" ${!s.has_bus?'selected':''}>No</option><option value="true" ${s.has_bus?'selected':''}>Yes</option></select></div>
       <div class="fgl"><label>Bus Route</label><input class="fi" id="es_route" value="${s.bus_route||''}" placeholder="e.g. Route 3"></div>
     </div>
     <div style="margin-top:16px;padding:14px;background:var(--b1);border-radius:10px;margin-bottom:16px">
@@ -714,13 +653,7 @@ function editSPage(id){
         <div class="fgl"><label>Total Fees (Rs)</label><input class="fi" type="number" id="es_tf" value="${total}" oninput="calcEF()"></div>
         <div class="fgl"><label>Paid Fees (Rs)</label><input class="fi" type="number" id="es_pf" value="${paid}" oninput="calcEF()"></div>
         <div class="fgl"><label>Remaining</label><input class="fi" type="number" id="es_rf" value="${Math.max(0,total-paid)}" readonly></div>
-        <div class="fgl"><label>Status</label>
-          <select class="fi" id="es_fst">
-            <option value="pending" ${s.fees_status==='pending'?'selected':''}>Pending</option>
-            <option value="partial" ${s.fees_status==='partial'?'selected':''}>Partial</option>
-            <option value="paid" ${s.fees_status==='paid'?'selected':''}>Paid</option>
-          </select>
-        </div>
+        <div class="fgl"><label>Status</label><select class="fi" id="es_fst"><option value="pending" ${s.fees_status==='pending'?'selected':''}>Pending</option><option value="partial" ${s.fees_status==='partial'?'selected':''}>Partial</option><option value="paid" ${s.fees_status==='paid'?'selected':''}>Paid</option></select></div>
       </div>
     </div>
     <div style="display:flex;gap:10px">
@@ -743,6 +676,7 @@ async function saveES(){
   const id=document.getElementById('es_id').value;
   const e=document.getElementById('esE'); e.classList.remove('show');
   const v=eid=>document.getElementById(eid)?.value;
+  /* PUT /api/students/:id → {name,phone,roll_no,class_name,dob,gender,parent_name,parent_phone,address,blood_group,has_bus,bus_route,password} */
   const payload={};
   if(v('es_name').trim()) payload.name=v('es_name').trim();
   if(v('es_cls')) payload.class_name=v('es_cls');
@@ -758,7 +692,7 @@ async function saveES(){
   try{
     const r=await fetch(API+'/students/'+id,{method:'PUT',headers:H(),body:JSON.stringify(payload)});
     if(r.ok){
-      /* Update fees */
+      /* Update fees separately — PUT /api/students/:id/fees */
       const tf=parseFloat(v('es_tf'))||0;
       const pf=parseFloat(v('es_pf'))||0;
       await fetch(API+'/students/'+id+'/fees',{
@@ -780,6 +714,7 @@ async function loadTeachers(p,q){
   q=q||'';
   p.innerHTML=spin();
   try{
+    /* GET /api/teachers → {teachers:[{id,code,name,phone,standard,section,class_id}]} */
     const r=await fetch(API+'/teachers',{headers:H()});
     if(r.status===401){doLogout();return}
     const d=await r.json(); allTeachers=d.teachers||[];
@@ -822,6 +757,7 @@ function renderTeachers(p,q){
 async function delTeacher(id,name){
   if(!confirm('"'+name+'" delete?')) return;
   try{
+    /* DELETE /api/teachers/:id */
     const r=await fetch(API+'/teachers/'+id,{method:'DELETE',headers:H()});
     if(r.ok){toast('Teacher deleted');allTeachers=[];loadTeachers(getP('teachers'));}
     else toast('Failed',false);
@@ -839,13 +775,10 @@ async function showAddTeacher(p){
     <div class="fg2">
       <div class="fgl"><label>Full Name *</label><input class="fi" id="at_name" placeholder="Teacher name"></div>
       <div class="fgl"><label>Teacher Code *</label><input class="fi" id="at_code" placeholder="e.g. TCH001" oninput="this.value=this.value.toUpperCase()"></div>
-      <div class="fgl"><label>Password *</label>
-        <div class="pw-wrap"><input class="fi" type="password" id="at_pass" placeholder="Set password">
-        <button class="pw-eye" type="button" onclick="togglePwF('at_pass',this)"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
-      </div>
+      <div class="fgl"><label>Password *</label><div class="pw-wrap"><input class="fi" type="password" id="at_pass" placeholder="Set password"><button class="pw-eye" type="button" onclick="togglePwF('at_pass',this)"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
       <div class="fgl"><label>Phone</label><input class="fi" id="at_ph" placeholder="Phone number"></div>
       <div class="fgl"><label>Subject</label><input class="fi" id="at_sub" placeholder="e.g. Mathematics"></div>
-      <div class="fgl"><label>Assigned Class</label><select class="fi" id="at_cls">${classOptsName('None — assign later')}</select></div>
+      <div class="fgl"><label>Assigned Class</label><select class="fi" id="at_cls">${classOpts('None — assign later')}</select></div>
     </div>
     <div style="font-size:12px;color:var(--b4);margin:10px 0">* Required</div>
     <div style="display:flex;gap:10px">
@@ -865,6 +798,7 @@ async function submitAT(){
   if(!pass||pass.length<4){e.textContent='Password min 4 chars';e.classList.add('show');return}
   const btn=document.getElementById('atSBtn'); btn.disabled=true; btn.textContent='Adding...';
   const cls=document.getElementById('at_cls').value;
+  /* POST /api/teachers → {name,code,password,phone,class_name} */
   const payload={name,code,password:pass};
   const ph=document.getElementById('at_ph').value.trim();
   const sb=document.getElementById('at_sub').value.trim();
@@ -876,8 +810,7 @@ async function submitAT(){
     const d=await r.json().catch(()=>({}));
     if(r.ok){
       allTeachers=[];
-      showOK('Teacher Added!','Share credentials:',code,pass,
-        cls?`<div style="background:rgba(128,0,32,.06);border-radius:8px;padding:10px;margin-bottom:12px;font-size:13px"><b>${name}</b> — ${cls}</div>`:'');
+      showOK('Teacher Added!','Share credentials:',code,pass,cls?`<div style="background:rgba(128,0,32,.06);border-radius:8px;padding:10px;margin-bottom:12px;font-size:13px"><b>${name}</b> — ${cls}</div>`:'');
     }else{e.textContent=d.error||d.message||'Error';e.classList.add('show');}
   }catch(ex){e.textContent='Network error';e.classList.add('show')}
   btn.disabled=false; btn.textContent='Add Teacher';
@@ -899,13 +832,10 @@ async function editTPage(id){
     <div class="fg2">
       <div class="fgl"><label>Full Name</label><input class="fi" id="et_name" value="${t.name||''}"></div>
       <div class="fgl"><label>Code (read-only)</label><input class="fi" value="${t.code||''}" readonly></div>
-      <div class="fgl"><label>New Password</label>
-        <div class="pw-wrap"><input class="fi" type="password" id="et_pass" placeholder="Leave blank = no change">
-        <button class="pw-eye" type="button" onclick="togglePwF('et_pass',this)"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
-      </div>
+      <div class="fgl"><label>New Password</label><div class="pw-wrap"><input class="fi" type="password" id="et_pass" placeholder="Leave blank = no change"><button class="pw-eye" type="button" onclick="togglePwF('et_pass',this)"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
       <div class="fgl"><label>Phone</label><input class="fi" id="et_ph" value="${t.phone||''}"></div>
       <div class="fgl"><label>Subject</label><input class="fi" id="et_sub" value="${t.subject||''}"></div>
-      <div class="fgl"><label>Assigned Class</label><select class="fi" id="et_cls">${classOptsName('None')}</select></div>
+      <div class="fgl"><label>Assigned Class</label><select class="fi" id="et_cls">${classOpts('None')}</select></div>
     </div>
     <div style="display:flex;gap:10px;margin-top:16px">
       <button class="btn btn-o" onclick="goto('teachers')">Cancel</button>
@@ -919,6 +849,7 @@ async function saveET(){
   const id=document.getElementById('et_id').value;
   const e=document.getElementById('etE'); e.classList.remove('show');
   const v=eid=>document.getElementById(eid)?.value;
+  /* PUT /api/teachers/:id → {name,phone,class_name} */
   const payload={};
   if(v('et_name').trim()) payload.name=v('et_name').trim();
   if(v('et_ph').trim()) payload.phone=v('et_ph').trim();
@@ -940,6 +871,7 @@ async function loadFees(p,fs,q){
   fs=fs||'all'; q=q||'';
   p.innerHTML=spin();
   try{
+    /* GET /api/fees/all → {fees:[{student_id,student_name,student_code,standard,section,total_amount,paid_amount,remaining_amount,status}]} */
     const r=await fetch(API+'/fees/all',{headers:H()});
     const d=await r.json(); allFees=d.fees||[];
     renderFees(p,fs,q);
@@ -957,8 +889,7 @@ function renderFees(p,fs,q){
   p.innerHTML=`
   <div class="card">
     <div class="card-hdr">
-      <input class="srch" placeholder="Search student..." value="${q}"
-        oninput="renderFees(document.getElementById('p-fees'),'${fs}',this.value)">
+      <input class="srch" placeholder="Search student..." value="${q}" oninput="renderFees(document.getElementById('p-fees'),'${fs}',this.value)">
     </div>
     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px">
       ${[['all','All',allFees.length],['paid','Paid',paid],['partial','Partial',part],['pending','Pending',pend]].map(([v,l,c])=>`
@@ -1003,6 +934,7 @@ async function saveFees(){
   const total=parseFloat(document.getElementById('mfTotal').value)||0;
   const paid=parseFloat(document.getElementById('mfPaid').value)||0;
   try{
+    /* PUT /api/students/:studentId/fees → {total_amount,paid_amount} — auto calculates remaining and status */
     const r=await fetch(API+'/students/'+studentId+'/fees',{
       method:'PUT',headers:H(),
       body:JSON.stringify({total_amount:total,paid_amount:paid})
@@ -1017,29 +949,21 @@ async function loadPayments(p){
   if(!p) p=getP('payments');
   p.innerHTML=spin();
   try{
+    /* GET /api/fees/pending → {payments:[{id,student_name,student_code,amount,upi_ref,status,submitted_at}]} */
     const r=await fetch(API+'/fees/pending',{headers:H()});
     const d=await r.json(); const list=d.payments||[];
-    if(!list.length){
-      p.innerHTML='<div class="card"><div style="text-align:center;padding:40px;color:var(--b4)">No payment requests</div></div>';
-      return;
-    }
+    if(!list.length){p.innerHTML='<div class="card"><div style="text-align:center;padding:40px;color:var(--b4)">No payment requests</div></div>';return}
     p.innerHTML=`<div class="card"><div class="card-title">Payment Requests (${list.length})</div>
     ${list.map(pm=>`
       <div style="border:1px solid var(--b2);border-radius:var(--r);padding:16px;margin-bottom:12px">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
-          <div>
-            <div style="font-weight:700;font-size:14px">${pm.student_name||'-'}</div>
-            <span class="code-tag">${pm.student_code||''}</span>
-          </div>
+          <div><div style="font-weight:700;font-size:14px">${pm.student_name||'-'}</div><span class="code-tag">${pm.student_code||''}</span></div>
           ${pm.status==='verified'?'<span class="badge bg">Verified</span>':pm.status==='rejected'?'<span class="badge br">Rejected</span>':'<span class="badge bo">Pending</span>'}
         </div>
         <div style="font-size:13px;margin-bottom:8px">
           Amount: <b style="color:var(--dp)">Rs ${parseFloat(pm.amount||0).toLocaleString('en-IN')}</b>
           &nbsp;|&nbsp; UPI Ref: <span style="font-family:var(--fm);font-size:12px">${pm.upi_ref||'-'}</span>
         </div>
-        ${(pm.screenshot||pm.screenshot_url)?
-          `<img src="${pm.screenshot||pm.screenshot_url}" class="sc-img" alt="screenshot" onclick="window.open(this.src,'_blank')" title="Click for full size">`:
-          '<div style="font-size:12px;color:var(--b4);margin-bottom:8px;padding:10px;background:var(--b1);border-radius:8px">No screenshot</div>'}
         <div style="font-size:11px;color:var(--b4);margin-bottom:10px">${pm.submitted_at?new Date(pm.submitted_at).toLocaleString('en-IN'):''}</div>
         ${pm.status==='pending'?`<div style="display:flex;gap:8px">
           <button class="btn btn-g btn-sm" onclick="actPay(${pm.id},'verified')">Verify</button>
@@ -1052,6 +976,7 @@ async function loadPayments(p){
 
 async function actPay(id,status){
   try{
+    /* POST /api/fees/verify/:payment_id → {status} — verifies and auto-updates fees */
     const r=await fetch(API+'/fees/verify/'+id,{method:'POST',headers:H(),body:JSON.stringify({status})});
     if(r.ok){toast('Payment '+status);loadPayments(getP('payments'));}
     else toast('Failed',false);
@@ -1074,7 +999,7 @@ async function showNotify(p){
     </div>
     <div id="ntCW" style="display:none;margin-bottom:12px">
       <label style="font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:5px">Class</label>
-      <select class="fi" id="nt_cls">${classOptsName('Select class')}</select>
+      <select class="fi" id="nt_cls">${classOpts('Select class')}</select>
     </div>
     <div style="margin-bottom:12px">
       <label style="font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:5px">Title *</label>
@@ -1095,6 +1020,7 @@ async function showNotify(p){
 
 async function loadNotifList(){
   try{
+    /* GET /api/notifications → {notifications:[]} */
     const r=await fetch(API+'/notifications',{headers:H()});
     const d=await r.json(); const list=d.notifications||[];
     const el=document.getElementById('notifList');
@@ -1115,6 +1041,7 @@ async function sendNotif(){
   const msg=document.getElementById('nt_msg').value.trim();
   if(!title||!msg){toast('Title and message required',false);return}
   const tgt=document.getElementById('nt_tgt').value;
+  /* POST /api/notifications/send → {title,message,target_type,target_id} */
   const body={title,message:msg,target_type:tgt==='all'?'all':'class'};
   if(tgt==='class') body.target_id=document.getElementById('nt_cls').value;
   try{
@@ -1136,6 +1063,7 @@ async function loadClasses(p){
     await fetchClasses();
     const sr=await fetch(API+'/students',{headers:H()});
     const sd=await sr.json(); const studs=sd.students||[];
+    if(!allStudents.length) allStudents=studs;
     const cc={};studs.forEach(s=>{const c=s.standard||'Other';cc[c]=(cc[c]||0)+1;});
     p.innerHTML=`
     <div style="margin-bottom:16px;font-size:13px;color:var(--b5)">Click a class to view group and posts.</div>
@@ -1168,6 +1096,7 @@ async function openCG(classId,standard){
   p.innerHTML=spin();
   let posts=[];
   try{
+    /* GET /api/posts/:class_id → {posts:[...]} */
     const r=await fetch(API+'/posts/'+classId,{headers:H()});
     if(r.ok){const d=await r.json();posts=d.posts||[];}
   }catch(e){}
@@ -1176,7 +1105,7 @@ async function openCG(classId,standard){
 
 function renderCG(p,classId,standard,posts){
   p.innerHTML=`
-  <button class="btn btn-o btn-sm" onclick="goto('classes')" style="margin-bottom:16px">Back to Classes</button>
+  <button class="btn btn-o btn-sm" onclick="goto('classes')" style="margin-bottom:16px">← Back to Classes</button>
   <div class="card">
     <div class="card-title">Post to ${standard}</div>
     <textarea class="fi" id="gMsg" rows="3" style="resize:none;margin-bottom:10px" placeholder="Write for ${standard}..."></textarea>
@@ -1193,7 +1122,7 @@ function renderCG(p,classId,standard,posts){
           <div style="display:flex;align-items:center;gap:10px">
             <div style="font-size:11px;color:var(--b4)">${pp.created_at?new Date(pp.created_at).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'}):''}</div>
             <button onclick="delPost(${pp.id},${classId},'${standard}')"
-              style="background:none;border:none;cursor:pointer;color:var(--b4);font-size:17px;line-height:1;padding:2px">x</button>
+              style="background:none;border:none;cursor:pointer;color:var(--b4);font-size:17px;line-height:1;padding:2px">×</button>
           </div>
         </div>
         <div style="font-size:13px;color:var(--b6);line-height:1.6">${pp.text_content||''}</div>
@@ -1208,6 +1137,7 @@ async function postCG(classId,standard){
   const vid=document.getElementById('gVid')?.value.trim();
   if(!txt&&!vid){toast('Kuch likho pehle',false);return}
   try{
+    /* POST /api/posts → {class_id (integer), text_content, video_link} */
     const r=await fetch(API+'/posts',{method:'POST',headers:H(),body:JSON.stringify({class_id:classId,text_content:txt,video_link:vid||null})});
     const d=await r.json().catch(()=>({}));
     if(r.ok){
@@ -1221,6 +1151,7 @@ async function postCG(classId,standard){
 async function delPost(id,classId,standard){
   if(!confirm('Delete post?')) return;
   try{
+    /* DELETE /api/posts/:id */
     const r=await fetch(API+'/posts/'+id,{method:'DELETE',headers:H()});
     if(r.ok){
       const p=getP('classGroup');
@@ -1228,72 +1159,6 @@ async function delPost(id,classId,standard){
       toast('Deleted'); renderCG(p,classId,standard,posts);
     }else toast('Failed',false);
   }catch(e){toast('Network error',false)}
-}
-
-/* ══ TIMETABLE ══ */
-async function showTimetable(p){
-  if(!p) p=getP('timetable');
-  if(!allClasses.length) await fetchClasses();
-  p.innerHTML=`
-  <div class="card" style="max-width:700px">
-    <div class="card-title">Manage Timetable</div>
-    <div class="fgl" style="margin-bottom:16px">
-      <label>Select Class</label>
-      <select class="fi" id="tt_cls" onchange="loadTT(this.value)">${classOpts('Select class')}</select>
-    </div>
-    <div id="ttArea" style="color:var(--b4);font-size:13px">Select a class to view timetable</div>
-  </div>`;
-}
-
-async function loadTT(classId){
-  if(!classId) return;
-  const area=document.getElementById('ttArea');
-  area.innerHTML='<div style="color:var(--b5);font-size:13px">Loading...</div>';
-  try{
-    const r=await fetch(API+'/timetable/'+classId,{headers:H()});
-    const d=await r.json(); const tt=d.timetable||[];
-    const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    const ttMap={};tt.forEach(row=>ttMap[row.day]=row);
-    area.innerHTML=`
-    <div style="overflow-x:auto">
-      <table style="width:100%;border-collapse:collapse;font-size:12px">
-        <thead>
-          <tr style="background:var(--b1)">
-            <th style="padding:8px 10px;text-align:left;border:1px solid var(--b2);white-space:nowrap">Day</th>
-            ${[1,2,3,4,5,6,7].map(n=>`<th style="padding:8px 10px;text-align:center;border:1px solid var(--b2)">P${n}</th>`).join('')}
-          </tr>
-        </thead>
-        <tbody>
-          ${days.map(day=>{
-            const row=ttMap[day]||{};
-            return`<tr>
-              <td style="padding:8px 10px;font-weight:600;color:var(--p);border:1px solid var(--b2);white-space:nowrap">${day}</td>
-              ${[1,2,3,4,5,6,7].map(n=>`
-                <td style="padding:4px;border:1px solid var(--b2)">
-                  <input style="width:90px;padding:5px 6px;border:1px solid var(--b2);border-radius:5px;font-size:11px;font-family:var(--fb)"
-                    id="tt_${day}_${n}" value="${row['period_'+n]||''}" placeholder="Subject">
-                </td>`).join('')}
-            </tr>`;
-          }).join('')}
-        </tbody>
-      </table>
-    </div>
-    <button class="btn btn-p" style="margin-top:14px" onclick="saveTT(${classId})">Save Timetable</button>`;
-  }catch(e){area.innerHTML=errH(e.message)}
-}
-
-async function saveTT(classId){
-  const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  try{
-    for(const day of days){
-      const periods=[1,2,3,4,5,6,7].map(n=>document.getElementById(`tt_${day}_${n}`)?.value.trim()||'');
-      await fetch(API+'/timetable',{
-        method:'POST',headers:H(),
-        body:JSON.stringify({class_id:classId,day,periods})
-      });
-    }
-    toast('Timetable saved!');
-  }catch(e){toast('Failed: '+e.message,false)}
 }
 
 /* ══ PROMOTE ══ */
@@ -1304,8 +1169,8 @@ async function showPromote(p){
   <div class="card" style="max-width:460px">
     <div class="card-title">Promote Class</div>
     <p style="font-size:13px;color:var(--b5);margin-bottom:18px;line-height:1.6">Move all students from one class to the next at year end.</p>
-    <div class="fgl" style="margin-bottom:14px"><label>From Class</label><select class="fi" id="pFrom">${classOptsName('Select class')}</select></div>
-    <div class="fgl" style="margin-bottom:18px"><label>To Class</label><select class="fi" id="pTo">${classOptsName('Select class')}</select></div>
+    <div class="fgl" style="margin-bottom:14px"><label>From Class</label><select class="fi" id="pFrom">${classOpts('Select class')}</select></div>
+    <div class="fgl" style="margin-bottom:18px"><label>To Class</label><select class="fi" id="pTo">${classOpts('Select class')}</select></div>
     <button class="btn btn-p" onclick="doPromote()">Promote Students</button>
   </div>`;
 }
@@ -1315,11 +1180,12 @@ async function doPromote(){
   const to=document.getElementById('pTo').value;
   if(!from||!to){toast('Both classes required',false);return}
   if(from===to){toast('From and To cannot be same',false);return}
-  if(!confirm('"'+from+'" to "'+to+'" promote karo?')) return;
+  if(!confirm('"'+from+'" to "'+to+'" — promote karo?')) return;
   try{
+    /* POST /api/students/promote → {from_standard, to_standard} */
     const r=await fetch(API+'/students/promote',{method:'POST',headers:H(),body:JSON.stringify({from_standard:from,to_standard:to})});
     const d=await r.json().catch(()=>({}));
-    if(r.ok){toast(d.message||'Promoted!');allStudents=[];}
+    if(r.ok){toast(d.message||'Students promoted!');allStudents=[];}
     else toast(d.error||d.message||'Failed',false);
   }catch(e){toast('Network error',false)}
 }
@@ -1331,16 +1197,13 @@ async function showPassout(p){
   p.innerHTML=`
   <div class="card" style="max-width:480px">
     <div class="card-title">Passout Students</div>
-    <p style="font-size:13px;color:var(--b5);margin-bottom:18px;line-height:1.6">Mark all students of a class as passed out. They will be removed from active list.</p>
-    <div class="fgl" style="margin-bottom:12px">
-      <label>Select Class</label>
-      <select class="fi" id="poC">${classOptsName('Select class')}</select>
-    </div>
+    <p style="font-size:13px;color:var(--b5);margin-bottom:18px;line-height:1.6">Mark entire class as passed out at end of year.</p>
+    <div class="fgl" style="margin-bottom:12px"><label>Select Class to Passout</label><select class="fi" id="poC">${classOpts('Select class')}</select></div>
     <div class="fgl" style="margin-bottom:18px">
       <label>Type class name to confirm</label>
-      <input class="fi" id="poConfirm" placeholder="e.g. Class 10">
+      <input class="fi" id="poConfirm" placeholder="Type exact class name">
     </div>
-    <button class="btn btn-r" onclick="doPassout()">Mark as Passout</button>
+    <button class="btn btn-r" onclick="doPassout()">Mark Class as Passout</button>
   </div>`;
 }
 
@@ -1349,9 +1212,10 @@ async function doPassout(){
   const conf=document.getElementById('poConfirm').value.trim();
   if(!cls){toast('Class select karo',false);return}
   if(conf!==cls){toast('Class name match nahi kiya',false);return}
-  if(!confirm('"'+cls+'" — sare students passout?')) return;
+  if(!confirm('"'+cls+'" class ke sare students passout?')) return;
   try{
-    const r=await fetch(API+'/students/promote',{method:'POST',headers:H(),body:JSON.stringify({from_standard:cls,to_standard:'Passout',passout:true})});
+    /* Use promote with to_standard='Alumni' as passout marker */
+    const r=await fetch(API+'/students/promote',{method:'POST',headers:H(),body:JSON.stringify({from_standard:cls,to_standard:'Alumni'})});
     const d=await r.json().catch(()=>({}));
     if(r.ok){toast(d.message||'Students passed out!');allStudents=[];}
     else toast(d.error||d.message||'Failed',false);
