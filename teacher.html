@@ -21,7 +21,8 @@
   --ff:'Playfair Display',serif;--fb:'Inter',sans-serif;--fm:'JetBrains Mono',monospace;
   --r:12px;--tr:all .22s ease;
 }
-html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)}
+html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6);overflow-x:hidden}
+/* LOGIN */
 #loginScreen{position:fixed;inset:0;z-index:999;background:linear-gradient(155deg,var(--dp),var(--p),var(--ac));display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;padding-top:max(20px,env(safe-area-inset-top));padding-bottom:max(20px,env(safe-area-inset-bottom));overflow-y:auto}
 #loginScreen::before{content:'';position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
 .lw{width:100%;max-width:400px;position:relative;z-index:1}
@@ -42,15 +43,14 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .linp-w input{width:100%;padding:13px 44px 13px 14px;background:#f8f8f8;border:2px solid #eee;border-radius:11px;font-size:15px;font-family:var(--fb);color:#1a1a1a;outline:none;transition:border-color .2s,background .2s;-webkit-appearance:none}
 .linp-w input:focus{border-color:var(--p);background:var(--w)}
 .linp-w input::placeholder{color:#ccc}
-.leye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#bbb;display:flex;padding:4px;transition:color .18s}
-.leye:hover{color:var(--p)}
+.leye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#bbb;display:flex;padding:4px}
 .leye svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
 .lbtn{width:100%;padding:14px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:12px;font-size:15px;font-weight:700;font-family:var(--fb);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 5px 18px rgba(128,0,32,.25);transition:opacity .18s,transform .15s;-webkit-appearance:none}
-.lbtn:hover{opacity:.9}
 .lbtn:active{transform:scale(.98)}
 .lbtn:disabled{opacity:.6;cursor:not-allowed;transform:none}
 .lspin{display:none;width:17px;height:17px;border:2.5px solid rgba(255,255,255,.3);border-top-color:var(--w);border-radius:50%;animation:spin .7s linear infinite}
 .lhint{text-align:center;margin-top:16px;font-size:13px;color:rgba(255,255,255,.45);position:relative;z-index:1}
+/* APP */
 #appScreen{display:none;flex-direction:column;height:100vh;height:100dvh}
 .topbar{background:var(--w);border-bottom:1px solid var(--b2);padding:0 16px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:100}
 .topbar-left{display:flex;align-items:center;gap:10px}
@@ -58,16 +58,13 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .topbar-logo img{width:100%;height:100%;object-fit:cover;display:block}
 .topbar-logo-fb{font-family:var(--ff);font-size:13px;font-weight:700;color:var(--p);display:none}
 .topbar-name{font-family:var(--ff);font-size:16px;font-weight:700;color:var(--dp)}
-.topbar-right{display:flex;align-items:center;gap:8px}
-.lang-grp{display:flex;gap:2px;background:var(--b1);border-radius:20px;padding:2px}
-.lang-btn{padding:4px 9px;border-radius:20px;border:none;background:transparent;font-family:var(--fb);font-size:10px;font-weight:700;color:var(--b4);cursor:pointer;transition:var(--tr)}
-.lang-btn.active{background:var(--w);color:var(--p)}
-.out-btn{background:none;border:1px solid var(--b2);border-radius:7px;padding:6px 10px;font-size:11px;font-weight:600;color:var(--b5);cursor:pointer;font-family:var(--fb);transition:var(--tr)}
-.out-btn:hover{border-color:var(--p);color:var(--p)}
+.out-btn{background:none;border:1px solid var(--b2);border-radius:7px;padding:6px 10px;font-size:11px;font-weight:600;color:var(--b5);cursor:pointer;font-family:var(--fb)}
+/* SCROLL */
 .scroll-area{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .scroll-area::-webkit-scrollbar{width:3px}
 .scroll-area::-webkit-scrollbar-thumb{background:var(--b3);border-radius:3px}
-.cnt{max-width:600px;margin:0 auto;padding-bottom:80px}
+.cnt{max-width:600px;margin:0 auto;padding-bottom:90px}
+/* HERO */
 .hero{background:linear-gradient(135deg,var(--dp),var(--p));color:var(--w);padding:22px 16px 26px;position:relative;overflow:hidden}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
 .hero-inner{position:relative;z-index:1}
@@ -75,21 +72,38 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .hero-name{font-family:var(--ff);font-size:22px;font-weight:700;line-height:1.15;margin-bottom:8px}
 .hero-chips{display:flex;gap:6px;flex-wrap:wrap}
 .hero-chip{padding:3px 10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:100px;font-size:10px;color:rgba(255,255,255,.85);font-weight:500}
+/* STATS */
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px 16px}
 .stat-tile{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px;text-align:center}
 .stat-val{font-family:var(--ff);font-size:24px;font-weight:700;color:var(--p);margin-bottom:3px}
 .stat-lbl{font-size:10px;color:var(--b4);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+/* SEC */
 .sec{padding:0 16px;margin-bottom:18px}
 .sec-title{font-family:var(--ff);font-size:16px;font-weight:700;color:var(--dp);margin-bottom:10px}
 .card{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px;margin-bottom:10px}
-.si{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--w);border:1px solid var(--b2);border-radius:var(--r);margin-bottom:8px;cursor:pointer;transition:var(--tr)}
-.si:hover{border-color:var(--p)}
-.si-av{width:40px;height:40px;background:rgba(128,0,32,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:16px;color:var(--p);flex-shrink:0}
-.si-name{font-size:14px;font-weight:600;margin-bottom:2px}
+/* STUDENT ITEM */
+.si{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--w);border:1px solid var(--b2);border-radius:var(--r);margin-bottom:8px;cursor:pointer;transition:var(--tr);-webkit-tap-highlight-color:transparent}
+.si:active{background:var(--b1)}
+.si-av{width:42px;height:42px;background:rgba(128,0,32,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:16px;color:var(--p);flex-shrink:0;font-weight:700}
+.si-name{font-size:14px;font-weight:600;margin-bottom:2px;color:#1a1a1a}
 .si-meta{font-size:11px;color:var(--b4)}
+/* BADGES */
 .badge-ok{background:var(--gl);color:var(--green);padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600}
 .badge-no{background:var(--rl);color:var(--red);padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600}
 .badge-ho{background:var(--goldl);color:var(--gold);padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600}
+/* STUDENT DETAIL */
+.detail-screen{display:none;position:fixed;inset:0;z-index:200;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.detail-screen.show{display:block}
+.detail-topbar{background:var(--w);border-bottom:1px solid var(--b2);padding:0 16px;height:56px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:10}
+.back-btn{background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:6px;border-radius:8px;color:var(--b6)}
+.back-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.detail-title{font-family:var(--ff);font-size:17px;font-weight:700;color:var(--dp)}
+.info-list{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);overflow:hidden;margin:0 16px 12px}
+.info-row{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-bottom:1px solid var(--b1)}
+.info-row:last-child{border-bottom:none}
+.info-lbl{font-size:12px;color:var(--b4);font-weight:500}
+.info-val{font-size:13px;font-weight:600;color:#1a1a1a;text-align:right;max-width:60%}
+/* ATTENDANCE */
 .att-sheet{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);overflow:hidden}
 .att-date-row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--b1)}
 .att-date-lbl{font-size:13px;font-weight:600;color:var(--dp)}
@@ -98,66 +112,78 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .att-row{display:flex;align-items:center;padding:11px 14px;border-bottom:1px solid var(--b1);gap:10px}
 .att-row:last-of-type{border-bottom:none}
 .att-roll{font-family:var(--fm);font-size:12px;color:var(--b4);min-width:26px}
-.att-name{font-size:13px;font-weight:500;flex:1}
+.att-name{font-size:13px;font-weight:500;flex:1;color:#1a1a1a}
 .att-tog{display:flex;border:1.5px solid var(--b2);border-radius:8px;overflow:hidden}
-.att-btn{padding:6px 13px;border:none;font-family:var(--fb);font-size:12px;font-weight:700;cursor:pointer;background:transparent;color:var(--b4);transition:var(--tr)}
+.att-btn{padding:7px 14px;border:none;font-family:var(--fb);font-size:12px;font-weight:700;cursor:pointer;background:transparent;color:var(--b4);transition:var(--tr)}
 .att-btn.p-on{background:var(--green);color:var(--w)}
 .att-btn.a-on{background:var(--red);color:var(--w)}
-.save-btn{width:calc(100% - 28px);margin:12px 14px;padding:12px;background:var(--p);color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer;transition:var(--tr)}
-.save-btn:hover{background:var(--dk)}
+.save-btn{width:calc(100% - 28px);margin:12px 14px;padding:13px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
 .save-btn:disabled{opacity:.6;cursor:not-allowed}
+/* MARKS */
 .fi{width:100%;padding:10px 13px;background:var(--b1);border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:#1a1a1a;outline:none;transition:var(--tr)}
 .fi:focus{border-color:var(--p);background:var(--w)}
+select.fi{-webkit-appearance:none}
 .fgl{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
 .fgl label{font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px}
-.mk-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--b1)}
+.mk-row{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--b1)}
 .mk-row:last-child{border-bottom:none}
-.mk-name{font-size:13px;font-weight:500;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mk-inp{padding:7px 10px;border:1.5px solid var(--b2);border-radius:8px;font-family:var(--fm);font-size:13px;color:#1a1a1a;outline:none;width:70px;text-align:center}
+.mk-av{width:32px;height:32px;background:rgba(128,0,32,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:12px;color:var(--p);flex-shrink:0;font-weight:700}
+.mk-name{font-size:13px;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#1a1a1a}
+.mk-inp{padding:8px 10px;border:1.5px solid var(--b2);border-radius:8px;font-family:var(--fm);font-size:13px;color:#1a1a1a;outline:none;width:66px;text-align:center;-webkit-appearance:none}
 .mk-inp:focus{border-color:var(--p)}
-.mk-of{padding:7px 10px;border:1.5px solid var(--b2);border-radius:8px;font-family:var(--fm);font-size:13px;color:#1a1a1a;outline:none;width:70px;text-align:center}
+.mk-of{padding:8px 10px;border:1.5px solid var(--b2);border-radius:8px;font-family:var(--fm);font-size:13px;color:#1a1a1a;outline:none;width:66px;text-align:center;-webkit-appearance:none}
 .mk-of:focus{border-color:var(--p)}
-.apply-all{padding:6px 12px;background:rgba(128,0,32,.08);border:1px solid rgba(128,0,32,.2);border-radius:8px;font-family:var(--fb);font-size:11px;font-weight:700;color:var(--p);cursor:pointer}
-.composer{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px;margin-bottom:10px}
-.ctxt{width:100%;min-height:90px;padding:11px;border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:14px;color:#1a1a1a;resize:none;outline:none;margin-bottom:10px;transition:var(--tr)}
+.apply-all-btn{padding:7px 14px;background:rgba(128,0,32,.08);border:1px solid rgba(128,0,32,.2);border-radius:8px;font-family:var(--fb);font-size:12px;font-weight:700;color:var(--p);cursor:pointer}
+/* GROUP */
+.composer{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px;margin-bottom:12px}
+.ctxt{width:100%;min-height:90px;padding:11px;border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:14px;color:#1a1a1a;resize:none;outline:none;margin-bottom:10px}
 .ctxt:focus{border-color:var(--p)}
-.post-btn{width:100%;padding:12px;background:var(--p);color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
+.post-action-row{display:flex;gap:8px}
+.post-btn{flex:1;padding:12px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
 .post-btn:disabled{opacity:.6;cursor:not-allowed}
-.post-item{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px;margin-bottom:8px}
-.post-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.post-author{font-size:12px;font-weight:700;color:var(--p)}
-.post-time{font-size:11px;color:var(--b3)}
-.post-text{font-size:13px;color:var(--b6);line-height:1.6}
-.del-post{background:none;border:none;cursor:pointer;color:var(--b4);font-size:16px;padding:2px;line-height:1}
-.del-post:hover{color:var(--red)}
+/* POST CARDS */
+.post-card{background:var(--w);border:1px solid var(--b2);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.post-head{display:flex;align-items:center;gap:10px;padding:12px 14px 0}
+.post-av{width:36px;height:36px;border-radius:50%;background:rgba(128,0,32,.1);display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:14px;color:var(--p);font-weight:700;flex-shrink:0}
+.post-author{font-size:13px;font-weight:700;color:#1a1a1a}
+.post-role{font-size:11px;color:var(--b4)}
+.post-time{font-size:10px;color:var(--b4);margin-left:auto}
+.post-body{padding:10px 14px 14px}
+.post-text{font-size:14px;color:#1a1a1a;line-height:1.6}
+.post-video{display:flex;align-items:center;gap:8px;margin-top:10px;padding:10px 12px;background:rgba(128,0,32,.06);border-radius:9px;text-decoration:none}
+.post-video-ic{width:30px;height:30px;background:var(--p);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.post-video-ic svg{width:14px;height:14px;stroke:var(--w);fill:none;stroke-width:2;stroke-linecap:round}
+.post-video-lbl{font-size:12px;font-weight:700;color:var(--p)}
+.del-post-btn{background:none;border:none;cursor:pointer;color:var(--b4);font-size:18px;padding:4px;margin-left:auto;line-height:1}
+/* NOTIFY */
 .nf-card{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px}
-.stu-list{max-height:220px;overflow-y:auto;border:1px solid var(--b2);border-radius:8px;margin-bottom:10px}
-.stu-item{display:flex;align-items:center;gap:10px;padding:9px 12px;border-bottom:1px solid var(--b1);cursor:pointer}
+.stu-list{max-height:240px;overflow-y:auto;border:1px solid var(--b2);border-radius:8px;margin-bottom:10px}
+.stu-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--b1)}
 .stu-item:last-child{border-bottom:none}
-.stu-item:hover{background:rgba(128,0,32,.04)}
-.stu-item input{accent-color:var(--p);width:15px;height:15px;cursor:pointer;flex-shrink:0}
+.stu-item input{accent-color:var(--p);width:16px;height:16px;cursor:pointer;flex-shrink:0}
 .ca-row{display:flex;gap:8px;margin-bottom:8px}
-.ca-btn{padding:5px 12px;border:1px solid var(--b2);border-radius:7px;font-size:11px;font-weight:600;color:var(--b5);background:var(--w);cursor:pointer}
-.ca-btn:hover{border-color:var(--p);color:var(--p)}
-.send-btn{width:100%;padding:12px;background:var(--p);color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
-.back-btn{display:inline-flex;align-items:center;gap:6px;background:var(--b1);border:none;border-radius:8px;padding:9px 14px;font-family:var(--fb);font-size:13px;color:var(--b6);cursor:pointer;margin:14px 16px 10px;transition:var(--tr)}
-.back-btn:hover{background:rgba(128,0,32,.08);color:var(--p)}
-.back-btn svg{width:14px;height:14px;stroke:currentColor;fill:none;stroke-width:2}
-.info-list{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);overflow:hidden;margin:0 16px 12px}
-.info-row{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-bottom:1px solid var(--b1)}
-.info-row:last-child{border-bottom:none}
-.info-lbl{font-size:12px;color:var(--b4);font-weight:500}
-.info-val{font-size:13px;font-weight:600;color:#1a1a1a;text-align:right;max-width:60%}
+.ca-btn{padding:6px 12px;border:1px solid var(--b2);border-radius:7px;font-size:11px;font-weight:600;color:var(--b5);background:var(--w);cursor:pointer}
+.send-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
+/* TIMETABLE */
+.tt-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--b2);margin-bottom:12px}
+.tt-table{width:100%;border-collapse:collapse;font-size:11px}
+.tt-table th{padding:8px 6px;background:rgba(128,0,32,.07);border:1px solid var(--b2);text-align:center;font-weight:700;color:var(--p);white-space:nowrap}
+.tt-table td{padding:3px 4px;border:1px solid var(--b2);text-align:center}
+.tt-inp{width:80px;padding:5px 6px;border:1px solid var(--b2);border-radius:5px;font-size:11px;font-family:var(--fb);color:#1a1a1a;outline:none;text-align:center}
+.tt-inp:focus{border-color:var(--p)}
+/* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--w);border-top:1px solid var(--b2);display:flex;padding:6px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));z-index:100}
 .nav-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 4px;background:none;border:none;cursor:pointer;transition:var(--tr)}
 .nav-tab svg{width:21px;height:21px;stroke:var(--b3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:var(--tr)}
 .nav-tab span{font-size:9px;font-weight:700;color:var(--b3);text-transform:uppercase;letter-spacing:.5px;font-family:var(--fb)}
 .nav-tab.active svg{stroke:var(--p)}
 .nav-tab.active span{color:var(--p)}
+/* UTILS */
 .loading{display:flex;align-items:center;justify-content:center;min-height:40vh;flex-direction:column;gap:12px}
 .spin-el{width:26px;height:26px;border:2px solid var(--b2);border-top-color:var(--p);border-radius:50%;animation:spin .8s linear infinite}
-.empty{text-align:center;padding:28px;color:var(--b4);font-size:13px}
-.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dp);color:var(--w);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:999;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.empty{text-align:center;padding:40px 20px;color:var(--b4);font-size:13px}
+.empty svg{width:40px;height:40px;stroke:var(--b3);fill:none;margin-bottom:12px;display:block;margin-left:auto;margin-right:auto}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dp);color:var(--w);padding:10px 20px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.25)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.err{background:var(--red)}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -167,6 +193,7 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 </head>
 <body>
 
+<!-- LOGIN -->
 <div id="loginScreen">
   <div class="lw">
     <div class="brand">
@@ -206,6 +233,18 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
   </div>
 </div>
 
+<!-- STUDENT DETAIL SCREEN -->
+<div class="detail-screen" id="detailScreen">
+  <div class="detail-topbar">
+    <button class="back-btn" onclick="closeDetail()">
+      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <div class="detail-title" id="detailTitle">Student Detail</div>
+  </div>
+  <div id="detailBody" style="padding-bottom:30px"></div>
+</div>
+
+<!-- APP -->
 <div id="appScreen">
   <div class="topbar">
     <div class="topbar-left">
@@ -215,20 +254,15 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
       </div>
       <div class="topbar-name">Emmanuel School</div>
     </div>
-    <div class="topbar-right">
-      <div class="lang-grp">
-        <button class="lang-btn active" onclick="setLang('en')">EN</button>
-        <button class="lang-btn" onclick="setLang('hi')">HI</button>
-        <button class="lang-btn" onclick="setLang('mr')">MR</button>
-      </div>
-      <button class="out-btn" onclick="doLogout()">Logout</button>
-    </div>
+    <button class="out-btn" onclick="doLogout()">Logout</button>
   </div>
+
   <div class="scroll-area" id="scrollArea">
     <div class="cnt" id="mainContent">
       <div class="loading"><div class="spin-el"></div></div>
     </div>
   </div>
+
   <nav class="bottom-nav">
     <button class="nav-tab active" onclick="showTab('home',this)">
       <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
@@ -246,6 +280,10 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
       <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
       <span>Group</span>
     </button>
+    <button class="nav-tab" onclick="showTab('timetable',this)">
+      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span>Timetable</span>
+    </button>
     <button class="nav-tab" onclick="showTab('notify',this)">
       <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       <span>Notify</span>
@@ -259,44 +297,33 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 const API = 'https://edumanage-backend-xi.vercel.app/api';
 
 let TOKEN = null;
-let TD = null; /* teacherData from login */
-let CD = null; /* classData */
+let TD = null;
+let CD = null;
 let students = [];
 let posts = [];
 let attState = {};
 let curTab = 'home';
-let curLang = localStorage.getItem('tch_lang') || 'en';
 
-const TR = {
-  en:{greeting:'Class Teacher',no_class:'No class assigned. Contact admin.',no_students:'No students in your class.',loading:'Loading...'},
-  hi:{greeting:'कक्षा शिक्षक',no_class:'कोई कक्षा नहीं। एडमिन से संपर्क करें।',no_students:'कोई छात्र नहीं।',loading:'लोड हो रहा है...'},
-  mr:{greeting:'वर्ग शिक्षक',no_class:'वर्ग नाही. एडमिनशी संपर्क करा.',no_students:'विद्यार्थी नाहीत.',loading:'लोड होत आहे...'}
-};
-function L(k){return(TR[curLang]&&TR[curLang][k])||TR.en[k]||k}
-
-function H(){return{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN}}
-function ini(n){if(!n)return'?';return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}
-function ago(d){if(!d)return'';const s=Math.floor((Date.now()-new Date(d))/1000);if(s<60)return'just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago'}
+function H(){ return {'Content-Type':'application/json','Authorization':'Bearer '+TOKEN} }
+function ini(n){ if(!n)return'?'; return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2) }
+function ago(d){ if(!d)return''; const s=Math.floor((Date.now()-new Date(d))/1000); if(s<60)return'just now'; if(s<3600)return Math.floor(s/60)+'m ago'; if(s<86400)return Math.floor(s/3600)+'h ago'; return Math.floor(s/86400)+'d ago' }
 
 let toastT;
 function showToast(msg,err){
   const e=document.getElementById('toast');
-  e.textContent=msg;e.className='toast'+(err?' err':'');
-  e.classList.add('show');clearTimeout(toastT);
+  e.textContent=msg; e.className='toast'+(err?' err':'');
+  e.classList.add('show'); clearTimeout(toastT);
   toastT=setTimeout(()=>e.classList.remove('show'),3000);
 }
 
-function setLang(l){
-  curLang=l;localStorage.setItem('tch_lang',l);
-  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase()===l));
-  showTab(curTab);
-}
-
-/* BOOT */
+/* BOOT — forever login */
 (function boot(){
   const saved=localStorage.getItem('tch_token');
-  if(saved&&saved.length>20){TOKEN=saved;TD={name:localStorage.getItem('tch_name')||'Teacher'};showApp();loadData();}
-  else showLogin();
+  if(saved&&saved.length>20){
+    TOKEN=saved;
+    TD={name:localStorage.getItem('tch_name')||'Teacher'};
+    showApp(); loadData();
+  }else showLogin();
 })();
 
 function showLogin(){
@@ -327,14 +354,17 @@ async function doLogin(){
   document.getElementById('lSpin').style.display='block';
   document.getElementById('lBtn').disabled=true;
   try{
-    const res=await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code,password:pass,role:'teacher'})});
+    const res=await fetch(API+'/auth/login',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({code,password:pass,role:'teacher'})
+    });
     const data=await res.json();
     if(res.ok&&data.token){
       TOKEN=data.token;
       TD=data.user||{name:code,code};
       localStorage.setItem('tch_token',TOKEN);
       localStorage.setItem('tch_name',TD.name||code);
-      showApp();loadData();
+      showApp(); loadData();
     }else{
       err.textContent=data.message||data.error||'Invalid code or password';
       err.classList.add('show');
@@ -352,22 +382,22 @@ function doLogout(){
   showLogin();
 }
 
-/* LOAD */
+/* LOAD DATA */
 async function loadData(){
-  document.getElementById('mainContent').innerHTML='<div class="loading"><div class="spin-el"></div><div style="font-size:13px;color:var(--b4)">'+L('loading')+'</div></div>';
+  document.getElementById('mainContent').innerHTML='<div class="loading"><div class="spin-el"></div></div>';
   try{
-    /* Backend: GET /api/teachers/my-class → {class:{id,standard,section},students:[...]} */
+    /* GET /api/teachers/my-class → {class:{id,standard,section},students:[...]} */
     const res=await fetch(API+'/teachers/my-class',{headers:H()});
     if(res.status===401){localStorage.removeItem('tch_token');showLogin();return}
     const data=await res.json();
     CD=data.class||null;
     students=data.students||[];
-    /* Default attendance to Present */
-    students.forEach(s=>{if(!attState[s.id])attState[s.id]='P'});
-    /* Load posts using class ID */
+    /* Default attendance state to Present */
+    students.forEach(s=>{ if(!attState[s.id]) attState[s.id]='P'; });
+    /* Load posts */
     if(CD){
       try{
-        /* Backend: GET /api/posts/:class_id */
+        /* GET /api/posts/:class_id */
         const pr=await fetch(API+'/posts/'+CD.id,{headers:H()});
         if(pr.ok){const pd=await pr.json();posts=pd.posts||[];}
       }catch(_){}
@@ -384,35 +414,36 @@ function showTab(tab,btn){
   document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
   if(btn)btn.classList.add('active');
   else{
-    const idx={home:0,attendance:1,marks:2,group:3,notify:4}[tab]??0;
+    const idx={home:0,attendance:1,marks:2,group:3,timetable:4,notify:5}[tab]??0;
     document.querySelectorAll('.nav-tab')[idx]?.classList.add('active');
   }
   const el=document.getElementById('mainContent');
-  if(tab==='home')el.innerHTML=renderHome();
-  else if(tab==='attendance')el.innerHTML=renderAttendance();
-  else if(tab==='marks')el.innerHTML=renderMarks();
-  else if(tab==='group')el.innerHTML=renderGroup();
-  else if(tab==='notify')el.innerHTML=renderNotify();
+  if(tab==='home') el.innerHTML=renderHome();
+  else if(tab==='attendance') el.innerHTML=renderAttendance();
+  else if(tab==='marks') el.innerHTML=renderMarks();
+  else if(tab==='group') el.innerHTML=renderGroup();
+  else if(tab==='timetable') { el.innerHTML='<div class="loading"><div class="spin-el"></div></div>'; loadTimetable(); }
+  else if(tab==='notify') el.innerHTML=renderNotify();
   document.getElementById('scrollArea').scrollTop=0;
   window.scrollTo(0,0);
 }
 
 /* HOME */
 function renderHome(){
-  const name=TD?.name||localStorage.getItem('tch_name')||'Teacher';
+  const name=TD?.name||'Teacher';
   const present=Object.values(attState).filter(v=>v==='P').length;
   const absent=Object.values(attState).filter(v=>v==='A').length;
   if(!CD){
     return`<div class="hero"><div class="hero-grid"></div><div class="hero-inner">
-      <div class="hero-grt">${L('greeting')}</div>
+      <div class="hero-grt">Class Teacher</div>
       <div class="hero-name">${name}</div>
     </div></div>
-    <div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--b4)"><p>${L('no_class')}</p></div></div>`;
+    <div style="padding:20px 16px"><div class="card" style="text-align:center;padding:28px;color:var(--b4)">No class assigned. Contact admin.</div></div>`;
   }
   const cls=CD.standard+(CD.section?' - '+CD.section:'');
   return`
   <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
-    <div class="hero-grt">${L('greeting')}</div>
+    <div class="hero-grt">Class Teacher</div>
     <div class="hero-name">${name}</div>
     <div class="hero-chips">
       <span class="hero-chip">${cls}</span>
@@ -425,43 +456,45 @@ function renderHome(){
     <div class="stat-tile"><div class="stat-val" style="color:var(--red)">${absent}</div><div class="stat-lbl">Absent</div></div>
   </div>
   <div class="sec">
-    <div class="sec-title">My Students</div>
-    ${!students.length?`<div class="empty">${L('no_students')}</div>`:''}
+    <div class="sec-title">My Students — tap to view details</div>
+    ${!students.length?`<div class="empty">No students in your class</div>`:''}
     ${students.map(s=>`
-      <div class="si" onclick="viewStudentDetail(${s.id})">
+      <div class="si" onclick="openDetail(${s.id})">
         <div class="si-av">${ini(s.name)}</div>
-        <div style="flex:1">
+        <div style="flex:1;min-width:0">
           <div class="si-name">${s.name}</div>
-          <div class="si-meta">Roll ${s.roll_no||'-'} &nbsp;|&nbsp; ${s.parent_phone||'No phone'}</div>
+          <div class="si-meta">Roll ${s.roll_no||'-'} &nbsp;•&nbsp; ${s.parent_phone||'No phone'}</div>
         </div>
-        <span class="${attState[s.id]==='P'?'badge-ok':attState[s.id]==='A'?'badge-no':''}">${attState[s.id]||''}</span>
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--b3)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+          <span class="${attState[s.id]==='P'?'badge-ok':attState[s.id]==='A'?'badge-no':''}">${attState[s.id]==='P'?'P':attState[s.id]==='A'?'A':''}</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--b3)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </div>
       </div>`).join('')}
   </div>`;
 }
 
-function viewStudentDetail(id){
-  const s=students.find(x=>x.id===id);if(!s)return;
-  const el=document.getElementById('mainContent');
-  el.innerHTML=`
-  <button class="back-btn" onclick="showTab('home')">
-    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>Back
-  </button>
-  <div style="padding:0 16px 12px">
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
-      <div style="width:52px;height:52px;background:rgba(128,0,32,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:20px;color:var(--p);flex-shrink:0">${ini(s.name)}</div>
+/* STUDENT DETAIL */
+function openDetail(id){
+  const s=students.find(x=>x.id===id); if(!s) return;
+  document.getElementById('detailTitle').textContent=s.name;
+  document.getElementById('detailBody').innerHTML=`
+  <div style="padding:16px 16px 0">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">
+      <div style="width:56px;height:56px;background:rgba(128,0,32,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:22px;color:var(--p);flex-shrink:0;font-weight:700">${ini(s.name)}</div>
       <div>
         <div style="font-family:var(--ff);font-size:20px;font-weight:700;color:#1a1a1a">${s.name}</div>
-        <div style="font-size:12px;color:var(--b4)">Roll ${s.roll_no||'-'}</div>
+        <div style="font-size:12px;color:var(--b4);margin-top:2px">Roll ${s.roll_no||'-'} &nbsp;•&nbsp; ${CD?.standard||''}</div>
       </div>
     </div>
   </div>
   <div class="info-list">
-    ${s.parent_name?`<div class="info-row"><span class="info-lbl">Parent</span><span class="info-val">${s.parent_name}</span></div>`:''}
+    ${s.parent_name?`<div class="info-row"><span class="info-lbl">Parent / Guardian</span><span class="info-val">${s.parent_name}</span></div>`:''}
     ${s.parent_phone?`<div class="info-row"><span class="info-lbl">Parent Phone</span><span class="info-val">${s.parent_phone}</span></div>`:''}
-    ${s.dob?`<div class="info-row"><span class="info-lbl">DOB</span><span class="info-val">${new Date(s.dob).toLocaleDateString('en-IN')}</span></div>`:''}
+    ${s.phone?`<div class="info-row"><span class="info-lbl">Student Phone</span><span class="info-val">${s.phone}</span></div>`:''}
+    ${s.dob?`<div class="info-row"><span class="info-lbl">Date of Birth</span><span class="info-val">${new Date(s.dob).toLocaleDateString('en-IN')}</span></div>`:''}
     ${s.blood_group?`<div class="info-row"><span class="info-lbl">Blood Group</span><span class="info-val">${s.blood_group}</span></div>`:''}
-    ${s.address?`<div class="info-row"><span class="info-lbl">Address</span><span class="info-val">${s.address}</span></div>`:''}
+    ${s.gender?`<div class="info-row"><span class="info-lbl">Gender</span><span class="info-val">${s.gender}</span></div>`:''}
+    ${s.address?`<div class="info-row"><span class="info-lbl">Address</span><span class="info-val" style="font-size:12px">${s.address}</span></div>`:''}
     <div class="info-row"><span class="info-lbl">Bus</span><span class="info-val">${s.has_bus?(s.bus_route?'Yes — '+s.bus_route:'Yes'):'No'}</span></div>
     <div class="info-row"><span class="info-lbl">Fees Status</span><span class="info-val">
       <span class="${s.fees_status==='paid'?'badge-ok':s.fees_status==='partial'?'badge-ho':'badge-no'}">${s.fees_status||'pending'}</span>
@@ -469,13 +502,22 @@ function viewStudentDetail(id){
     <div class="info-row"><span class="info-lbl">Today's Attendance</span><span class="info-val">
       ${attState[s.id]==='P'?'<span class="badge-ok">Present</span>':attState[s.id]==='A'?'<span class="badge-no">Absent</span>':'Not marked'}
     </span></div>
+  </div>
+  <div style="padding:0 16px;display:flex;gap:10px;flex-wrap:wrap">
+    <button style="padding:10px 18px;background:var(--p);color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:13px;font-weight:700;cursor:pointer" onclick="closeDetail();showTab('attendance')">Mark Attendance</button>
+    <button style="padding:10px 18px;background:transparent;color:var(--p);border:1.5px solid var(--p);border-radius:var(--r);font-family:var(--fb);font-size:13px;font-weight:700;cursor:pointer" onclick="closeDetail();showTab('marks')">Enter Marks</button>
   </div>`;
+  document.getElementById('detailScreen').classList.add('show');
+}
+
+function closeDetail(){
+  document.getElementById('detailScreen').classList.remove('show');
 }
 
 /* ATTENDANCE */
 function renderAttendance(){
-  if(!CD)return`<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--b4)"><p>${L('no_class')}</p></div></div>`;
-  if(!students.length)return`<div style="padding:20px 16px"><div class="empty">${L('no_students')}</div></div>`;
+  if(!CD) return`<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--b4)">No class assigned</div></div>`;
+  if(!students.length) return`<div style="padding:20px 16px"><div class="empty">No students in your class</div></div>`;
   const today=new Date().toISOString().slice(0,10);
   return`
   <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
@@ -488,59 +530,81 @@ function renderAttendance(){
         <div class="att-date-lbl">Date</div>
         <input type="date" class="date-inp" id="attDate" value="${today}">
       </div>
+      <div style="display:flex;gap:8px;padding:10px 14px;border-bottom:1px solid var(--b1)">
+        <button style="padding:6px 14px;background:var(--green);color:var(--w);border:none;border-radius:7px;font-family:var(--fb);font-size:12px;font-weight:700;cursor:pointer" onclick="markAllAtt('P')">All Present</button>
+        <button style="padding:6px 14px;background:var(--red);color:var(--w);border:none;border-radius:7px;font-family:var(--fb);font-size:12px;font-weight:700;cursor:pointer" onclick="markAllAtt('A')">All Absent</button>
+      </div>
       ${students.map(s=>{
         const sid=s.id;
-        if(!attState[sid])attState[sid]='P';
-        return`<div class="att-row">
+        if(!attState[sid]) attState[sid]='P';
+        return`<div class="att-row" id="attrow_${sid}">
           <div class="att-roll">${s.roll_no||'-'}</div>
           <div class="att-name">${s.name}</div>
           <div class="att-tog">
-            <button class="att-btn ${attState[sid]==='P'?'p-on':''}" onclick="setAtt(${sid},'P',this)">P</button>
-            <button class="att-btn ${attState[sid]==='A'?'a-on':''}" onclick="setAtt(${sid},'A',this)">A</button>
+            <button class="att-btn ${attState[sid]==='P'?'p-on':''}" id="attP_${sid}" onclick="setAtt(${sid},'P')">P</button>
+            <button class="att-btn ${attState[sid]==='A'?'a-on':''}" id="attA_${sid}" onclick="setAtt(${sid},'A')">A</button>
           </div>
         </div>`;
       }).join('')}
-      <button class="save-btn" id="saveAttBtn" onclick="saveAttendance()">Save Attendance</button>
+      <button class="save-btn" id="saveAttBtn" onclick="saveAttendance()">Save Attendance (${students.length} students)</button>
     </div>
   </div>`;
 }
 
-function setAtt(sid,val,btn){
+function setAtt(sid,val){
   attState[sid]=val;
-  const row=btn.closest('.att-tog');
-  row.querySelectorAll('.att-btn').forEach(b=>{b.classList.remove('p-on','a-on')});
-  btn.classList.add(val==='P'?'p-on':'a-on');
+  const pBtn=document.getElementById('attP_'+sid);
+  const aBtn=document.getElementById('attA_'+sid);
+  if(pBtn&&aBtn){
+    pBtn.classList.toggle('p-on',val==='P');
+    aBtn.classList.toggle('a-on',val==='A');
+    pBtn.classList.toggle('a-on',false);
+    aBtn.classList.toggle('p-on',false);
+  }
+}
+
+function markAllAtt(val){
+  students.forEach(s=>setAtt(s.id,val));
 }
 
 async function saveAttendance(){
   const date=document.getElementById('attDate')?.value||new Date().toISOString().slice(0,10);
   const btn=document.getElementById('saveAttBtn');
-  btn.disabled=true;btn.textContent='Saving...';
-  /* Backend: POST /api/attendance/mark → {attendance_list:[{student_id,status}],date} */
-  const attendance_list=students.map(s=>({student_id:s.id,status:attState[s.id]==='A'?'absent':'present'}));
+  if(!btn)return;
+  btn.disabled=true; btn.textContent='Saving...';
+  /* Backend: POST /api/attendance/mark → {attendance_list:[{student_id,status}], date} */
+  const attendance_list=students.map(s=>({
+    student_id:s.id,
+    status:attState[s.id]==='A'?'absent':'present'
+  }));
   try{
     const res=await fetch(API+'/attendance/mark',{
       method:'POST',headers:H(),
       body:JSON.stringify({attendance_list,date})
     });
-    if(res.ok)showToast('Attendance saved!');
-    else{const d=await res.json().catch(()=>({}));showToast(d.error||'Failed',true);}
-  }catch(e){showToast('Network error',true)}
-  btn.disabled=false;btn.textContent='Save Attendance';
+    if(res.ok){
+      showToast('Attendance saved for '+students.length+' students!');
+    }else{
+      const d=await res.json().catch(()=>({}));
+      showToast(d.error||'Failed to save',true);
+    }
+  }catch(e){showToast('Network error: '+e.message,true)}
+  btn.disabled=false; btn.textContent='Save Attendance ('+students.length+' students)';
 }
 
 /* MARKS */
 function renderMarks(){
-  if(!CD)return`<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--b4)"><p>${L('no_class')}</p></div></div>`;
-  if(!students.length)return`<div style="padding:20px 16px"><div class="empty">${L('no_students')}</div></div>`;
+  if(!CD) return`<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--b4)">No class assigned</div></div>`;
+  if(!students.length) return`<div style="padding:20px 16px"><div class="empty">No students in your class</div></div>`;
   return`
   <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
     <div class="hero-grt">Marks Entry</div>
     <div class="hero-name">${CD.standard}</div>
+    <div class="hero-chips"><span class="hero-chip">${students.length} students</span></div>
   </div></div>
   <div style="padding:14px 16px">
     <div class="card" style="margin-bottom:12px">
-      <div class="fgl"><label>Subject *</label><input class="fi" id="mk_sub" placeholder="e.g. Mathematics"></div>
+      <div class="fgl"><label>Subject *</label><input class="fi" id="mk_sub" placeholder="e.g. Mathematics, English, Science..."></div>
       <div class="fgl"><label>Exam Type *</label>
         <select class="fi" id="mk_exam">
           <option value="Unit Test 1">Unit Test 1</option>
@@ -549,21 +613,25 @@ function renderMarks(){
           <option value="Final Exam">Final Exam</option>
           <option value="Class Test">Class Test</option>
           <option value="Assignment">Assignment</option>
+          <option value="Practical">Practical</option>
         </select>
       </div>
-      <div class="fgl"><label>Total Marks</label><input type="number" class="fi" id="mk_total" value="100" placeholder="100"></div>
-      <button class="apply-all" onclick="applyTotal()">Apply total to all students</button>
+      <div class="fgl"><label>Total Marks (default for all)</label><input type="number" class="fi" id="mk_total" value="100" min="1" placeholder="100"></div>
+      <button class="apply-all-btn" onclick="applyTotal()">Apply total marks to all students</button>
     </div>
     <div class="card">
+      <div style="font-size:12px;color:var(--b5);margin-bottom:12px">Enter marks obtained for each student. Leave blank to skip that student.</div>
       ${students.map(s=>`
         <div class="mk-row">
-          <div class="si-av" style="width:34px;height:34px;font-size:13px;flex-shrink:0">${ini(s.name)}</div>
-          <div class="mk-name">${s.name}<div style="font-size:10px;color:var(--b4)">Roll ${s.roll_no||'-'}</div></div>
-          <input type="number" class="mk-inp" data-sid="${s.id}" placeholder="--" min="0">
-          <span style="font-size:12px;color:var(--b4)">/</span>
+          <div class="mk-av">${ini(s.name)}</div>
+          <div class="mk-name">${s.name}<span style="font-size:10px;color:var(--b4);display:block">Roll ${s.roll_no||'-'}</span></div>
+          <input type="number" class="mk-inp" data-sid="${s.id}" placeholder="Marks" min="0">
+          <span style="font-size:11px;color:var(--b4);flex-shrink:0">/</span>
           <input type="number" class="mk-of" data-sid="${s.id}" value="100" min="1">
         </div>`).join('')}
-      <button class="save-btn" id="saveMarksBtn" onclick="saveMarks()" style="margin:12px 0 0 0;width:100%">Save All Marks</button>
+      <button class="save-btn" id="saveMarksBtn" onclick="saveMarks()" style="margin:14px 0 0 0;width:100%">
+        Save Marks
+      </button>
     </div>
   </div>`;
 }
@@ -575,33 +643,73 @@ function applyTotal(){
 
 async function saveMarks(){
   const sub=document.getElementById('mk_sub')?.value.trim();
-  const exam=document.getElementById('mk_exam')?.value;
-  if(!sub){showToast('Subject likhao',true);return}
+  const exam=document.getElementById('mk_exam')?.value||'Unit Test 1';
+  if(!sub){showToast('Subject name likhao pehle',true);return}
   const btn=document.getElementById('saveMarksBtn');
-  btn.disabled=true;btn.textContent='Saving...';
+  btn.disabled=true; btn.textContent='Saving...';
   let saved=0;
-  /* Backend: POST /api/marks/update (one at a time per student) */
-  for(const el of document.querySelectorAll('.mk-inp')){
+  let failed=0;
+  const inputs=document.querySelectorAll('.mk-inp');
+  for(const el of inputs){
     const val=el.value.trim();
-    if(val==='')continue;
+    if(val==='') continue;
     const sid=parseInt(el.dataset.sid);
-    const of=parseInt(document.querySelector(`.mk-of[data-sid="${sid}"]`)?.value)||100;
+    const ofEl=document.querySelector(`.mk-of[data-sid="${sid}"]`);
+    const total=parseInt(ofEl?.value)||100;
+    const obtained=parseInt(val);
+    if(isNaN(obtained)||obtained<0){continue}
+    /* Backend: POST /api/marks/update → {student_id, subject, marks_obtained, total_marks, exam_type} */
     try{
       const res=await fetch(API+'/marks/update',{
         method:'POST',headers:H(),
-        body:JSON.stringify({student_id:sid,subject:sub,marks_obtained:Number(val),total_marks:of,exam_type:exam})
+        body:JSON.stringify({
+          student_id:sid,
+          subject:sub,
+          marks_obtained:obtained,
+          total_marks:total,
+          exam_type:exam
+        })
       });
-      if(res.ok)saved++;
-    }catch(_){}
+      if(res.ok) saved++;
+      else failed++;
+    }catch(_){failed++;}
   }
-  if(saved>0)showToast(`Marks saved for ${saved} students!`);
-  else showToast('No marks entered',true);
-  btn.disabled=false;btn.textContent='Save All Marks';
+  if(saved>0){
+    showToast('Marks saved for '+saved+' student'+(saved>1?'s':'')+'!');
+    /* Clear inputs */
+    document.querySelectorAll('.mk-inp').forEach(el=>el.value='');
+  }else if(failed>0){
+    showToast('Failed to save marks',true);
+  }else{
+    showToast('Koi marks enter nahi kiye',true);
+  }
+  btn.disabled=false; btn.textContent='Save Marks';
 }
 
 /* GROUP */
+function renderPostCard(p,canDelete){
+  return`
+  <div class="post-card">
+    <div class="post-head">
+      <div class="post-av">${ini(p.posted_by_name||'T')}</div>
+      <div>
+        <div class="post-author">${p.posted_by_name||'Teacher'}</div>
+        <div class="post-role">Teacher</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;margin-left:auto">
+        <div class="post-time">${ago(p.created_at)}</div>
+        ${canDelete?`<button class="del-post-btn" onclick="delPost(${p.id})">×</button>`:''}
+      </div>
+    </div>
+    <div class="post-body">
+      <div class="post-text">${p.text_content||''}</div>
+      ${p.video_link?`<a href="${p.video_link}" target="_blank" class="post-video"><div class="post-video-ic"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="post-video-lbl">Watch Video</div></a>`:''}
+    </div>
+  </div>`;
+}
+
 function renderGroup(){
-  if(!CD)return`<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--b4)"><p>${L('no_class')}</p></div></div>`;
+  if(!CD) return`<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--b4)">No class assigned</div></div>`;
   return`
   <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
     <div class="hero-grt">Class Group</div>
@@ -610,49 +718,46 @@ function renderGroup(){
   <div style="padding:14px 16px">
     <div class="composer">
       <textarea class="ctxt" id="postTxt" placeholder="Write something for your class..."></textarea>
-      <input class="fi" id="postVid" placeholder="Video link (optional)" style="margin-bottom:10px">
-      <button class="post-btn" id="postBtn" onclick="doPost()">Post</button>
+      <input class="fi" id="postVid" placeholder="Video link (optional — YouTube, Drive...)" style="margin-bottom:12px">
+      <div class="post-action-row">
+        <button class="post-btn" id="postBtn" onclick="doPost()">Post to Class</button>
+      </div>
     </div>
-    ${!posts.length?'<div class="empty">No posts yet</div>':''}
-    ${posts.map(p=>`
-      <div class="post-item">
-        <div class="post-head">
-          <span class="post-author">${p.posted_by_name||'Teacher'}</span>
-          <div style="display:flex;align-items:center;gap:8px">
-            <span class="post-time">${ago(p.created_at)}</span>
-            <button class="del-post" onclick="delPost(${p.id})">x</button>
-          </div>
-        </div>
-        <div class="post-text">${p.text_content||''}</div>
-        ${p.video_link?`<a href="${p.video_link}" target="_blank" style="display:inline-flex;align-items:center;gap:5px;margin-top:6px;font-size:12px;color:var(--p);font-weight:600;text-decoration:none">Watch Video</a>`:''}
-      </div>`).join('')}
+    ${!posts.length?`<div class="empty"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>No posts yet</div>`:''}
+    ${posts.map(p=>renderPostCard(p,true)).join('')}
   </div>`;
 }
 
 async function doPost(){
   const txt=document.getElementById('postTxt')?.value.trim();
   const vid=document.getElementById('postVid')?.value.trim();
-  if(!txt&&!vid){showToast('Kuch likho',true);return}
+  if(!txt&&!vid){showToast('Kuch likho pehle',true);return}
   const btn=document.getElementById('postBtn');
-  btn.disabled=true;btn.textContent='Posting...';
+  btn.disabled=true; btn.textContent='Posting...';
   try{
-    /* Backend: POST /api/posts → {class_id, text_content, video_link} */
+    /* Backend: POST /api/posts → {class_id (integer), text_content, video_link} */
     const res=await fetch(API+'/posts',{
       method:'POST',headers:H(),
-      body:JSON.stringify({class_id:CD?.id,text_content:txt,video_link:vid||null})
+      body:JSON.stringify({class_id:CD?.id,text_content:txt||null,video_link:vid||null})
     });
     const d=await res.json().catch(()=>({}));
     if(res.ok){
-      posts.unshift(d.post||{text_content:txt,video_link:vid,created_at:new Date(),posted_by_name:TD?.name||'Teacher',id:Date.now()});
+      posts.unshift(d.post||{
+        id:Date.now(),text_content:txt,video_link:vid,
+        created_at:new Date().toISOString(),
+        posted_by_name:TD?.name||'Teacher'
+      });
       showToast('Posted!');
       showTab('group');
-    }else showToast(d.error||'Failed',true);
+    }else{
+      showToast(d.error||'Failed to post',true);
+    }
   }catch(e){showToast('Network error',true)}
-  btn.disabled=false;btn.textContent='Post';
+  if(btn){btn.disabled=false; btn.textContent='Post to Class';}
 }
 
 async function delPost(id){
-  if(!confirm('Delete?'))return;
+  if(!confirm('Delete this post?'))return;
   try{
     /* Backend: DELETE /api/posts/:id */
     const res=await fetch(API+'/posts/'+id,{method:'DELETE',headers:H()});
@@ -661,9 +766,76 @@ async function delPost(id){
   }catch(e){showToast('Network error',true)}
 }
 
+/* TIMETABLE */
+async function loadTimetable(){
+  if(!CD){document.getElementById('mainContent').innerHTML='<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--b4)">No class assigned</div></div>';return}
+  let tt=[];
+  try{
+    /* Backend: GET /api/timetable/:class_id → {timetable:[{day,period_1..period_7}]} */
+    const res=await fetch(API+'/timetable/'+CD.id,{headers:H()});
+    if(res.ok){const d=await res.json();tt=d.timetable||[];}
+  }catch(_){}
+  const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const ttMap={};tt.forEach(row=>ttMap[row.day]=row);
+  document.getElementById('mainContent').innerHTML=`
+  <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
+    <div class="hero-grt">Timetable</div>
+    <div class="hero-name">${CD.standard}</div>
+  </div></div>
+  <div style="padding:14px 16px">
+    <div style="font-size:12px;color:var(--b5);margin-bottom:12px">Edit subjects for each period and save.</div>
+    <div class="tt-wrap">
+      <table class="tt-table">
+        <thead>
+          <tr>
+            <th style="min-width:70px">Day</th>
+            ${[1,2,3,4,5,6,7].map(n=>`<th>P${n}</th>`).join('')}
+          </tr>
+        </thead>
+        <tbody>
+          ${days.map(day=>{
+            const row=ttMap[day]||{};
+            return`<tr>
+              <td style="font-weight:700;color:var(--p);padding:8px 8px;white-space:nowrap">${day.slice(0,3)}</td>
+              ${[1,2,3,4,5,6,7].map(n=>`
+                <td><input class="tt-inp" id="tt_${day}_${n}" value="${row['period_'+n]||''}" placeholder="—"></td>
+              `).join('')}
+            </tr>`;
+          }).join('')}
+        </tbody>
+      </table>
+    </div>
+    <button class="save-btn" id="saveTTBtn" onclick="saveTimetable()" style="width:100%;margin:0">
+      Save Timetable
+    </button>
+  </div>`;
+}
+
+async function saveTimetable(){
+  if(!CD)return;
+  const btn=document.getElementById('saveTTBtn');
+  btn.disabled=true; btn.textContent='Saving...';
+  const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  let ok=0;
+  for(const day of days){
+    const periods=[1,2,3,4,5,6,7].map(n=>document.getElementById(`tt_${day}_${n}`)?.value.trim()||'');
+    try{
+      /* Backend: POST /api/timetable → {class_id, day, periods:[p1..p7]} */
+      const res=await fetch(API+'/timetable',{
+        method:'POST',headers:H(),
+        body:JSON.stringify({class_id:CD.id,day,periods})
+      });
+      if(res.ok) ok++;
+    }catch(_){}
+  }
+  if(ok>0) showToast('Timetable saved!');
+  else showToast('Failed to save',true);
+  btn.disabled=false; btn.textContent='Save Timetable';
+}
+
 /* NOTIFY */
 function renderNotify(){
-  if(!CD)return`<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--b4)"><p>${L('no_class')}</p></div></div>`;
+  if(!CD) return`<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--b4)">No class assigned</div></div>`;
   return`
   <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
     <div class="hero-grt">Notifications</div>
@@ -671,9 +843,12 @@ function renderNotify(){
   </div></div>
   <div style="padding:14px 16px">
     <div class="nf-card">
-      <div class="fgl"><label>Title *</label><input class="fi" id="nTitle" placeholder="Notification title"></div>
-      <div class="fgl" style="margin-bottom:12px"><label>Message *</label><textarea class="fi" id="nMsg" rows="4" style="resize:none;min-height:80px" placeholder="Write message..."></textarea></div>
-      <label style="font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:6px">Send To</label>
+      <div class="fgl"><label>Title *</label><input class="fi" id="nTitle" placeholder="e.g. Homework, Test tomorrow..."></div>
+      <div class="fgl" style="margin-bottom:14px">
+        <label>Message *</label>
+        <textarea class="fi" id="nMsg" rows="4" style="resize:none;min-height:90px" placeholder="Write your message to students and parents..."></textarea>
+      </div>
+      <div style="font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Send To</div>
       <div class="ca-row">
         <button class="ca-btn" onclick="checkAll(true)">Select All</button>
         <button class="ca-btn" onclick="checkAll(false)">Clear All</button>
@@ -682,40 +857,49 @@ function renderNotify(){
         ${students.map(s=>`
           <label class="stu-item">
             <input type="checkbox" class="stu-check" value="${s.id}" checked>
-            <span style="font-size:13px;font-weight:500;flex:1">${s.name}</span>
+            <div class="si-av" style="width:32px;height:32px;font-size:12px">${ini(s.name)}</div>
+            <span style="font-size:13px;font-weight:500;flex:1;color:#1a1a1a">${s.name}</span>
             <span style="font-size:11px;color:var(--b4)">Roll ${s.roll_no||'-'}</span>
           </label>`).join('')}
       </div>
-      <button class="send-btn" onclick="sendNotif()">Send Notification</button>
+      <button class="send-btn" id="sendNotifBtn" onclick="sendNotif()">
+        Send Notification
+      </button>
     </div>
   </div>`;
 }
 
-function checkAll(val){document.querySelectorAll('.stu-check').forEach(c=>c.checked=val)}
+function checkAll(val){
+  document.querySelectorAll('.stu-check').forEach(c=>c.checked=val);
+}
 
 async function sendNotif(){
   const title=document.getElementById('nTitle')?.value.trim();
   const msg=document.getElementById('nMsg')?.value.trim();
   if(!title||!msg){showToast('Title aur message daalo',true);return}
-  const checked=[...document.querySelectorAll('.stu-check:checked')].map(c=>parseInt(c.value));
-  if(!checked.length){showToast('Koi student select karo',true);return}
+  const btn=document.getElementById('sendNotifBtn');
+  btn.disabled=true; btn.textContent='Sending...';
   try{
-    /* Backend: POST /api/notifications/send → {title,message,target_type,target_id} */
+    /* Backend: POST /api/notifications/send → {title, message, target_type, target_id} */
     const res=await fetch(API+'/notifications/send',{
       method:'POST',headers:H(),
       body:JSON.stringify({
         title,
         message:msg,
         target_type:'class',
-        target_id:CD?.id
+        target_id:String(CD?.id)
       })
     });
     if(res.ok){
-      showToast('Notification sent!');
+      showToast('Notification sent to class!');
       document.getElementById('nTitle').value='';
       document.getElementById('nMsg').value='';
-    }else{const d=await res.json().catch(()=>({}));showToast(d.error||'Failed',true);}
+    }else{
+      const d=await res.json().catch(()=>({}));
+      showToast(d.error||'Failed',true);
+    }
   }catch(e){showToast('Network error',true)}
+  btn.disabled=false; btn.textContent='Send Notification';
 }
 </script>
 </body>
