@@ -22,7 +22,8 @@
   --ff:'Playfair Display',serif;--fb:'Inter',sans-serif;--fm:'JetBrains Mono',monospace;
   --r:12px;--tr:all .22s ease;
 }
-html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)}
+html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6);overflow-x:hidden}
+/* LOGIN */
 #loginScreen{position:fixed;inset:0;z-index:999;background:linear-gradient(155deg,var(--dp),var(--p),var(--ac));display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;padding-top:max(20px,env(safe-area-inset-top));padding-bottom:max(20px,env(safe-area-inset-bottom));overflow-y:auto}
 #loginScreen::before{content:'';position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
 .lw{width:100%;max-width:400px;position:relative;z-index:1}
@@ -43,16 +44,14 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .linp-w input{width:100%;padding:13px 44px 13px 14px;background:#f8f8f8;border:2px solid #eee;border-radius:11px;font-size:15px;font-family:var(--fb);color:#1a1a1a;outline:none;transition:border-color .2s,background .2s;-webkit-appearance:none}
 .linp-w input:focus{border-color:var(--p);background:var(--w)}
 .linp-w input::placeholder{color:#ccc}
-.leye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#bbb;display:flex;padding:4px;transition:color .18s}
-.leye:hover{color:var(--p)}
+.leye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#bbb;display:flex;padding:4px}
 .leye svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
 .lbtn{width:100%;padding:14px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:12px;font-size:15px;font-weight:700;font-family:var(--fb);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 5px 18px rgba(128,0,32,.25);transition:opacity .18s,transform .15s;-webkit-appearance:none}
-.lbtn:hover{opacity:.9}
 .lbtn:active{transform:scale(.98)}
 .lbtn:disabled{opacity:.6;cursor:not-allowed;transform:none}
 .lspin{display:none;width:17px;height:17px;border:2.5px solid rgba(255,255,255,.3);border-top-color:var(--w);border-radius:50%;animation:spin .7s linear infinite}
 .lhint{text-align:center;margin-top:16px;font-size:13px;color:rgba(255,255,255,.45);position:relative;z-index:1}
-.lhint strong{color:rgba(255,255,255,.8)}
+/* APP */
 #appScreen{display:none;flex-direction:column;height:100vh;height:100dvh}
 .topbar{background:var(--w);border-bottom:1px solid var(--b2);padding:0 16px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:100}
 .topbar-left{display:flex;align-items:center;gap:10px}
@@ -60,60 +59,86 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .topbar-logo img{width:100%;height:100%;object-fit:cover;display:block}
 .topbar-logo-fb{font-family:var(--ff);font-size:13px;font-weight:700;color:var(--p);display:none}
 .topbar-name{font-family:var(--ff);font-size:16px;font-weight:700;color:var(--dp)}
-.topbar-right{display:flex;align-items:center;gap:8px}
-.lang-grp{display:flex;gap:2px;background:var(--b1);border-radius:20px;padding:2px}
-.lang-btn{padding:4px 9px;border-radius:20px;border:none;background:transparent;font-family:var(--fb);font-size:10px;font-weight:700;color:var(--b4);cursor:pointer;transition:var(--tr)}
-.lang-btn.active{background:var(--w);color:var(--p);box-shadow:0 1px 3px rgba(0,0,0,.1)}
-.out-btn{background:none;border:1px solid var(--b2);border-radius:7px;padding:6px 10px;font-size:11px;font-weight:600;color:var(--b5);cursor:pointer;font-family:var(--fb);transition:var(--tr)}
-.out-btn:hover{border-color:var(--p);color:var(--p)}
+.notif-bell{position:relative;background:none;border:none;cursor:pointer;padding:6px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+.notif-bell svg{width:22px;height:22px;stroke:var(--b5);fill:none;stroke-width:2;stroke-linecap:round}
+.notif-badge{position:absolute;top:4px;right:4px;width:8px;height:8px;background:var(--red);border-radius:50%;border:2px solid var(--w);display:none}
+.notif-badge.show{display:block}
+.out-btn{background:none;border:1px solid var(--b2);border-radius:7px;padding:6px 10px;font-size:11px;font-weight:600;color:var(--b5);cursor:pointer;font-family:var(--fb)}
+/* SCROLL */
 .scroll-area{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .scroll-area::-webkit-scrollbar{width:3px}
 .scroll-area::-webkit-scrollbar-thumb{background:var(--b3);border-radius:3px}
-.cnt{max-width:600px;margin:0 auto;padding-bottom:80px}
+.cnt{max-width:600px;margin:0 auto;padding-bottom:90px}
+/* HERO */
 .hero{background:linear-gradient(135deg,var(--dp),var(--p));color:var(--w);padding:22px 16px 26px;position:relative;overflow:hidden}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
 .hero-inner{position:relative;z-index:1;display:flex;align-items:flex-start;gap:14px}
-.hero-av{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:20px;color:var(--w);flex-shrink:0}
+.hero-av{width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:20px;color:var(--w);flex-shrink:0}
 .hero-info{flex:1}
 .hero-grt{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:600}
 .hero-name{font-family:var(--ff);font-size:22px;font-weight:700;line-height:1.15;margin-bottom:8px}
 .hero-chips{display:flex;gap:6px;flex-wrap:wrap}
 .hero-chip{padding:3px 10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:100px;font-size:10px;color:rgba(255,255,255,.85);font-weight:500}
+/* STATS */
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:14px 16px}
-.stat-tile{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px;cursor:pointer;transition:var(--tr)}
-.stat-tile:hover{border-color:var(--p)}
+.stat-tile{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px;cursor:pointer;transition:var(--tr);active-scale:.97}
+.stat-tile:active{transform:scale(.97)}
 .stat-ic{width:30px;height:30px;background:rgba(128,0,32,.08);border-radius:7px;display:flex;align-items:center;justify-content:center;margin-bottom:8px}
 .stat-ic svg{width:15px;height:15px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
 .stat-val{font-family:var(--ff);font-size:24px;font-weight:700;color:var(--p);line-height:1;margin-bottom:3px}
 .stat-lbl{font-size:10px;color:var(--b4);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+/* CARDS */
 .sec{padding:0 16px;margin-bottom:16px}
 .sec-title{font-family:var(--ff);font-size:16px;font-weight:700;color:var(--dp);margin-bottom:10px}
+.card{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px;margin-bottom:10px}
+/* FEES */
 .fees-card{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:16px}
 .fees-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:14px}
 .fees-amt{font-family:var(--ff);font-size:22px;font-weight:700}
 .fees-lbl{font-size:12px;color:var(--b4);margin-top:2px}
-.pay-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px rgba(128,0,32,.25);transition:opacity .18s}
-.pay-btn:hover{opacity:.9}
+.pay-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 4px 14px rgba(128,0,32,.25)}
 .pay-btn svg{width:16px;height:16px;stroke:var(--w);fill:none;stroke-width:2;stroke-linecap:round}
+/* TEACHER */
 .teacher-card{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px;display:flex;align-items:center;gap:12px}
 .teacher-av{width:42px;height:42px;background:rgba(128,0,32,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:16px;color:var(--p);flex-shrink:0}
+/* MARKS */
 .mark-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--b1)}
 .mark-row:last-child{border-bottom:none}
 .mark-sub{font-size:13px;font-weight:600;min-width:100px}
-.mark-bar{flex:1;height:5px;background:var(--b1);border-radius:3px;overflow:hidden}
-.mark-fill{height:100%;background:var(--p);border-radius:3px;transition:width 1s ease}
+.mark-bar{flex:1;height:6px;background:var(--b1);border-radius:3px;overflow:hidden}
+.mark-fill{height:100%;background:linear-gradient(90deg,var(--p),var(--ac));border-radius:3px;width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
 .mark-score{font-family:var(--fm);font-size:12px;font-weight:600;color:var(--b6);min-width:55px;text-align:right}
-.post-item{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px;margin-bottom:8px}
-.post-head{display:flex;justify-content:space-between;margin-bottom:6px}
-.post-author{font-size:12px;font-weight:700;color:var(--p)}
-.post-time{font-size:11px;color:var(--b3)}
-.post-text{font-size:13px;color:var(--b6);line-height:1.6}
-.notif-item{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid var(--b1)}
+/* POSTS — app style */
+.post-card{background:var(--w);border:1px solid var(--b2);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
+.post-head{display:flex;align-items:center;gap:10px;padding:12px 14px 0}
+.post-av{width:36px;height:36px;border-radius:50%;background:rgba(128,0,32,.1);display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:14px;color:var(--p);font-weight:700;flex-shrink:0}
+.post-author{font-size:13px;font-weight:700;color:#1a1a1a}
+.post-role{font-size:11px;color:var(--b4)}
+.post-time{font-size:10px;color:var(--b4);margin-left:auto}
+.post-body{padding:10px 14px 14px}
+.post-text{font-size:14px;color:#1a1a1a;line-height:1.6}
+.post-video{display:flex;align-items:center;gap:8px;margin-top:10px;padding:10px 12px;background:rgba(128,0,32,.06);border-radius:9px;text-decoration:none}
+.post-video-ic{width:30px;height:30px;background:var(--p);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.post-video-ic svg{width:14px;height:14px;stroke:var(--w);fill:none;stroke-width:2;stroke-linecap:round}
+.post-video-lbl{font-size:12px;font-weight:700;color:var(--p)}
+/* NOTIFICATIONS — app style */
+.notif-panel{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.5);display:none;align-items:flex-end}
+.notif-panel.show{display:flex}
+.notif-sheet{background:var(--w);border-radius:20px 20px 0 0;width:100%;max-height:80vh;overflow-y:auto;animation:slideUp .3s ease;padding-bottom:max(24px,env(safe-area-inset-bottom))}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.notif-sheet-head{display:flex;align-items:center;justify-content:space-between;padding:16px 16px 8px}
+.notif-sheet-title{font-family:var(--ff);font-size:18px;font-weight:700;color:var(--dp)}
+.notif-close{background:none;border:none;cursor:pointer;color:var(--b4);font-size:22px;line-height:1;padding:4px}
+.notif-item{display:flex;gap:12px;padding:12px 16px;border-bottom:1px solid var(--b1);cursor:pointer;transition:background .15s}
+.notif-item:hover{background:var(--b1)}
 .notif-item:last-child{border-bottom:none}
-.notif-dot{width:7px;height:7px;background:var(--p);border-radius:50%;flex-shrink:0;margin-top:5px}
-.notif-title{font-size:13px;font-weight:700;margin-bottom:3px;color:#1a1a1a}
+.notif-ic{width:40px;height:40px;border-radius:50%;background:rgba(128,0,32,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.notif-ic svg{width:18px;height:18px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
+.notif-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:3px}
 .notif-msg{font-size:12px;color:var(--b5);line-height:1.5}
 .notif-time{font-size:10px;color:var(--b3);margin-top:4px}
+.notif-dot{width:7px;height:7px;background:var(--p);border-radius:50%;flex-shrink:0;margin-top:6px}
+/* PROFILE */
 .prof-hero{background:linear-gradient(135deg,var(--dp),var(--p));border-radius:var(--r);padding:20px;text-align:center;margin-bottom:12px;position:relative;overflow:hidden}
 .prof-hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
 .prof-av{width:64px;height:64px;border-radius:50%;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.25);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:24px;color:var(--w);position:relative;z-index:1}
@@ -124,13 +149,14 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .info-row:last-child{border-bottom:none}
 .info-lbl{font-size:12px;color:var(--b4);font-weight:500}
 .info-val{font-size:13px;font-weight:600;color:#1a1a1a;text-align:right;max-width:60%}
+/* BADGES */
 .badge-ok{background:var(--gl);color:var(--green);padding:3px 9px;border-radius:100px;font-size:11px;font-weight:600}
 .badge-no{background:var(--rl);color:var(--red);padding:3px 9px;border-radius:100px;font-size:11px;font-weight:600}
 .badge-ho{background:var(--goldl);color:var(--gold);padding:3px 9px;border-radius:100px;font-size:11px;font-weight:600}
+/* PAY MODAL */
 .mo{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;display:none;align-items:flex-end}
 .mo.show{display:flex}
 .mo-sheet{background:var(--w);border-radius:20px 20px 0 0;padding:20px 16px;padding-bottom:max(36px,env(safe-area-inset-bottom));width:100%;animation:slideUp .3s ease;max-height:92vh;overflow-y:auto}
-@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 .mo-handle{width:36px;height:4px;background:var(--b2);border-radius:2px;margin:0 auto 16px}
 .mo-title{font-family:var(--ff);font-size:19px;font-weight:700;color:var(--dp);margin-bottom:4px}
 .mo-sub{font-size:13px;color:var(--b4);margin-bottom:16px}
@@ -149,21 +175,33 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .submit-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer;margin-bottom:8px;box-shadow:0 4px 14px rgba(128,0,32,.25)}
 .submit-btn:disabled{opacity:.6;cursor:not-allowed}
 .cancel-btn{width:100%;padding:11px;background:none;border:1px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:var(--b5);cursor:pointer}
+/* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--w);border-top:1px solid var(--b2);display:flex;padding:6px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));z-index:100}
-.nav-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 4px;background:none;border:none;cursor:pointer;transition:var(--tr)}
+.nav-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 4px;background:none;border:none;cursor:pointer;transition:var(--tr);position:relative}
 .nav-tab svg{width:21px;height:21px;stroke:var(--b3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:var(--tr)}
 .nav-tab span{font-size:9px;font-weight:700;color:var(--b3);text-transform:uppercase;letter-spacing:.5px;font-family:var(--fb)}
 .nav-tab.active svg{stroke:var(--p)}
 .nav-tab.active span{color:var(--p)}
+.nav-badge{position:absolute;top:3px;right:calc(50% - 14px);width:7px;height:7px;background:var(--red);border-radius:50%;border:2px solid var(--w);display:none}
+.nav-badge.show{display:block}
+/* TIMETABLE */
+.tt-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--b2)}
+.tt-table{width:100%;border-collapse:collapse;font-size:11px}
+.tt-table th{padding:8px 10px;background:rgba(128,0,32,.07);border:1px solid var(--b2);text-align:center;font-weight:700;color:var(--p);white-space:nowrap}
+.tt-table td{padding:8px 10px;border:1px solid var(--b2);text-align:center;color:var(--b6);white-space:nowrap}
+.tt-table tr:nth-child(even) td{background:var(--b1)}
+/* UTILS */
 .loading{display:flex;align-items:center;justify-content:center;min-height:40vh;flex-direction:column;gap:12px}
 .spin-el{width:26px;height:26px;border:2px solid var(--b2);border-top-color:var(--p);border-radius:50%;animation:spin .8s linear infinite}
-.empty{text-align:center;padding:28px;color:var(--b4);font-size:13px}
-.tt-table{width:100%;border-collapse:collapse;font-size:11px}
-.tt-table th{padding:7px 8px;background:var(--b1);border:1px solid var(--b2);text-align:center;font-weight:700;color:var(--p)}
-.tt-table td{padding:7px 8px;border:1px solid var(--b2);text-align:center;color:var(--b6)}
-.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dp);color:var(--w);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.2)}
+.empty{text-align:center;padding:40px 20px;color:var(--b4);font-size:13px}
+.empty svg{width:40px;height:40px;stroke:var(--b3);fill:none;margin-bottom:12px}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dp);color:var(--w);padding:10px 20px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.25)}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.err{background:var(--red)}
+/* PUSH PERMISSION */
+.push-banner{background:rgba(128,0,32,.07);border:1px solid rgba(128,0,32,.15);border-radius:var(--r);padding:12px 14px;margin:12px 16px;display:flex;align-items:center;gap:10px}
+.push-banner-txt{flex:1;font-size:12px;color:var(--dp);font-weight:500;line-height:1.4}
+.push-allow{padding:7px 14px;background:var(--p);color:var(--w);border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--fb);white-space:nowrap}
 @keyframes spin{to{transform:rotate(360deg)}}
 @media(max-width:400px){.lcard{padding:22px 16px 18px}}
 @media(max-height:700px){#loginScreen{justify-content:flex-start;padding-top:16px}.brand{margin-bottom:14px}.logo-box{width:60px;height:60px}}
@@ -171,6 +209,7 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 </head>
 <body>
 
+<!-- LOGIN -->
 <div id="loginScreen">
   <div class="lw">
     <div class="brand">
@@ -206,10 +245,11 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
         <div class="lspin" id="lSpin"></div>
       </button>
     </div>
-    <div class="lhint">Credentials bhool gaye? <strong>Class teacher se contact karo</strong></div>
+    <div class="lhint">Credentials bhool gaye? Class teacher se contact karo</div>
   </div>
 </div>
 
+<!-- APP -->
 <div id="appScreen">
   <div class="topbar">
     <div class="topbar-left">
@@ -219,20 +259,21 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
       </div>
       <div class="topbar-name">Emmanuel School</div>
     </div>
-    <div class="topbar-right">
-      <div class="lang-grp">
-        <button class="lang-btn active" onclick="setLang('en')">EN</button>
-        <button class="lang-btn" onclick="setLang('hi')">HI</button>
-        <button class="lang-btn" onclick="setLang('mr')">MR</button>
-      </div>
+    <div style="display:flex;align-items:center;gap:6px">
+      <button class="notif-bell" onclick="openNotifPanel()">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <div class="notif-badge" id="notifBadge"></div>
+      </button>
       <button class="out-btn" onclick="doLogout()">Logout</button>
     </div>
   </div>
+
   <div class="scroll-area" id="scrollArea">
     <div class="cnt" id="mainContent">
       <div class="loading"><div class="spin-el"></div></div>
     </div>
   </div>
+
   <nav class="bottom-nav">
     <button class="nav-tab active" onclick="showTab('home',this)">
       <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
@@ -249,6 +290,7 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
     <button class="nav-tab" onclick="showTab('alerts',this)">
       <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       <span>Alerts</span>
+      <div class="nav-badge" id="alertsBadge"></div>
     </button>
     <button class="nav-tab" onclick="showTab('profile',this)">
       <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -257,7 +299,19 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
   </nav>
 </div>
 
-<div class="mo" id="payMo">
+<!-- NOTIFICATIONS PANEL -->
+<div class="notif-panel" id="notifPanel" onclick="if(event.target===this)closeNotifPanel()">
+  <div class="notif-sheet">
+    <div class="notif-sheet-head">
+      <div class="notif-sheet-title">Notifications</div>
+      <button class="notif-close" onclick="closeNotifPanel()">×</button>
+    </div>
+    <div id="notifList"><div class="loading" style="min-height:120px"><div class="spin-el"></div></div></div>
+  </div>
+</div>
+
+<!-- PAY MODAL -->
+<div class="mo" id="payMo" onclick="if(event.target===this)closePay()">
   <div class="mo-sheet">
     <div class="mo-handle"></div>
     <div class="mo-title">Pay Fees</div>
@@ -287,12 +341,61 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 
 <div class="toast" id="toast"></div>
 
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getMessaging, getToken, onMessage } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js';
+
+const FB_CONFIG = {
+  apiKey: "AIzaSyA21lqBYdpcsUQCDOvc7Y1ZtIvy5j1VPVw",
+  authDomain: "edumanage-notificationn.firebaseapp.com",
+  projectId: "edumanage-notificationn",
+  messagingSenderId: "956207309076",
+  appId: "1:956207309076:web:6432e350c3536aa49f6201"
+};
+
+window._fbApp = initializeApp(FB_CONFIG);
+window._fbMsg = getMessaging(window._fbApp);
+
+window.requestPushPermission = async function() {
+  try {
+    const token = await getToken(window._fbMsg, {
+      vapidKey: 'BCHbNp4TNGBtB7j5IXbvlpWJ5LRTmEYfJTWTvFHnZD2k3VX4LgLfOhqSLBJGXLZ4lGJ4EJxZ9KAFQgGCxFhJkE'
+    });
+    if (token) {
+      const API = 'https://edumanage-backend-xi.vercel.app/api';
+      const t = localStorage.getItem('edu_token');
+      if (t) {
+        await fetch(API + '/notifications/register-token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + t },
+          body: JSON.stringify({ token, platform: 'web' })
+        }).catch(() => {});
+      }
+      localStorage.setItem('fcm_token', token);
+      document.getElementById('pushBanner')?.remove();
+      window.showToastGlobal?.('Notifications enabled!');
+    }
+  } catch (e) {
+    console.log('Push permission denied');
+  }
+};
+
+onMessage(window._fbMsg, (payload) => {
+  const title = payload.notification?.title || 'Emmanuel School';
+  const body = payload.notification?.body || '';
+  window.showToastGlobal?.(title + ': ' + body);
+  window.refreshNotifs?.();
+  document.getElementById('notifBadge')?.classList.add('show');
+  document.getElementById('alertsBadge')?.classList.add('show');
+});
+</script>
+
 <script>
 const API = 'https://edumanage-backend-xi.vercel.app/api';
 
-/* STATE — all loaded from /students/me in one call */
 let TOKEN = null;
-let SD = null; /* studentData */
+let SD = null;
 let MARKS = [];
 let FEES = null;
 let ATT = {};
@@ -301,40 +404,27 @@ let POSTS = [];
 let NOTIFS = [];
 let UPI = '';
 let curTab = 'home';
-let curLang = localStorage.getItem('edu_lang') || 'en';
 
-const TR = {
-  en:{greeting:'Good day,',avg:'Average',grade:'Grade',att:'Attendance',fees:'Fees',teacher:'Class Teacher',no_marks:'No marks uploaded yet',no_posts:'No posts yet',no_notif:'No notifications',pay:'Pay Fees',fees_paid:'Fees fully paid',amt_due:'Amount Due',amt_paid:'Amount Paid',timetable:'Timetable'},
-  hi:{greeting:'नमस्ते,',avg:'औसत',grade:'ग्रेड',att:'उपस्थिति',fees:'फीस',teacher:'कक्षा शिक्षक',no_marks:'अभी कोई अंक नहीं',no_posts:'अभी कोई पोस्ट नहीं',no_notif:'कोई सूचना नहीं',pay:'फीस भरें',fees_paid:'फीस पूरी तरह भुगतान हुई',amt_due:'बकाया राशि',amt_paid:'भुगतान राशि',timetable:'टाइमटेबल'},
-  mr:{greeting:'नमस्कार,',avg:'सरासरी',grade:'श्रेणी',att:'उपस्थिती',fees:'फी',teacher:'वर्ग शिक्षक',no_marks:'अद्याप गुण नाहीत',no_posts:'अद्याप पोस्ट नाहीत',no_notif:'सूचना नाही',pay:'फी भरा',fees_paid:'फी पूर्ण भरली',amt_due:'बाकी रक्कम',amt_paid:'भरलेली रक्कम',timetable:'वेळापत्रक'}
-};
-function L(k){return(TR[curLang]&&TR[curLang][k])||TR.en[k]||k}
-
-function H(){return{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN}}
-function ini(n){if(!n)return'?';return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}
-function ago(d){if(!d)return'';const s=Math.floor((Date.now()-new Date(d))/1000);if(s<60)return'just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago'}
-function avgPct(){if(!MARKS.length)return 0;return Math.round(MARKS.reduce((a,m)=>a+(m.marks_obtained/m.total_marks*100),0)/MARKS.length)}
-function grade(p){return p>=90?'A+':p>=80?'A':p>=70?'B+':p>=60?'B':p>=50?'C':'D'}
+function H(){ return {'Content-Type':'application/json','Authorization':'Bearer '+TOKEN} }
+function ini(n){ if(!n)return'?'; return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2) }
+function ago(d){ if(!d)return''; const s=Math.floor((Date.now()-new Date(d))/1000); if(s<60)return'just now'; if(s<3600)return Math.floor(s/60)+'m ago'; if(s<86400)return Math.floor(s/3600)+'h ago'; return Math.floor(s/86400)+'d ago' }
+function avgPct(){ if(!MARKS.length)return 0; return Math.round(MARKS.reduce((a,m)=>a+(m.marks_obtained/m.total_marks*100),0)/MARKS.length) }
+function grade(p){ return p>=90?'A+':p>=80?'A':p>=70?'B+':p>=60?'B':p>=50?'C':'D' }
 
 let toastT;
-function showToast(msg,err){
+window.showToastGlobal = function(msg, err) {
   const e=document.getElementById('toast');
-  e.textContent=msg;e.className='toast'+(err?' err':'');
-  e.classList.add('show');clearTimeout(toastT);
+  e.textContent=msg; e.className='toast'+(err?' err':'');
+  e.classList.add('show'); clearTimeout(toastT);
   toastT=setTimeout(()=>e.classList.remove('show'),3200);
 }
-
-function setLang(l){
-  curLang=l;localStorage.setItem('edu_lang',l);
-  document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.textContent.toLowerCase()===l));
-  showTab(curTab);
-}
+function showToast(msg,err){ window.showToastGlobal(msg,err) }
 
 /* BOOT */
 (function boot(){
   const token=localStorage.getItem('edu_token');
   const role=localStorage.getItem('edu_role');
-  if(token&&role==='student'){TOKEN=token;showApp();loadMe();}
+  if(token&&role==='student'){ TOKEN=token; showApp(); loadMe(); }
   else showLogin();
 })();
 
@@ -373,7 +463,7 @@ async function doLogin(){
       localStorage.setItem('edu_token',TOKEN);
       localStorage.setItem('edu_role','student');
       localStorage.setItem('edu_code',code);
-      showApp();loadMe();
+      showApp(); loadMe();
     }else{
       err.textContent=data.message||data.error||'Invalid code or password';
       err.classList.add('show');
@@ -391,22 +481,21 @@ function doLogout(){
   showLogin();
 }
 
-/* LOAD — single /students/me call returns everything */
+/* LOAD */
 async function loadMe(){
   document.getElementById('mainContent').innerHTML='<div class="loading"><div class="spin-el"></div></div>';
   try{
-    /* Backend: GET /api/students/me → {student, marks, fees, attendance, timetable} */
+    /* GET /api/students/me → {student, marks, fees, attendance, timetable} */
     const res=await fetch(API+'/students/me',{headers:H()});
     if(res.status===401){doLogout();return}
     const d=await res.json();
-
     SD=d.student||null;
     MARKS=d.marks||[];
     FEES=d.fees||null;
     ATT=d.attendance||{};
     TT=d.timetable||[];
 
-    /* Load posts separately using class_id from student */
+    /* Load posts using class_id */
     if(SD?.class_id){
       try{
         const pr=await fetch(API+'/posts/'+SD.class_id,{headers:H()});
@@ -426,9 +515,41 @@ async function loadMe(){
       if(ur.ok){const ud=await ur.json();UPI=ud.upi_id||'';}
     }catch(_){}
 
+    /* Show notification badge */
+    if(NOTIFS.length){
+      document.getElementById('notifBadge').classList.add('show');
+      document.getElementById('alertsBadge').classList.add('show');
+    }
+
+    /* Ask push permission after load */
+    setTimeout(checkPushPermission, 2000);
+
     showTab(curTab);
   }catch(e){
     document.getElementById('mainContent').innerHTML=`<div class="loading"><div style="color:var(--red);font-size:13px">Error: ${e.message}</div></div>`;
+  }
+}
+
+window.refreshNotifs = async function(){
+  try{
+    const nr=await fetch(API+'/notifications',{headers:H()});
+    if(nr.ok){const nd=await nr.json();NOTIFS=nd.notifications||[];}
+  }catch(_){}
+  renderNotifList();
+}
+
+function checkPushPermission(){
+  if(Notification.permission==='default'&&!localStorage.getItem('push_asked')){
+    /* Show banner */
+    const el=document.getElementById('mainContent');
+    if(el&&!document.getElementById('pushBanner')){
+      const b=document.createElement('div');
+      b.id='pushBanner';
+      b.className='push-banner';
+      b.innerHTML=`<div class="push-banner-txt">Notifications enable karo — teacher ki posts aur school alerts turant milenge.</div><button class="push-allow" onclick="window.requestPushPermission&&window.requestPushPermission();localStorage.setItem('push_asked','1')">Allow</button>`;
+      el.prepend(b);
+    }
+    localStorage.setItem('push_asked','1');
   }
 }
 
@@ -445,18 +566,21 @@ function showTab(tab,btn){
   if(tab==='home')el.innerHTML=renderHome();
   else if(tab==='marks')el.innerHTML=renderMarks();
   else if(tab==='group')el.innerHTML=renderGroup();
-  else if(tab==='alerts')el.innerHTML=renderAlerts();
+  else if(tab==='alerts'){
+    el.innerHTML=renderAlerts();
+    document.getElementById('alertsBadge')?.classList.remove('show');
+    document.getElementById('notifBadge')?.classList.remove('show');
+  }
   else if(tab==='profile')el.innerHTML=renderProfile();
   document.getElementById('scrollArea').scrollTop=0;
-  window.scrollTo(0,0);
-  if(tab==='marks'){setTimeout(()=>{document.querySelectorAll('.mark-fill').forEach(el=>{el.style.width=el.dataset.w||'0%'})},100)}
+  if(tab==='marks') setTimeout(()=>{document.querySelectorAll('.mark-fill').forEach(e=>{e.style.width=e.dataset.w||'0%'})},100);
 }
 
 /* HOME */
 function renderHome(){
   if(!SD)return'<div class="loading"><div class="spin-el"></div></div>';
   const a=avgPct();
-  const attPct=ATT.total>0?Math.round((ATT.present/ATT.total)*100):0;
+  const attPct=ATT.total>0?Math.round((parseInt(ATT.present)||0)/(parseInt(ATT.total)||1)*100):0;
   const fStatus=FEES?.status||'pending';
   const total=parseFloat(FEES?.total_amount)||0;
   const paid=parseFloat(FEES?.paid_amount)||0;
@@ -466,12 +590,12 @@ function renderHome(){
     <div class="hero-inner">
       <div class="hero-av">${ini(SD.name)}</div>
       <div class="hero-info">
-        <div class="hero-grt">${L('greeting')}</div>
+        <div class="hero-grt">Good day,</div>
         <div class="hero-name">${SD.name||'Student'}</div>
         <div class="hero-chips">
           <span class="hero-chip">${SD.standard||'Class'}</span>
           <span class="hero-chip">Roll ${SD.roll_no||'-'}</span>
-          ${SD.has_bus?'<span class="hero-chip">Bus</span>':''}
+          ${SD.has_bus?'<span class="hero-chip">🚌 Bus</span>':''}
         </div>
       </div>
     </div>
@@ -479,27 +603,27 @@ function renderHome(){
   <div class="stats-grid">
     <div class="stat-tile" onclick="showTab('marks')">
       <div class="stat-ic"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-      <div class="stat-val">${a}%</div><div class="stat-lbl">${L('avg')}</div>
+      <div class="stat-val">${a}%</div><div class="stat-lbl">Average</div>
     </div>
     <div class="stat-tile" onclick="showTab('marks')">
       <div class="stat-ic"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-      <div class="stat-val">${grade(a)}</div><div class="stat-lbl">${L('grade')}</div>
+      <div class="stat-val">${grade(a)}</div><div class="stat-lbl">Grade</div>
     </div>
     <div class="stat-tile">
       <div class="stat-ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-      <div class="stat-val">${attPct}%</div><div class="stat-lbl">${L('att')}</div>
+      <div class="stat-val">${attPct}%</div><div class="stat-lbl">Attendance</div>
     </div>
     <div class="stat-tile">
       <div class="stat-ic"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-      <div class="stat-val" style="font-size:14px;padding-top:4px">
+      <div class="stat-val" style="font-size:13px;padding-top:4px">
         <span class="${fStatus==='paid'?'badge-ok':fStatus==='partial'?'badge-ho':'badge-no'}">${fStatus}</span>
       </div>
-      <div class="stat-lbl">${L('fees')}</div>
+      <div class="stat-lbl">Fees</div>
     </div>
   </div>
   ${SD.teacher_name?`
   <div class="sec">
-    <div class="sec-title">${L('teacher')}</div>
+    <div class="sec-title">Class Teacher</div>
     <div class="teacher-card">
       <div class="teacher-av">${ini(SD.teacher_name)}</div>
       <div>
@@ -510,25 +634,28 @@ function renderHome(){
   </div>`:''}
   ${FEES&&fStatus!=='paid'?`
   <div class="sec">
-    <div class="sec-title">${L('fees')}</div>
+    <div class="sec-title">Fees</div>
     <div class="fees-card">
       <div class="fees-row">
-        <div><div class="fees-amt" style="color:var(--red)">Rs ${rem.toLocaleString('en-IN')}</div><div class="fees-lbl">${L('amt_due')}</div></div>
-        <div style="text-align:right"><div class="fees-amt" style="color:var(--green)">Rs ${paid.toLocaleString('en-IN')}</div><div class="fees-lbl">${L('amt_paid')}</div></div>
+        <div><div class="fees-amt" style="color:var(--red)">Rs ${rem.toLocaleString('en-IN')}</div><div class="fees-lbl">Amount Due</div></div>
+        <div style="text-align:right"><div class="fees-amt" style="color:var(--green)">Rs ${paid.toLocaleString('en-IN')}</div><div class="fees-lbl">Amount Paid</div></div>
       </div>
       <button class="pay-btn" onclick="openPay()">
         <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>
-        ${L('pay')}
+        Pay Fees
       </button>
     </div>
-  </div>`:FEES?`<div class="sec"><div style="background:var(--gl);border-radius:var(--r);padding:14px;text-align:center;color:var(--green);font-weight:700">${L('fees_paid')}</div></div>`:''}`;
+  </div>`:FEES?`<div class="sec"><div style="background:var(--gl);border-radius:var(--r);padding:14px;text-align:center;color:var(--green);font-weight:700">✓ Fees fully paid</div></div>`:''}
+  ${POSTS.length?`
+  <div class="sec">
+    <div class="sec-title">Latest from Class</div>
+    ${POSTS.slice(0,2).map(p=>renderPostCard(p)).join('')}
+    ${POSTS.length>2?`<button style="width:100%;padding:11px;background:none;border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:13px;font-weight:600;color:var(--b5);cursor:pointer" onclick="showTab('group')">View All Posts</button>`:''}
+  </div>`:''}`;
 }
 
 /* MARKS */
 function renderMarks(){
-  if(!MARKS.length)return`
-  <div class="hero"><div class="hero-grid"></div><div class="hero-inner" style="display:block"><div class="hero-grt">Marks</div><div class="hero-name">${SD?.name||'Student'}</div></div></div>
-  <div style="padding:20px 16px"><div class="empty">${L('no_marks')}</div></div>`;
   const a=avgPct();
   const exams=[...new Set(MARKS.map(m=>m.exam_type).filter(Boolean))];
   return`
@@ -537,11 +664,12 @@ function renderMarks(){
       <div class="hero-av">${ini(SD?.name)}</div>
       <div class="hero-info">
         <div class="hero-grt">Overall Average</div>
-        <div class="hero-name" style="font-size:34px">${a}% <span style="font-size:18px;opacity:.7">${grade(a)}</span></div>
-        <div class="hero-chips"><span class="hero-chip">${MARKS.length} subjects recorded</span></div>
+        <div class="hero-name" style="font-size:32px">${a}% <span style="font-size:18px;opacity:.7">${grade(a)}</span></div>
+        <div class="hero-chips"><span class="hero-chip">${MARKS.length} subjects</span></div>
       </div>
     </div>
   </div>
+  ${!MARKS.length?`<div style="padding:20px 16px"><div class="empty"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>No marks uploaded yet</div></div>`:''}
   ${exams.length
     ?exams.map(exam=>{
         const mks=MARKS.filter(m=>m.exam_type===exam);
@@ -552,47 +680,94 @@ function renderMarks(){
           </div>
         </div>`;
       }).join('')
-    :`<div class="sec" style="margin-top:16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px">${MARKS.map(m=>{const pct=Math.round((m.marks_obtained/m.total_marks)*100);return`<div class="mark-row"><div class="mark-sub">${m.subject}</div><div class="mark-bar"><div class="mark-fill" style="width:0%" data-w="${pct}%"></div></div><div class="mark-score">${m.marks_obtained}/${m.total_marks}</div></div>`;}).join('')}</div></div>`}
-  ${TT.length?`<div class="sec" style="margin-top:16px"><div class="sec-title">${L('timetable')}</div><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);overflow:hidden;overflow-x:auto"><table class="tt-table"><thead><tr><th>Day</th><th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th><th>P6</th><th>P7</th></tr></thead><tbody>${TT.map(row=>`<tr><td style="font-weight:700;color:var(--p);white-space:nowrap">${row.day?.slice(0,3)}</td>${[1,2,3,4,5,6,7].map(n=>`<td>${row['period_'+n]||''}</td>`).join('')}</tr>`).join('')}</tbody></table></div></div>`:''}`;
+    :MARKS.length?`<div class="sec" style="margin-top:16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px">${MARKS.map(m=>{const pct=Math.round((m.marks_obtained/m.total_marks)*100);return`<div class="mark-row"><div class="mark-sub">${m.subject}</div><div class="mark-bar"><div class="mark-fill" style="width:0%" data-w="${pct}%"></div></div><div class="mark-score">${m.marks_obtained}/${m.total_marks}</div></div>`;}).join('')}</div></div>`:''}
+  ${TT.length?`
+  <div class="sec" style="margin-top:16px">
+    <div class="sec-title">Timetable</div>
+    <div class="tt-wrap">
+      <table class="tt-table">
+        <thead><tr><th>Day</th><th>P1</th><th>P2</th><th>P3</th><th>P4</th><th>P5</th><th>P6</th><th>P7</th></tr></thead>
+        <tbody>
+          ${TT.map(row=>`<tr><td style="font-weight:700;color:var(--p)">${row.day?.slice(0,3)||''}</td>${[1,2,3,4,5,6,7].map(n=>`<td>${row['period_'+n]||'—'}</td>`).join('')}</tr>`).join('')}
+        </tbody>
+      </table>
+    </div>
+  </div>`:''}`;
 }
 
 /* GROUP */
+function renderPostCard(p){
+  return`
+  <div class="post-card">
+    <div class="post-head">
+      <div class="post-av">${ini(p.posted_by_name||'T')}</div>
+      <div>
+        <div class="post-author">${p.posted_by_name||'Teacher'}</div>
+        <div class="post-role">Class Teacher</div>
+      </div>
+      <div class="post-time">${ago(p.created_at)}</div>
+    </div>
+    <div class="post-body">
+      <div class="post-text">${p.text_content||''}</div>
+      ${p.video_link?`<a href="${p.video_link}" target="_blank" class="post-video"><div class="post-video-ic"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="post-video-lbl">Watch Video</div></a>`:''}
+      ${p.file_url?`<img src="${p.file_url}" style="width:100%;border-radius:8px;margin-top:10px;max-height:260px;object-fit:cover" loading="lazy">`:''}
+    </div>
+  </div>`;
+}
+
 function renderGroup(){
   return`
-  <div class="hero"><div class="hero-grid"></div><div class="hero-inner" style="display:block"><div class="hero-grt">Class Group</div><div class="hero-name">${SD?.standard||'Class'}</div></div></div>
+  <div class="hero"><div class="hero-grid"></div><div class="hero-inner" style="display:block">
+    <div class="hero-grt">Class Group</div>
+    <div class="hero-name">${SD?.standard||'Class'}</div>
+  </div></div>
   <div style="padding:14px 16px">
-    ${!POSTS.length?`<div class="empty">${L('no_posts')}</div>`:''}
-    ${POSTS.map(p=>`
-      <div class="post-item">
-        <div class="post-head">
-          <span class="post-author">${p.posted_by_name||'Teacher'}</span>
-          <span class="post-time">${ago(p.created_at)}</span>
-        </div>
-        <div class="post-text">${p.text_content||''}</div>
-        ${p.video_link?`<a href="${p.video_link}" target="_blank" style="display:inline-flex;align-items:center;gap:5px;margin-top:6px;font-size:12px;color:var(--p);font-weight:600;text-decoration:none">Watch Video</a>`:''}
-        ${p.file_url&&p.file_type==='image'?`<img src="${p.file_url}" style="width:100%;border-radius:8px;margin-top:8px;max-height:220px;object-fit:cover" loading="lazy">`:''}
-      </div>`).join('')}
+    ${!POSTS.length?`<div class="empty"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>No posts yet</div>`:''}
+    ${POSTS.map(p=>renderPostCard(p)).join('')}
   </div>`;
 }
 
 /* ALERTS */
 function renderAlerts(){
   return`
-  <div class="hero"><div class="hero-grid"></div><div class="hero-inner" style="display:block"><div class="hero-grt">Notifications</div><div class="hero-name">Alerts</div></div></div>
+  <div class="hero"><div class="hero-grid"></div><div class="hero-inner" style="display:block">
+    <div class="hero-grt">Notifications</div>
+    <div class="hero-name">Alerts</div>
+  </div></div>
   <div style="padding:14px 16px">
-    ${!NOTIFS.length?`<div class="empty">${L('no_notif')}</div>`:''}
-    ${NOTIFS.length?`<div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:0 14px">
-      ${NOTIFS.map(n=>`
-        <div class="notif-item">
-          <div class="notif-dot"></div>
-          <div>
-            <div class="notif-title">${n.title||''}</div>
-            <div class="notif-msg">${n.message||''}</div>
-            <div class="notif-time">${n.created_at?new Date(n.created_at).toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}):''}</div>
-          </div>
-        </div>`).join('')}
-    </div>`:''}
+    ${!NOTIFS.length?`<div class="empty"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>No notifications yet</div>`:''}
+    ${NOTIFS.length?`<div class="info-list">${NOTIFS.map(n=>`
+      <div class="notif-item">
+        <div class="notif-ic"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+        <div style="flex:1">
+          <div class="notif-title">${n.title||''}</div>
+          <div class="notif-msg">${n.message||''}</div>
+          <div class="notif-time">${n.created_at?new Date(n.created_at).toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}):''}</div>
+        </div>
+      </div>`).join('')}</div>`:''}
   </div>`;
+}
+
+/* NOTIFICATION PANEL */
+function openNotifPanel(){
+  document.getElementById('notifPanel').classList.add('show');
+  document.getElementById('notifBadge').classList.remove('show');
+  renderNotifList();
+}
+function closeNotifPanel(){document.getElementById('notifPanel').classList.remove('show')}
+function renderNotifList(){
+  const el=document.getElementById('notifList');
+  if(!el)return;
+  if(!NOTIFS.length){el.innerHTML='<div class="empty" style="min-height:100px">No notifications yet</div>';return}
+  el.innerHTML=NOTIFS.map(n=>`
+    <div class="notif-item">
+      <div class="notif-ic"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+      <div style="flex:1">
+        <div class="notif-title">${n.title||''}</div>
+        <div class="notif-msg">${n.message||''}</div>
+        <div class="notif-time">${n.created_at?new Date(n.created_at).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):''}</div>
+      </div>
+    </div>`).join('');
 }
 
 /* PROFILE */
@@ -602,7 +777,7 @@ function renderProfile(){
   const paid=parseFloat(FEES?.paid_amount)||0;
   const rem=parseFloat(FEES?.remaining_amount)||Math.max(0,total-paid);
   const fStatus=FEES?.status||'pending';
-  const attPct=ATT.total>0?Math.round((ATT.present/ATT.total)*100):0;
+  const attPct=ATT.total>0?Math.round((parseInt(ATT.present)||0)/(parseInt(ATT.total)||1)*100):0;
   return`
   <div class="sec" style="margin-top:16px">
     <div class="prof-hero">
@@ -628,8 +803,8 @@ function renderProfile(){
     </div>
     ${FEES?`<div class="info-list">
       <div class="info-row"><span class="info-lbl">Total Fees</span><span class="info-val">Rs ${total.toLocaleString('en-IN')}</span></div>
-      <div class="info-row"><span class="info-lbl">${L('amt_paid')}</span><span class="info-val" style="color:var(--green)">Rs ${paid.toLocaleString('en-IN')}</span></div>
-      <div class="info-row"><span class="info-lbl">${L('amt_due')}</span><span class="info-val" style="color:var(--red)">Rs ${rem.toLocaleString('en-IN')}</span></div>
+      <div class="info-row"><span class="info-lbl">Amount Paid</span><span class="info-val" style="color:var(--green)">Rs ${paid.toLocaleString('en-IN')}</span></div>
+      <div class="info-row"><span class="info-lbl">Amount Due</span><span class="info-val" style="color:var(--red)">Rs ${rem.toLocaleString('en-IN')}</span></div>
       <div class="info-row"><span class="info-lbl">Status</span><span class="info-val"><span class="${fStatus==='paid'?'badge-ok':fStatus==='partial'?'badge-ho':'badge-no'}">${fStatus}</span></span></div>
     </div>`:''}
     ${ATT.total?`<div class="info-list">
@@ -653,7 +828,6 @@ function openPay(){
   document.getElementById('payMo').classList.add('show');
 }
 function closePay(){document.getElementById('payMo').classList.remove('show')}
-document.getElementById('payMo').addEventListener('click',function(e){if(e.target===this)closePay()});
 
 function openUPI(app,e){
   e.preventDefault();
@@ -668,10 +842,7 @@ function openUPI(app,e){
     paytm:`paytmmp://pay?pa=${upi}&pn=${pn}&am=${am}&cu=INR`
   };
   window.location.href=urls[app];
-  setTimeout(()=>{
-    const fb={phonepe:'https://phon.pe/',gpay:'https://pay.google.com/',paytm:'https://paytm.com/'};
-    window.open(fb[app],'_blank');
-  },2000);
+  setTimeout(()=>{const fb={phonepe:'https://phon.pe/',gpay:'https://pay.google.com/',paytm:'https://paytm.com/'};window.open(fb[app],'_blank')},2000);
 }
 
 async function submitPayment(){
@@ -682,7 +853,6 @@ async function submitPayment(){
   const btn=document.getElementById('submitPayBtn');
   btn.disabled=true;btn.textContent='Submitting...';
   try{
-    /* Backend: POST /api/fees/submit-payment → {upi_ref, amount} */
     const res=await fetch(API+'/fees/submit-payment',{
       method:'POST',headers:H(),
       body:JSON.stringify({upi_ref:ref,amount:parseFloat(amt)})
@@ -693,8 +863,9 @@ async function submitPayment(){
   btn.disabled=false;btn.textContent='Submit Payment';
 }
 
+/* SERVICE WORKER for Firebase */
 if('serviceWorker' in navigator){
-  window.addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+  navigator.serviceWorker.register('firebase-messaging-sw.js').catch(()=>{});
 }
 </script>
 </body>
