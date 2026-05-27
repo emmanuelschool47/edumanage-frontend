@@ -300,6 +300,7 @@ const TITLES={
   timetable:'Timetable',promote:'Promote Class',passout:'Passout Students'
 };
 
+/* GLOBAL student cache — always fetch fresh when needed */
 let allStudents=[],allTeachers=[],allClasses=[],allFees=[];
 let currentEditId=null;
 
@@ -334,6 +335,7 @@ function feeB(st){
 }
 function spin(){return'<div style="display:flex;align-items:center;justify-content:center;padding:60px"><div style="width:26px;height:26px;border:2px solid var(--b2);border-top-color:var(--p);border-radius:50%;animation:spin .8s linear infinite"></div></div>'}
 function errH(m){return`<div style="background:var(--rl);color:var(--red);padding:14px;border-radius:10px;font-size:13px;margin-bottom:16px">${m}</div>`}
+
 function calcMF(){
   const t=parseFloat(document.getElementById('mfTotal').value)||0;
   const p=parseFloat(document.getElementById('mfPaid').value)||0;
@@ -355,7 +357,9 @@ function togglePwF(id){
 function classOpts(sel,ph){
   const base=allClasses.length
     ?allClasses.map(c=>`<option value="${c.standard}" ${sel===c.standard?'selected':''}>${c.standard}${c.section?' - '+c.section:''}</option>`).join('')
-    :['Nursery','LKG','UKG','Class 1','Class 2','Class 3','Class 4','Class 5','Class 6','Class 7','Class 8','Class 9','Class 10'].map(c=>`<option value="${c}" ${sel===c?'selected':''}>${c}</option>`).join('');
+    :['Nursery','LKG','UKG','Class 1','Class 2','Class 3','Class 4','Class 5',
+      'Class 6','Class 7','Class 8','Class 9','Class 10']
+      .map(c=>`<option value="${c}" ${sel===c?'selected':''}>${c}</option>`).join('');
   return`<option value="">${ph||'Select'}</option>${base}`;
 }
 
@@ -366,9 +370,26 @@ async function fetchClasses(){
   }catch(e){}
 }
 
+/* ══ FETCH STUDENT BY ID (when allStudents might be empty) ══ */
+async function fetchStudentById(id){
+  /* First check cache */
+  let s=allStudents.find(x=>x.id===parseInt(id));
+  if(s) return s;
+  /* Fetch fresh list */
+  try{
+    const r=await fetch(API+'/students',{headers:H()});
+    if(r.ok){
+      const d=await r.json();
+      allStudents=d.students||[];
+      return allStudents.find(x=>x.id===parseInt(id));
+    }
+  }catch(e){}
+  return null;
+}
+
 /* ══ DASHBOARD ══ */
 async function loadDash(p){
-  if(!p)p=getP('dashboard');
+  if(!p) p=getP('dashboard');
   p.innerHTML=spin();
   try{
     const [sr,tr,fsr]=await Promise.all([
@@ -416,25 +437,25 @@ async function loadDash(p){
 
 /* ══ STUDENTS ══ */
 async function loadStudents(p,fc,q){
-  if(!p)p=getP('students');
-  fc=fc||'all';q=q||'';
+  if(!p) p=getP('students');
+  fc=fc||'all'; q=q||'';
   p.innerHTML=spin();
   try{
     let url=API+'/students';
     const params=[];
-    if(q)params.push('search='+encodeURIComponent(q));
-    else if(fc!=='all')params.push('standard='+encodeURIComponent(fc));
-    if(params.length)url+='?'+params.join('&');
+    if(q) params.push('search='+encodeURIComponent(q));
+    else if(fc!=='all') params.push('standard='+encodeURIComponent(fc));
+    if(params.length) url+='?'+params.join('&');
     const r=await fetch(url,{headers:H()});
     if(r.status===401){doLogout();return}
-    const d=await r.json();allStudents=d.students||[];
+    const d=await r.json(); allStudents=d.students||[];
     renderStudents(p,fc,q);
   }catch(e){p.innerHTML=errH(e.message)}
 }
 
 function renderStudents(p,fc,q){
-  if(!p)p=getP('students');
-  fc=fc||'all';q=q||'';
+  if(!p) p=getP('students');
+  fc=fc||'all'; q=q||'';
   const cc={};allStudents.forEach(s=>{const c=s.standard||'Other';cc[c]=(cc[c]||0)+1;});
   p.classList.add('active');
   p.innerHTML=`
@@ -445,7 +466,9 @@ function renderStudents(p,fc,q){
           onkeydown="if(event.key==='Enter'){allStudents=[];loadStudents(document.getElementById('p-students'),'all',this.value)}">
         <button class="btn btn-o btn-sm" onclick="allStudents=[];loadStudents(document.getElementById('p-students'),'all',document.getElementById('sSrch').value)">Search</button>
       </div>
-      <button class="btn btn-p" onclick="goto('addStudent')"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Student</button>
+      <button class="btn btn-p" onclick="goto('addStudent')">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Student
+      </button>
     </div>
     <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;overflow-x:auto;padding-bottom:2px">
       <button style="padding:5px 12px;border-radius:100px;border:1.5px solid ${fc==='all'?'var(--p)':'var(--b2)'};background:${fc==='all'?'var(--p)':'var(--w)'};color:${fc==='all'?'var(--w)':'var(--b5)'};font-size:12px;font-weight:600;cursor:pointer;white-space:nowrap;font-family:var(--fb)"
@@ -475,9 +498,10 @@ function renderStudents(p,fc,q){
   </div>`;
 }
 
-/* VIEW STUDENT — opens modal */
-function viewStudent(id){
-  const s=allStudents.find(x=>x.id===id);
+/* VIEW STUDENT — always fetches fresh data if needed */
+async function viewStudent(id){
+  id=parseInt(id);
+  let s=await fetchStudentById(id);
   if(!s){toast('Student not found',false);return}
   const total=parseFloat(s.total_amount)||0;
   const paid=parseFloat(s.paid_amount)||0;
@@ -502,21 +526,22 @@ function viewStudent(id){
   <div style="background:var(--b1);border-radius:10px;padding:14px">
     <div style="font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">Fees</div>
     <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px">
-      <div style="text-align:center"><div style="font-family:var(--ff);font-size:18px;font-weight:700;color:var(--dp)">Rs ${total.toLocaleString('en-IN')}</div><div style="font-size:10px;color:var(--b4);text-transform:uppercase">Total</div></div>
-      <div style="text-align:center"><div style="font-family:var(--ff);font-size:18px;font-weight:700;color:var(--green)">Rs ${paid.toLocaleString('en-IN')}</div><div style="font-size:10px;color:var(--b4);text-transform:uppercase">Paid</div></div>
-      <div style="text-align:center"><div style="font-family:var(--ff);font-size:18px;font-weight:700;color:var(--red)">Rs ${rem.toLocaleString('en-IN')}</div><div style="font-size:10px;color:var(--b4);text-transform:uppercase">Due</div></div>
+      <div style="text-align:center"><div style="font-family:var(--ff);font-size:18px;font-weight:700;color:var(--dp)">Rs ${total.toLocaleString('en-IN')}</div><div style="font-size:10px;color:var(--b4)">Total</div></div>
+      <div style="text-align:center"><div style="font-family:var(--ff);font-size:18px;font-weight:700;color:var(--green)">Rs ${paid.toLocaleString('en-IN')}</div><div style="font-size:10px;color:var(--b4)">Paid</div></div>
+      <div style="text-align:center"><div style="font-family:var(--ff);font-size:18px;font-weight:700;color:var(--red)">Rs ${rem.toLocaleString('en-IN')}</div><div style="font-size:10px;color:var(--b4)">Due</div></div>
     </div>
     <div style="text-align:center">${feeB(s.fees_status)}</div>
   </div>`;
-  /* Set edit button */
   document.getElementById('moVSEditBtn').onclick=function(){closeMo('moVS');editStudent(id);};
   openMo('moVS');
 }
 
-/* EDIT STUDENT — opens modal */
-function editStudent(id){
-  const s=allStudents.find(x=>x.id===id);
-  if(!s){toast('Student not found — reload page',false);return}
+/* EDIT STUDENT — always fetches fresh if needed */
+async function editStudent(id){
+  id=parseInt(id);
+  if(!allClasses.length) await fetchClasses();
+  let s=await fetchStudentById(id);
+  if(!s){toast('Student not found — reload karein',false);return}
   currentEditId=id;
   const total=parseFloat(s.total_amount)||0;
   const paid=parseFloat(s.paid_amount)||0;
@@ -525,7 +550,10 @@ function editStudent(id){
   <div class="fg2">
     <div class="fgl"><label>Full Name</label><input class="fi" id="es_name" value="${s.name||''}"></div>
     <div class="fgl"><label>Code (read-only)</label><input class="fi" value="${s.code||''}" readonly></div>
-    <div class="fgl"><label>New Password</label><div class="pw-wrap"><input class="fi" type="password" id="es_pass" placeholder="Leave blank = no change"><button class="pw-eye" type="button" onclick="togglePwF('es_pass')"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div></div>
+    <div class="fgl"><label>New Password</label>
+      <div class="pw-wrap"><input class="fi" type="password" id="es_pass" placeholder="Leave blank = no change">
+      <button class="pw-eye" type="button" onclick="togglePwF('es_pass')"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+    </div>
     <div class="fgl"><label>Class</label><select class="fi" id="es_cls">${classOpts(s.standard,'Select class')}</select></div>
     <div class="fgl"><label>Roll No</label><input class="fi" type="number" id="es_roll" value="${s.roll_no||''}"></div>
     <div class="fgl"><label>Parent Phone</label><input class="fi" id="es_ph" value="${s.parent_phone||''}"></div>
@@ -561,32 +589,31 @@ function editStudent(id){
 function calcEF(){
   const t=parseFloat(document.getElementById('es_tf')?.value)||0;
   const p=parseFloat(document.getElementById('es_pf')?.value)||0;
-  if(document.getElementById('es_rf'))document.getElementById('es_rf').value=Math.max(0,t-p);
-  if(document.getElementById('es_fst'))document.getElementById('es_fst').value=p===0?'pending':(t-p<=0?'paid':'partial');
+  if(document.getElementById('es_rf')) document.getElementById('es_rf').value=Math.max(0,t-p);
+  if(document.getElementById('es_fst')) document.getElementById('es_fst').value=p===0?'pending':(t-p<=0?'paid':'partial');
 }
 
 async function saveES(){
   const id=document.getElementById('es_id')?.value;
-  if(!id){toast('Error: no student ID',false);return}
-  const e=document.getElementById('esE');e.classList.remove('show');
+  if(!id){toast('Error: ID missing',false);return}
+  const e=document.getElementById('esE'); e.classList.remove('show');
   const v=eid=>document.getElementById(eid)?.value||'';
   const payload={};
-  if(v('es_name').trim())payload.name=v('es_name').trim();
-  if(v('es_cls'))payload.class_name=v('es_cls');
-  if(v('es_roll'))payload.roll_no=parseInt(v('es_roll'));
-  if(v('es_ph').trim())payload.parent_phone=v('es_ph').trim();
-  if(v('es_par').trim())payload.parent_name=v('es_par').trim();
-  if(v('es_blood'))payload.blood_group=v('es_blood');
-  if(v('es_addr').trim())payload.address=v('es_addr').trim();
+  if(v('es_name').trim()) payload.name=v('es_name').trim();
+  if(v('es_cls')) payload.class_name=v('es_cls');
+  if(v('es_roll')) payload.roll_no=parseInt(v('es_roll'));
+  if(v('es_ph').trim()) payload.parent_phone=v('es_ph').trim();
+  if(v('es_par').trim()) payload.parent_name=v('es_par').trim();
+  if(v('es_blood')) payload.blood_group=v('es_blood');
+  if(v('es_addr').trim()) payload.address=v('es_addr').trim();
   payload.has_bus=v('es_bus')==='true';
-  if(v('es_route').trim())payload.bus_route=v('es_route').trim();
-  if(v('es_pass').trim())payload.password=v('es_pass').trim();
+  if(v('es_route').trim()) payload.bus_route=v('es_route').trim();
+  if(v('es_pass').trim()) payload.password=v('es_pass').trim();
   const btn=document.getElementById('esSBtn');
-  btn.disabled=true;btn.textContent='Saving...';
+  btn.disabled=true; btn.textContent='Saving...';
   try{
     const r=await fetch(API+'/students/'+id,{method:'PUT',headers:H(),body:JSON.stringify(payload)});
     if(r.ok){
-      /* Update fees */
       const tf=parseFloat(v('es_tf'))||0;
       const pf=parseFloat(v('es_pf'))||0;
       await fetch(API+'/students/'+id+'/fees',{
@@ -603,11 +630,11 @@ async function saveES(){
       e.classList.add('show');
     }
   }catch(ex){e.textContent='Network error';e.classList.add('show')}
-  btn.disabled=false;btn.textContent='Save Changes';
+  btn.disabled=false; btn.textContent='Save Changes';
 }
 
 async function delStudent(id,name){
-  if(!confirm('"'+name+'" delete karo?'))return;
+  if(!confirm('"'+name+'" delete karo?')) return;
   try{
     const r=await fetch(API+'/students/'+id,{method:'DELETE',headers:H()});
     if(r.ok){toast('Student deleted');allStudents=[];loadStudents(getP('students'));}
@@ -617,7 +644,7 @@ async function delStudent(id,name){
 
 /* ══ ADD STUDENT ══ */
 function showAddStudent(p){
-  if(!p)p=getP('addStudent');
+  if(!p) p=getP('addStudent');
   p.innerHTML=`
   <div class="card" style="max-width:700px">
     <div class="card-title">Add New Student</div>
@@ -641,7 +668,7 @@ function showAddStudent(p){
       <div class="fgl"><label>Remaining</label><input class="fi" type="number" id="as_rf" value="0" readonly></div>
       <div class="fgl"><label>Fees Status</label><select class="fi" id="as_fst"><option value="pending">Pending</option><option value="partial">Partial</option><option value="paid">Paid</option></select></div>
     </div>
-    <div style="font-size:12px;color:var(--b4);margin:10px 0">* Required fields</div>
+    <div style="font-size:12px;color:var(--b4);margin:10px 0">* Required</div>
     <div style="display:flex;gap:10px">
       <button class="btn btn-o" onclick="goto('students')">Cancel</button>
       <button class="btn btn-p" id="asSBtn" onclick="submitAS()">Add Student</button>
@@ -652,8 +679,8 @@ function showAddStudent(p){
 function calcAF(){
   const t=parseFloat(document.getElementById('as_tf')?.value)||0;
   const p=parseFloat(document.getElementById('as_pf')?.value)||0;
-  if(document.getElementById('as_rf'))document.getElementById('as_rf').value=Math.max(0,t-p);
-  if(document.getElementById('as_fst'))document.getElementById('as_fst').value=p===0?'pending':(t-p<=0?'paid':'partial');
+  if(document.getElementById('as_rf')) document.getElementById('as_rf').value=Math.max(0,t-p);
+  if(document.getElementById('as_fst')) document.getElementById('as_fst').value=p===0?'pending':(t-p<=0?'paid':'partial');
 }
 
 async function submitAS(){
@@ -661,12 +688,12 @@ async function submitAS(){
   const code=document.getElementById('as_code').value.trim().toUpperCase();
   const pass=document.getElementById('as_pass').value.trim();
   const cls=document.getElementById('as_cls').value;
-  const e=document.getElementById('asE');e.classList.remove('show');
+  const e=document.getElementById('asE'); e.classList.remove('show');
   if(!name){e.textContent='Name required';e.classList.add('show');return}
   if(!code){e.textContent='Code required';e.classList.add('show');return}
   if(!pass||pass.length<4){e.textContent='Password min 4 chars';e.classList.add('show');return}
   if(!cls){e.textContent='Class select karo';e.classList.add('show');return}
-  const btn=document.getElementById('asSBtn');btn.disabled=true;btn.textContent='Adding...';
+  const btn=document.getElementById('asSBtn'); btn.disabled=true; btn.textContent='Adding...';
   const payload={
     name,code,password:pass,class_name:cls,
     roll_no:parseInt(document.getElementById('as_roll').value)||undefined,
@@ -689,17 +716,17 @@ async function submitAS(){
       showOK('Student Added!','Share credentials:',code,pass,`<div style="background:rgba(128,0,32,.06);border-radius:8px;padding:10px;margin-bottom:12px;font-size:13px"><b>${name}</b> — ${cls}</div>`);
     }else{e.textContent=d.error||d.message||'Error';e.classList.add('show');}
   }catch(ex){e.textContent='Network error: '+ex.message;e.classList.add('show')}
-  btn.disabled=false;btn.textContent='Add Student';
+  btn.disabled=false; btn.textContent='Add Student';
 }
 
 /* ══ TEACHERS ══ */
 async function loadTeachers(p,q){
-  if(!p)p=getP('teachers');q=q||'';
+  if(!p) p=getP('teachers'); q=q||'';
   p.innerHTML=spin();
   try{
     const r=await fetch(API+'/teachers',{headers:H()});
     if(r.status===401){doLogout();return}
-    const d=await r.json();allTeachers=d.teachers||[];
+    const d=await r.json(); allTeachers=d.teachers||[];
     renderTeachers(p,q);
   }catch(e){p.innerHTML=errH(e.message)}
 }
@@ -707,12 +734,14 @@ async function loadTeachers(p,q){
 function renderTeachers(p,q){
   q=q||'';
   let list=[...allTeachers];
-  if(q)list=list.filter(t=>(t.name||'').toLowerCase().includes(q.toLowerCase())||(t.code||'').toLowerCase().includes(q.toLowerCase()));
+  if(q) list=list.filter(t=>(t.name||'').toLowerCase().includes(q.toLowerCase())||(t.code||'').toLowerCase().includes(q.toLowerCase()));
   p.innerHTML=`
   <div class="card">
     <div class="card-hdr">
       <input class="srch" placeholder="Search..." value="${q}" oninput="renderTeachers(document.getElementById('p-teachers'),this.value)">
-      <button class="btn btn-p" onclick="goto('addTeacher')"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Teacher</button>
+      <button class="btn btn-p" onclick="goto('addTeacher')">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Teacher
+      </button>
     </div>
     <div class="tw"><table>
       <thead><tr><th>Name</th><th>Code</th><th>Subject</th><th>Class</th><th>Phone</th><th>Actions</th></tr></thead>
@@ -735,7 +764,7 @@ function renderTeachers(p,q){
 }
 
 async function delTeacher(id,name){
-  if(!confirm('"'+name+'" delete?'))return;
+  if(!confirm('"'+name+'" delete?')) return;
   try{
     const r=await fetch(API+'/teachers/'+id,{method:'DELETE',headers:H()});
     if(r.ok){toast('Teacher deleted');allTeachers=[];loadTeachers(getP('teachers'));}
@@ -743,10 +772,9 @@ async function delTeacher(id,name){
   }catch(e){toast('Network error',false)}
 }
 
-/* ══ ADD TEACHER ══ */
 async function showAddTeacher(p){
-  if(!p)p=getP('addTeacher');
-  if(!allClasses.length)await fetchClasses();
+  if(!p) p=getP('addTeacher');
+  if(!allClasses.length) await fetchClasses();
   p.innerHTML=`
   <div class="card" style="max-width:620px">
     <div class="card-title">Add New Teacher</div>
@@ -771,36 +799,34 @@ async function submitAT(){
   const name=document.getElementById('at_name').value.trim();
   const code=document.getElementById('at_code').value.trim().toUpperCase();
   const pass=document.getElementById('at_pass').value.trim();
-  const e=document.getElementById('atE');e.classList.remove('show');
+  const e=document.getElementById('atE'); e.classList.remove('show');
   if(!name){e.textContent='Name required';e.classList.add('show');return}
   if(!code){e.textContent='Code required';e.classList.add('show');return}
   if(!pass||pass.length<4){e.textContent='Password min 4 chars';e.classList.add('show');return}
-  const btn=document.getElementById('atSBtn');btn.disabled=true;btn.textContent='Adding...';
+  const btn=document.getElementById('atSBtn'); btn.disabled=true; btn.textContent='Adding...';
   const cls=document.getElementById('at_cls').value;
   const payload={name,code,password:pass};
   const ph=document.getElementById('at_ph').value.trim();
   const sb=document.getElementById('at_sub').value.trim();
-  if(ph)payload.phone=ph;
-  if(sb)payload.subject=sb;
-  if(cls)payload.class_name=cls;
+  if(ph) payload.phone=ph;
+  if(sb) payload.subject=sb;
+  if(cls) payload.class_name=cls;
   try{
     const r=await fetch(API+'/teachers',{method:'POST',headers:H(),body:JSON.stringify(payload)});
     const d=await r.json().catch(()=>({}));
     if(r.ok){allTeachers=[];showOK('Teacher Added!','Share credentials:',code,pass,cls?`<div style="background:rgba(128,0,32,.06);border-radius:8px;padding:10px;margin-bottom:12px;font-size:13px"><b>${name}</b> — ${cls}</div>`:'');}
     else{e.textContent=d.error||d.message||'Error';e.classList.add('show');}
   }catch(ex){e.textContent='Network error';e.classList.add('show')}
-  btn.disabled=false;btn.textContent='Add Teacher';
+  btn.disabled=false; btn.textContent='Add Teacher';
 }
 
-/* ══ EDIT TEACHER ══ */
 async function editTeacher(id){
-  const t=allTeachers.find(x=>x.id===id);if(!t)return;
-  if(!allClasses.length)await fetchClasses();
-  /* Use addTeacher panel as edit */
+  const t=allTeachers.find(x=>x.id===id); if(!t) return;
+  if(!allClasses.length) await fetchClasses();
   const p=getP('editTeacher');
   document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
-  p.classList.add('active');document.getElementById('pgTitle').textContent='Edit Teacher';closeSB();
+  p.classList.add('active'); document.getElementById('pgTitle').textContent='Edit Teacher'; closeSB();
   p.innerHTML=`
   <div class="card" style="max-width:620px">
     <div class="card-title">Edit: ${t.name}</div>
@@ -823,39 +849,39 @@ async function editTeacher(id){
 
 async function saveET(){
   const id=document.getElementById('et_id').value;
-  const e=document.getElementById('etE');e.classList.remove('show');
+  const e=document.getElementById('etE'); e.classList.remove('show');
   const v=eid=>document.getElementById(eid)?.value||'';
   const payload={};
-  if(v('et_name').trim())payload.name=v('et_name').trim();
-  if(v('et_ph').trim())payload.phone=v('et_ph').trim();
-  if(v('et_sub').trim())payload.subject=v('et_sub').trim();
+  if(v('et_name').trim()) payload.name=v('et_name').trim();
+  if(v('et_ph').trim()) payload.phone=v('et_ph').trim();
+  if(v('et_sub').trim()) payload.subject=v('et_sub').trim();
   payload.class_name=v('et_cls');
-  if(v('et_pass').trim())payload.password=v('et_pass').trim();
-  const btn=document.getElementById('etSBtn');btn.disabled=true;btn.textContent='Saving...';
+  if(v('et_pass').trim()) payload.password=v('et_pass').trim();
+  const btn=document.getElementById('etSBtn'); btn.disabled=true; btn.textContent='Saving...';
   try{
     const r=await fetch(API+'/teachers/'+id,{method:'PUT',headers:H(),body:JSON.stringify(payload)});
     if(r.ok){toast('Teacher updated!');allTeachers=[];goto('teachers');}
     else{const d=await r.json().catch(()=>({}));e.textContent=d.error||'Error';e.classList.add('show');}
   }catch(ex){e.textContent='Network error';e.classList.add('show')}
-  btn.disabled=false;btn.textContent='Save Changes';
+  btn.disabled=false; btn.textContent='Save Changes';
 }
 
 /* ══ FEES ══ */
 async function loadFees(p,fs,q){
-  if(!p)p=getP('fees');fs=fs||'all';q=q||'';
+  if(!p) p=getP('fees'); fs=fs||'all'; q=q||'';
   p.innerHTML=spin();
   try{
     const r=await fetch(API+'/fees/all',{headers:H()});
-    const d=await r.json();allFees=d.fees||[];
+    const d=await r.json(); allFees=d.fees||[];
     renderFees(p,fs,q);
   }catch(e){p.innerHTML=errH(e.message)}
 }
 
 function renderFees(p,fs,q){
-  fs=fs||'all';q=q||'';
+  fs=fs||'all'; q=q||'';
   let list=[...allFees];
-  if(fs!=='all')list=list.filter(f=>f.status===fs);
-  if(q)list=list.filter(f=>(f.student_name||'').toLowerCase().includes(q.toLowerCase()));
+  if(fs!=='all') list=list.filter(f=>f.status===fs);
+  if(q) list=list.filter(f=>(f.student_name||'').toLowerCase().includes(q.toLowerCase()));
   const paid=allFees.filter(f=>f.status==='paid').length;
   const part=allFees.filter(f=>f.status==='partial').length;
   const pend=allFees.filter(f=>f.status==='pending').length;
@@ -912,79 +938,90 @@ async function saveFees(){
       body:JSON.stringify({total_amount:total,paid_amount:paid})
     });
     if(r.ok){toast('Fees updated!');closeMo('moFees');allFees=[];loadFees(getP('fees'));}
-    else toast('Failed',false);
+    else toast('Failed to update fees',false);
   }catch(e){toast('Network error',false)}
 }
 
 /* ══ PAYMENTS ══ */
 async function loadPayments(p){
-  if(!p)p=getP('payments');
+  if(!p) p=getP('payments');
   p.innerHTML=spin();
   try{
     const r=await fetch(API+'/fees/pending',{headers:H()});
-    const d=await r.json();const list=d.payments||[];
-    if(!list.length){p.innerHTML='<div class="card"><div style="text-align:center;padding:40px;color:var(--b4)">No payment requests</div></div>';return}
+    const d=await r.json(); const list=d.payments||[];
+    if(!list.length){
+      p.innerHTML='<div class="card"><div style="text-align:center;padding:40px;color:var(--b4)">No payment requests</div></div>';
+      return;
+    }
     p.innerHTML=`<div class="card"><div class="card-title">Payment Requests (${list.length})</div>
+    <div id="pmContainer">
     ${list.map(pm=>`
       <div style="border:1px solid var(--b2);border-radius:var(--r);padding:16px;margin-bottom:12px" id="pmRow_${pm.id}">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
-          <div><div style="font-weight:700;font-size:14px">${pm.student_name||'-'}</div><span class="code-tag">${pm.student_code||''}</span></div>
-          <span id="pmBadge_${pm.id}" class="badge ${pm.status==='verified'?'bg':pm.status==='rejected'?'br':'bo'}">${pm.status==='verified'?'Verified':pm.status==='rejected'?'Rejected':'Pending'}</span>
+          <div>
+            <div style="font-weight:700;font-size:14px">${pm.student_name||'-'}</div>
+            <span class="code-tag">${pm.student_code||''}</span>
+          </div>
+          <span id="pmBadge_${pm.id}" class="badge ${pm.status==='verified'?'bg':pm.status==='rejected'?'br':'bo'}">
+            ${pm.status==='verified'?'Verified':pm.status==='rejected'?'Rejected':'Pending'}
+          </span>
         </div>
         <div style="font-size:13px;margin-bottom:6px">
           Amount: <b style="color:var(--dp)">Rs ${parseFloat(pm.amount||0).toLocaleString('en-IN')}</b>
           &nbsp;|&nbsp; UPI Ref: <span style="font-family:var(--fm);font-size:12px">${pm.upi_ref||'-'}</span>
         </div>
-        <div style="font-size:11px;color:var(--b4);margin-bottom:10px">${pm.submitted_at?new Date(pm.submitted_at).toLocaleString('en-IN'):''}</div>
-        ${pm.status==='pending'?`
-        <div style="display:flex;gap:8px" id="pmBtns_${pm.id}">
-          <button class="btn btn-g btn-sm" onclick="actPay(${pm.id},'verified')">✓ Verify</button>
-          <button class="btn btn-r btn-sm" onclick="actPay(${pm.id},'rejected')">✗ Reject</button>
-        </div>`:''}
+        <div style="font-size:11px;color:var(--b4);margin-bottom:10px">
+          ${pm.submitted_at?new Date(pm.submitted_at).toLocaleString('en-IN'):''}
+        </div>
+        <div id="pmBtns_${pm.id}" style="display:${pm.status==='pending'?'flex':'none'};gap:8px">
+          <button class="btn btn-g btn-sm" id="pmVBtn_${pm.id}" onclick="actPay(${pm.id},'verified')">✓ Verify</button>
+          <button class="btn btn-r btn-sm" id="pmRBtn_${pm.id}" onclick="actPay(${pm.id},'rejected')">✗ Reject</button>
+        </div>
       </div>`).join('')}
-    </div>`;
+    </div></div>`;
   }catch(e){p.innerHTML=errH(e.message)}
 }
 
 async function actPay(id,status){
-  const btn1=document.querySelector(`#pmBtns_${id} .btn-g`);
-  const btn2=document.querySelector(`#pmBtns_${id} .btn-r`);
-  if(btn1)btn1.disabled=true;
-  if(btn2)btn2.disabled=true;
+  const vBtn=document.getElementById('pmVBtn_'+id);
+  const rBtn=document.getElementById('pmRBtn_'+id);
+  if(vBtn){vBtn.disabled=true;vBtn.textContent=status==='verified'?'Verifying...':'Verify';}
+  if(rBtn){rBtn.disabled=true;rBtn.textContent=status==='rejected'?'Rejecting...':'Reject';}
   try{
-    /* POST /api/fees/verify/:payment_id → {status} */
+    /* POST /api/fees/verify/:payment_id → {status:'verified'|'rejected'} */
     const r=await fetch(API+'/fees/verify/'+id,{
-      method:'POST',headers:H(),
+      method:'POST',
+      headers:H(),
       body:JSON.stringify({status})
     });
     const d=await r.json().catch(()=>({}));
     if(r.ok){
-      toast('Payment '+status+'!');
-      /* Update UI inline */
+      toast(status==='verified'?'Payment verified! Fees updated.':'Payment rejected.');
+      /* Update badge inline */
       const badge=document.getElementById('pmBadge_'+id);
-      const btns=document.getElementById('pmBtns_'+id);
-      if(badge){badge.className='badge '+(status==='verified'?'bg':'br');badge.textContent=status==='verified'?'Verified':'Rejected';}
-      if(btns)btns.remove();
-      /* Also send notification to student */
-      if(status==='verified'){
-        toast('Payment verified — student notified');
+      if(badge){
+        badge.className='badge '+(status==='verified'?'bg':'br');
+        badge.textContent=status==='verified'?'Verified':'Rejected';
       }
+      /* Hide buttons */
+      const btns=document.getElementById('pmBtns_'+id);
+      if(btns) btns.style.display='none';
     }else{
-      toast(d.error||d.message||'Failed — check backend logs',false);
-      if(btn1)btn1.disabled=false;
-      if(btn2)btn2.disabled=false;
+      toast(d.error||d.message||'Failed — try again',false);
+      if(vBtn){vBtn.disabled=false;vBtn.textContent='✓ Verify';}
+      if(rBtn){rBtn.disabled=false;rBtn.textContent='✗ Reject';}
     }
   }catch(e){
     toast('Network error: '+e.message,false);
-    if(btn1)btn1.disabled=false;
-    if(btn2)btn2.disabled=false;
+    if(vBtn){vBtn.disabled=false;vBtn.textContent='✓ Verify';}
+    if(rBtn){rBtn.disabled=false;rBtn.textContent='✗ Reject';}
   }
 }
 
 /* ══ NOTIFICATIONS ══ */
 async function showNotify(p){
-  if(!p)p=getP('notify');
-  if(!allClasses.length)await fetchClasses();
+  if(!p) p=getP('notify');
+  if(!allClasses.length) await fetchClasses();
   p.innerHTML=`
   <div class="card" style="max-width:560px">
     <div class="card-title">Send Notification</div>
@@ -1007,7 +1044,7 @@ async function showNotify(p){
       <label style="font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:5px">Message *</label>
       <textarea class="fi" id="nt_msg" rows="4" style="resize:vertical;min-height:80px" placeholder="Write message..."></textarea>
     </div>
-    <button class="btn btn-p" id="sendNotifBtn" onclick="sendNotif()">Send Notification</button>
+    <button class="btn btn-p" id="sendNBtn" onclick="sendNotif()">Send Notification</button>
   </div>
   <div class="card" style="max-width:560px;margin-top:20px" id="notifList">
     <div class="card-title">Recent Notifications</div>
@@ -1019,8 +1056,8 @@ async function showNotify(p){
 async function loadNotifList(){
   try{
     const r=await fetch(API+'/notifications',{headers:H()});
-    const d=await r.json();const list=d.notifications||[];
-    const el=document.getElementById('notifList');if(!el)return;
+    const d=await r.json(); const list=d.notifications||[];
+    const el=document.getElementById('notifList'); if(!el) return;
     el.innerHTML=`<div class="card-title">Recent Notifications</div>`+
       (!list.length?'<div style="text-align:center;padding:20px;color:var(--b4)">No notifications yet</div>':
         list.slice(0,10).map(n=>`
@@ -1037,10 +1074,10 @@ async function sendNotif(){
   const msg=document.getElementById('nt_msg').value.trim();
   if(!title||!msg){toast('Title and message required',false);return}
   const tgt=document.getElementById('nt_tgt').value;
-  const btn=document.getElementById('sendNotifBtn');
-  btn.disabled=true;btn.textContent='Sending...';
+  const btn=document.getElementById('sendNBtn');
+  btn.disabled=true; btn.textContent='Sending...';
   const body={title,message:msg,target_type:tgt==='all'?'all':'class'};
-  if(tgt==='class')body.target_id=document.getElementById('nt_cls').value;
+  if(tgt==='class') body.target_id=document.getElementById('nt_cls').value;
   try{
     const r=await fetch(API+'/notifications/send',{method:'POST',headers:H(),body:JSON.stringify(body)});
     if(r.ok){
@@ -1048,20 +1085,20 @@ async function sendNotif(){
       document.getElementById('nt_title').value='';
       document.getElementById('nt_msg').value='';
       loadNotifList();
-    }else toast('Failed',false);
+    }else toast('Failed to send',false);
   }catch(e){toast('Network error',false)}
-  btn.disabled=false;btn.textContent='Send Notification';
+  btn.disabled=false; btn.textContent='Send Notification';
 }
 
 /* ══ CLASSES ══ */
 async function loadClasses(p){
-  if(!p)p=getP('classes');
+  if(!p) p=getP('classes');
   p.innerHTML=spin();
   try{
     await fetchClasses();
     const sr=await fetch(API+'/students',{headers:H()});
-    const sd=await sr.json();const studs=sd.students||[];
-    if(!allStudents.length)allStudents=studs;
+    const sd=await sr.json(); const studs=sd.students||[];
+    allStudents=studs;
     const cc={};studs.forEach(s=>{const c=s.standard||'Other';cc[c]=(cc[c]||0)+1;});
     p.innerHTML=`
     <div style="margin-bottom:16px;font-size:13px;color:var(--b5)">Click a class to view group and posts.</div>
@@ -1087,13 +1124,17 @@ async function loadClasses(p){
 
 /* ══ CLASS GROUP ══ */
 async function openCG(classId,standard){
+  classId=parseInt(classId);
   const p=getP('classGroup');
   document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
   document.querySelectorAll('.ni').forEach(n=>n.classList.remove('active'));
-  p.classList.add('active');document.getElementById('pgTitle').textContent=standard+' — Group';closeSB();
+  p.classList.add('active');
+  document.getElementById('pgTitle').textContent=standard+' — Group';
+  closeSB();
   p.innerHTML=spin();
   let posts=[];
   try{
+    /* GET /api/posts/:class_id */
     const r=await fetch(API+'/posts/'+classId,{headers:H()});
     if(r.ok){const d=await r.json();posts=d.posts||[];}
   }catch(e){}
@@ -1102,12 +1143,12 @@ async function openCG(classId,standard){
 
 function renderCG(p,classId,standard,posts){
   p.innerHTML=`
-  <button class="btn btn-o btn-sm" onclick="goto('classes')" style="margin-bottom:16px">← Back</button>
+  <button class="btn btn-o btn-sm" onclick="goto('classes')" style="margin-bottom:16px">← Back to Classes</button>
   <div class="card">
     <div class="card-title">Post to ${standard}</div>
     <textarea class="fi" id="gMsg" rows="3" style="resize:none;margin-bottom:10px" placeholder="Write for ${standard}..."></textarea>
     <input class="fi" id="gVid" placeholder="Video link (optional)" style="margin-bottom:12px">
-    <button class="btn btn-p" onclick="postCG(${classId},'${standard}')">Post</button>
+    <button class="btn btn-p" id="postCGBtn" onclick="postCG(${classId},'${standard}')">Post</button>
   </div>
   <div class="card">
     <div class="card-title">Posts (${posts.length})</div>
@@ -1125,40 +1166,48 @@ function renderCG(p,classId,standard,posts){
         ${pp.video_link?`<a href="${pp.video_link}" target="_blank" style="display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-size:12px;color:var(--p);font-weight:600;text-decoration:none">Watch Video</a>`:''}
       </div>`).join('')}
   </div>`;
-  p._classId=classId;p._standard=standard;p._posts=posts;
+  p._classId=classId; p._standard=standard; p._posts=posts;
 }
 
 async function postCG(classId,standard){
+  classId=parseInt(classId);
   const txt=document.getElementById('gMsg')?.value.trim();
   const vid=document.getElementById('gVid')?.value.trim();
   if(!txt&&!vid){toast('Kuch likho pehle',false);return}
+  const btn=document.getElementById('postCGBtn');
+  if(btn){btn.disabled=true;btn.textContent='Posting...';}
   try{
-    const r=await fetch(API+'/posts',{method:'POST',headers:H(),body:JSON.stringify({class_id:classId,text_content:txt,video_link:vid||null})});
+    /* POST /api/posts → {class_id (integer), text_content, video_link} */
+    const r=await fetch(API+'/posts',{
+      method:'POST',headers:H(),
+      body:JSON.stringify({class_id:classId,text_content:txt||null,video_link:vid||null})
+    });
     const d=await r.json().catch(()=>({}));
     if(r.ok){
       const p=getP('classGroup');
       const posts=[d.post||{text_content:txt,video_link:vid,created_at:new Date(),posted_by_name:AN,id:Date.now()},...(p._posts||[])];
-      toast('Posted!');renderCG(p,classId,standard,posts);
+      toast('Posted!'); renderCG(p,classId,standard,posts);
     }else toast('Error: '+(d.error||'Failed'),false);
   }catch(e){toast('Network error',false)}
+  if(btn){btn.disabled=false;btn.textContent='Post';}
 }
 
 async function delPost(id,classId,standard){
-  if(!confirm('Delete post?'))return;
+  if(!confirm('Delete post?')) return;
   try{
     const r=await fetch(API+'/posts/'+id,{method:'DELETE',headers:H()});
     if(r.ok){
       const p=getP('classGroup');
       const posts=(p._posts||[]).filter(x=>x.id!==id);
-      toast('Deleted');renderCG(p,classId,standard,posts);
+      toast('Deleted'); renderCG(p,parseInt(classId),standard,posts);
     }else toast('Failed',false);
   }catch(e){toast('Network error',false)}
 }
 
-/* ══ TIMETABLE ADMIN ══ */
+/* ══ TIMETABLE ══ */
 async function showTimetableAdmin(p){
-  if(!p)p=getP('timetable');
-  if(!allClasses.length)await fetchClasses();
+  if(!p) p=getP('timetable');
+  if(!allClasses.length) await fetchClasses();
   p.innerHTML=`
   <div class="card" style="max-width:700px">
     <div class="card-title">Manage Timetable</div>
@@ -1171,7 +1220,7 @@ async function showTimetableAdmin(p){
 }
 
 async function loadTTAdmin(classId){
-  if(!classId)return;
+  if(!classId) return;
   const area=document.getElementById('ttArea');
   area.innerHTML='<div style="color:var(--b5);font-size:13px">Loading...</div>';
   let tt=[];
@@ -1195,7 +1244,7 @@ async function loadTTAdmin(classId){
             <td style="padding:8px 10px;font-weight:600;color:var(--p);border:1px solid var(--b2);white-space:nowrap">${day}</td>
             ${[1,2,3,4,5,6,7].map(n=>`
               <td style="padding:3px;border:1px solid var(--b2)">
-                <input style="width:88px;padding:5px 6px;border:1px solid var(--b2);border-radius:5px;font-size:11px;font-family:var(--fb);outline:none"
+                <input style="width:88px;padding:5px 6px;border:1px solid var(--b2);border-radius:5px;font-size:11px;font-family:var(--fb);outline:none;text-align:center"
                   id="tt_${day}_${n}" value="${row['period_'+n]||''}" placeholder="Subject"
                   onfocus="this.style.borderColor='var(--p)'" onblur="this.style.borderColor='var(--b2)'">
               </td>`).join('')}
@@ -1212,10 +1261,7 @@ async function saveTTAdmin(classId){
   try{
     for(const day of days){
       const periods=[1,2,3,4,5,6,7].map(n=>document.getElementById(`tt_${day}_${n}`)?.value.trim()||'');
-      await fetch(API+'/timetable',{
-        method:'POST',headers:H(),
-        body:JSON.stringify({class_id:classId,day,periods})
-      });
+      await fetch(API+'/timetable',{method:'POST',headers:H(),body:JSON.stringify({class_id:classId,day,periods})});
     }
     toast('Timetable saved!');
   }catch(e){toast('Failed: '+e.message,false)}
@@ -1223,8 +1269,8 @@ async function saveTTAdmin(classId){
 
 /* ══ PROMOTE ══ */
 async function showPromote(p){
-  if(!p)p=getP('promote');
-  if(!allClasses.length)await fetchClasses();
+  if(!p) p=getP('promote');
+  if(!allClasses.length) await fetchClasses();
   p.innerHTML=`
   <div class="card" style="max-width:460px">
     <div class="card-title">Promote Class</div>
@@ -1240,7 +1286,7 @@ async function doPromote(){
   const to=document.getElementById('pTo').value;
   if(!from||!to){toast('Both classes required',false);return}
   if(from===to){toast('From and To cannot be same',false);return}
-  if(!confirm('"'+from+'" to "'+to+'" — promote karo?'))return;
+  if(!confirm('"'+from+'" to "'+to+'" — promote karo?')) return;
   try{
     const r=await fetch(API+'/students/promote',{method:'POST',headers:H(),body:JSON.stringify({from_standard:from,to_standard:to})});
     const d=await r.json().catch(()=>({}));
@@ -1251,8 +1297,8 @@ async function doPromote(){
 
 /* ══ PASSOUT ══ */
 async function showPassout(p){
-  if(!p)p=getP('passout');
-  if(!allClasses.length)await fetchClasses();
+  if(!p) p=getP('passout');
+  if(!allClasses.length) await fetchClasses();
   p.innerHTML=`
   <div class="card" style="max-width:460px">
     <div class="card-title">Passout Students</div>
@@ -1268,7 +1314,7 @@ async function doPassout(){
   const conf=document.getElementById('poConfirm').value.trim();
   if(!cls){toast('Class select karo',false);return}
   if(conf!==cls){toast('Class name match nahi kiya',false);return}
-  if(!confirm('"'+cls+'" class ke sare students passout?'))return;
+  if(!confirm('"'+cls+'" class ke sare students passout?')) return;
   try{
     const r=await fetch(API+'/students/promote',{method:'POST',headers:H(),body:JSON.stringify({from_standard:cls,to_standard:'Alumni'})});
     const d=await r.json().catch(()=>({}));
@@ -1282,6 +1328,6 @@ async function doPassout(){
   await fetchClasses();
   goto('dashboard',document.querySelector('.ni.active'));
 })();
-</script>
+  </script>
 </body>
 </html>
