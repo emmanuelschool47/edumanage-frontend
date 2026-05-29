@@ -12,7 +12,7 @@
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 :root{
-  --p:#800020;--dk:#5c0018;--dp:#3d0010;--ac:#a30027;
+  --p:#800020;--dk:#5c0018;--dp:#3d0010;--ac:#a30027;--plt:rgba(128,0,32,.08);
   --w:#fff;--bg:#fafafa;
   --b1:#f5f5f5;--b2:#eeeeee;--b3:#e0e0e0;--b4:#bdbdbd;--b5:#9e9e9e;--b6:#757575;
   --green:#1a7a4a;--gl:#e8f5ee;
@@ -22,161 +22,197 @@
   --r:12px;--tr:all .22s ease;
 }
 html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6);overflow-x:hidden}
-#loginScreen{position:fixed;inset:0;z-index:999;background:linear-gradient(155deg,var(--dp),var(--p),var(--ac));display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;padding-top:max(20px,env(safe-area-inset-top));padding-bottom:max(20px,env(safe-area-inset-bottom));overflow-y:auto}
+
+/* LOGIN */
+#loginScreen{position:fixed;inset:0;z-index:999;background:linear-gradient(155deg,var(--dp),var(--p),var(--ac));display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;padding-top:max(20px,env(safe-area-inset-top));overflow-y:auto}
 #loginScreen::before{content:'';position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
 .lw{width:100%;max-width:400px;position:relative;z-index:1}
 .brand{text-align:center;margin-bottom:22px}
-.logo-box{width:76px;height:76px;border-radius:20px;margin:0 auto 12px;overflow:hidden;border:2.5px solid rgba(255,255,255,.25);box-shadow:0 8px 28px rgba(0,0,0,.25);background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center}
+.logo-box{width:72px;height:72px;border-radius:18px;margin:0 auto 12px;overflow:hidden;border:2.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center}
 .logo-box img{width:100%;height:100%;object-fit:cover;display:block}
-.logo-fb{font-family:var(--ff);font-size:28px;font-weight:700;color:var(--w);display:none}
-.brand-name{font-family:var(--ff);font-size:20px;font-weight:700;color:var(--w);margin-bottom:3px}
-.brand-sub{font-size:13px;color:rgba(255,255,255,.55)}
-.lcard{background:var(--w);border-radius:22px;padding:26px 22px 22px;box-shadow:0 20px 60px rgba(0,0,0,.28)}
-.lcard-title{font-family:var(--ff);font-size:20px;font-weight:700;color:var(--dp);margin-bottom:3px}
-.lcard-sub{font-size:13px;color:var(--b5);margin-bottom:18px}
-.lerr{display:none;background:#fff0f2;border:1.5px solid #ffc8d0;color:var(--red);font-size:13px;font-weight:500;padding:10px 14px;border-radius:10px;margin-bottom:14px}
+.logo-fb{font-family:var(--ff);font-size:26px;font-weight:700;color:var(--w);display:none}
+.brand-name{font-family:var(--ff);font-size:20px;font-weight:700;color:var(--w);margin-bottom:2px}
+.brand-sub{font-size:12px;color:rgba(255,255,255,.5)}
+.lcard{background:var(--w);border-radius:20px;padding:24px 20px;box-shadow:0 20px 60px rgba(0,0,0,.28)}
+.lcard-title{font-family:var(--ff);font-size:19px;font-weight:700;color:var(--dp);margin-bottom:2px}
+.lcard-sub{font-size:13px;color:var(--b5);margin-bottom:16px}
+.lerr{display:none;background:#fff0f2;border:1.5px solid #ffc8d0;color:var(--red);font-size:13px;font-weight:500;padding:10px 14px;border-radius:9px;margin-bottom:12px}
 .lerr.show{display:block}
-.lfield{margin-bottom:14px}
-.lfield label{display:block;font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.9px;margin-bottom:6px}
+.lfield{margin-bottom:12px}
+.lfield label{display:block;font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.9px;margin-bottom:5px}
 .linp-w{position:relative}
-.linp-w input{width:100%;padding:13px 44px 13px 14px;background:#f8f8f8;border:2px solid #eee;border-radius:11px;font-size:15px;font-family:var(--fb);color:#1a1a1a;outline:none;transition:border-color .2s,background .2s;-webkit-appearance:none}
+.linp-w input{width:100%;padding:12px 42px 12px 13px;background:#f8f8f8;border:2px solid #eee;border-radius:10px;font-size:14px;font-family:var(--fb);color:#1a1a1a;outline:none;transition:border-color .2s;-webkit-appearance:none}
 .linp-w input:focus{border-color:var(--p);background:var(--w)}
-.linp-w input::placeholder{color:#ccc}
-.leye{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#bbb;display:flex;padding:4px}
-.leye svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
-.lbtn{width:100%;padding:14px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:12px;font-size:15px;font-weight:700;font-family:var(--fb);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 5px 18px rgba(128,0,32,.25);transition:opacity .18s,transform .15s;-webkit-appearance:none}
-.lbtn:active{transform:scale(.98)}
-.lbtn:disabled{opacity:.6;cursor:not-allowed;transform:none}
-.lspin{display:none;width:17px;height:17px;border:2.5px solid rgba(255,255,255,.3);border-top-color:var(--w);border-radius:50%;animation:spin .7s linear infinite}
-.lhint{text-align:center;margin-top:16px;font-size:13px;color:rgba(255,255,255,.45);position:relative;z-index:1}
+.leye{position:absolute;right:11px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#bbb;display:flex;padding:4px}
+.leye svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
+.lbtn{width:100%;padding:13px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:11px;font-size:14px;font-weight:700;font-family:var(--fb);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.lbtn:disabled{opacity:.6;cursor:not-allowed}
+.lspin{display:none;width:16px;height:16px;border:2.5px solid rgba(255,255,255,.3);border-top-color:var(--w);border-radius:50%;animation:spin .7s linear infinite}
+.lhint{text-align:center;margin-top:14px;font-size:12px;color:rgba(255,255,255,.4);position:relative;z-index:1}
+
+/* APP */
 #appScreen{display:none;flex-direction:column;height:100vh;height:100dvh}
-.topbar{background:var(--w);border-bottom:1px solid var(--b2);padding:0 16px;height:56px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:100}
+.topbar{background:var(--w);border-bottom:1px solid var(--b2);padding:0 16px;height:54px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:100}
 .topbar-left{display:flex;align-items:center;gap:10px}
-.topbar-logo{width:32px;height:32px;border-radius:8px;overflow:hidden;border:1.5px solid var(--b2);background:var(--b1);flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.topbar-logo{width:30px;height:30px;border-radius:7px;overflow:hidden;border:1.5px solid var(--b2);display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--plt)}
 .topbar-logo img{width:100%;height:100%;object-fit:cover;display:block}
-.topbar-logo-fb{font-family:var(--ff);font-size:13px;font-weight:700;color:var(--p);display:none}
-.topbar-name{font-family:var(--ff);font-size:16px;font-weight:700;color:var(--dp)}
-.out-btn{background:none;border:1px solid var(--b2);border-radius:7px;padding:6px 10px;font-size:11px;font-weight:600;color:var(--b5);cursor:pointer;font-family:var(--fb)}
+.topbar-logo-fb{font-family:var(--ff);font-size:12px;font-weight:700;color:var(--p);display:none}
+.topbar-name{font-family:var(--ff);font-size:15px;font-weight:700;color:var(--dp)}
+.topbar-right{display:flex;align-items:center;gap:6px}
+.bell-btn{position:relative;background:none;border:none;cursor:pointer;padding:6px;border-radius:7px;display:flex}
+.bell-btn svg{width:20px;height:20px;stroke:var(--b5);fill:none;stroke-width:2;stroke-linecap:round}
+.bell-dot{position:absolute;top:4px;right:4px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid var(--w);display:none}
+.bell-dot.show{display:block}
+.out-btn{background:none;border:1px solid var(--b2);border-radius:7px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--b5);cursor:pointer;font-family:var(--fb)}
+
+/* SCROLL */
 .scroll-area{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .scroll-area::-webkit-scrollbar{width:3px}
 .scroll-area::-webkit-scrollbar-thumb{background:var(--b3);border-radius:3px}
 .cnt{max-width:600px;margin:0 auto;padding-bottom:90px}
-.hero{background:linear-gradient(135deg,var(--dp),var(--p));color:var(--w);padding:22px 16px 26px;position:relative;overflow:hidden}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,var(--dp),var(--p));color:var(--w);padding:20px 16px 24px;position:relative;overflow:hidden}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
 .hero-inner{position:relative;z-index:1}
-.hero-grt{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:600}
-.hero-name{font-family:var(--ff);font-size:22px;font-weight:700;line-height:1.15;margin-bottom:8px}
+.hero-grt{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;font-weight:600}
+.hero-name{font-family:var(--ff);font-size:21px;font-weight:700;line-height:1.15;margin-bottom:7px}
 .hero-chips{display:flex;gap:6px;flex-wrap:wrap}
 .hero-chip{padding:3px 10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:100px;font-size:10px;color:rgba(255,255,255,.85);font-weight:500}
-.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px 16px}
-.stat-tile{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px;text-align:center}
-.stat-val{font-family:var(--ff);font-size:24px;font-weight:700;color:var(--p);margin-bottom:3px}
+
+/* STATS */
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:12px 16px}
+.stat-tile{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:12px;text-align:center}
+.stat-val{font-family:var(--ff);font-size:22px;font-weight:700;color:var(--p);margin-bottom:2px}
 .stat-lbl{font-size:10px;color:var(--b4);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-.sec{padding:0 16px;margin-bottom:18px}
-.sec-title{font-family:var(--ff);font-size:16px;font-weight:700;color:var(--dp);margin-bottom:10px}
-.card{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px;margin-bottom:10px}
-.si{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--w);border:1px solid var(--b2);border-radius:var(--r);margin-bottom:8px;cursor:pointer;transition:var(--tr)}
-.si:active{background:var(--b1);transform:scale(.99)}
-.si-av{width:42px;height:42px;background:rgba(128,0,32,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:16px;color:var(--p);flex-shrink:0;font-weight:700}
-.si-name{font-size:14px;font-weight:600;margin-bottom:2px;color:#1a1a1a}
+
+/* SECTION */
+.sec{padding:0 16px;margin-bottom:16px}
+.sec-title{font-family:var(--ff);font-size:15px;font-weight:700;color:var(--dp);margin-bottom:10px}
+
+/* STUDENT LIST ITEM */
+.si{display:flex;align-items:center;gap:11px;padding:11px 13px;background:var(--w);border:1px solid var(--b2);border-radius:var(--r);margin-bottom:8px;cursor:pointer;transition:var(--tr);-webkit-tap-highlight-color:transparent}
+.si:active{background:var(--b1)}
+.si-av{width:40px;height:40px;background:var(--plt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:15px;color:var(--p);flex-shrink:0;font-weight:700}
+.si-name{font-size:14px;font-weight:600;margin-bottom:1px;color:#1a1a1a}
 .si-meta{font-size:11px;color:var(--b4)}
+
+/* BADGES */
 .badge-ok{background:var(--gl);color:var(--green);padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600;display:inline-block}
 .badge-no{background:var(--rl);color:var(--red);padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600;display:inline-block}
 .badge-ho{background:var(--goldl);color:var(--gold);padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600;display:inline-block}
-/* DETAIL SCREEN */
+.badge-gr{background:var(--b1);color:var(--b5);padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600;display:inline-block}
+
+/* STUDENT DETAIL SCREEN */
 .detail-screen{display:none;position:fixed;inset:0;z-index:200;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch}
 .detail-screen.show{display:block}
-.detail-topbar{background:var(--w);border-bottom:1px solid var(--b2);padding:0 16px;height:56px;display:flex;align-items:center;gap:12px;position:sticky;top:0;z-index:10}
-.back-btn{background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:8px;border-radius:8px;color:var(--b6)}
+.detail-topbar{background:var(--w);border-bottom:1px solid var(--b2);padding:0 16px;height:54px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:10}
+.back-btn{background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:7px;border-radius:8px;color:var(--b6)}
 .back-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
-.detail-title{font-family:var(--ff);font-size:17px;font-weight:700;color:var(--dp)}
+.detail-title{font-family:var(--ff);font-size:16px;font-weight:700;color:var(--dp)}
 .info-list{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);overflow:hidden;margin:0 16px 12px}
 .info-row{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-bottom:1px solid var(--b1)}
 .info-row:last-child{border-bottom:none}
 .info-lbl{font-size:12px;color:var(--b4);font-weight:500}
-.info-val{font-size:13px;font-weight:600;color:#1a1a1a;text-align:right;max-width:60%}
+.info-val{font-size:13px;font-weight:600;color:#1a1a1a;text-align:right;max-width:60%;word-break:break-word}
+
 /* ATTENDANCE */
 .att-sheet{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);overflow:hidden}
-.att-date-row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--b1);gap:10px;flex-wrap:wrap}
+.att-date-row{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--b1);gap:10px}
 .att-date-lbl{font-size:13px;font-weight:600;color:var(--dp)}
-.date-inp{padding:8px 10px;border:1.5px solid var(--b2);border-radius:8px;font-family:var(--fm);font-size:12px;color:#1a1a1a;outline:none}
+.date-inp{padding:7px 10px;border:1.5px solid var(--b2);border-radius:7px;font-family:var(--fm);font-size:12px;color:#1a1a1a;outline:none}
 .date-inp:focus{border-color:var(--p)}
-.att-actions{display:flex;gap:8px;padding:10px 14px;border-bottom:1px solid var(--b1)}
 .att-row{display:flex;align-items:center;padding:10px 14px;border-bottom:1px solid var(--b1);gap:10px}
 .att-row:last-of-type{border-bottom:none}
 .att-roll{font-family:var(--fm);font-size:12px;color:var(--b4);min-width:28px;flex-shrink:0}
 .att-name{font-size:13px;font-weight:500;flex:1;color:#1a1a1a}
-.att-tog{display:flex;border:2px solid var(--b2);border-radius:9px;overflow:hidden;flex-shrink:0}
-.att-btn{padding:7px 16px;border:none;font-family:var(--fb);font-size:12px;font-weight:700;cursor:pointer;background:transparent;color:var(--b4);transition:background .15s,color .15s;-webkit-tap-highlight-color:transparent}
+.att-tog{display:flex;border:2px solid var(--b2);border-radius:8px;overflow:hidden;flex-shrink:0}
+.att-btn{padding:7px 15px;border:none;font-family:var(--fb);font-size:12px;font-weight:700;cursor:pointer;background:transparent;color:var(--b4);transition:background .15s,color .15s}
 .att-btn.p-on{background:var(--green);color:var(--w)}
 .att-btn.a-on{background:var(--red);color:var(--w)}
-.save-att-btn{width:calc(100% - 28px);margin:12px 14px;padding:13px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
-.save-att-btn:disabled{opacity:.6;cursor:not-allowed}
+.save-btn{width:calc(100% - 28px);margin:12px 14px;padding:12px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
+.save-btn:disabled{opacity:.6;cursor:not-allowed}
+
 /* MARKS */
-.fi{width:100%;padding:10px 13px;background:var(--b1);border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:#1a1a1a;outline:none;transition:var(--tr)}
+.fi{width:100%;padding:10px 12px;background:var(--b1);border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:#1a1a1a;outline:none;transition:var(--tr)}
 .fi:focus{border-color:var(--p);background:var(--w)}
 select.fi{-webkit-appearance:none}
-.fgl{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.fgl{display:flex;flex-direction:column;gap:4px;margin-bottom:11px}
 .fgl label{font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px}
 .mk-row{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--b1)}
 .mk-row:last-child{border-bottom:none}
-.mk-av{width:32px;height:32px;background:rgba(128,0,32,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:12px;color:var(--p);flex-shrink:0;font-weight:700}
+.mk-av{width:30px;height:30px;background:var(--plt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:11px;color:var(--p);flex-shrink:0;font-weight:700}
 .mk-name{font-size:13px;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#1a1a1a}
-.mk-inp{padding:8px;border:2px solid var(--b2);border-radius:8px;font-family:var(--fm);font-size:14px;color:#1a1a1a;outline:none;width:64px;text-align:center;-webkit-appearance:none}
+.mk-inp{padding:7px;border:2px solid var(--b2);border-radius:7px;font-family:var(--fm);font-size:13px;color:#1a1a1a;outline:none;width:62px;text-align:center;-webkit-appearance:none}
 .mk-inp:focus{border-color:var(--p)}
-.mk-of{padding:8px;border:2px solid var(--b2);border-radius:8px;font-family:var(--fm);font-size:14px;color:#1a1a1a;outline:none;width:64px;text-align:center;-webkit-appearance:none}
+.mk-of{padding:7px;border:2px solid var(--b2);border-radius:7px;font-family:var(--fm);font-size:13px;color:#1a1a1a;outline:none;width:62px;text-align:center;-webkit-appearance:none}
 .mk-of:focus{border-color:var(--p)}
+
 /* POSTS */
-.composer{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px;margin-bottom:12px}
-.ctxt{width:100%;min-height:90px;padding:11px;border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:14px;color:#1a1a1a;resize:none;outline:none;margin-bottom:10px}
+.composer{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px;margin-bottom:12px}
+.ctxt{width:100%;min-height:80px;padding:10px;border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:14px;color:#1a1a1a;resize:none;outline:none;margin-bottom:9px}
 .ctxt:focus{border-color:var(--p)}
-.post-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
+.post-btn{width:100%;padding:11px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
 .post-btn:disabled{opacity:.6;cursor:not-allowed}
-.post-card{background:var(--w);border:1px solid var(--b2);border-radius:14px;margin-bottom:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.post-head{display:flex;align-items:center;gap:10px;padding:12px 14px 0}
-.post-av{width:36px;height:36px;border-radius:50%;background:rgba(128,0,32,.1);display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:14px;color:var(--p);font-weight:700;flex-shrink:0}
+.post-card{background:var(--w);border:1px solid var(--b2);border-radius:13px;margin-bottom:11px;overflow:hidden}
+.post-head{display:flex;align-items:center;gap:9px;padding:11px 13px 0}
+.post-av{width:34px;height:34px;border-radius:50%;background:var(--plt);display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:13px;color:var(--p);font-weight:700;flex-shrink:0}
 .post-author{font-size:13px;font-weight:700;color:#1a1a1a}
 .post-role{font-size:11px;color:var(--b4)}
 .post-time{font-size:10px;color:var(--b4);margin-left:auto}
-.post-body{padding:10px 14px 14px}
-.post-text{font-size:14px;color:#1a1a1a;line-height:1.6}
-.post-video{display:flex;align-items:center;gap:8px;margin-top:10px;padding:10px 12px;background:rgba(128,0,32,.06);border-radius:9px;text-decoration:none}
-.post-video-ic{width:30px;height:30px;background:var(--p);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.post-video-ic svg{width:14px;height:14px;stroke:var(--w);fill:none;stroke-width:2;stroke-linecap:round}
+.post-body{padding:9px 13px 13px}
+.post-text{font-size:13px;color:#1a1a1a;line-height:1.6}
+.post-video{display:flex;align-items:center;gap:7px;margin-top:9px;padding:9px 11px;background:var(--plt);border-radius:8px;text-decoration:none}
+.post-video-ic{width:28px;height:28px;background:var(--p);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.post-video-ic svg{width:12px;height:12px;stroke:var(--w);fill:none;stroke-width:2;stroke-linecap:round}
 .post-video-lbl{font-size:12px;font-weight:700;color:var(--p)}
-.del-post-btn{background:none;border:none;cursor:pointer;color:var(--b4);font-size:20px;padding:4px;line-height:1;margin-left:auto}
+.del-post-btn{background:none;border:none;cursor:pointer;color:var(--b4);font-size:18px;padding:3px;line-height:1;margin-left:auto}
+
 /* NOTIFY */
-.nf-card{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px}
-.stu-list{max-height:240px;overflow-y:auto;border:1px solid var(--b2);border-radius:8px;margin-bottom:10px}
-.stu-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px solid var(--b1);cursor:pointer}
-.stu-item:last-child{border-bottom:none}
-.stu-item input[type=checkbox]{accent-color:var(--p);width:16px;height:16px;cursor:pointer;flex-shrink:0}
-.ca-btn{padding:6px 12px;border:1px solid var(--b2);border-radius:7px;font-size:11px;font-weight:600;color:var(--b5);background:var(--w);cursor:pointer}
-.send-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
+.nf-card{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px}
+.send-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
 .send-btn:disabled{opacity:.6;cursor:not-allowed}
+
 /* TIMETABLE */
 .tt-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--b2);margin-bottom:12px}
 .tt-table{width:100%;border-collapse:collapse;font-size:11px}
-.tt-table th{padding:8px 6px;background:rgba(128,0,32,.07);border:1px solid var(--b2);text-align:center;font-weight:700;color:var(--p);white-space:nowrap}
-.tt-table td{padding:3px 4px;border:1px solid var(--b2);text-align:center}
-.tt-inp{width:76px;padding:6px 5px;border:1.5px solid var(--b2);border-radius:5px;font-size:11px;font-family:var(--fb);color:#1a1a1a;outline:none;text-align:center}
+.tt-table th{padding:8px 6px;background:var(--plt);border:1px solid var(--b2);text-align:center;font-weight:700;color:var(--p);white-space:nowrap}
+.tt-table td{padding:3px 3px;border:1px solid var(--b2);text-align:center}
+.tt-inp{width:72px;padding:5px 4px;border:1.5px solid var(--b2);border-radius:5px;font-size:11px;font-family:var(--fb);color:#1a1a1a;outline:none;text-align:center}
 .tt-inp:focus{border-color:var(--p)}
+
+/* NOTIFICATION PANEL */
+.np{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.5);display:none;align-items:flex-end}
+.np.show{display:flex}
+.np-sheet{background:var(--w);border-radius:18px 18px 0 0;width:100%;max-height:78vh;overflow-y:auto;padding-bottom:max(20px,env(safe-area-inset-bottom))}
+.np-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 8px;border-bottom:1px solid var(--b1)}
+.np-title{font-family:var(--ff);font-size:17px;font-weight:700;color:var(--dp)}
+.np-close{background:none;border:none;cursor:pointer;color:var(--b4);font-size:22px;line-height:1;padding:4px}
+.ni-item{display:flex;gap:11px;padding:12px 16px;border-bottom:1px solid var(--b1)}
+.ni-item:last-child{border-bottom:none}
+.ni-icon{width:38px;height:38px;border-radius:50%;background:var(--plt);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ni-icon svg{width:17px;height:17px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
+.ni-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:2px}
+.ni-msg{font-size:12px;color:var(--b5);line-height:1.5}
+.ni-time{font-size:10px;color:var(--b3);margin-top:3px}
+
 /* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--w);border-top:1px solid var(--b2);display:flex;padding:6px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));z-index:100}
-.nav-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 4px;background:none;border:none;cursor:pointer;transition:var(--tr)}
-.nav-tab svg{width:21px;height:21px;stroke:var(--b3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:var(--tr)}
-.nav-tab span{font-size:9px;font-weight:700;color:var(--b3);text-transform:uppercase;letter-spacing:.5px;font-family:var(--fb)}
+.nav-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 4px;background:none;border:none;cursor:pointer}
+.nav-tab svg{width:20px;height:20px;stroke:var(--b3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s}
+.nav-tab span{font-size:9px;font-weight:700;color:var(--b3);text-transform:uppercase;letter-spacing:.5px;font-family:var(--fb);transition:color .2s}
 .nav-tab.active svg{stroke:var(--p)}
 .nav-tab.active span{color:var(--p)}
-.loading{display:flex;align-items:center;justify-content:center;min-height:40vh;flex-direction:column;gap:12px}
-.spin-el{width:26px;height:26px;border:2px solid var(--b2);border-top-color:var(--p);border-radius:50%;animation:spin .8s linear infinite}
-.empty{text-align:center;padding:40px 20px;color:var(--b4);font-size:13px}
-.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dp);color:var(--w);padding:10px 20px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.25)}
+
+/* UTILS */
+.loading{display:flex;align-items:center;justify-content:center;min-height:38vh;flex-direction:column;gap:11px}
+.spin-el{width:24px;height:24px;border:2px solid var(--b2);border-top-color:var(--p);border-radius:50%;animation:spin .8s linear infinite}
+.empty{text-align:center;padding:36px 20px;color:var(--b4);font-size:13px}
+.toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dp);color:var(--w);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.25);max-width:90vw;overflow:hidden;text-overflow:ellipsis}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.err{background:var(--red)}
 @keyframes spin{to{transform:rotate(360deg)}}
-@media(max-width:400px){.lcard{padding:22px 16px 18px}}
-@media(max-height:700px){#loginScreen{justify-content:flex-start;padding-top:16px}.brand{margin-bottom:14px}.logo-box{width:60px;height:60px}}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 </style>
 </head>
 <body>
@@ -190,22 +226,22 @@ select.fi{-webkit-appearance:none}
         <span class="logo-fb" id="lFb">E</span>
       </div>
       <div class="brand-name">Emmanuel School</div>
-      <div class="brand-sub">EduManage — Teacher Panel</div>
+      <div class="brand-sub">Teacher Panel</div>
     </div>
     <div class="lcard">
       <div class="lcard-title">Teacher Login</div>
-      <div class="lcard-sub">Enter your teacher code and password</div>
+      <div class="lcard-sub">Code aur password enter karo</div>
       <div class="lerr" id="lerr"></div>
       <div class="lfield">
         <label>Teacher Code</label>
         <div class="linp-w">
-          <input type="text" id="lCode" placeholder="e.g. TCH001" autocomplete="off" spellcheck="false" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')document.getElementById('lPass').focus()">
+          <input type="text" id="lCode" placeholder="e.g. TCH001" autocomplete="off" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')document.getElementById('lPass').focus()">
         </div>
       </div>
       <div class="lfield">
         <label>Password</label>
         <div class="linp-w">
-          <input type="password" id="lPass" placeholder="Enter password" autocomplete="current-password" onkeydown="if(event.key==='Enter')doLogin()">
+          <input type="password" id="lPass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
           <button class="leye" type="button" onclick="toggleLPw()">
             <svg id="leyeS" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             <svg id="leyeH" viewBox="0 0 24 24" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
@@ -232,6 +268,17 @@ select.fi{-webkit-appearance:none}
   <div id="detailBody" style="padding-bottom:30px"></div>
 </div>
 
+<!-- NOTIFICATION PANEL -->
+<div class="np" id="np" onclick="if(event.target===this)closeNP()">
+  <div class="np-sheet" style="animation:slideUp .3s ease">
+    <div class="np-head">
+      <div class="np-title">Notifications</div>
+      <button class="np-close" onclick="closeNP()">×</button>
+    </div>
+    <div id="npList"><div class="loading" style="min-height:80px"><div class="spin-el"></div></div></div>
+  </div>
+</div>
+
 <!-- APP -->
 <div id="appScreen">
   <div class="topbar">
@@ -242,7 +289,13 @@ select.fi{-webkit-appearance:none}
       </div>
       <div class="topbar-name">Emmanuel School</div>
     </div>
-    <button class="out-btn" onclick="doLogout()">Logout</button>
+    <div class="topbar-right">
+      <button class="bell-btn" onclick="openNP()">
+        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        <div class="bell-dot" id="bellDot"></div>
+      </button>
+      <button class="out-btn" onclick="doLogout()">Logout</button>
+    </div>
   </div>
   <div class="scroll-area" id="scrollArea">
     <div class="cnt" id="mainContent">
@@ -279,46 +332,67 @@ select.fi{-webkit-appearance:none}
 
 <div class="toast" id="toast"></div>
 
-<script>
-const API = 'https://edumanage-backend-xi.vercel.app/api';
-let TOKEN = null, TD = null, CD = null, students = [], posts = [];
-let attState = {};
-let curTab = 'home';
+<!-- FIREBASE PUSH NOTIFICATIONS -->
+<script type="module">
+import{initializeApp}from'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import{getMessaging,getToken,onMessage}from'https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js';
+const FB={apiKey:"AIzaSyA21lqBYdpcsUQCDOvc7Y1ZtIvy5j1VPVw",authDomain:"edumanage-notificationn.firebaseapp.com",projectId:"edumanage-notificationn",messagingSenderId:"956207309076",appId:"1:956207309076:web:6432e350c3536aa49f6201"};
+const app=initializeApp(FB);
+const msg=getMessaging(app);
+window._reqPush=async function(){
+  try{
+    const perm=await Notification.requestPermission();
+    if(perm!=='granted')return;
+    const token=await getToken(msg,{vapidKey:'BCHbNp4TNGBtB7j5IXbvlpWJ5LRTmEYfJTWTvFHnZD2k3VX4LgLfOhqSLBJGXLZ4lGJ4EJxZ9KAFQgGCxFhJkE'});
+    if(token){
+      localStorage.setItem('fcm_token_tch',token);
+      const t=localStorage.getItem('tch_token');
+      if(t)await fetch('https://edumanage-backend-xi.vercel.app/api/notifications/register-token',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},body:JSON.stringify({token,platform:'web'})}).catch(()=>{});
+    }
+  }catch(e){console.log('Push error:',e.message)}
+};
+onMessage(msg,payload=>{
+  const title=payload.notification?.title||'Emmanuel School';
+  const body=payload.notification?.body||'';
+  window._showToast?.(title+(body?': '+body:''));
+  if(Notification.permission==='granted')new Notification(title,{body,icon:'/logo.webp',badge:'/logo.webp',vibrate:[200,100,200]});
+  window._refreshNotifs?.();
+  document.getElementById('bellDot')?.classList.add('show');
+});
+</script>
 
-function H(){ return {'Content-Type':'application/json','Authorization':'Bearer '+TOKEN} }
-function ini(n){ if(!n)return'?'; return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2) }
-function ago(d){ if(!d)return''; const s=Math.floor((Date.now()-new Date(d))/1000); if(s<60)return'just now'; if(s<3600)return Math.floor(s/60)+'m ago'; if(s<86400)return Math.floor(s/3600)+'h ago'; return Math.floor(s/86400)+'d ago' }
+<script>
+const API='https://edumanage-backend-xi.vercel.app/api';
+let TOKEN=null,TD=null,CD=null,students=[],posts=[],NOTIFS=[];
+let attState={};
+let curTab='home';
+
+function H(){return{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN}}
+function ini(n){if(!n)return'?';return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}
+function ago(d){if(!d)return'';const s=Math.floor((Date.now()-new Date(d))/1000);if(s<60)return'just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago'}
+function fmtRs(n){return'Rs. '+(parseInt(n||0)).toLocaleString('en-IN')}
 
 let toastT;
-function showToast(msg,err){
+window._showToast=function(msg,err){
   const e=document.getElementById('toast');
-  e.textContent=msg; e.className='toast'+(err?' err':'');
-  e.classList.add('show'); clearTimeout(toastT);
-  toastT=setTimeout(()=>e.classList.remove('show'),3000);
-}
+  e.textContent=msg;e.className='toast'+(err?' err':'');
+  e.classList.add('show');clearTimeout(toastT);
+  toastT=setTimeout(()=>e.classList.remove('show'),3200);
+};
+function showToast(msg,err){window._showToast(msg,err)}
 
-/* BOOT */
+/* ── BOOT ── */
 (function boot(){
   const saved=localStorage.getItem('tch_token');
-  if(saved&&saved.length>20){
-    TOKEN=saved;
-    TD={name:localStorage.getItem('tch_name')||'Teacher'};
-    showApp(); loadData();
-  }else showLogin();
+  if(saved&&saved.length>20){TOKEN=saved;TD={name:localStorage.getItem('tch_name')||'Teacher'};showApp();loadData();}
+  else showLogin();
 })();
 
-function showLogin(){
-  document.getElementById('loginScreen').style.display='flex';
-  document.getElementById('appScreen').style.display='none';
-  setTimeout(()=>document.getElementById('lCode')?.focus(),300);
-}
-function showApp(){
-  document.getElementById('loginScreen').style.display='none';
-  document.getElementById('appScreen').style.display='flex';
-}
+function showLogin(){document.getElementById('loginScreen').style.display='flex';document.getElementById('appScreen').style.display='none';setTimeout(()=>document.getElementById('lCode')?.focus(),300)}
+function showApp(){document.getElementById('loginScreen').style.display='none';document.getElementById('appScreen').style.display='flex'}
+
 function toggleLPw(){
-  const i=document.getElementById('lPass');
-  const s=document.getElementById('leyeS'); const h=document.getElementById('leyeH');
+  const i=document.getElementById('lPass');const s=document.getElementById('leyeS');const h=document.getElementById('leyeH');
   if(i.type==='password'){i.type='text';s.style.display='none';h.style.display='block';}
   else{i.type='password';s.style.display='block';h.style.display='none';}
 }
@@ -329,59 +403,82 @@ async function doLogin(){
   const err=document.getElementById('lerr');
   if(!code||!pass){err.textContent='Code aur password daalo';err.classList.add('show');return}
   err.classList.remove('show');
-  document.getElementById('lTxt').style.display='none';
-  document.getElementById('lSpin').style.display='block';
-  document.getElementById('lBtn').disabled=true;
+  document.getElementById('lTxt').style.display='none';document.getElementById('lSpin').style.display='block';document.getElementById('lBtn').disabled=true;
   try{
     const res=await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code,password:pass,role:'teacher'})});
     const data=await res.json();
     if(res.ok&&data.token){
-      TOKEN=data.token; TD=data.user||{name:code,code};
-      localStorage.setItem('tch_token',TOKEN);
-      localStorage.setItem('tch_name',TD.name||code);
-      showApp(); loadData();
+      TOKEN=data.token;TD=data.user||{name:code,code};
+      localStorage.setItem('tch_token',TOKEN);localStorage.setItem('tch_name',TD.name||code);
+      showApp();loadData();setTimeout(()=>window._reqPush?.(),2000);
     }else{err.textContent=data.message||data.error||'Invalid credentials';err.classList.add('show');}
   }catch(e){err.textContent='Network error: '+e.message;err.classList.add('show')}
-  document.getElementById('lTxt').style.display='block';
-  document.getElementById('lSpin').style.display='none';
-  document.getElementById('lBtn').disabled=false;
+  document.getElementById('lTxt').style.display='block';document.getElementById('lSpin').style.display='none';document.getElementById('lBtn').disabled=false;
 }
 
 function doLogout(){
   if(!confirm('Logout?'))return;
-  TOKEN=null;TD=null;CD=null;students=[];posts=[];attState={};
+  TOKEN=null;TD=null;CD=null;students=[];posts=[];attState={};NOTIFS=[];
   localStorage.removeItem('tch_token');localStorage.removeItem('tch_name');
   showLogin();
 }
 
+/* ── LOAD DATA ── */
 async function loadData(){
   document.getElementById('mainContent').innerHTML='<div class="loading"><div class="spin-el"></div></div>';
   try{
     const res=await fetch(API+'/teachers/my-class',{headers:H()});
     if(res.status===401){localStorage.removeItem('tch_token');showLogin();return}
     const data=await res.json();
-    CD=data.class||null; students=data.students||[];
+    CD=data.class||null;students=data.students||[];
     students.forEach(s=>{if(!attState[s.id])attState[s.id]='P';});
-    if(CD){
-      try{
-        const pr=await fetch(API+'/posts/'+CD.id,{headers:H()});
-        if(pr.ok){const pd=await pr.json();posts=pd.posts||[];}
-      }catch(_){}
-    }
+    if(CD){try{const pr=await fetch(API+'/posts/'+CD.id,{headers:H()});if(pr.ok){const pd=await pr.json();posts=pd.posts||[];}}catch(_){}}
+    await loadNotifs();
     showTab(curTab);
+    setTimeout(()=>window._reqPush?.(),2000);
   }catch(e){
     document.getElementById('mainContent').innerHTML=`<div class="loading"><div style="color:var(--red);font-size:13px">Error: ${e.message}</div></div>`;
   }
 }
 
+/* ── NOTIFICATIONS ── */
+async function loadNotifs(){
+  try{
+    const r=await fetch(API+'/notifications',{headers:H()});
+    if(r.ok){const d=await r.json();NOTIFS=d.notifications||[];}
+    if(NOTIFS.length){document.getElementById('bellDot')?.classList.add('show');}
+  }catch(_){}
+}
+
+window._refreshNotifs=async function(){await loadNotifs();renderNPList();};
+
+function openNP(){
+  document.getElementById('np').classList.add('show');
+  document.getElementById('bellDot').classList.remove('show');
+  renderNPList();
+}
+function closeNP(){document.getElementById('np').classList.remove('show')}
+
+function renderNPList(){
+  const el=document.getElementById('npList');if(!el)return;
+  if(!NOTIFS.length){el.innerHTML='<div class="empty" style="min-height:60px">No notifications yet</div>';return}
+  el.innerHTML=NOTIFS.map(n=>`
+    <div class="ni-item">
+      <div class="ni-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+      <div style="flex:1">
+        <div class="ni-title">${n.title||''}</div>
+        <div class="ni-msg">${n.message||''}</div>
+        <div class="ni-time">${n.created_at?new Date(n.created_at).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):''}</div>
+      </div>
+    </div>`).join('');
+}
+
+/* ── ROUTER ── */
 function showTab(tab,btn){
   curTab=tab;
   document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
   if(btn)btn.classList.add('active');
-  else{
-    const idx={home:0,attendance:1,marks:2,group:3,timetable:4,notify:5}[tab]??0;
-    document.querySelectorAll('.nav-tab')[idx]?.classList.add('active');
-  }
+  else{const idx={home:0,attendance:1,marks:2,group:3,timetable:4,notify:5}[tab]??0;document.querySelectorAll('.nav-tab')[idx]?.classList.add('active');}
   const el=document.getElementById('mainContent');
   if(tab==='home')el.innerHTML=renderHome();
   else if(tab==='attendance')el.innerHTML=renderAttendance();
@@ -392,18 +489,17 @@ function showTab(tab,btn){
   document.getElementById('scrollArea').scrollTop=0;
 }
 
-/* HOME */
+/* ══ HOME — Students List ══ */
 function renderHome(){
   const name=TD?.name||'Teacher';
   const present=Object.values(attState).filter(v=>v==='P').length;
   const absent=Object.values(attState).filter(v=>v==='A').length;
-  if(!CD) return`<div class="hero"><div class="hero-grid"></div><div class="hero-inner"><div class="hero-grt">Teacher</div><div class="hero-name">${name}</div></div></div><div style="padding:20px 16px"><div class="card" style="text-align:center;padding:28px;color:var(--b4)">No class assigned. Contact admin.</div></div>`;
-  const cls=CD.standard+(CD.section?' - '+CD.section:'');
+  if(!CD)return`<div class="hero"><div class="hero-grid"></div><div class="hero-inner"><div class="hero-grt">Teacher</div><div class="hero-name">${name}</div></div></div><div style="padding:20px 16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:24px;text-align:center;color:var(--b4)">No class assigned. Contact admin.</div></div>`;
   return`
   <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
     <div class="hero-grt">Class Teacher</div>
     <div class="hero-name">${name}</div>
-    <div class="hero-chips"><span class="hero-chip">${cls}</span><span class="hero-chip">${students.length} Students</span></div>
+    <div class="hero-chips"><span class="hero-chip">${CD.standard}${CD.section?' - '+CD.section:''}</span><span class="hero-chip">${students.length} Students</span></div>
   </div></div>
   <div class="stats-row">
     <div class="stat-tile"><div class="stat-val">${students.length}</div><div class="stat-lbl">Total</div></div>
@@ -412,7 +508,7 @@ function renderHome(){
   </div>
   <div class="sec">
     <div class="sec-title">My Students — tap for details</div>
-    ${!students.length?`<div class="empty">No students in your class</div>`:''}
+    ${!students.length?'<div class="empty">No students in your class</div>':''}
     ${students.map(s=>`
       <div class="si" onclick="openDetail(${s.id})">
         <div class="si-av">${ini(s.name)}</div>
@@ -420,24 +516,28 @@ function renderHome(){
           <div class="si-name">${s.name}</div>
           <div class="si-meta">Roll ${s.roll_no||'-'} • ${s.parent_phone||'No phone'}</div>
         </div>
-        <div style="display:flex;align-items:center;gap:8px;flex-shrink:0">
+        <div style="display:flex;align-items:center;gap:7px;flex-shrink:0">
           ${attState[s.id]==='P'?'<span class="badge-ok">P</span>':attState[s.id]==='A'?'<span class="badge-no">A</span>':''}
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--b3)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--b3)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
       </div>`).join('')}
   </div>`;
 }
 
-/* STUDENT DETAIL */
+/* ══ STUDENT DETAIL — with fees, marks, attendance ══ */
 function openDetail(id){
-  const s=students.find(x=>x.id===id); if(!s)return;
+  const s=students.find(x=>x.id===id);if(!s)return;
   document.getElementById('detailTitle').textContent=s.name;
+  const total=parseFloat(s.total_amount)||0;
+  const paid=parseFloat(s.paid_amount)||0;
+  const rem=parseFloat(s.remaining_amount)||Math.max(0,total-paid);
+  const feeStatus=s.fees_status||'pending';
   document.getElementById('detailBody').innerHTML=`
   <div style="padding:16px 16px 0">
-    <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px">
-      <div style="width:56px;height:56px;background:rgba(128,0,32,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:22px;color:var(--p);flex-shrink:0;font-weight:700">${ini(s.name)}</div>
+    <div style="display:flex;align-items:center;gap:13px;margin-bottom:16px">
+      <div style="width:54px;height:54px;background:var(--plt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:20px;color:var(--p);flex-shrink:0;font-weight:700">${ini(s.name)}</div>
       <div>
-        <div style="font-family:var(--ff);font-size:20px;font-weight:700;color:#1a1a1a">${s.name}</div>
+        <div style="font-family:var(--ff);font-size:19px;font-weight:700;color:#1a1a1a">${s.name}</div>
         <div style="font-size:12px;color:var(--b4);margin-top:2px">Roll ${s.roll_no||'-'} • ${CD?.standard||''}</div>
       </div>
     </div>
@@ -447,52 +547,57 @@ function openDetail(id){
     ${s.parent_phone?`<div class="info-row"><span class="info-lbl">Parent Phone</span><span class="info-val">${s.parent_phone}</span></div>`:''}
     ${s.phone?`<div class="info-row"><span class="info-lbl">Student Phone</span><span class="info-val">${s.phone}</span></div>`:''}
     ${s.dob?`<div class="info-row"><span class="info-lbl">Date of Birth</span><span class="info-val">${new Date(s.dob).toLocaleDateString('en-IN')}</span></div>`:''}
-    ${s.blood_group?`<div class="info-row"><span class="info-lbl">Blood Group</span><span class="info-val">${s.blood_group}</span></div>`:''}
     ${s.gender?`<div class="info-row"><span class="info-lbl">Gender</span><span class="info-val">${s.gender}</span></div>`:''}
+    ${s.blood_group?`<div class="info-row"><span class="info-lbl">Blood Group</span><span class="info-val">${s.blood_group}</span></div>`:''}
     ${s.address?`<div class="info-row"><span class="info-lbl">Address</span><span class="info-val" style="font-size:12px">${s.address}</span></div>`:''}
     <div class="info-row"><span class="info-lbl">Bus</span><span class="info-val">${s.has_bus?(s.bus_route?'Yes — '+s.bus_route:'Yes'):'No'}</span></div>
-    <div class="info-row"><span class="info-lbl">Fees Status</span><span class="info-val"><span class="${s.fees_status==='paid'?'badge-ok':s.fees_status==='partial'?'badge-ho':'badge-no'}">${s.fees_status||'pending'}</span></span></div>
-    <div class="info-row"><span class="info-lbl">Today's Attendance</span><span class="info-val">${attState[s.id]==='P'?'<span class="badge-ok">Present</span>':attState[s.id]==='A'?'<span class="badge-no">Absent</span>':'Not marked'}</span></div>
+    <div class="info-row"><span class="info-lbl">Today's Attendance</span><span class="info-val">${attState[s.id]==='P'?'<span class="badge-ok">Present</span>':'<span class="badge-no">Absent</span>'}</span></div>
+  </div>
+  <!-- FEES SECTION -->
+  <div style="margin:0 16px 12px">
+    <div style="font-family:var(--ff);font-size:15px;font-weight:700;color:var(--dp);margin-bottom:10px">Fees Details</div>
+    <div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);overflow:hidden">
+      <div class="info-row"><span class="info-lbl">Fees Status</span><span class="info-val"><span class="${feeStatus==='paid'?'badge-ok':feeStatus==='partial'?'badge-ho':'badge-no'}">${feeStatus}</span></span></div>
+      <div class="info-row"><span class="info-lbl">Total Fees</span><span class="info-val" style="color:var(--dp);font-family:var(--fm)">${fmtRs(total)}</span></div>
+      <div class="info-row"><span class="info-lbl">Amount Paid</span><span class="info-val" style="color:var(--green);font-family:var(--fm)">${fmtRs(paid)}</span></div>
+      <div class="info-row"><span class="info-lbl">Remaining</span><span class="info-val" style="color:${rem>0?'var(--red)':'var(--green)'};font-family:var(--fm)">${fmtRs(rem)}</span></div>
+    </div>
   </div>
   <div style="padding:0 16px;display:flex;gap:10px;flex-wrap:wrap">
-    <button style="padding:10px 18px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:13px;font-weight:700;cursor:pointer" onclick="closeDetail();showTab('attendance')">Mark Attendance</button>
-    <button style="padding:10px 18px;background:transparent;color:var(--p);border:1.5px solid var(--p);border-radius:var(--r);font-family:var(--fb);font-size:13px;font-weight:700;cursor:pointer" onclick="closeDetail();showTab('marks')">Enter Marks</button>
+    <button style="padding:9px 16px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:13px;font-weight:700;cursor:pointer" onclick="closeDetail();showTab('attendance')">Mark Attendance</button>
+    <button style="padding:9px 16px;background:transparent;color:var(--p);border:1.5px solid var(--p);border-radius:var(--r);font-family:var(--fb);font-size:13px;font-weight:700;cursor:pointer" onclick="closeDetail();showTab('marks')">Enter Marks</button>
   </div>`;
   document.getElementById('detailScreen').classList.add('show');
 }
-function closeDetail(){ document.getElementById('detailScreen').classList.remove('show') }
+function closeDetail(){document.getElementById('detailScreen').classList.remove('show')}
 
-/* ATTENDANCE */
+/* ══ ATTENDANCE ══ */
 function renderAttendance(){
-  if(!CD)return`<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--b4)">No class assigned</div></div>`;
-  if(!students.length)return`<div style="padding:20px 16px"><div class="empty">No students</div></div>`;
+  if(!CD)return`<div style="padding:20px 16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:20px;text-align:center;color:var(--b4)">No class assigned</div></div>`;
+  if(!students.length)return`<div style="padding:20px 16px"><div class="empty">No students in your class</div></div>`;
   const today=new Date().toISOString().slice(0,10);
   return`
   <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
     <div class="hero-grt">Attendance</div><div class="hero-name">${CD.standard}</div>
   </div></div>
-  <div style="padding:14px 16px">
+  <div style="padding:13px 16px">
     <div class="att-sheet">
       <div class="att-date-row">
         <div class="att-date-lbl">Date</div>
         <input type="date" class="date-inp" id="attDate" value="${today}">
-      </div>
-      <div class="att-actions">
-        <button style="padding:7px 16px;background:var(--green);color:var(--w);border:none;border-radius:8px;font-family:var(--fb);font-size:12px;font-weight:700;cursor:pointer" onclick="markAll('P')">All Present</button>
-        <button style="padding:7px 16px;background:var(--red);color:var(--w);border:none;border-radius:8px;font-family:var(--fb);font-size:12px;font-weight:700;cursor:pointer" onclick="markAll('A')">All Absent</button>
       </div>
       ${students.map(s=>{
         if(!attState[s.id])attState[s.id]='P';
         return`<div class="att-row">
           <div class="att-roll">${s.roll_no||'-'}</div>
           <div class="att-name">${s.name}</div>
-          <div class="att-tog" id="tog_${s.id}">
+          <div class="att-tog">
             <button class="att-btn ${attState[s.id]==='P'?'p-on':''}" id="btnP_${s.id}" onclick="setAtt(${s.id},'P')">P</button>
             <button class="att-btn ${attState[s.id]==='A'?'a-on':''}" id="btnA_${s.id}" onclick="setAtt(${s.id},'A')">A</button>
           </div>
         </div>`;
       }).join('')}
-      <button class="save-att-btn" id="saveAttBtn" onclick="saveAttendance()">
+      <button class="save-btn" id="saveAttBtn" onclick="saveAttendance()">
         Save Attendance (${students.length} students)
       </button>
     </div>
@@ -501,87 +606,68 @@ function renderAttendance(){
 
 function setAtt(sid,val){
   attState[sid]=val;
-  const pBtn=document.getElementById('btnP_'+sid);
-  const aBtn=document.getElementById('btnA_'+sid);
-  if(!pBtn||!aBtn)return;
-  if(val==='P'){pBtn.className='att-btn p-on';aBtn.className='att-btn';}
-  else{aBtn.className='att-btn a-on';pBtn.className='att-btn';}
-}
-
-function markAll(val){
-  students.forEach(s=>setAtt(s.id,val));
+  const pB=document.getElementById('btnP_'+sid);
+  const aB=document.getElementById('btnA_'+sid);
+  if(!pB||!aB)return;
+  if(val==='P'){pB.className='att-btn p-on';aB.className='att-btn';}
+  else{aB.className='att-btn a-on';pB.className='att-btn';}
 }
 
 async function saveAttendance(){
   const date=document.getElementById('attDate')?.value||new Date().toISOString().slice(0,10);
   const btn=document.getElementById('saveAttBtn');
   if(!btn)return;
-  btn.disabled=true; btn.textContent='Saving...';
-  /* POST /api/attendance/mark → {attendance_list:[{student_id,status}],date} */
-  const attendance_list=students.map(s=>({
-    student_id:s.id,
-    status:attState[s.id]==='A'?'absent':'present'
-  }));
+  btn.disabled=true;btn.textContent='Saving...';
+  const attendance_list=students.map(s=>({student_id:s.id,status:attState[s.id]==='A'?'absent':'present'}));
   try{
-    const res=await fetch(API+'/attendance/mark',{
-      method:'POST',headers:H(),
-      body:JSON.stringify({attendance_list,date})
-    });
+    const res=await fetch(API+'/attendance/mark',{method:'POST',headers:H(),body:JSON.stringify({attendance_list,date})});
     const d=await res.json().catch(()=>({}));
     if(res.ok){
-      showToast('Attendance saved!');
-      /* Send notification to absent students */
+      showToast('Attendance saved for '+students.length+' students!');
+      /* Auto notification — absent students */
       const absentList=students.filter(s=>attState[s.id]==='A');
       if(absentList.length>0&&CD){
-        const absentNames=absentList.map(s=>s.name).join(', ');
+        const names=absentList.map(s=>s.name).join(', ');
         await fetch(API+'/notifications/send',{
           method:'POST',headers:H(),
           body:JSON.stringify({
-            title:'Attendance Update — '+date,
-            message:absentNames.length<=40
-              ?`Absent students today: ${absentNames}`
-              :`${absentList.length} students marked absent today.`,
+            title:'Attendance — '+date,
+            message:absentList.length===1?`${absentList[0].name} absent today.`:`${absentList.length} students absent today: ${names.length>80?names.slice(0,80)+'...':names}`,
             target_type:'class',
             target_id:String(CD.id)
           })
         }).catch(()=>{});
       }
-    }else{
-      showToast(d.error||'Failed to save',true);
-    }
+    }else{showToast(d.error||'Failed to save',true);}
   }catch(e){showToast('Network error: '+e.message,true)}
   if(btn){btn.disabled=false;btn.textContent='Save Attendance ('+students.length+' students)';}
 }
 
-/* MARKS */
+/* ══ MARKS ══ */
 function renderMarks(){
-  if(!CD)return`<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--b4)">No class assigned</div></div>`;
+  if(!CD)return`<div style="padding:20px 16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:20px;text-align:center;color:var(--b4)">No class assigned</div></div>`;
   if(!students.length)return`<div style="padding:20px 16px"><div class="empty">No students</div></div>`;
   return`
   <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
-    <div class="hero-grt">Marks Entry</div>
-    <div class="hero-name">${CD.standard}</div>
+    <div class="hero-grt">Marks Entry</div><div class="hero-name">${CD.standard}</div>
     <div class="hero-chips"><span class="hero-chip">${students.length} students</span></div>
   </div></div>
-  <div style="padding:14px 16px">
-    <div class="card" style="margin-bottom:12px">
+  <div style="padding:13px 16px">
+    <div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px;margin-bottom:12px">
       <div class="fgl"><label>Subject *</label><input class="fi" id="mk_sub" placeholder="e.g. Mathematics, English, Science"></div>
       <div class="fgl"><label>Exam Type *</label>
         <select class="fi" id="mk_exam">
-          <option value="Unit Test 1">Unit Test 1</option>
-          <option value="Unit Test 2">Unit Test 2</option>
-          <option value="Mid Term">Mid Term</option>
-          <option value="Final Exam">Final Exam</option>
-          <option value="Class Test">Class Test</option>
-          <option value="Assignment">Assignment</option>
+          <option value="Unit Test 1">Unit Test 1</option><option value="Unit Test 2">Unit Test 2</option>
+          <option value="Mid Term">Mid Term</option><option value="Final Exam">Final Exam</option>
+          <option value="Class Test">Class Test</option><option value="Assignment">Assignment</option>
           <option value="Practical">Practical</option>
         </select>
       </div>
-      <div class="fgl"><label>Total Marks (apply to all)</label><input type="number" class="fi" id="mk_total" value="100" min="1" placeholder="100"></div>
-      <button style="padding:8px 16px;background:rgba(128,0,32,.08);border:1px solid rgba(128,0,32,.2);border-radius:8px;font-family:var(--fb);font-size:12px;font-weight:700;color:var(--p);cursor:pointer" onclick="applyTotal()">Apply to all students</button>
+      <div class="fgl"><label>Total Marks (apply to all)</label><input type="number" class="fi" id="mk_total" value="100" min="1"></div>
+      <button style="padding:7px 14px;background:var(--plt);border:1px solid rgba(128,0,32,.2);border-radius:8px;font-family:var(--fb);font-size:12px;font-weight:700;color:var(--p);cursor:pointer" onclick="applyTotal()">Apply to all students</button>
     </div>
-    <div class="card">
-      <div style="font-size:12px;color:var(--b5);margin-bottom:12px">Enter marks. Leave blank to skip that student.</div>
+    <div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px">
+      <div style="font-size:12px;color:var(--b5);margin-bottom:11px">Enter marks. Leave blank to skip that student.</div>
       ${students.map(s=>`
         <div class="mk-row">
           <div class="mk-av">${ini(s.name)}</div>
@@ -590,7 +676,7 @@ function renderMarks(){
           <span style="font-size:11px;color:var(--b4)">/</span>
           <input type="number" class="mk-of" id="mkO_${s.id}" data-sid="${s.id}" value="100" min="1" inputmode="numeric">
         </div>`).join('')}
-      <button class="save-att-btn" id="saveMarksBtn" onclick="saveMarks()" style="margin:14px 0 0 0;width:100%">Save Marks</button>
+      <button class="save-btn" id="saveMarksBtn" onclick="saveMarks()" style="margin:13px 0 0 0;width:100%">Save Marks</button>
     </div>
   </div>`;
 }
@@ -604,45 +690,31 @@ async function saveMarks(){
   const sub=document.getElementById('mk_sub')?.value.trim();
   const exam=document.getElementById('mk_exam')?.value||'Unit Test 1';
   if(!sub){showToast('Subject name likhao pehle',true);return}
-  const btn=document.getElementById('saveMarksBtn');
-  btn.disabled=true; btn.textContent='Saving...';
-  let saved=0, failed=0;
+  const btn=document.getElementById('saveMarksBtn');btn.disabled=true;btn.textContent='Saving...';
+  let saved=0,failed=0;
   for(const s of students){
-    const inp=document.getElementById('mkI_'+s.id);
-    const ofEl=document.getElementById('mkO_'+s.id);
+    const inp=document.getElementById('mkI_'+s.id);const ofEl=document.getElementById('mkO_'+s.id);
     if(!inp||inp.value.trim()==='')continue;
-    const obtained=parseInt(inp.value);
-    const total=parseInt(ofEl?.value)||100;
-    if(isNaN(obtained)||obtained<0){continue}
+    const obtained=parseInt(inp.value);const total=parseInt(ofEl?.value)||100;
+    if(isNaN(obtained)||obtained<0)continue;
     try{
-      /* POST /api/marks/update → {student_id,subject,marks_obtained,total_marks,exam_type} */
-      const res=await fetch(API+'/marks/update',{
-        method:'POST',headers:H(),
-        body:JSON.stringify({student_id:s.id,subject:sub,marks_obtained:obtained,total_marks:total,exam_type:exam})
-      });
-      if(res.ok)saved++;
-      else{const d=await res.json().catch(()=>({}));console.error('Marks error:',d);failed++;}
+      const res=await fetch(API+'/marks/update',{method:'POST',headers:H(),body:JSON.stringify({student_id:s.id,subject:sub,marks_obtained:obtained,total_marks:total,exam_type:exam})});
+      if(res.ok)saved++;else failed++;
     }catch(e){failed++;}
   }
-  if(saved>0){
-    showToast('Marks saved for '+saved+' student'+(saved>1?'s':'')+'!');
-    document.querySelectorAll('.mk-inp').forEach(el=>el.value='');
-  }else if(failed>0){
-    showToast('Failed — check subject & try again',true);
-  }else{
-    showToast('Koi marks enter nahi kiye',true);
-  }
-  btn.disabled=false; btn.textContent='Save Marks';
+  if(saved>0){showToast('Marks saved for '+saved+' student'+(saved>1?'s':'')+'!');document.querySelectorAll('.mk-inp').forEach(el=>el.value='');}
+  else if(failed>0)showToast('Failed — check subject & retry',true);
+  else showToast('Koi marks enter nahi kiye',true);
+  btn.disabled=false;btn.textContent='Save Marks';
 }
 
-/* GROUP */
-function renderPostCard(p){
-  return`
-  <div class="post-card">
+/* ══ GROUP ══ */
+function postCard(p){
+  return`<div class="post-card">
     <div class="post-head">
       <div class="post-av">${ini(p.posted_by_name||'T')}</div>
       <div><div class="post-author">${p.posted_by_name||'Teacher'}</div><div class="post-role">Teacher</div></div>
-      <div style="display:flex;align-items:center;gap:6px;margin-left:auto">
+      <div style="display:flex;align-items:center;gap:5px;margin-left:auto">
         <div class="post-time">${ago(p.created_at)}</div>
         <button class="del-post-btn" onclick="delPost(${p.id})">×</button>
       </div>
@@ -655,19 +727,19 @@ function renderPostCard(p){
 }
 
 function renderGroup(){
-  if(!CD)return`<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--b4)">No class assigned</div></div>`;
+  if(!CD)return`<div style="padding:20px 16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:20px;text-align:center;color:var(--b4)">No class assigned</div></div>`;
   return`
   <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
     <div class="hero-grt">Class Group</div><div class="hero-name">${CD.standard}</div>
   </div></div>
-  <div style="padding:14px 16px">
+  <div style="padding:13px 16px">
     <div class="composer">
       <textarea class="ctxt" id="postTxt" placeholder="Write something for your class..."></textarea>
-      <input class="fi" id="postVid" placeholder="Video link (optional)" style="margin-bottom:10px">
+      <input class="fi" id="postVid" placeholder="Video link (optional)" style="margin-bottom:9px">
       <button class="post-btn" id="postBtn" onclick="doPost()">Post to Class</button>
     </div>
     ${!posts.length?'<div class="empty">No posts yet</div>':''}
-    ${posts.map(p=>renderPostCard(p)).join('')}
+    ${posts.map(p=>postCard(p)).join('')}
   </div>`;
 }
 
@@ -675,18 +747,12 @@ async function doPost(){
   const txt=document.getElementById('postTxt')?.value.trim();
   const vid=document.getElementById('postVid')?.value.trim();
   if(!txt&&!vid){showToast('Kuch likho pehle',true);return}
-  const btn=document.getElementById('postBtn');
-  btn.disabled=true; btn.textContent='Posting...';
+  const btn=document.getElementById('postBtn');btn.disabled=true;btn.textContent='Posting...';
   try{
-    const res=await fetch(API+'/posts',{
-      method:'POST',headers:H(),
-      body:JSON.stringify({class_id:CD?.id,text_content:txt||null,video_link:vid||null})
-    });
+    const res=await fetch(API+'/posts',{method:'POST',headers:H(),body:JSON.stringify({class_id:CD?.id,text_content:txt||null,video_link:vid||null})});
     const d=await res.json().catch(()=>({}));
-    if(res.ok){
-      posts.unshift(d.post||{id:Date.now(),text_content:txt,video_link:vid,created_at:new Date().toISOString(),posted_by_name:TD?.name||'Teacher'});
-      showToast('Posted!'); showTab('group');
-    }else showToast(d.error||'Failed',true);
+    if(res.ok){posts.unshift(d.post||{id:Date.now(),text_content:txt,video_link:vid,created_at:new Date().toISOString(),posted_by_name:TD?.name||'Teacher'});showToast('Posted!');showTab('group');}
+    else showToast(d.error||'Failed',true);
   }catch(e){showToast('Network error',true)}
   if(btn){btn.disabled=false;btn.textContent='Post to Class';}
 }
@@ -700,73 +766,76 @@ async function delPost(id){
   }catch(e){showToast('Network error',true)}
 }
 
-/* TIMETABLE */
+/* ══ TIMETABLE — 9 periods ══ */
 async function loadTimetable(){
-  if(!CD){document.getElementById('mainContent').innerHTML='<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--b4)">No class assigned</div></div>';return}
+  if(!CD){document.getElementById('mainContent').innerHTML='<div style="padding:20px 16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:20px;text-align:center;color:var(--b4)">No class assigned</div></div>';return}
   let tt=[];
-  try{
-    const res=await fetch(API+'/timetable/'+CD.id,{headers:H()});
-    if(res.ok){const d=await res.json();tt=d.timetable||[];}
-  }catch(_){}
+  try{const res=await fetch(API+'/timetable/'+CD.id,{headers:H()});if(res.ok){const d=await res.json();tt=d.timetable||[];}}catch(_){}
   const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const ttMap={};tt.forEach(row=>ttMap[row.day]=row);
+  const PERIODS=9;
   document.getElementById('mainContent').innerHTML=`
   <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
     <div class="hero-grt">Timetable</div><div class="hero-name">${CD.standard}</div>
   </div></div>
-  <div style="padding:14px 16px">
-    <div style="font-size:12px;color:var(--b5);margin-bottom:10px">Edit and save your class timetable.</div>
+  <div style="padding:13px 16px">
+    <div style="font-size:12px;color:var(--b5);margin-bottom:10px">Edit subjects for each period and save.</div>
     <div class="tt-wrap">
       <table class="tt-table">
         <thead><tr>
-          <th>Day</th>${[1,2,3,4,5,6,7].map(n=>`<th>P${n}</th>`).join('')}
+          <th style="min-width:58px">Day</th>
+          ${Array.from({length:PERIODS},(_,i)=>`<th>P${i+1}</th>`).join('')}
         </tr></thead>
         <tbody>
-          ${days.map(day=>{
-            const row=ttMap[day]||{};
-            return`<tr>
-              <td style="padding:8px;font-weight:700;color:var(--p);white-space:nowrap">${day.slice(0,3)}</td>
-              ${[1,2,3,4,5,6,7].map(n=>`<td><input class="tt-inp" id="tt_${day}_${n}" value="${row['period_'+n]||''}" placeholder="—"></td>`).join('')}
-            </tr>`;
-          }).join('')}
+          ${days.map(day=>{const row=ttMap[day]||{};return`<tr>
+            <td style="padding:8px 7px;font-weight:700;color:var(--p);white-space:nowrap">${day.slice(0,3)}</td>
+            ${Array.from({length:PERIODS},(_,i)=>`<td><input class="tt-inp" id="tt_${day}_${i+1}" value="${row['period_'+(i+1)]||''}" placeholder="—"></td>`).join('')}
+          </tr>`;}).join('')}
         </tbody>
       </table>
     </div>
-    <button class="save-att-btn" id="saveTTBtn" onclick="saveTimetable()" style="width:100%;margin:0">Save Timetable</button>
+    <button class="save-btn" id="saveTTBtn" onclick="saveTimetable()" style="width:100%;margin:0">Save Timetable</button>
   </div>`;
 }
 
 async function saveTimetable(){
   if(!CD)return;
-  const btn=document.getElementById('saveTTBtn');
-  btn.disabled=true; btn.textContent='Saving...';
+  const btn=document.getElementById('saveTTBtn');btn.disabled=true;btn.textContent='Saving...';
   const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const PERIODS=9;
   let ok=0;
   for(const day of days){
-    const periods=[1,2,3,4,5,6,7].map(n=>document.getElementById(`tt_${day}_${n}`)?.value.trim()||'');
-    try{
-      const res=await fetch(API+'/timetable',{method:'POST',headers:H(),body:JSON.stringify({class_id:CD.id,day,periods})});
-      if(res.ok)ok++;
-    }catch(_){}
+    const periods=Array.from({length:PERIODS},(_,i)=>document.getElementById(`tt_${day}_${i+1}`)?.value.trim()||'');
+    try{const res=await fetch(API+'/timetable',{method:'POST',headers:H(),body:JSON.stringify({class_id:CD.id,day,periods})});if(res.ok)ok++;}catch(_){}
   }
   if(ok>0)showToast('Timetable saved!');
   else showToast('Failed',true);
-  btn.disabled=false; btn.textContent='Save Timetable';
+  btn.disabled=false;btn.textContent='Save Timetable';
 }
 
-/* NOTIFY */
+/* ══ NOTIFY ══ */
 function renderNotify(){
-  if(!CD)return`<div style="padding:20px 16px"><div class="card" style="text-align:center;padding:24px;color:var(--b4)">No class assigned</div></div>`;
+  if(!CD)return`<div style="padding:20px 16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:20px;text-align:center;color:var(--b4)">No class assigned</div></div>`;
   return`
   <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
     <div class="hero-grt">Notifications</div><div class="hero-name">${CD.standard}</div>
   </div></div>
-  <div style="padding:14px 16px">
+  <div style="padding:13px 16px">
     <div class="nf-card">
-      <div class="fgl"><label>Title *</label><input class="fi" id="nTitle" placeholder="e.g. Homework, Test tomorrow, Holiday..."></div>
-      <div class="fgl" style="margin-bottom:14px">
+      <div class="fgl"><label>Title *</label><input class="fi" id="nTitle" placeholder="e.g. Homework, Test tomorrow..."></div>
+      <div class="fgl" style="margin-bottom:13px">
         <label>Message *</label>
-        <textarea class="fi" id="nMsg" rows="4" style="resize:none;min-height:90px" placeholder="Write message for students and parents..."></textarea>
+        <textarea class="fi" id="nMsg" rows="4" style="resize:none;min-height:88px" placeholder="Write message for students and parents..."></textarea>
+      </div>
+      <!-- Recent notifications -->
+      <div id="ntHistory" style="margin-bottom:13px">
+        <div style="font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Recent Notifications</div>
+        ${!NOTIFS.length?'<div style="font-size:13px;color:var(--b4)">No notifications yet</div>':
+          NOTIFS.slice(0,5).map(n=>`<div style="border-bottom:1px solid var(--b1);padding:9px 0">
+            <div style="font-size:13px;font-weight:700;color:var(--dp);margin-bottom:2px">${n.title||''}</div>
+            <div style="font-size:12px;color:var(--b5)">${n.message||''}</div>
+            <div style="font-size:10px;color:var(--b3);margin-top:3px">${n.created_at?new Date(n.created_at).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):''}</div>
+          </div>`).join('')}
       </div>
       <button class="send-btn" id="sendBtn" onclick="sendNotif()">Send Notification to Class</button>
     </div>
@@ -777,22 +846,20 @@ async function sendNotif(){
   const title=document.getElementById('nTitle')?.value.trim();
   const msg=document.getElementById('nMsg')?.value.trim();
   if(!title||!msg){showToast('Title aur message daalo',true);return}
-  const btn=document.getElementById('sendBtn');
-  btn.disabled=true; btn.textContent='Sending...';
+  const btn=document.getElementById('sendBtn');btn.disabled=true;btn.textContent='Sending...';
   try{
-    /* POST /api/notifications/send → {title,message,target_type:'class',target_id} */
-    const res=await fetch(API+'/notifications/send',{
-      method:'POST',headers:H(),
-      body:JSON.stringify({title,message:msg,target_type:'class',target_id:String(CD?.id)})
-    });
+    const res=await fetch(API+'/notifications/send',{method:'POST',headers:H(),body:JSON.stringify({title,message:msg,target_type:'class',target_id:String(CD?.id)})});
     if(res.ok){
       showToast('Notification sent to class!');
-      document.getElementById('nTitle').value='';
-      document.getElementById('nMsg').value='';
+      document.getElementById('nTitle').value='';document.getElementById('nMsg').value='';
+      await loadNotifs();showTab('notify');
     }else{const d=await res.json().catch(()=>({}));showToast(d.error||'Failed',true);}
   }catch(e){showToast('Network error',true)}
-  btn.disabled=false; btn.textContent='Send Notification to Class';
+  if(btn){btn.disabled=false;btn.textContent='Send Notification to Class';}
 }
+
+/* Service Worker */
+if('serviceWorker'in navigator)navigator.serviceWorker.register('firebase-messaging-sw.js').catch(()=>{});
 </script>
 </body>
 </html>
