@@ -3,64 +3,67 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#ffffff">
-<title>Admin Panel — EduManage</title>
+<meta name="theme-color" content="#800020">
+<title>Admin Panel — Emmanuel School</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --black:#111;--white:#fff;--gray-50:#f9f9f9;--gray-100:#f0f0f0;--gray-200:#e5e5e5;--gray-300:#d4d4d4;--gray-400:#a3a3a3;--gray-500:#737373;--gray-600:#525252;--gray-700:#404040;
+  --maroon:#800020;--maroon-dk:#5c0018;--maroon-dp:#3d0010;--maroon-lt:rgba(128,0,32,.08);
+  --black:#111;--white:#fff;
+  --gray-50:#f9f9f9;--gray-100:#f0f0f0;--gray-200:#e5e5e5;--gray-300:#d4d4d4;--gray-400:#a3a3a3;--gray-500:#737373;--gray-600:#525252;--gray-700:#404040;
   --green:#1a7a4a;--green-light:#e8f5ee;--red:#c0392b;--red-light:#fdf0ef;--gold:#b8860b;--gold-light:#fdf8e8;
   --font-display:'Playfair Display',serif;--font-body:'Inter',sans-serif;--font-mono:'JetBrains Mono',monospace;
   --transition:all .2s ease;--shadow:0 4px 14px rgba(0,0,0,.08);--shadow-lg:0 10px 40px rgba(0,0,0,.15);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{display:flex;min-height:100vh;background:var(--gray-50);font-family:var(--font-body)}
-.sidebar{width:240px;background:var(--black);color:var(--white);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .3s ease;overflow-y:auto}
+.sidebar{width:240px;background:var(--maroon-dp);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:100;transition:transform .3s ease;overflow-y:auto}
 .sidebar-logo{padding:20px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:10px}
-.logo-mark{width:32px;height:32px;background:var(--white);color:var(--black);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0}
-.logo-name{font-family:var(--font-display);font-size:16px;font-weight:700}
-.logo-role{font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px}
+.logo-mark{width:32px;height:32px;background:var(--white);color:var(--maroon);border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;flex-shrink:0;overflow:hidden}
+.logo-mark img{width:100%;height:100%;object-fit:cover;display:block}
+.logo-name{font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--white)}
+.logo-role{font-size:10px;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:1px}
 .sidebar-nav{flex:1;padding:12px}
-.nav-group{font-size:10px;font-weight:600;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1.5px;padding:12px 8px 4px}
+.nav-group{font-size:10px;font-weight:600;color:rgba(255,255,255,.28);text-transform:uppercase;letter-spacing:1.5px;padding:12px 8px 4px}
 .nav-item{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border-radius:8px;border:none;background:transparent;color:rgba(255,255,255,.55);font-family:var(--font-body);font-size:13px;font-weight:500;cursor:pointer;text-align:left;transition:var(--transition);margin-bottom:2px}
 .nav-item:hover{background:rgba(255,255,255,.08);color:var(--white)}
-.nav-item.active{background:var(--white);color:var(--black);font-weight:600}
-.nav-item svg{width:16px;height:16px;stroke:currentColor;fill:none;flex-shrink:0}
+.nav-item.active{background:var(--white);color:var(--maroon);font-weight:700}
+.nav-item svg{width:16px;height:16px;stroke:currentColor;fill:none;flex-shrink:0;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .sidebar-footer{padding:16px;border-top:1px solid rgba(255,255,255,.08)}
 .admin-info{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.admin-avatar{width:34px;height:34px;background:rgba(255,255,255,.1);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;flex-shrink:0}
-.admin-name{font-size:13px;font-weight:600;color:var(--white)}
+.admin-avatar{width:34px;height:34px;background:rgba(255,255,255,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:var(--white);flex-shrink:0}
+.admin-name{font-size:13px;font-weight:600;color:var(--white);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .admin-code{font-size:10px;color:rgba(255,255,255,.3);font-family:var(--font-mono)}
 .logout-btn{width:100%;padding:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:rgba(255,255,255,.5);font-family:var(--font-body);font-size:12px;cursor:pointer;transition:var(--transition)}
 .logout-btn:hover{background:var(--red);border-color:var(--red);color:var(--white)}
 .main{margin-left:240px;flex:1;display:flex;flex-direction:column;min-width:0}
 .topbar{position:sticky;top:0;z-index:50;background:var(--white);border-bottom:1px solid var(--gray-200);padding:0 24px;height:58px;display:flex;align-items:center;justify-content:space-between}
-.topbar-title{font-family:var(--font-display);font-size:20px;font-weight:600}
-.topbar-right{display:flex;align-items:center;gap:12px}
+.topbar-title{font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--maroon-dp)}
 .live-pill{display:flex;align-items:center;gap:5px;padding:4px 12px;background:var(--green-light);border:1px solid rgba(26,122,74,.15);border-radius:100px;font-size:11px;font-weight:600;color:var(--green)}
 .live-dot{width:5px;height:5px;background:var(--green);border-radius:50%;animation:pulse 1.5s ease-in-out infinite}
-.hamburger{display:none;background:none;border:none;cursor:pointer;color:var(--black);padding:4px}
-.hamburger svg{width:22px;height:22px;stroke:currentColor;stroke-width:2;fill:none}
+.hamburger{display:none;background:none;border:none;cursor:pointer;color:var(--maroon);padding:4px}
+.hamburger svg{width:22px;height:22px;stroke:currentColor;stroke-width:2;fill:none;stroke-linecap:round}
+.sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:99}
 .page-content{padding:24px;flex:1}
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
 .stat-card{background:var(--white);border:1px solid var(--gray-200);border-radius:14px;padding:18px;transition:var(--transition);cursor:pointer}
-.stat-card:hover{border-color:var(--black);transform:translateY(-2px);box-shadow:var(--shadow)}
-.stat-icon{width:36px;height:36px;background:var(--gray-100);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
-.stat-icon svg{width:18px;height:18px;stroke:var(--black);fill:none}
-.stat-num{font-family:var(--font-display);font-size:28px;font-weight:700;line-height:1;margin-bottom:4px}
+.stat-card:hover{border-color:var(--maroon);transform:translateY(-2px);box-shadow:var(--shadow)}
+.stat-icon{width:36px;height:36px;background:var(--maroon-lt);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+.stat-icon svg{width:18px;height:18px;stroke:var(--maroon);fill:none;stroke-width:2;stroke-linecap:round}
+.stat-num{font-family:var(--font-display);font-size:28px;font-weight:700;line-height:1;margin-bottom:4px;color:var(--maroon-dp)}
 .stat-label{font-size:11px;color:var(--gray-400);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
 .two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .card{background:var(--white);border:1px solid var(--gray-200);border-radius:14px;padding:20px;margin-bottom:20px}
-.card-title{font-family:var(--font-display);font-size:17px;font-weight:600;margin-bottom:16px}
+.card-title{font-family:var(--font-display);font-size:17px;font-weight:600;margin-bottom:16px;color:var(--maroon-dp)}
 .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;gap:12px;flex-wrap:wrap}
 .tbl-wrap{overflow-x:auto}
 table{width:100%;border-collapse:collapse}
 thead{background:var(--gray-50)}
 th{padding:10px 14px;text-align:left;font-size:11px;color:var(--gray-400);text-transform:uppercase;letter-spacing:.8px;font-weight:600;white-space:nowrap;border-bottom:1px solid var(--gray-200)}
-td{padding:10px 14px;font-size:13px;border-bottom:1px solid var(--gray-100);vertical-align:middle}
+td{padding:10px 14px;font-size:13px;border-bottom:1px solid var(--gray-100);vertical-align:middle;color:var(--gray-700)}
 tr:last-child td{border-bottom:none}
-tr:hover td{background:var(--gray-50)}
+tr:hover td{background:#fdf5f7}
 .badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:100px;font-size:11px;font-weight:600}
 .b-green{background:var(--green-light);color:var(--green)}
 .b-red{background:var(--red-light);color:var(--red)}
@@ -68,75 +71,74 @@ tr:hover td{background:var(--gray-50)}
 .b-gray{background:var(--gray-100);color:var(--gray-600)}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 16px;border-radius:8px;border:none;font-family:var(--font-body);font-size:13px;font-weight:600;cursor:pointer;transition:var(--transition)}
 .btn:active{transform:scale(.97)}
-.btn-black{background:var(--black);color:var(--white)}
-.btn-black:hover{background:#333}
+.btn-maroon{background:var(--maroon);color:var(--white)}
+.btn-maroon:hover{background:var(--maroon-dk)}
 .btn-green{background:var(--green);color:var(--white)}
 .btn-red{background:var(--red);color:var(--white)}
 .btn-outline{background:transparent;border:1.5px solid var(--gray-200);color:var(--gray-700)}
-.btn-outline:hover{border-color:var(--black);color:var(--black)}
+.btn-outline:hover{border-color:var(--maroon);color:var(--maroon)}
 .btn-sm{padding:5px 12px;font-size:11px;border-radius:7px}
 .search-input{padding:9px 14px;border:1.5px solid var(--gray-200);border-radius:9px;font-family:var(--font-body);font-size:13px;color:var(--black);outline:none;transition:var(--transition);min-width:200px}
-.search-input:focus{border-color:var(--black)}
+.search-input:focus{border-color:var(--maroon)}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .fg{display:flex;flex-direction:column;gap:5px}
 .fg label{display:block;font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.8px;margin-bottom:2px}
 .fi{width:100%;padding:10px 13px;background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:9px;font-family:var(--font-body);font-size:13px;color:var(--black);outline:none;transition:var(--transition)}
-.fi:focus{border-color:var(--black);background:var(--white)}
+.fi:focus{border-color:var(--maroon);background:var(--white)}
 select.fi{-webkit-appearance:none}
 .filter-row{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;overflow-x:auto;padding-bottom:4px}
 .filter-btn{padding:6px 14px;border-radius:100px;border:1.5px solid var(--gray-200);background:var(--white);font-family:var(--font-body);font-size:12px;font-weight:600;color:var(--gray-500);cursor:pointer;transition:var(--transition);white-space:nowrap}
-.filter-btn.active{background:var(--black);border-color:var(--black);color:var(--white)}
+.filter-btn.active{background:var(--maroon);border-color:var(--maroon);color:var(--white)}
 .info-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
 .info-cell{background:var(--gray-50);border-radius:8px;padding:11px 13px}
 .info-cell-label{font-size:10px;color:var(--gray-400);text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-bottom:3px}
-.info-cell-val{font-size:13px;font-weight:600}
-.profile-row{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--gray-100)}
-.profile-av{width:64px;height:64px;background:var(--gray-100);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:26px;color:var(--gray-600);flex-shrink:0}
-.profile-name{font-family:var(--font-display);font-size:22px;font-weight:700}
-.profile-code{font-family:var(--font-mono);font-size:12px;color:var(--gray-400);margin-top:2px}
-.mark-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--gray-100)}
-.mark-row:last-child{border-bottom:none}
-.mark-sub{font-size:13px;font-weight:600;min-width:120px}
-.mark-bar-wrap{flex:1;height:4px;background:var(--gray-100);border-radius:2px;overflow:hidden}
-.mark-bar-fill{height:100%;background:var(--black);border-radius:2px;transition:width .3s ease}
-.mark-score{font-family:var(--font-mono);font-size:12px;font-weight:600;min-width:55px;text-align:right}
+.info-cell-val{font-size:13px;font-weight:600;color:var(--gray-700)}
 .fees-calc-box{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:10px;padding:14px;margin:12px 0;font-size:14px}
 .fees-calc-row{display:flex;justify-content:space-between;padding:4px 0}
-.fees-calc-label{color:var(--gray-500)}
-.fees-calc-val{font-weight:700;font-family:var(--font-mono)}
-.screenshot-img{width:100%;border-radius:8px;margin-top:8px;max-height:220px;object-fit:cover;border:1px solid var(--gray-200)}
+.profile-row{display:flex;align-items:center;gap:16px;margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid var(--gray-100)}
+.profile-av{width:64px;height:64px;background:var(--maroon-lt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:26px;color:var(--maroon);flex-shrink:0;font-weight:700}
+.profile-name{font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--maroon-dp)}
+.profile-code{font-family:var(--font-mono);font-size:12px;color:var(--gray-400);margin-top:2px}
 /* MODALS */
 .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:500;display:none;align-items:center;justify-content:center;padding:16px}
 .modal-overlay.show{display:flex}
 .modal-box{background:var(--white);border-radius:16px;padding:24px;width:100%;max-width:520px;max-height:92vh;overflow-y:auto;position:relative}
 .modal-box::-webkit-scrollbar{width:3px}
 .modal-box::-webkit-scrollbar-thumb{background:var(--gray-200);border-radius:3px}
-.modal-title{font-family:var(--font-display);font-size:20px;font-weight:700;margin-bottom:16px;padding-right:30px}
-.modal-close{position:absolute;top:16px;right:16px;background:var(--gray-100);border:none;cursor:pointer;color:var(--gray-600);width:28px;height:28px;border-radius:7px;font-size:16px;display:flex;align-items:center;justify-content:center}
+.modal-title{font-family:var(--font-display);font-size:20px;font-weight:700;margin-bottom:16px;padding-right:30px;color:var(--maroon-dp)}
+.modal-close{position:absolute;top:14px;right:14px;background:var(--gray-100);border:none;cursor:pointer;color:var(--gray-600);width:28px;height:28px;border-radius:7px;font-size:18px;display:flex;align-items:center;justify-content:center;line-height:1}
 .modal-close:hover{background:var(--red-light);color:var(--red)}
 .modal-footer{display:flex;gap:10px;margin-top:16px}
 .back-btn{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;background:var(--gray-100);border:none;border-radius:8px;font-family:var(--font-body);font-size:13px;color:var(--gray-600);cursor:pointer;margin-bottom:18px;transition:var(--transition)}
-.back-btn:hover{background:var(--gray-200);color:var(--black)}
+.back-btn:hover{background:var(--maroon-lt);color:var(--maroon)}
 .back-btn svg{width:14px;height:14px;stroke:currentColor;stroke-width:2;fill:none}
-/* GROUP POSTS */
+/* POSTS */
 .post-item{border:1px solid var(--gray-200);border-radius:10px;padding:14px;margin-bottom:10px}
 .post-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
-.post-author{font-size:13px;font-weight:700;color:var(--black)}
+.post-author{font-size:13px;font-weight:700;color:var(--maroon)}
 .post-time{font-size:11px;color:var(--gray-300)}
 .post-text{font-size:13px;color:var(--gray-600);line-height:1.6}
+/* CRED BOX */
+.cred-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.cred-item{background:var(--maroon-dp);border-radius:10px;padding:14px;text-align:center}
+.cred-label{font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.8px;font-weight:600;margin-bottom:6px}
+.cred-val{font-family:var(--font-mono);font-size:18px;font-weight:700;color:var(--white);word-break:break-all}
+.warn-box{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:10px 14px;font-size:12px;color:#5d4037;margin-bottom:12px}
+.err-box{background:var(--red-light);color:var(--red);padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:14px;display:none}
 .loading-state{display:flex;align-items:center;justify-content:center;min-height:300px;flex-direction:column;gap:14px}
-.spinner{width:28px;height:28px;border:2px solid var(--gray-200);border-top-color:var(--black);border-radius:50%;animation:spin .8s linear infinite}
+.spinner{width:28px;height:28px;border:2px solid var(--gray-200);border-top-color:var(--maroon);border-radius:50%;animation:spin .8s linear infinite}
 .empty-state{text-align:center;padding:40px;color:var(--gray-300)}
-.empty-state svg{width:40px;height:40px;stroke:var(--gray-200);fill:none;margin:0 auto 12px;display:block}
+.empty-state svg{width:40px;height:40px;stroke:var(--gray-200);fill:none;margin:0 auto 12px;display:block;stroke-width:2;stroke-linecap:round}
 .toast{position:fixed;bottom:24px;right:24px;padding:12px 20px;border-radius:10px;font-size:13px;font-weight:600;z-index:999;transform:translateY(60px);opacity:0;transition:all .3s ease;box-shadow:var(--shadow-lg);max-width:320px}
 .toast.show{transform:translateY(0);opacity:1}
-.toast-ok{background:var(--black);color:var(--white)}
+.toast-ok{background:var(--maroon-dp);color:var(--white)}
 .toast-err{background:var(--red);color:var(--white)}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 @media(max-width:900px){
   .sidebar{transform:translateX(-100%)}
   .sidebar.open{transform:translateX(0);box-shadow:4px 0 30px rgba(0,0,0,.2)}
+  .sb-overlay.open{display:block}
   .main{margin-left:0}
   .hamburger{display:flex}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
@@ -145,47 +147,46 @@ select.fi{-webkit-appearance:none}
   .page-content{padding:16px}
   .topbar{padding:0 16px}
   .info-grid{grid-template-columns:1fr}
+  .cred-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
-<script>
-/* AUTH CHECK */
-(function(){
-  const token=sessionStorage.getItem('admin_token')||sessionStorage.getItem('edu_token')||localStorage.getItem('edu_token');
-  if(!token)window.location.href='login.html';
-})();
-</script>
+<script>(function(){if(!sessionStorage.getItem('admin_token')&&!sessionStorage.getItem('edu_token')&&!localStorage.getItem('edu_token'))window.location.href='login.html'})();</script>
+
+<div class="sb-overlay" id="sbOverlay" onclick="closeSB()"></div>
 
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-logo">
-    <div class="logo-mark">E</div>
+    <div class="logo-mark">
+      <img src="logo.webp" alt="E" onerror="this.style.display='none';this.parentNode.textContent='E'">
+    </div>
     <div><div class="logo-name">Emmanuel School</div><div class="logo-role">Admin Panel</div></div>
   </div>
   <nav class="sidebar-nav">
     <div class="nav-group">Overview</div>
-    <button class="nav-item active" onclick="goto('dashboard',this)"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</button>
+    <button class="nav-item active" onclick="goto('dashboard',this)"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</button>
     <div class="nav-group">Students</div>
-    <button class="nav-item" onclick="goto('students',this)"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>All Students</button>
-    <button class="nav-item" onclick="goto('addStudent',this)"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Student</button>
-    <button class="nav-item" onclick="goto('promote',this)"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><polyline points="18 15 12 9 6 15"/></svg>Promote Class</button>
-    <button class="nav-item" onclick="goto('passout',this)"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg>Passout Students</button>
+    <button class="nav-item" onclick="goto('students',this)"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>All Students</button>
+    <button class="nav-item" onclick="goto('addStudent',this)"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Student</button>
+    <button class="nav-item" onclick="goto('promote',this)"><svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>Promote Class</button>
+    <button class="nav-item" onclick="goto('passout',this)"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg>Passout Students</button>
     <div class="nav-group">Teachers</div>
-    <button class="nav-item" onclick="goto('teachers',this)"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>All Teachers</button>
-    <button class="nav-item" onclick="goto('addTeacher',this)"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Teacher</button>
+    <button class="nav-item" onclick="goto('teachers',this)"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>All Teachers</button>
+    <button class="nav-item" onclick="goto('addTeacher',this)"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>Add Teacher</button>
     <div class="nav-group">Finance</div>
-    <button class="nav-item" onclick="goto('fees',this)"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>Fee Management</button>
-    <button class="nav-item" onclick="goto('payments',this)"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Payment Requests</button>
+    <button class="nav-item" onclick="goto('fees',this)"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>Fee Management</button>
+    <button class="nav-item" onclick="goto('payments',this)"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>Payment Requests</button>
     <div class="nav-group">Communication</div>
-    <button class="nav-item" onclick="goto('notify',this)"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Send Notification</button>
+    <button class="nav-item" onclick="goto('notify',this)"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>Send Notification</button>
     <div class="nav-group">School</div>
-    <button class="nav-item" onclick="goto('classes',this)"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Classes</button>
-    <button class="nav-item" onclick="goto('timetable',this)"><svg viewBox="0 0 24 24" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Timetable</button>
+    <button class="nav-item" onclick="goto('classes',this)"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>Classes &amp; Groups</button>
+    <button class="nav-item" onclick="goto('timetable',this)"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Timetable</button>
   </nav>
   <div class="sidebar-footer">
     <div class="admin-info">
       <div class="admin-avatar" id="adminAv">A</div>
-      <div><div class="admin-name" id="adminName">Administrator</div><div class="admin-code" id="adminCode">--</div></div>
+      <div style="min-width:0"><div class="admin-name" id="adminName">Administrator</div><div class="admin-code" id="adminCode">--</div></div>
     </div>
     <button class="logout-btn" onclick="doLogout()">Logout</button>
   </div>
@@ -194,62 +195,65 @@ select.fi{-webkit-appearance:none}
 <main class="main">
   <div class="topbar">
     <div style="display:flex;align-items:center;gap:14px">
-      <button class="hamburger" onclick="toggleSidebar()">
-        <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
+      <button class="hamburger" onclick="openSB()"><svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
       <div class="topbar-title" id="pageTitle">Dashboard</div>
     </div>
-    <div class="topbar-right">
-      <div class="live-pill"><div class="live-dot"></div>Live</div>
-    </div>
+    <div class="live-pill"><div class="live-dot"></div>Live</div>
   </div>
   <div class="page-content" id="pageContent">
     <div class="loading-state"><div class="spinner"></div></div>
   </div>
 </main>
 
+<!-- VIEW STUDENT MODAL -->
+<div class="modal-overlay" id="moVS">
+  <div class="modal-box" style="max-width:580px">
+    <button class="modal-close" onclick="closeMo('moVS')">×</button>
+    <div class="modal-title" id="vsTitle">Student Details</div>
+    <div id="vsBody"></div>
+    <div class="modal-footer">
+      <button class="btn btn-maroon" id="vsEditBtn">Edit Student</button>
+      <button class="btn btn-outline" onclick="closeMo('moVS')">Close</button>
+    </div>
+  </div>
+</div>
+
 <!-- EDIT STUDENT MODAL -->
-<div class="modal-overlay" id="editStudentModal">
+<div class="modal-overlay" id="moES">
   <div class="modal-box" style="max-width:600px">
-    <button class="modal-close" onclick="closeModal('editStudentModal')">×</button>
+    <button class="modal-close" onclick="closeMo('moES')">×</button>
     <div class="modal-title">Edit Student</div>
-    <div class="ebox" id="esErr" style="display:none;background:var(--red-light);color:var(--red);padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:14px"></div>
+    <div class="err-box" id="esErr"></div>
     <input type="hidden" id="esId">
     <div class="form-grid">
       <div class="fg"><label>Full Name</label><input class="fi" id="esName" placeholder="Name"></div>
       <div class="fg"><label>New Password</label>
-        <div style="position:relative">
-          <input class="fi" type="password" id="esPass" placeholder="Leave blank = no change" style="padding-right:40px">
-          <button type="button" onclick="togglePw('esPass')" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--gray-400)">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
-        </div>
+        <div style="position:relative"><input class="fi" type="password" id="esPass" placeholder="Leave blank = no change" style="padding-right:38px">
+        <button type="button" onclick="togglePw('esPass')" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--gray-400)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
       </div>
       <div class="fg"><label>Class</label>
-        <select class="fi" id="esCls">
-          <option value="">Select</option>
+        <select class="fi" id="esCls"><option value="">Select</option>
           <option>Nursery</option><option>LKG</option><option>UKG</option>
           <option>Class 1</option><option>Class 2</option><option>Class 3</option><option>Class 4</option><option>Class 5</option>
           <option>Class 6</option><option>Class 7</option><option>Class 8</option><option>Class 9</option><option>Class 10</option>
         </select>
       </div>
-      <div class="fg"><label>Roll No</label><input class="fi" type="number" id="esRoll" placeholder="Roll"></div>
-      <div class="fg"><label>Parent Name</label><input class="fi" id="esPar" placeholder="Parent name"></div>
-      <div class="fg"><label>Parent Phone</label><input class="fi" id="esPh" placeholder="Parent phone"></div>
-      <div class="fg"><label>Address</label><input class="fi" id="esAddr" placeholder="Address"></div>
+      <div class="fg"><label>Roll No</label><input class="fi" type="number" id="esRoll"></div>
+      <div class="fg"><label>Parent Name</label><input class="fi" id="esPar"></div>
+      <div class="fg"><label>Parent Phone</label><input class="fi" id="esPh"></div>
+      <div class="fg"><label>Address</label><input class="fi" id="esAddr"></div>
       <div class="fg"><label>Blood Group</label>
-        <select class="fi" id="esBld">
-          <option value="">Select</option>
+        <select class="fi" id="esBld"><option value="">Select</option>
           <option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option>
         </select>
       </div>
       <div class="fg"><label>Bus</label>
         <select class="fi" id="esBus"><option value="false">No</option><option value="true">Yes</option></select>
       </div>
-      <div class="fg"><label>Bus Route</label><input class="fi" id="esRoute" placeholder="Route"></div>
+      <div class="fg"><label>Bus Route</label><input class="fi" id="esRoute"></div>
     </div>
     <div style="padding:14px;background:var(--gray-50);border-radius:10px;margin-top:4px">
-      <div style="font-size:12px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">Fees</div>
+      <div style="font-size:11px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">Fees</div>
       <div class="form-grid">
         <div class="fg"><label>Total Fees (Rs)</label><input class="fi" type="number" id="esTf" oninput="calcESFees()"></div>
         <div class="fg"><label>Paid Fees (Rs)</label><input class="fi" type="number" id="esPf" oninput="calcESFees()"></div>
@@ -260,34 +264,29 @@ select.fi{-webkit-appearance:none}
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-black" style="flex:1" onclick="saveEditStudent()">Save Changes</button>
-      <button class="btn btn-outline" onclick="closeModal('editStudentModal')">Cancel</button>
+      <button class="btn btn-maroon" style="flex:1" id="esSaveBtn" onclick="saveEditStudent()">Save Changes</button>
+      <button class="btn btn-outline" onclick="closeMo('moES')">Cancel</button>
     </div>
   </div>
 </div>
 
 <!-- EDIT TEACHER MODAL -->
-<div class="modal-overlay" id="editTeacherModal">
+<div class="modal-overlay" id="moET">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('editTeacherModal')">×</button>
+    <button class="modal-close" onclick="closeMo('moET')">×</button>
     <div class="modal-title">Edit Teacher</div>
-    <div class="ebox" id="etErr" style="display:none;background:var(--red-light);color:var(--red);padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:14px"></div>
+    <div class="err-box" id="etErr"></div>
     <input type="hidden" id="etId">
     <div class="form-grid">
-      <div class="fg"><label>Full Name</label><input class="fi" id="etName" placeholder="Name"></div>
+      <div class="fg"><label>Full Name</label><input class="fi" id="etName"></div>
       <div class="fg"><label>New Password</label>
-        <div style="position:relative">
-          <input class="fi" type="password" id="etPass" placeholder="Leave blank = no change" style="padding-right:40px">
-          <button type="button" onclick="togglePw('etPass')" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--gray-400)">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-          </button>
-        </div>
+        <div style="position:relative"><input class="fi" type="password" id="etPass" placeholder="Leave blank = no change" style="padding-right:38px">
+        <button type="button" onclick="togglePw('etPass')" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--gray-400)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
       </div>
-      <div class="fg"><label>Phone</label><input class="fi" id="etPh" placeholder="Phone"></div>
-      <div class="fg"><label>Subject</label><input class="fi" id="etSub" placeholder="e.g. Mathematics"></div>
+      <div class="fg"><label>Phone</label><input class="fi" id="etPh"></div>
+      <div class="fg"><label>Subject</label><input class="fi" id="etSub"></div>
       <div class="fg"><label>Assign Class</label>
-        <select class="fi" id="etCls">
-          <option value="">None</option>
+        <select class="fi" id="etCls"><option value="">None</option>
           <option>Nursery</option><option>LKG</option><option>UKG</option>
           <option>Class 1</option><option>Class 2</option><option>Class 3</option><option>Class 4</option><option>Class 5</option>
           <option>Class 6</option><option>Class 7</option><option>Class 8</option><option>Class 9</option><option>Class 10</option>
@@ -295,114 +294,90 @@ select.fi{-webkit-appearance:none}
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-black" style="flex:1" onclick="saveEditTeacher()">Save Changes</button>
-      <button class="btn btn-outline" onclick="closeModal('editTeacherModal')">Cancel</button>
+      <button class="btn btn-maroon" style="flex:1" id="etSaveBtn" onclick="saveEditTeacher()">Save Changes</button>
+      <button class="btn btn-outline" onclick="closeMo('moET')">Cancel</button>
     </div>
   </div>
 </div>
 
 <!-- FEES MODAL -->
-<div class="modal-overlay" id="feesModal">
+<div class="modal-overlay" id="moFees">
   <div class="modal-box">
-    <button class="modal-close" onclick="closeModal('feesModal')">×</button>
+    <button class="modal-close" onclick="closeMo('moFees')">×</button>
     <div class="modal-title">Update Fees</div>
-    <div id="feesModalStudent" style="font-size:14px;color:var(--gray-500);margin-bottom:16px"></div>
+    <div id="fmStudName" style="font-size:14px;color:var(--gray-500);margin-bottom:16px"></div>
     <input type="hidden" id="fmStudId">
     <div class="form-grid">
-      <div class="fg"><label>Total Fees (Rs.)</label><input class="fi" id="fmTotal" type="number" placeholder="e.g. 22000" oninput="calcFeesModal()"></div>
-      <div class="fg"><label>Amount Paid (Rs.)</label><input class="fi" id="fmPaid" type="number" placeholder="e.g. 12000" oninput="calcFeesModal()"></div>
+      <div class="fg"><label>Total Fees (Rs.)</label><input class="fi" id="fmTotal" type="number" oninput="calcFeesModal()"></div>
+      <div class="fg"><label>Amount Paid (Rs.)</label><input class="fi" id="fmPaid" type="number" oninput="calcFeesModal()"></div>
     </div>
     <div class="fees-calc-box" id="feesCalcBox" style="display:none">
       <div class="fees-calc-row"><span style="color:var(--gray-500)">Total Fees</span><span style="font-weight:700;font-family:var(--font-mono)" id="fcTotal">Rs. 0</span></div>
-      <div class="fees-calc-row"><span style="color:var(--gray-500)">Amount Paid</span><span style="font-weight:700;font-family:var(--font-mono);color:var(--green)" id="fcPaid">Rs. 0</span></div>
-      <div class="fees-calc-row" style="border-top:1px solid var(--gray-200);margin-top:6px;padding-top:6px"><span style="color:var(--gray-500)">Remaining</span><span style="font-weight:700;font-family:var(--font-mono);color:var(--red)" id="fcRemaining">Rs. 0</span></div>
+      <div class="fees-calc-row"><span style="color:var(--gray-500)">Paid</span><span style="font-weight:700;font-family:var(--font-mono);color:var(--green)" id="fcPaid">Rs. 0</span></div>
+      <div class="fees-calc-row" style="border-top:1px solid var(--gray-200);margin-top:6px;padding-top:6px"><span style="color:var(--gray-500)">Remaining</span><span style="font-weight:700;font-family:var(--font-mono)" id="fcRem">Rs. 0</span></div>
       <div class="fees-calc-row"><span style="color:var(--gray-500)">Status</span><span style="font-weight:700" id="fcStatus">Pending</span></div>
     </div>
     <div class="modal-footer">
-      <button class="btn btn-black" style="flex:1" onclick="saveFeesModal()">Save Fees</button>
-      <button class="btn btn-outline" onclick="closeModal('feesModal')">Cancel</button>
+      <button class="btn btn-maroon" style="flex:1" onclick="saveFeesModal()">Save Fees</button>
+      <button class="btn btn-outline" onclick="closeMo('moFees')">Cancel</button>
     </div>
   </div>
 </div>
 
-<!-- VIEW STUDENT MODAL -->
-<div class="modal-overlay" id="viewStudentModal">
-  <div class="modal-box" style="max-width:580px">
-    <button class="modal-close" onclick="closeModal('viewStudentModal')">×</button>
-    <div class="modal-title" id="vsTitle">Student Details</div>
-    <div id="vsBody"></div>
-    <div class="modal-footer">
-      <button class="btn btn-black" id="vsEditBtn">Edit Student</button>
-      <button class="btn btn-outline" onclick="closeModal('viewStudentModal')">Close</button>
+<!-- SUCCESS MODAL -->
+<div class="modal-overlay" id="moOK">
+  <div class="modal-box" style="max-width:420px;text-align:center">
+    <div style="width:52px;height:52px;background:var(--green-light);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
     </div>
+    <div style="font-family:var(--font-display);font-size:20px;font-weight:700;margin-bottom:6px;color:var(--maroon-dp)" id="okTitle">Done!</div>
+    <div style="font-size:13px;color:var(--gray-400);margin-bottom:12px" id="okSub"></div>
+    <div class="cred-grid"><div class="cred-item"><div class="cred-label">Login Code</div><div class="cred-val" id="okCode">--</div></div><div class="cred-item"><div class="cred-label">Password</div><div class="cred-val" id="okPass">--</div></div></div>
+    <div id="okExtra"></div>
+    <div class="warn-box">Screenshot lo — password baad mein nahi milega.</div>
+    <button class="btn btn-maroon" style="width:100%" onclick="closeMo('moOK')">Done</button>
   </div>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-/* ══════════════════════════════════════
-   API CONFIG — correct backend URL
-══════════════════════════════════════ */
 const API = 'https://edumanage-backend-xi.vercel.app/api';
 
-/* ── AUTH ── */
-function getToken(){
-  return sessionStorage.getItem('admin_token')||sessionStorage.getItem('edu_token')||localStorage.getItem('edu_token')||'';
-}
+function getToken(){return sessionStorage.getItem('admin_token')||sessionStorage.getItem('edu_token')||localStorage.getItem('edu_token')||'';}
+function H(){return{'Content-Type':'application/json','Authorization':'Bearer '+getToken()}}
+function openSB(){document.getElementById('sidebar').classList.add('open');document.getElementById('sbOverlay').classList.add('open')}
+function closeSB(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sbOverlay').classList.remove('open')}
+function closeMo(id){document.getElementById(id).classList.remove('show')}
+function openMo(id){document.getElementById(id).classList.add('show')}
+function togglePw(id){const i=document.getElementById(id);i.type=i.type==='password'?'text':'password'}
+function doLogout(){sessionStorage.clear();localStorage.removeItem('edu_token');localStorage.removeItem('edu_user');window.location.href='login.html'}
+function iCell(l,v){return`<div class="info-cell"><div class="info-cell-label">${l}</div><div class="info-cell-val">${v||'N/A'}</div></div>`}
+function fmtRs(n){return'Rs. '+(parseInt(n||0)).toLocaleString('en-IN')}
+function fDate(ts){if(!ts)return'-';return new Date(ts).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}
+function ini(n){if(!n)return'?';return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}
 
-/* Load admin info */
+let toastT;
+function showToast(msg,type='ok'){const t=document.getElementById('toast');t.textContent=msg;t.className=`toast show toast-${type}`;clearTimeout(toastT);toastT=setTimeout(()=>t.className='toast',3200)}
+
+/* ── SET ADMIN INFO ── */
 (function(){
-  const name=sessionStorage.getItem('admin_name')||'Administrator';
-  const code=sessionStorage.getItem('admin_code')||'--';
-  document.getElementById('adminName').textContent=name;
-  document.getElementById('adminCode').textContent=code;
-  document.getElementById('adminAv').textContent=name.charAt(0).toUpperCase();
+  const n=sessionStorage.getItem('admin_name')||'Administrator';
+  const c=sessionStorage.getItem('admin_code')||'--';
+  document.getElementById('adminName').textContent=n;
+  document.getElementById('adminCode').textContent=c;
+  document.getElementById('adminAv').textContent=n.charAt(0).toUpperCase();
 })();
 
 const CLASSES=['Nursery','LKG','UKG','Class 1','Class 2','Class 3','Class 4','Class 5','Class 6','Class 7','Class 8','Class 9','Class 10'];
-const SUBJECTS=['Math','Science','English','Hindi','Social Science','Marathi'];
-
 let allStudents=[],allTeachers=[],allClasses=[];
-let editingStudentId=null,editingTeacherId=null,editingFeesStudentId=null;
 
-/* ── UTILS ── */
-function H(){return{'Content-Type':'application/json','Authorization':'Bearer '+getToken()}}
-function toggleSidebar(){document.getElementById('sidebar').classList.toggle('open')}
-function doLogout(){sessionStorage.clear();localStorage.removeItem('edu_token');localStorage.removeItem('edu_user');window.location.href='login.html'}
-function closeModal(id){document.getElementById(id).classList.remove('show')}
-function togglePw(id){const i=document.getElementById(id);i.type=i.type==='password'?'text':'password'}
-function iCell(label,val){return`<div class="info-cell"><div class="info-cell-label">${label}</div><div class="info-cell-val">${val||'N/A'}</div></div>`}
-function formatDate(ts){if(!ts)return'-';return new Date(ts).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}
-function fmtRs(n){return'Rs. '+(parseInt(n||0)).toLocaleString('en-IN')}
+/* ── API ── */
+async function apiGet(path){const r=await fetch(API+path,{headers:H()});if(r.status===401){doLogout();return null}return r.json()}
+async function apiPost(path,body){const r=await fetch(API+path,{method:'POST',headers:H(),body:JSON.stringify(body)});return r.json()}
+async function apiPut(path,body){const r=await fetch(API+path,{method:'PUT',headers:H(),body:JSON.stringify(body)});return r.json()}
+async function apiDel(path){const r=await fetch(API+path,{method:'DELETE',headers:H()});return r.json()}
 
-let toastT;
-function showToast(msg,type='ok'){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.className=`toast show toast-${type}`;
-  clearTimeout(toastT);toastT=setTimeout(()=>t.className='toast',3200);
-}
-
-/* ── API HELPERS ── */
-async function apiGet(path){
-  const res=await fetch(API+path,{headers:H()});
-  if(res.status===401){doLogout();return null}
-  return res.json();
-}
-async function apiPost(path,body){
-  const res=await fetch(API+path,{method:'POST',headers:H(),body:JSON.stringify(body)});
-  return res.json();
-}
-async function apiPut(path,body){
-  const res=await fetch(API+path,{method:'PUT',headers:H(),body:JSON.stringify(body)});
-  return res.json();
-}
-async function apiDel(path){
-  const res=await fetch(API+path,{method:'DELETE',headers:H()});
-  return res.json();
-}
-
-/* ── FRESH STUDENT FETCH ── */
 async function getStudent(id){
   id=String(id);
   let s=allStudents.find(x=>String(x.id)===id);
@@ -412,149 +387,142 @@ async function getStudent(id){
   return null;
 }
 
+async function fetchClasses(){
+  try{const d=await apiGet('/teachers/classes');if(d?.classes)allClasses=d.classes;}catch(e){}
+}
+
 /* ── NAV ── */
+const TITLES={dashboard:'Dashboard',students:'All Students',addStudent:'Add Student',promote:'Promote Class',passout:'Passout Students',teachers:'All Teachers',addTeacher:'Add Teacher',fees:'Fee Management',payments:'Payment Requests',notify:'Send Notification',classes:'Classes & Groups',timetable:'Timetable'};
+
 function goto(page,btn){
   document.querySelectorAll('.nav-item').forEach(b=>b.classList.remove('active'));
   if(btn)btn.classList.add('active');
-  const titles={dashboard:'Dashboard',students:'All Students',addStudent:'Add Student',promote:'Promote Class',passout:'Passout Students',teachers:'All Teachers',addTeacher:'Add Teacher',fees:'Fee Management',payments:'Payment Requests',notify:'Send Notification',classes:'Classes Overview',timetable:'Timetable'};
-  document.getElementById('pageTitle').textContent=titles[page]||page;
-  if(window.innerWidth<=900)document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('pageTitle').textContent=TITLES[page]||page;
+  closeSB();
   renderPage(page);
 }
 
-function renderPage(page){
-  if(page==='dashboard')renderDashboard();
-  else if(page==='students')renderStudents();
-  else if(page==='addStudent')renderAddStudent();
-  else if(page==='promote')renderPromote();
-  else if(page==='passout')renderPassout();
-  else if(page==='teachers')renderTeachers();
-  else if(page==='addTeacher')renderAddTeacher();
-  else if(page==='fees')renderFees();
-  else if(page==='payments')renderPayments();
-  else if(page==='notify')renderNotify();
-  else if(page==='classes')renderClasses();
-  else if(page==='timetable')renderTimetable();
+function renderPage(p){
+  const map={dashboard:loadDash,students:loadStudents,addStudent:showAddStudent,promote:showPromote,passout:showPassout,teachers:loadTeachers,addTeacher:showAddTeacher,fees:loadFees,payments:loadPayments,notify:showNotify,classes:loadClasses,timetable:showTimetable};
+  if(map[p])map[p]();
 }
 
-/* ══════════════════════════
+function showOK(title,sub,code,pass,extra){
+  document.getElementById('okTitle').textContent=title;
+  document.getElementById('okSub').textContent=sub||'';
+  document.getElementById('okCode').textContent=code||'--';
+  document.getElementById('okPass').textContent=pass||'--';
+  document.getElementById('okExtra').innerHTML=extra||'';
+  openMo('moOK');
+}
+
+/* ════════════════════════════
    DASHBOARD
-══════════════════════════ */
-async function renderDashboard(){
+════════════════════════════ */
+async function loadDash(){
   const c=document.getElementById('pageContent');
   c.innerHTML=`<div class="loading-state"><div class="spinner"></div></div>`;
   try{
     const [sd,td,fd]=await Promise.all([apiGet('/students'),apiGet('/teachers'),apiGet('/fees/stats')]);
     allStudents=sd?.students||[];allTeachers=td?.teachers||[];
-    const stats=fd?.stats||{};
+    const st=fd?.stats||{};
     c.innerHTML=`
     <div class="stats-grid">
-      <div class="stat-card" onclick="goto('students',document.querySelectorAll('.nav-item')[1])">
-        <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+      <div class="stat-card" onclick="goto('students',null)">
+        <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
         <div class="stat-num">${allStudents.length}</div><div class="stat-label">Total Students</div>
       </div>
-      <div class="stat-card" onclick="goto('teachers',document.querySelectorAll('.nav-item')[6])">
-        <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+      <div class="stat-card" onclick="goto('teachers',null)">
+        <div class="stat-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
         <div class="stat-num">${allTeachers.length}</div><div class="stat-label">Teachers</div>
       </div>
-      <div class="stat-card" onclick="goto('fees',document.querySelectorAll('.nav-item')[9])">
-        <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <div class="stat-num" style="color:var(--green)">${stats.paid||0}</div><div class="stat-label">Fees Paid</div>
+      <div class="stat-card" onclick="goto('fees',null)">
+        <div class="stat-icon"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div class="stat-num" style="color:var(--green)">${st.paid||0}</div><div class="stat-label">Fees Paid</div>
       </div>
-      <div class="stat-card" onclick="goto('fees',document.querySelectorAll('.nav-item')[9])">
-        <div class="stat-icon"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
-        <div class="stat-num" style="color:var(--red)">${stats.pending||0}</div><div class="stat-label">Fees Pending</div>
+      <div class="stat-card" onclick="goto('fees',null)">
+        <div class="stat-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+        <div class="stat-num" style="color:var(--red)">${st.pending||0}</div><div class="stat-label">Fees Pending</div>
       </div>
-    </div>
-    <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
-      <div class="stat-card"><div class="stat-label" style="margin-bottom:8px">Total Collected</div><div class="stat-num" style="font-size:22px;color:var(--green)">${fmtRs(stats.total_paid)}</div></div>
-      <div class="stat-card"><div class="stat-label" style="margin-bottom:8px">Total Pending</div><div class="stat-num" style="font-size:22px;color:var(--red)">${fmtRs(stats.total_remaining)}</div></div>
-      <div class="stat-card"><div class="stat-label" style="margin-bottom:8px">Partial Paid</div><div class="stat-num" style="font-size:22px;color:var(--gold)">${stats.partial||0}</div></div>
     </div>
     <div class="two-col">
       <div class="card">
         <div class="card-title">Recent Students</div>
         ${allStudents.slice(0,6).map(s=>`
           <div style="display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--gray-100);cursor:pointer" onclick="viewStudent('${s.id}')">
-            <div style="width:32px;height:32px;background:var(--gray-100);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;flex-shrink:0">${s.name[0]}</div>
+            <div style="width:32px;height:32px;background:var(--maroon-lt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;color:var(--maroon);flex-shrink:0">${ini(s.name)}</div>
             <div style="flex:1;min-width:0"><div style="font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${s.name}</div><div style="font-size:11px;color:var(--gray-400)">${s.standard||'-'}</div></div>
             <span class="badge ${s.fees_status==='paid'?'b-green':s.fees_status==='partial'?'b-gold':'b-red'}">${s.fees_status||'pending'}</span>
           </div>`).join('')}
-        <button class="btn btn-outline" style="width:100%;margin-top:12px" onclick="goto('students',document.querySelectorAll('.nav-item')[1])">View All</button>
+        <button class="btn btn-outline" style="width:100%;margin-top:12px" onclick="goto('students',null)">View All</button>
       </div>
       <div class="card">
         <div class="card-title">Fees Overview</div>
-        <div style="display:flex;flex-direction:column;gap:10px;margin-bottom:14px">
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--green-light);border-radius:8px"><span style="font-weight:600;color:var(--green)">Paid</span><span style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--green)">${stats.paid||0}</span></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--gold-light);border-radius:8px"><span style="font-weight:600;color:var(--gold)">Partial</span><span style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--gold)">${stats.partial||0}</span></div>
-          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--red-light);border-radius:8px"><span style="font-weight:600;color:var(--red)">Pending</span><span style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--red)">${stats.pending||0}</span></div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--green-light);border-radius:8px"><span style="font-weight:600;color:var(--green)">Paid</span><span style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--green)">${st.paid||0}</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--gold-light);border-radius:8px"><span style="font-weight:600;color:var(--gold)">Partial</span><span style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--gold)">${st.partial||0}</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center;padding:10px;background:var(--red-light);border-radius:8px"><span style="font-weight:600;color:var(--red)">Pending</span><span style="font-family:var(--font-display);font-size:22px;font-weight:700;color:var(--red)">${st.pending||0}</span></div>
         </div>
-        <button class="btn btn-black" style="width:100%" onclick="goto('fees',document.querySelectorAll('.nav-item')[9])">Manage Fees</button>
       </div>
     </div>`;
-  }catch(e){c.innerHTML=`<div class="empty-state"><p>Could not load. Backend check karo.</p></div>`}
+  }catch(e){document.getElementById('pageContent').innerHTML=`<div class="empty-state"><p>Could not load data</p></div>`}
 }
 
-/* ══════════════════════════
-   STUDENTS LIST
-══════════════════════════ */
-async function renderStudents(filter='',standard=''){
+/* ════════════════════════════
+   STUDENTS
+════════════════════════════ */
+async function loadStudents(filter='',standard=''){
   const c=document.getElementById('pageContent');
   c.innerHTML=`<div class="loading-state"><div class="spinner"></div></div>`;
-  try{
-    let url='/students';
-    if(filter)url+=`?search=${encodeURIComponent(filter)}`;
-    else if(standard)url+=`?standard=${encodeURIComponent(standard)}`;
-    const d=await apiGet(url);allStudents=d?.students||[];
-    c.innerHTML=`
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title" style="margin:0">All Students (${allStudents.length})</div>
-        <input class="search-input" placeholder="Search name, code..." value="${filter}" oninput="renderStudents(this.value,'')">
-      </div>
-      <div class="filter-row">
-        <button class="filter-btn ${!standard?'active':''}" onclick="renderStudents('','')">All</button>
-        ${CLASSES.map(cls=>`<button class="filter-btn ${standard===cls?'active':''}" onclick="renderStudents('','${cls}')">${cls}</button>`).join('')}
-      </div>
-      <div class="tbl-wrap">
-        <table>
-          <thead><tr><th>Name</th><th>Code</th><th>Class</th><th>Roll</th><th>Parent Phone</th><th>Fees</th><th>Actions</th></tr></thead>
-          <tbody>
-            ${allStudents.length>0?allStudents.map(s=>`<tr>
-              <td><b>${s.name}</b><br><span style="font-size:11px;color:var(--gray-400)">${s.parent_name||''}</span></td>
-              <td><span style="font-family:monospace;font-size:11px;background:var(--gray-100);padding:2px 7px;border-radius:4px">${s.code}</span></td>
-              <td>${s.standard||'-'}</td>
-              <td>${s.roll_no||'-'}</td>
-              <td>${s.parent_phone||s.phone||'-'}</td>
-              <td><span class="badge ${s.fees_status==='paid'?'b-green':s.fees_status==='partial'?'b-gold':'b-red'}">${s.fees_status||'pending'}</span></td>
-              <td><div style="display:flex;gap:4px;flex-wrap:wrap">
-                <button class="btn btn-black btn-sm" onclick="viewStudent('${s.id}')">View</button>
-                <button class="btn btn-outline btn-sm" onclick="openEditStudent('${s.id}')">Edit</button>
-                <button class="btn btn-red btn-sm" onclick="deleteStudent('${s.id}')">Del</button>
-              </div></td>
-            </tr>`).join(''):'<tr><td colspan="7" style="text-align:center;padding:30px;color:var(--gray-300)">No students found</td></tr>'}
-          </tbody>
-        </table>
-      </div>
-    </div>`;
-  }catch(e){c.innerHTML=`<div class="empty-state"><p>Could not load students</p></div>`}
+  let url='/students';
+  if(filter)url+=`?search=${encodeURIComponent(filter)}`;
+  else if(standard)url+=`?standard=${encodeURIComponent(standard)}`;
+  const d=await apiGet(url);allStudents=d?.students||[];
+  const cc={};allStudents.forEach(s=>{const cls=s.standard||'Other';cc[cls]=(cc[cls]||0)+1;});
+  c.innerHTML=`
+  <div class="card">
+    <div class="card-header">
+      <div class="card-title" style="margin:0">All Students (${allStudents.length})</div>
+      <input class="search-input" placeholder="Search name, code..." value="${filter}" oninput="loadStudents(this.value,'')">
+    </div>
+    <div class="filter-row">
+      <button class="filter-btn ${!standard?'active':''}" onclick="loadStudents('','')">All</button>
+      ${CLASSES.map(cls=>`<button class="filter-btn ${standard===cls?'active':''}" onclick="loadStudents('','${cls}')">${cls}</button>`).join('')}
+    </div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Name</th><th>Code</th><th>Class</th><th>Roll</th><th>Parent Phone</th><th>Fees</th><th>Actions</th></tr></thead>
+      <tbody>
+        ${!allStudents.length?'<tr><td colspan="7" style="text-align:center;padding:30px;color:var(--gray-300)">No students found</td></tr>':''}
+        ${allStudents.map(s=>`<tr>
+          <td><b>${s.name}</b><br><span style="font-size:11px;color:var(--gray-400)">${s.parent_name||''}</span></td>
+          <td><span style="font-family:monospace;font-size:11px;background:var(--maroon-lt);color:var(--maroon);padding:2px 7px;border-radius:4px">${s.code}</span></td>
+          <td>${s.standard||'-'}</td>
+          <td>${s.roll_no||'-'}</td>
+          <td>${s.parent_phone||s.phone||'-'}</td>
+          <td><span class="badge ${s.fees_status==='paid'?'b-green':s.fees_status==='partial'?'b-gold':'b-red'}">${s.fees_status||'pending'}</span></td>
+          <td><div style="display:flex;gap:4px;flex-wrap:wrap">
+            <button class="btn btn-maroon btn-sm" onclick="viewStudent('${s.id}')">View</button>
+            <button class="btn btn-outline btn-sm" onclick="openEditStudent('${s.id}')">Edit</button>
+            <button class="btn btn-red btn-sm" onclick="deleteStudent('${s.id}','${(s.name||'').replace(/'/g,"\\'")}')">Del</button>
+          </div></td>
+        </tr>`).join('')}
+      </tbody>
+    </table></div>
+  </div>`;
 }
 
-/* ══ VIEW STUDENT — opens modal ══ */
 async function viewStudent(id){
   id=String(id);
   const s=await getStudent(id);
-  if(!s){showToast('Student not found',true);return}
+  if(!s){showToast('Student not found','err');return}
   const total=parseFloat(s.total_amount)||0;
   const paid=parseFloat(s.paid_amount)||0;
   const rem=parseFloat(s.remaining_amount)||Math.max(0,total-paid);
   document.getElementById('vsTitle').textContent=s.name;
   document.getElementById('vsBody').innerHTML=`
   <div class="profile-row">
-    <div class="profile-av">${s.name[0]}</div>
-    <div>
-      <div class="profile-name">${s.name}</div>
-      <div class="profile-code">${s.code}</div>
+    <div class="profile-av">${ini(s.name)}</div>
+    <div><div class="profile-name">${s.name}</div><div class="profile-code">${s.code}</div>
       <div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap">
         <span class="badge b-gray">${s.standard||'N/A'}</span>
         <span class="badge b-gray">Roll ${s.roll_no||'N/A'}</span>
@@ -562,36 +530,28 @@ async function viewStudent(id){
     </div>
   </div>
   <div class="info-grid">
-    ${iCell('Parent',s.parent_name)}
-    ${iCell('Parent Phone',s.parent_phone)}
-    ${iCell('Student Phone',s.phone)}
-    ${iCell('DOB',s.dob?new Date(s.dob).toLocaleDateString('en-IN'):'')}
-    ${iCell('Gender',s.gender)}
-    ${iCell('Blood Group',s.blood_group)}
-    ${iCell('Address',s.address)}
-    ${iCell('Bus',s.has_bus?(s.bus_route?'Yes — '+s.bus_route:'Yes'):'No')}
+    ${iCell('Parent',s.parent_name)}${iCell('Parent Phone',s.parent_phone)}
+    ${iCell('Student Phone',s.phone)}${iCell('DOB',s.dob?new Date(s.dob).toLocaleDateString('en-IN'):'')}
+    ${iCell('Gender',s.gender)}${iCell('Blood Group',s.blood_group)}
+    ${iCell('Address',s.address)}${iCell('Bus',s.has_bus?(s.bus_route?'Yes — '+s.bus_route:'Yes'):'No')}
     ${iCell('Teacher',s.teacher_name)}
   </div>
   <div style="background:var(--gray-50);border-radius:10px;padding:14px">
     <div style="font-size:11px;font-weight:700;color:var(--gray-500);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px">Fees</div>
     <div class="info-grid" style="margin-bottom:10px">
-      ${iCell('Total',fmtRs(total))}
-      ${iCell('Paid',fmtRs(paid))}
-      ${iCell('Remaining',fmtRs(rem))}
-      ${iCell('Status',s.fees_status||'pending')}
+      ${iCell('Total',fmtRs(total))}${iCell('Paid',fmtRs(paid))}
+      ${iCell('Remaining',fmtRs(rem))}${iCell('Status',s.fees_status||'pending')}
     </div>
-    <button class="btn btn-outline btn-sm" onclick="closeModal('viewStudentModal');openFeesModal('${s.id}','${s.name}',${total},${paid})">Update Fees</button>
+    <button class="btn btn-outline btn-sm" onclick="closeMo('moVS');openFeesModal('${s.id}','${s.name}',${total},${paid})">Update Fees</button>
   </div>`;
-  document.getElementById('vsEditBtn').onclick=function(){closeModal('viewStudentModal');openEditStudent(id);};
-  document.getElementById('viewStudentModal').classList.add('show');
+  document.getElementById('vsEditBtn').onclick=function(){closeMo('moVS');openEditStudent(id);};
+  openMo('moVS');
 }
 
-/* ══ EDIT STUDENT — opens modal ══ */
 async function openEditStudent(id){
   id=String(id);
   const s=await getStudent(id);
-  if(!s){showToast('Student not found',true);return}
-  editingStudentId=id;
+  if(!s){showToast('Student not found','err');return}
   document.getElementById('esId').value=id;
   document.getElementById('esName').value=s.name||'';
   document.getElementById('esPass').value='';
@@ -610,7 +570,7 @@ async function openEditStudent(id){
   document.getElementById('esRf').value=Math.max(0,total-paid);
   document.getElementById('esFst').value=s.fees_status||'pending';
   document.getElementById('esErr').style.display='none';
-  document.getElementById('editStudentModal').classList.add('show');
+  openMo('moES');
 }
 
 function calcESFees(){
@@ -622,9 +582,9 @@ function calcESFees(){
 
 async function saveEditStudent(){
   const id=document.getElementById('esId').value;
-  if(!id){showToast('Error: ID missing',true);return}
-  const errEl=document.getElementById('esErr');errEl.style.display='none';
-  const g=eid=>document.getElementById(eid)?.value||'';
+  if(!id)return;
+  const err=document.getElementById('esErr');err.style.display='none';
+  const g=i=>document.getElementById(i)?.value||'';
   const payload={};
   if(g('esName').trim())payload.name=g('esName').trim();
   if(g('esCls'))payload.class_name=g('esCls');
@@ -636,100 +596,54 @@ async function saveEditStudent(){
   payload.has_bus=g('esBus')==='true';
   if(g('esRoute').trim())payload.bus_route=g('esRoute').trim();
   if(g('esPass').trim())payload.password=g('esPass').trim();
-  const btn=document.querySelector('#editStudentModal .btn-black');
-  if(btn){btn.disabled=true;btn.textContent='Saving...';}
+  const btn=document.getElementById('esSaveBtn');btn.disabled=true;btn.textContent='Saving...';
   try{
     const r=await apiPut('/students/'+id,payload);
-    if(r?.success||r?.message){
-      /* Update fees */
-      const tf=parseFloat(g('esTf'))||0;const pf=parseFloat(g('esPf'))||0;
-      await apiPut('/students/'+id+'/fees',{total_amount:tf,paid_amount:pf}).catch(()=>{});
-      showToast('Student updated!');closeModal('editStudentModal');allStudents=[];renderStudents();
-    }else{errEl.textContent=r?.error||r?.message||'Update failed';errEl.style.display='block';}
-  }catch(e){errEl.textContent='Network error';errEl.style.display='block';}
-  if(btn){btn.disabled=false;btn.textContent='Save Changes';}
+    if(r?.success||r?.message?.includes?.('updat')||r?.id){
+      await apiPut('/students/'+id+'/fees',{total_amount:parseFloat(g('esTf'))||0,paid_amount:parseFloat(g('esPf'))||0}).catch(()=>{});
+      showToast('Student updated!');closeMo('moES');allStudents=[];loadStudents();
+    }else{err.textContent=r?.error||r?.message||'Update failed';err.style.display='block';}
+  }catch(e){err.textContent='Network error';err.style.display='block';}
+  btn.disabled=false;btn.textContent='Save Changes';
 }
 
-async function deleteStudent(id){
-  if(!confirm('Delete this student?'))return;
+async function deleteStudent(id,name){
+  if(!confirm('"'+name+'" delete?'))return;
   const d=await apiDel('/students/'+id);
-  if(d?.success){showToast('Student deleted');allStudents=[];renderStudents();}
-  else showToast(d?.error||'Error deleting','err');
-}
-
-/* ══ FEES MODAL ══ */
-function openFeesModal(studentId,name,total,paid){
-  editingFeesStudentId=String(studentId);
-  document.getElementById('feesModalStudent').textContent='Student: '+name;
-  document.getElementById('fmStudId').value=String(studentId);
-  document.getElementById('fmTotal').value=total||'';
-  document.getElementById('fmPaid').value=paid||'';
-  calcFeesModal();
-  document.getElementById('feesModal').classList.add('show');
-}
-
-function calcFeesModal(){
-  const total=parseFloat(document.getElementById('fmTotal').value)||0;
-  const paid=parseFloat(document.getElementById('fmPaid').value)||0;
-  const rem=total-paid;
-  const status=rem<=0&&total>0?'Paid':paid>0?'Partial':'Pending';
-  document.getElementById('fcTotal').textContent=fmtRs(total);
-  document.getElementById('fcPaid').textContent=fmtRs(paid);
-  document.getElementById('fcRemaining').textContent=fmtRs(Math.max(0,rem));
-  document.getElementById('fcRemaining').style.color=rem<=0?'var(--green)':'var(--red)';
-  document.getElementById('fcStatus').textContent=status;
-  document.getElementById('feesCalcBox').style.display='block';
-}
-
-async function saveFeesModal(){
-  const id=document.getElementById('fmStudId').value;
-  const total=parseFloat(document.getElementById('fmTotal').value);
-  const paid=parseFloat(document.getElementById('fmPaid').value);
-  if(isNaN(total)||isNaN(paid)){showToast('Enter valid amounts','err');return}
-  if(paid>total){showToast('Paid cannot exceed total','err');return}
-  const d=await apiPut('/students/'+id+'/fees',{total_amount:total,paid_amount:paid});
-  if(d?.success){showToast('Fees updated — Remaining: '+fmtRs(total-paid));closeModal('feesModal');allStudents=[];renderStudents();}
+  if(d?.success){showToast('Student deleted');allStudents=[];loadStudents();}
   else showToast(d?.error||'Error','err');
 }
 
-/* ══════════════════════════
+/* ════════════════════════════
    ADD STUDENT
-══════════════════════════ */
-function renderAddStudent(){
+════════════════════════════ */
+function showAddStudent(){
   const c=document.getElementById('pageContent');
   c.innerHTML=`
   <div class="card" style="max-width:700px">
     <div class="card-title">Add New Student</div>
-    <div id="asErr" style="display:none;background:var(--red-light);color:var(--red);padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:14px"></div>
+    <div class="err-box" id="asErr"></div>
     <div class="form-grid">
       <div class="fg"><label>Full Name *</label><input class="fi" id="asName" placeholder="Student full name"></div>
       <div class="fg"><label>Login Code *</label><input class="fi" id="asCode" placeholder="e.g. STU001" oninput="this.value=this.value.toUpperCase()"></div>
       <div class="fg"><label>Password *</label>
-        <div style="position:relative"><input class="fi" type="password" id="asPass" placeholder="Min 4 chars" style="padding-right:40px">
-        <button type="button" onclick="togglePw('asPass')" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--gray-400)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+        <div style="position:relative"><input class="fi" type="password" id="asPass" placeholder="Min 4 chars" style="padding-right:38px">
+        <button type="button" onclick="togglePw('asPass')" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--gray-400)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
       </div>
       <div class="fg"><label>Phone</label><input class="fi" id="asPhone" type="tel" placeholder="Contact number"></div>
-      <div class="fg"><label>Class *</label>
-        <select class="fi" id="asCls"><option value="">Select Class</option>${CLASSES.map(c=>`<option value="${c}">${c}</option>`).join('')}</select>
-      </div>
+      <div class="fg"><label>Class *</label><select class="fi" id="asCls"><option value="">Select Class</option>${CLASSES.map(c=>`<option value="${c}">${c}</option>`).join('')}</select></div>
       <div class="fg"><label>Roll Number</label><input class="fi" id="asRoll" type="number" placeholder="Roll no"></div>
       <div class="fg"><label>Date of Birth</label><input class="fi" id="asDob" type="date"></div>
-      <div class="fg"><label>Gender</label>
-        <select class="fi" id="asGen"><option>Male</option><option>Female</option><option>Other</option></select>
-      </div>
+      <div class="fg"><label>Gender</label><select class="fi" id="asGen"><option>Male</option><option>Female</option><option>Other</option></select></div>
       <div class="fg"><label>Parent Name</label><input class="fi" id="asPar" placeholder="Parent name"></div>
       <div class="fg"><label>Parent Phone</label><input class="fi" id="asPph" type="tel" placeholder="Parent phone"></div>
       <div class="fg"><label>Address</label><input class="fi" id="asAddr" placeholder="Address"></div>
-      <div class="fg"><label>Blood Group</label>
-        <select class="fi" id="asBld"><option value="">Select</option>${['A+','A-','B+','B-','O+','O-','AB+','AB-'].map(b=>`<option>${b}</option>`).join('')}</select>
-      </div>
-      <div class="fg"><label>Bus</label>
-        <select class="fi" id="asBus"><option value="false">No Bus</option><option value="true">Has Bus</option></select>
-      </div>
+      <div class="fg"><label>Blood Group</label><select class="fi" id="asBld"><option value="">Select</option>${['A+','A-','B+','B-','O+','O-','AB+','AB-'].map(b=>`<option>${b}</option>`).join('')}</select></div>
+      <div class="fg"><label>Bus</label><select class="fi" id="asBus"><option value="false">No Bus</option><option value="true">Has Bus</option></select></div>
       <div class="fg"><label>Bus Route</label><input class="fi" id="asBRoute" placeholder="Route name"></div>
       <div class="fg"><label>Total Fees (Rs.)</label><input class="fi" id="asFees" type="number" placeholder="Annual fees"></div>
     </div>
-    <button class="btn btn-black" style="margin-top:16px;width:100%;padding:13px" id="asSBtn" onclick="addStudent()">Add Student</button>
+    <button class="btn btn-maroon" style="margin-top:16px;width:100%;padding:13px" id="asSBtn" onclick="addStudent()">Add Student</button>
   </div>
   <div id="addStudentResult"></div>`;
 }
@@ -739,13 +653,13 @@ async function addStudent(){
   const code=document.getElementById('asCode').value.trim().toUpperCase();
   const pass=document.getElementById('asPass').value.trim();
   const cls=document.getElementById('asCls').value;
-  const errEl=document.getElementById('asErr');errEl.style.display='none';
-  if(!name){errEl.textContent='Name required';errEl.style.display='block';return}
-  if(!code){errEl.textContent='Code required';errEl.style.display='block';return}
-  if(!pass||pass.length<4){errEl.textContent='Password min 4 chars';errEl.style.display='block';return}
-  if(!cls){errEl.textContent='Class select karo';errEl.style.display='block';return}
+  const e=document.getElementById('asErr');e.style.display='none';
+  if(!name){e.textContent='Name required';e.style.display='block';return}
+  if(!code){e.textContent='Code required';e.style.display='block';return}
+  if(!pass||pass.length<4){e.textContent='Password min 4 chars';e.style.display='block';return}
+  if(!cls){e.textContent='Class select karo';e.style.display='block';return}
   const btn=document.getElementById('asSBtn');btn.disabled=true;btn.textContent='Adding...';
-  const g=id=>document.getElementById(id)?.value||'';
+  const g=i=>document.getElementById(i)?.value||'';
   const d=await apiPost('/students',{
     name,code,password:pass,phone:g('asPhone'),class_name:cls,
     roll_no:parseInt(g('asRoll'))||null,dob:g('asDob')||null,gender:g('asGen'),
@@ -754,21 +668,22 @@ async function addStudent(){
     bus_route:g('asBRoute'),total_fees:parseFloat(g('asFees'))||null
   });
   btn.disabled=false;btn.textContent='Add Student';
-  if(d?.success||d?.login_code){
-    showToast('Student added!');allStudents=[];
+  if(d?.success||d?.login_code||d?.id){
+    allStudents=[];
     document.getElementById('addStudentResult').innerHTML=`
     <div class="card" style="max-width:700px;border-color:var(--green);margin-top:0">
-      <div style="color:var(--green);font-weight:700;font-size:16px;margin-bottom:12px">Student Added Successfully</div>
+      <div style="color:var(--green);font-weight:700;font-size:16px;margin-bottom:12px">✓ Student Added!</div>
       <div class="info-grid">${iCell('Name',name)}${iCell('Login Code',code)}${iCell('Password',pass)}${iCell('Class',cls)}</div>
       <div style="margin-top:10px;font-size:12px;color:var(--gray-400)">Share this code and password with the student.</div>
     </div>`;
-  }else{errEl.textContent=d?.error||d?.message||'Error adding student';errEl.style.display='block';}
+    showToast('Student added!');
+  }else{e.textContent=d?.error||d?.message||'Error adding student';e.style.display='block';}
 }
 
-/* ══════════════════════════
+/* ════════════════════════════
    TEACHERS
-══════════════════════════ */
-async function renderTeachers(){
+════════════════════════════ */
+async function loadTeachers(){
   const c=document.getElementById('pageContent');
   c.innerHTML=`<div class="loading-state"><div class="spinner"></div></div>`;
   const d=await apiGet('/teachers');allTeachers=d?.teachers||[];
@@ -778,17 +693,18 @@ async function renderTeachers(){
     <div class="tbl-wrap"><table>
       <thead><tr><th>Name</th><th>Code</th><th>Phone</th><th>Subject</th><th>Class</th><th>Actions</th></tr></thead>
       <tbody>
-        ${allTeachers.length>0?allTeachers.map(t=>`<tr>
+        ${!allTeachers.length?'<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--gray-300)">No teachers</td></tr>':''}
+        ${allTeachers.map(t=>`<tr>
           <td><b>${t.name}</b></td>
-          <td><span style="font-family:monospace;font-size:11px;background:var(--gray-100);padding:2px 7px;border-radius:4px">${t.code}</span></td>
+          <td><span style="font-family:monospace;font-size:11px;background:var(--maroon-lt);color:var(--maroon);padding:2px 7px;border-radius:4px">${t.code}</span></td>
           <td>${t.phone||'-'}</td>
           <td>${t.subject||'-'}</td>
-          <td>${t.standard||'Not assigned'}</td>
+          <td>${t.standard?`<span class="badge b-gray">${t.standard}${t.section?' - '+t.section:''}</span>`:'<span style="color:var(--gray-300);font-size:12px">Not assigned</span>'}</td>
           <td><div style="display:flex;gap:4px">
             <button class="btn btn-outline btn-sm" onclick="openEditTeacher('${t.id}')">Edit</button>
-            <button class="btn btn-red btn-sm" onclick="deleteTeacher('${t.id}')">Remove</button>
+            <button class="btn btn-red btn-sm" onclick="deleteTeacher('${t.id}','${(t.name||'').replace(/'/g,"\\'")}')">Remove</button>
           </div></td>
-        </tr>`).join(''):'<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--gray-300)">No teachers added</td></tr>'}
+        </tr>`).join('')}
       </tbody>
     </table></div>
   </div>`;
@@ -797,7 +713,6 @@ async function renderTeachers(){
 function openEditTeacher(id){
   id=String(id);
   const t=allTeachers.find(x=>String(x.id)===id);if(!t)return;
-  editingTeacherId=id;
   document.getElementById('etId').value=id;
   document.getElementById('etName').value=t.name||'';
   document.getElementById('etPass').value='';
@@ -805,57 +720,54 @@ function openEditTeacher(id){
   document.getElementById('etSub').value=t.subject||'';
   document.getElementById('etCls').value=t.standard||'';
   document.getElementById('etErr').style.display='none';
-  document.getElementById('editTeacherModal').classList.add('show');
+  openMo('moET');
 }
 
 async function saveEditTeacher(){
   const id=document.getElementById('etId').value;
-  const errEl=document.getElementById('etErr');errEl.style.display='none';
-  const g=eid=>document.getElementById(eid)?.value||'';
+  const err=document.getElementById('etErr');err.style.display='none';
+  const g=i=>document.getElementById(i)?.value||'';
   const payload={};
   if(g('etName').trim())payload.name=g('etName').trim();
   if(g('etPh').trim())payload.phone=g('etPh').trim();
   if(g('etSub').trim())payload.subject=g('etSub').trim();
   payload.class_name=g('etCls');
   if(g('etPass').trim())payload.password=g('etPass').trim();
-  const btn=document.querySelector('#editTeacherModal .btn-black');
-  if(btn){btn.disabled=true;btn.textContent='Saving...';}
+  const btn=document.getElementById('etSaveBtn');btn.disabled=true;btn.textContent='Saving...';
   const d=await apiPut('/teachers/'+id,payload);
-  if(d?.success){showToast('Teacher updated');closeModal('editTeacherModal');allTeachers=[];renderTeachers();}
-  else{errEl.textContent=d?.error||'Error';errEl.style.display='block';}
-  if(btn){btn.disabled=false;btn.textContent='Save Changes';}
+  btn.disabled=false;btn.textContent='Save Changes';
+  if(d?.success||d?.id){showToast('Teacher updated!');closeMo('moET');allTeachers=[];loadTeachers();}
+  else{err.textContent=d?.error||'Error';err.style.display='block';}
 }
 
-async function deleteTeacher(id){
-  if(!confirm('Remove this teacher?'))return;
+async function deleteTeacher(id,name){
+  if(!confirm('"'+name+'" remove?'))return;
   const d=await apiDel('/teachers/'+id);
-  if(d?.success){showToast('Teacher removed');allTeachers=[];renderTeachers();}
+  if(d?.success){showToast('Teacher removed');allTeachers=[];loadTeachers();}
   else showToast('Error','err');
 }
 
-/* ══════════════════════════
+/* ════════════════════════════
    ADD TEACHER
-══════════════════════════ */
-function renderAddTeacher(){
+════════════════════════════ */
+function showAddTeacher(){
   const c=document.getElementById('pageContent');
   c.innerHTML=`
   <div class="card" style="max-width:600px">
     <div class="card-title">Add New Teacher</div>
-    <div id="atErr" style="display:none;background:var(--red-light);color:var(--red);padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:14px"></div>
+    <div class="err-box" id="atErr"></div>
     <div class="form-grid">
       <div class="fg"><label>Full Name *</label><input class="fi" id="atName" placeholder="Teacher name"></div>
       <div class="fg"><label>Login Code *</label><input class="fi" id="atCode" placeholder="e.g. TCH001" oninput="this.value=this.value.toUpperCase()"></div>
       <div class="fg"><label>Password *</label>
-        <div style="position:relative"><input class="fi" type="password" id="atPass" placeholder="Set password" style="padding-right:40px">
-        <button type="button" onclick="togglePw('atPass')" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--gray-400)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
+        <div style="position:relative"><input class="fi" type="password" id="atPass" placeholder="Set password" style="padding-right:38px">
+        <button type="button" onclick="togglePw('atPass')" style="position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--gray-400)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
       </div>
       <div class="fg"><label>Phone</label><input class="fi" id="atPh" type="tel" placeholder="Phone number"></div>
       <div class="fg"><label>Subject</label><input class="fi" id="atSub" placeholder="e.g. Mathematics"></div>
-      <div class="fg"><label>Assign Class</label>
-        <select class="fi" id="atCls"><option value="">No class yet</option>${CLASSES.map(c=>`<option value="${c}">${c}</option>`).join('')}</select>
-      </div>
+      <div class="fg"><label>Assign Class</label><select class="fi" id="atCls"><option value="">No class yet</option>${CLASSES.map(c=>`<option value="${c}">${c}</option>`).join('')}</select></div>
     </div>
-    <button class="btn btn-black" style="margin-top:14px;width:100%;padding:13px" id="atSBtn" onclick="addTeacher()">Add Teacher</button>
+    <button class="btn btn-maroon" style="margin-top:14px;width:100%;padding:13px" id="atSBtn" onclick="addTeacher()">Add Teacher</button>
   </div>
   <div id="addTeacherResult"></div>`;
 }
@@ -864,74 +776,103 @@ async function addTeacher(){
   const name=document.getElementById('atName').value.trim();
   const code=document.getElementById('atCode').value.trim().toUpperCase();
   const pass=document.getElementById('atPass').value.trim();
-  const errEl=document.getElementById('atErr');errEl.style.display='none';
-  if(!name||!code||!pass){errEl.textContent='Name, Code, Password required';errEl.style.display='block';return}
+  const e=document.getElementById('atErr');e.style.display='none';
+  if(!name||!code||!pass){e.textContent='Name, Code, Password required';e.style.display='block';return}
   const btn=document.getElementById('atSBtn');btn.disabled=true;btn.textContent='Adding...';
-  const g=id=>document.getElementById(id)?.value||'';
+  const g=i=>document.getElementById(i)?.value||'';
   const d=await apiPost('/teachers',{name,code,password:pass,phone:g('atPh'),subject:g('atSub'),class_name:g('atCls')||null});
   btn.disabled=false;btn.textContent='Add Teacher';
   if(d?.success||d?.id){
-    showToast('Teacher added!');allTeachers=[];
+    allTeachers=[];showToast('Teacher added!');
     document.getElementById('addTeacherResult').innerHTML=`
     <div class="card" style="max-width:600px;border-color:var(--green);margin-top:0">
-      <div style="color:var(--green);font-weight:700;margin-bottom:10px">Teacher Added</div>
+      <div style="color:var(--green);font-weight:700;margin-bottom:10px">✓ Teacher Added!</div>
       <div class="info-grid">${iCell('Name',name)}${iCell('Login Code',code)}${iCell('Password',pass)}</div>
     </div>`;
-  }else{errEl.textContent=d?.error||d?.message||'Error';errEl.style.display='block';}
+  }else{e.textContent=d?.error||d?.message||'Error';e.style.display='block';}
 }
 
-/* ══════════════════════════
+/* ════════════════════════════
    FEES
-══════════════════════════ */
-async function renderFees(){
+════════════════════════════ */
+async function loadFees(){
   const c=document.getElementById('pageContent');
   c.innerHTML=`<div class="loading-state"><div class="spinner"></div></div>`;
   const [fd,sd]=await Promise.all([apiGet('/fees/all'),apiGet('/fees/stats')]);
   const fees=fd?.fees||[];const stats=sd?.stats||{};
   c.innerHTML=`
-  <div class="stats-grid">
-    <div class="stat-card"><div class="stat-label" style="margin-bottom:8px">Total Collected</div><div class="stat-num" style="font-size:22px;color:var(--green)">${fmtRs(stats.total_paid)}</div></div>
-    <div class="stat-card"><div class="stat-label" style="margin-bottom:8px">Total Pending</div><div class="stat-num" style="font-size:22px;color:var(--red)">${fmtRs(stats.total_remaining)}</div></div>
-    <div class="stat-card"><div class="stat-label" style="margin-bottom:8px">Students Paid</div><div class="stat-num" style="font-size:22px;color:var(--green)">${stats.paid||0}</div></div>
-    <div class="stat-card"><div class="stat-label" style="margin-bottom:8px">Students Pending</div><div class="stat-num" style="font-size:22px;color:var(--red)">${stats.pending||0}</div></div>
+  <div class="stats-grid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="stat-card"><div class="stat-label" style="margin-bottom:8px">Students Paid</div><div class="stat-num" style="color:var(--green)">${stats.paid||0}</div></div>
+    <div class="stat-card"><div class="stat-label" style="margin-bottom:8px">Students Partial</div><div class="stat-num" style="color:var(--gold)">${stats.partial||0}</div></div>
+    <div class="stat-card"><div class="stat-label" style="margin-bottom:8px">Students Pending</div><div class="stat-num" style="color:var(--red)">${stats.pending||0}</div></div>
+    <div class="stat-card"><div class="stat-label" style="margin-bottom:8px">Total Students</div><div class="stat-num">${fees.length}</div></div>
   </div>
   <div class="card">
     <div class="card-header">
-      <div class="card-title" style="margin:0">Fee Records (${fees.length})</div>
-      <input class="search-input" placeholder="Search student..." oninput="filterFeesTable(this.value)">
+      <div class="card-title" style="margin:0">Fee Records</div>
+      <input class="search-input" placeholder="Search student..." oninput="filterFees(this.value)">
     </div>
     <div class="tbl-wrap"><table>
       <thead><tr><th>Student</th><th>Class</th><th>Total</th><th>Paid</th><th>Remaining</th><th>Status</th><th>Update</th></tr></thead>
       <tbody id="feesTbody">
-        ${fees.length>0?fees.map(f=>`<tr data-name="${(f.student_name||'').toLowerCase()}">
+        ${!fees.length?'<tr><td colspan="7" style="text-align:center;padding:30px;color:var(--gray-300)">No records</td></tr>':''}
+        ${fees.map(f=>`<tr data-name="${(f.student_name||'').toLowerCase()}">
           <td><b>${f.student_name||'-'}</b><br><span style="font-size:11px;color:var(--gray-400);font-family:monospace">${f.student_code||''}</span></td>
-          <td>${f.standard||'N/A'}</td>
+          <td>${f.standard||'-'}${f.section?' '+f.section:''}</td>
           <td>${fmtRs(f.total_amount)}</td>
           <td style="color:var(--green);font-weight:600">${fmtRs(f.paid_amount)}</td>
           <td style="color:${(f.remaining_amount||0)>0?'var(--red)':'var(--green)'};font-weight:600">${fmtRs(f.remaining_amount)}</td>
           <td><span class="badge ${f.status==='paid'?'b-green':f.status==='partial'?'b-gold':'b-red'}">${f.status||'pending'}</span></td>
-          <td><button class="btn btn-black btn-sm" onclick="openFeesModal('${f.student_id}','${(f.student_name||'').replace(/'/g,"\\'")}',${f.total_amount||0},${f.paid_amount||0})">Update</button></td>
-        </tr>`).join(''):'<tr><td colspan="7" style="text-align:center;padding:30px;color:var(--gray-300)">No fee records</td></tr>'}
+          <td><button class="btn btn-maroon btn-sm" onclick="openFeesModal('${f.student_id}','${(f.student_name||'').replace(/'/g,"\\'")}',${f.total_amount||0},${f.paid_amount||0})">Update</button></td>
+        </tr>`).join('')}
       </tbody>
     </table></div>
   </div>`;
 }
 
-function filterFeesTable(q){
-  document.querySelectorAll('#feesTbody tr').forEach(row=>{
-    row.style.display=(row.getAttribute('data-name')||'').includes(q.toLowerCase())?'':'none';
-  });
+function filterFees(q){document.querySelectorAll('#feesTbody tr').forEach(r=>{r.style.display=(r.getAttribute('data-name')||'').includes(q.toLowerCase())?'':'none'})}
+
+function openFeesModal(sid,name,total,paid){
+  document.getElementById('fmStudId').value=String(sid);
+  document.getElementById('fmStudName').textContent='Student: '+name;
+  document.getElementById('fmTotal').value=total||'';
+  document.getElementById('fmPaid').value=paid||'';
+  calcFeesModal();
+  openMo('moFees');
 }
 
-/* ══════════════════════════
-   PAYMENTS — VERIFY/REJECT
-══════════════════════════ */
-async function renderPayments(){
+function calcFeesModal(){
+  const t=parseFloat(document.getElementById('fmTotal').value)||0;
+  const p=parseFloat(document.getElementById('fmPaid').value)||0;
+  const r=t-p;const st=r<=0&&t>0?'Paid':p>0?'Partial':'Pending';
+  document.getElementById('fcTotal').textContent=fmtRs(t);
+  document.getElementById('fcPaid').textContent=fmtRs(p);
+  document.getElementById('fcRem').textContent=fmtRs(Math.max(0,r));
+  document.getElementById('fcRem').style.color=r<=0?'var(--green)':'var(--red)';
+  document.getElementById('fcStatus').textContent=st;
+  document.getElementById('feesCalcBox').style.display='block';
+}
+
+async function saveFeesModal(){
+  const id=document.getElementById('fmStudId').value;
+  const t=parseFloat(document.getElementById('fmTotal').value);
+  const p=parseFloat(document.getElementById('fmPaid').value);
+  if(isNaN(t)||isNaN(p)){showToast('Valid amounts daalo','err');return}
+  if(p>t){showToast('Paid total se zyada nahi ho sakta','err');return}
+  const d=await apiPut('/students/'+id+'/fees',{total_amount:t,paid_amount:p});
+  if(d?.success){showToast('Fees updated!');closeMo('moFees');allStudents=[];loadFees();}
+  else showToast(d?.error||'Error','err');
+}
+
+/* ════════════════════════════
+   PAYMENTS — VERIFY / REJECT
+════════════════════════════ */
+async function loadPayments(){
   const c=document.getElementById('pageContent');
   c.innerHTML=`<div class="loading-state"><div class="spinner"></div></div>`;
   const d=await apiGet('/fees/pending');const list=d?.payments||[];
   if(!list.length){
-    c.innerHTML=`<div class="card"><div class="card-title">Payment Requests</div><div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><p>No pending payments</p></div></div>`;
+    c.innerHTML=`<div class="card"><div class="card-title">Payment Requests</div><div class="empty-state"><svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg><p>No pending payments</p></div></div>`;
     return;
   }
   c.innerHTML=`
@@ -942,7 +883,7 @@ async function renderPayments(){
         <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
           <div>
             <div style="font-weight:700;font-size:14px">${pm.student_name||'-'}</div>
-            <span style="font-family:monospace;font-size:11px;background:var(--gray-100);padding:2px 7px;border-radius:4px">${pm.student_code||''}</span>
+            <span style="font-family:monospace;font-size:11px;background:var(--maroon-lt);color:var(--maroon);padding:2px 7px;border-radius:4px">${pm.student_code||''}</span>
           </div>
           <span class="badge ${pm.status==='verified'?'b-green':pm.status==='rejected'?'b-red':'b-gold'}" id="pmBadge_${pm.id}">
             ${pm.status==='verified'?'Verified':pm.status==='rejected'?'Rejected':'Pending'}
@@ -950,85 +891,82 @@ async function renderPayments(){
         </div>
         <div style="font-size:13px;margin-bottom:6px">
           Amount: <b style="color:var(--green)">Rs. ${parseFloat(pm.amount||0).toLocaleString('en-IN')}</b>
-          &nbsp;|&nbsp; UPI Ref: <span style="font-family:monospace;font-size:12px">${pm.upi_ref||'-'}</span>
+          &nbsp;|&nbsp; UPI: <span style="font-family:monospace;font-size:12px">${pm.upi_ref||'-'}</span>
         </div>
-        <div style="font-size:11px;color:var(--gray-400);margin-bottom:10px">${formatDate(pm.submitted_at)}</div>
-        <div id="pmBtns_${pm.id}" style="${pm.status!=='pending'?'display:none':''}">
-          <button class="btn btn-green btn-sm" style="margin-right:8px" id="pmVBtn_${pm.id}" onclick="actPayment('${pm.id}','verified')">✓ Verify</button>
-          <button class="btn btn-red btn-sm" id="pmRBtn_${pm.id}" onclick="actPayment('${pm.id}','rejected')">✗ Reject</button>
+        <div style="font-size:11px;color:var(--gray-400);margin-bottom:10px">${fDate(pm.submitted_at)}</div>
+        <div id="pmBtns_${pm.id}" ${pm.status!=='pending'?'style="display:none"':''}>
+          <button class="btn btn-green btn-sm" style="margin-right:8px" id="pmV_${pm.id}" onclick="actPay('${pm.id}','verified')">✓ Verify</button>
+          <button class="btn btn-red btn-sm" id="pmR_${pm.id}" onclick="actPay('${pm.id}','rejected')">✗ Reject</button>
         </div>
       </div>`).join('')}
   </div>`;
 }
 
-async function actPayment(id,status){
-  id=String(id);
-  const vB=document.getElementById('pmVBtn_'+id);
-  const rB=document.getElementById('pmRBtn_'+id);
+async function actPay(id,status){
+  const vB=document.getElementById('pmV_'+id);
+  const rB=document.getElementById('pmR_'+id);
   if(vB){vB.disabled=true;vB.textContent=status==='verified'?'Verifying...':'Verify';}
   if(rB){rB.disabled=true;rB.textContent=status==='rejected'?'Rejecting...':'Reject';}
   try{
-    /* POST /api/fees/verify/:payment_id → {status} */
     const d=await apiPost('/fees/verify/'+id,{status});
     if(d?.success){
-      showToast(status==='verified'?'Payment verified! Fees updated.':'Payment rejected.');
+      showToast(status==='verified'?'Payment verified!':'Payment rejected.');
       const badge=document.getElementById('pmBadge_'+id);
       if(badge){badge.className='badge '+(status==='verified'?'b-green':'b-red');badge.textContent=status==='verified'?'Verified':'Rejected';}
-      const btns=document.getElementById('pmBtns_'+id);
-      if(btns)btns.style.display='none';
+      const btns=document.getElementById('pmBtns_'+id);if(btns)btns.style.display='none';
     }else{
-      showToast(d?.error||d?.message||'Failed — try again','err');
+      showToast(d?.error||'Failed','err');
       if(vB){vB.disabled=false;vB.textContent='✓ Verify';}
       if(rB){rB.disabled=false;rB.textContent='✗ Reject';}
     }
   }catch(e){
-    showToast('Network error: '+e.message,'err');
+    showToast('Network error','err');
     if(vB){vB.disabled=false;vB.textContent='✓ Verify';}
     if(rB){rB.disabled=false;rB.textContent='✗ Reject';}
   }
 }
 
-/* ══════════════════════════
+/* ════════════════════════════
    NOTIFICATIONS
-══════════════════════════ */
-function renderNotify(){
+════════════════════════════ */
+function showNotify(){
   const c=document.getElementById('pageContent');
   c.innerHTML=`
   <div class="card" style="max-width:600px">
     <div class="card-title">Send Notification</div>
     <div style="display:flex;flex-direction:column;gap:14px">
       <div class="fg"><label>Send To</label>
-        <select class="fi" id="ntTgt">
+        <select class="fi" id="ntTgt" onchange="document.getElementById('ntClsW').style.display=this.value==='class'?'block':'none'">
           <option value="all">All Students</option>
           <option value="class">Specific Class</option>
         </select>
       </div>
-      <div class="fg" id="ntClsWrap" style="display:none"><label>Select Class</label>
+      <div class="fg" id="ntClsW" style="display:none"><label>Select Class</label>
         <select class="fi" id="ntCls">${CLASSES.map(c=>`<option value="${c}">${c}</option>`).join('')}</select>
       </div>
       <div class="fg"><label>Title *</label><input class="fi" id="ntTitle" placeholder="e.g. School Holiday Tomorrow"></div>
       <div class="fg"><label>Message *</label><textarea class="fi" id="ntMsg" style="min-height:100px;resize:none" placeholder="Write your message..."></textarea></div>
     </div>
-    <button class="btn btn-black" style="margin-top:14px;width:100%;padding:13px" id="ntSBtn" onclick="sendNotification()">Send Notification</button>
+    <button class="btn btn-maroon" style="margin-top:14px;width:100%;padding:13px" id="ntSBtn" onclick="sendNotification()">Send Notification</button>
   </div>
   <div class="card" style="max-width:600px;margin-top:0" id="ntHistory">
     <div class="card-title">Recent Notifications</div>
     <div style="color:var(--gray-400);font-size:13px">Loading...</div>
   </div>`;
-  document.getElementById('ntTgt').onchange=function(){
-    document.getElementById('ntClsWrap').style.display=this.value==='class'?'block':'none';
-  };
   loadNtHistory();
 }
 
 async function loadNtHistory(){
   try{
-    const d=await apiGet('/notifications');
-    const list=d?.notifications||[];
+    const d=await apiGet('/notifications');const list=d?.notifications||[];
     const el=document.getElementById('ntHistory');if(!el)return;
     el.innerHTML=`<div class="card-title">Recent Notifications</div>`+
       (!list.length?'<div style="padding:20px;color:var(--gray-300);text-align:center">No notifications yet</div>':
-        list.slice(0,10).map(n=>`<div style="border-bottom:1px solid var(--gray-100);padding:12px 0"><div style="font-weight:700;font-size:14px;margin-bottom:3px">${n.title||''}</div><div style="font-size:13px;color:var(--gray-500);margin-bottom:4px">${n.message||''}</div><div style="font-size:11px;color:var(--gray-300)">${formatDate(n.created_at)}</div></div>`).join(''));
+        list.slice(0,15).map(n=>`<div style="border-bottom:1px solid var(--gray-100);padding:12px 0">
+          <div style="font-weight:700;font-size:14px;margin-bottom:3px;color:var(--maroon-dp)">${n.title||''}</div>
+          <div style="font-size:13px;color:var(--gray-500);margin-bottom:4px">${n.message||''}</div>
+          <div style="font-size:11px;color:var(--gray-300)">${fDate(n.created_at)}</div>
+        </div>`).join(''));
   }catch(e){}
 }
 
@@ -1046,184 +984,232 @@ async function sendNotification(){
   else showToast(d?.error||'Error','err');
 }
 
-/* ══════════════════════════
-   CLASSES + GROUP
-══════════════════════════ */
-async function renderClasses(){
+/* ════════════════════════════
+   CLASSES & GROUP
+════════════════════════════ */
+async function loadClasses(){
   const c=document.getElementById('pageContent');
   c.innerHTML=`<div class="loading-state"><div class="spinner"></div></div>`;
   try{
-    const [sd,td,cld]=await Promise.all([apiGet('/students'),apiGet('/teachers'),apiGet('/teachers/classes')]);
-    allStudents=sd?.students||[];allTeachers=td?.teachers||[];allClasses=cld?.classes||[];
+    await fetchClasses();
+    const sd=await apiGet('/students');allStudents=sd?.students||[];
     const cc={};allStudents.forEach(s=>{const cls=s.standard||'Other';cc[cls]=(cc[cls]||0)+1;});
     c.innerHTML=`
-    <div style="margin-bottom:16px;font-size:13px;color:var(--gray-500)">Click a class to view group and posts.</div>
+    <p style="font-size:13px;color:var(--gray-500);margin-bottom:16px">Click a class card to view and post in class group.</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px">
       ${allClasses.length
         ?allClasses.map(cls=>`
-          <div style="background:var(--white);border:1px solid var(--gray-200);border-radius:14px;padding:20px;text-align:center;cursor:pointer;transition:all .2s"
-            onclick="openClassGroup(${cls.id},'${cls.standard}')"
-            onmouseover="this.style.borderColor='var(--black)';this.style.transform='translateY(-2px)'"
-            onmouseout="this.style.borderColor='var(--gray-200)';this.style.transform=''">
-            <div style="font-family:var(--font-display);font-size:20px;font-weight:700;margin-bottom:4px">${cls.standard}${cls.section?' - '+cls.section:''}</div>
-            <div style="font-size:24px;font-weight:700;margin-bottom:4px">${cc[cls.standard]||0}</div>
+          <div style="background:var(--white);border:2px solid var(--gray-200);border-radius:14px;padding:20px;text-align:center;cursor:pointer;transition:all .2s"
+            onclick="openGroup(${cls.id},'${cls.standard}${cls.section?' - '+cls.section:''}')"
+            onmouseover="this.style.borderColor='var(--maroon)';this.style.transform='translateY(-3px)';this.style.boxShadow='0 6px 20px rgba(128,0,32,.12)'"
+            onmouseout="this.style.borderColor='var(--gray-200)';this.style.transform='';this.style.boxShadow=''">
+            <div style="font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--maroon-dp);margin-bottom:4px">${cls.standard}${cls.section?' - '+cls.section:''}</div>
+            <div style="font-size:28px;font-weight:700;color:var(--maroon);margin-bottom:4px">${cc[cls.standard]||0}</div>
             <div style="font-size:11px;color:var(--gray-400);font-weight:600;text-transform:uppercase;letter-spacing:.5px">Students</div>
-            <div style="font-size:11px;color:var(--gray-400);margin-top:6px;padding-top:6px;border-top:1px solid var(--gray-100)">${cls.teacher_name||'No teacher'}</div>
+            <div style="font-size:11px;color:var(--gray-400);margin-top:8px;padding-top:8px;border-top:1px solid var(--gray-100)">${cls.teacher_name||'No teacher'}</div>
+            <div style="margin-top:8px"><span style="background:var(--maroon-lt);color:var(--maroon);font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px;text-transform:uppercase;letter-spacing:.5px">Open Group →</span></div>
           </div>`).join('')
         :CLASSES.map(cls=>`
           <div style="background:var(--white);border:1px solid var(--gray-200);border-radius:14px;padding:20px;text-align:center">
-            <div style="font-family:var(--font-display);font-size:18px;font-weight:700;margin-bottom:4px">${cls}</div>
-            <div style="font-size:22px;font-weight:700">${cc[cls]||0}</div>
+            <div style="font-family:var(--font-display);font-size:18px;font-weight:700;color:var(--maroon-dp)">${cls}</div>
+            <div style="font-size:22px;font-weight:700;color:var(--maroon)">${cc[cls]||0}</div>
             <div style="font-size:11px;color:var(--gray-400);font-weight:600;text-transform:uppercase">Students</div>
           </div>`).join('')}
     </div>`;
   }catch(e){c.innerHTML=`<div class="empty-state"><p>Could not load classes</p></div>`}
 }
 
-async function openClassGroup(classId,standard){
+/* ══ GROUP PAGE ══ */
+async function openGroup(classId,className){
   classId=parseInt(classId);
   const c=document.getElementById('pageContent');
   c.innerHTML=`<div class="loading-state"><div class="spinner"></div></div>`;
+  /* Fetch posts */
   let posts=[];
-  try{const r=await apiGet('/posts/'+classId);if(r?.posts)posts=r.posts;}catch(e){}
-  renderClassGroup(c,classId,standard,posts);
+  try{
+    const r=await apiGet('/posts/'+classId);
+    posts=r?.posts||[];
+  }catch(e){}
+  renderGroup(c,classId,className,posts);
 }
 
-function renderClassGroup(c,classId,standard,posts){
+function renderGroup(c,classId,className,posts){
   c.innerHTML=`
-  <button class="back-btn" onclick="renderClasses()"><svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back to Classes</button>
+  <button class="back-btn" onclick="loadClasses()">
+    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back to Classes
+  </button>
   <div class="card">
-    <div class="card-title">Post to ${standard}</div>
-    <textarea class="fi" id="cgTxt" rows="3" style="resize:none;margin-bottom:10px" placeholder="Write something for ${standard}..."></textarea>
-    <input class="fi" id="cgVid" placeholder="Video link (optional, YouTube/Drive)" style="margin-bottom:12px">
-    <button class="btn btn-black" id="cgPostBtn" onclick="doCGPost(${classId},'${standard}')">Post to Class</button>
+    <div class="card-title">Post to ${className}</div>
+    <textarea class="fi" id="gTxt" rows="3" style="resize:none;margin-bottom:10px" placeholder="Write an announcement or message for ${className}..."></textarea>
+    <input class="fi" id="gVid" placeholder="Video link (optional — YouTube, Drive...)" style="margin-bottom:12px">
+    <button class="btn btn-maroon" id="gPostBtn" onclick="doGroupPost(${classId},'${className.replace(/'/g,"\\'")}')">Post to ${className}</button>
   </div>
-  <div class="card">
+  <div class="card" id="gPostsCard">
     <div class="card-title">Posts (${posts.length})</div>
-    ${!posts.length?'<div class="empty-state" style="padding:20px"><p style="color:var(--gray-300)">No posts yet</p></div>':''}
-    ${posts.map(pp=>`
-      <div class="post-item">
-        <div class="post-head">
-          <div class="post-author">${pp.posted_by_name||'Admin'}</div>
-          <div style="display:flex;align-items:center;gap:10px">
-            <div class="post-time">${formatDate(pp.created_at)}</div>
-            <button onclick="deleteClassPost(${pp.id},${classId},'${standard}')" style="background:none;border:none;cursor:pointer;color:var(--gray-300);font-size:18px;line-height:1;padding:2px">×</button>
-          </div>
-        </div>
-        <div class="post-text">${pp.text_content||''}</div>
-        ${pp.video_link?`<a href="${pp.video_link}" target="_blank" style="display:inline-flex;align-items:center;gap:5px;margin-top:8px;font-size:12px;color:var(--black);font-weight:600;text-decoration:none">▶ Watch Video</a>`:''}
-      </div>`).join('')}
+    <div id="gPostsList">
+      ${!posts.length?'<div class="empty-state" style="padding:20px 0"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><p>No posts yet. Post something above!</p></div>':''}
+      ${posts.map(p=>renderPostItem(p,classId,className)).join('')}
+    </div>
   </div>`;
-  c._posts=posts;
+  /* Store posts in DOM element for easy update */
+  document.getElementById('gPostsCard')._posts=posts;
+  document.getElementById('gPostsCard')._classId=classId;
+  document.getElementById('gPostsCard')._className=className;
 }
 
-async function doCGPost(classId,standard){
+function renderPostItem(p,classId,className){
+  return`<div class="post-item" id="postItem_${p.id}">
+    <div class="post-head">
+      <div class="post-author">${p.posted_by_name||'Admin'}</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="post-time">${fDate(p.created_at)}</div>
+        <button onclick="deleteGroupPost(${p.id},${classId},'${(className||'').replace(/'/g,"\\'")}',this)" style="background:none;border:none;cursor:pointer;color:var(--gray-300);font-size:20px;line-height:1;padding:2px;transition:.2s" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--gray-300)'">×</button>
+      </div>
+    </div>
+    <div class="post-text">${p.text_content||''}</div>
+    ${p.video_link?`<a href="${p.video_link}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:7px 12px;background:var(--maroon-lt);border-radius:7px;font-size:12px;font-weight:700;color:var(--maroon);text-decoration:none">▶ Watch Video</a>`:''}
+  </div>`;
+}
+
+async function doGroupPost(classId,className){
   classId=parseInt(classId);
-  const txt=document.getElementById('cgTxt')?.value.trim();
-  const vid=document.getElementById('cgVid')?.value.trim();
+  const txt=document.getElementById('gTxt')?.value.trim();
+  const vid=document.getElementById('gVid')?.value.trim();
   if(!txt&&!vid){showToast('Kuch likho pehle','err');return}
-  const btn=document.getElementById('cgPostBtn');
+  const btn=document.getElementById('gPostBtn');
   if(btn){btn.disabled=true;btn.textContent='Posting...';}
   try{
-    const d=await apiPost('/posts',{class_id:classId,text_content:txt||null,video_link:vid||null});
-    const c=document.getElementById('pageContent');
-    if(d?.success||d?.post){
-      const posts=[d.post||{id:Date.now(),text_content:txt,video_link:vid,created_at:new Date().toISOString(),posted_by_name:sessionStorage.getItem('admin_name')||'Admin'},...(c._posts||[])];
-      showToast('Posted!');renderClassGroup(c,classId,standard,posts);
-    }else showToast(d?.error||'Failed','err');
-  }catch(e){showToast('Network error','err')}
-  if(btn){btn.disabled=false;btn.textContent='Post to Class';}
+    const d=await apiPost('/posts',{
+      class_id:classId,
+      text_content:txt||null,
+      video_link:vid||null
+    });
+    if(d?.success||d?.post||d?.id){
+      showToast('Posted!');
+      /* Build new post object */
+      const newPost=d.post||{
+        id:d.id||Date.now(),
+        text_content:txt,
+        video_link:vid||null,
+        created_at:new Date().toISOString(),
+        posted_by_name:sessionStorage.getItem('admin_name')||'Admin'
+      };
+      /* Update posts list */
+      const card=document.getElementById('gPostsCard');
+      if(card){
+        card._posts=[newPost,...(card._posts||[])];
+        const postsCount=card._posts.length;
+        document.querySelector('#gPostsCard .card-title').textContent='Posts ('+postsCount+')';
+        const list=document.getElementById('gPostsList');
+        if(list)list.innerHTML=card._posts.map(p=>renderPostItem(p,classId,className)).join('');
+      }
+      /* Clear inputs */
+      if(document.getElementById('gTxt'))document.getElementById('gTxt').value='';
+      if(document.getElementById('gVid'))document.getElementById('gVid').value='';
+    }else{
+      showToast(d?.error||d?.message||'Failed to post','err');
+    }
+  }catch(e){showToast('Network error: '+e.message,'err')}
+  if(btn){btn.disabled=false;btn.textContent='Post to '+className;}
 }
 
-async function deleteClassPost(id,classId,standard){
+async function deleteGroupPost(id,classId,className,btnEl){
   if(!confirm('Delete this post?'))return;
   try{
     const d=await apiDel('/posts/'+id);
-    const c=document.getElementById('pageContent');
-    if(d?.success){const posts=(c._posts||[]).filter(x=>x.id!==id);showToast('Deleted');renderClassGroup(c,parseInt(classId),standard,posts);}
-    else showToast('Failed','err');
+    if(d?.success||d?.message){
+      showToast('Post deleted');
+      const card=document.getElementById('gPostsCard');
+      if(card){
+        card._posts=(card._posts||[]).filter(p=>p.id!==id);
+        const postsCount=card._posts.length;
+        document.querySelector('#gPostsCard .card-title').textContent='Posts ('+postsCount+')';
+        const list=document.getElementById('gPostsList');
+        if(list)list.innerHTML=(!postsCount?'<div class="empty-state" style="padding:20px 0"><p>No posts yet.</p></div>':'')+card._posts.map(p=>renderPostItem(p,parseInt(classId),className)).join('');
+      }
+    }else showToast(d?.error||'Failed','err');
   }catch(e){showToast('Network error','err')}
 }
 
-/* ══════════════════════════
+/* ════════════════════════════
    TIMETABLE
-══════════════════════════ */
-async function renderTimetable(){
+════════════════════════════ */
+async function showTimetable(){
   const c=document.getElementById('pageContent');
-  if(!allClasses.length){const d=await apiGet('/teachers/classes');allClasses=d?.classes||[];}
+  if(!allClasses.length)await fetchClasses();
   c.innerHTML=`
-  <div class="card" style="max-width:700px">
+  <div class="card" style="max-width:750px">
     <div class="card-title">Manage Timetable</div>
-    <div class="fg" style="margin-bottom:16px">
-      <label>Select Class</label>
-      <select class="fi" id="ttCls" onchange="loadTTAdmin(this.value)">
-        <option value="">Select class</option>
-        ${allClasses.map(c=>`<option value="${c.id}">${c.standard}${c.section?' - '+c.section:''}</option>`).join('')}
+    <div class="fg" style="margin-bottom:16px"><label>Select Class</label>
+      <select class="fi" id="ttCls" onchange="loadTT(this.value)">
+        <option value="">Select a class</option>
+        ${allClasses.map(cls=>`<option value="${cls.id}">${cls.standard}${cls.section?' - '+cls.section:''}</option>`).join('')}
       </select>
     </div>
-    <div id="ttArea" style="color:var(--gray-400);font-size:13px">Select a class to view timetable</div>
+    <div id="ttArea" style="color:var(--gray-400);font-size:13px;padding:20px 0;text-align:center">Select a class above to view and edit timetable</div>
   </div>`;
 }
 
-async function loadTTAdmin(classId){
+async function loadTT(classId){
   if(!classId)return;
   const area=document.getElementById('ttArea');
-  area.innerHTML='<div style="color:var(--gray-500);font-size:13px">Loading...</div>';
+  area.innerHTML='<div style="color:var(--gray-500);font-size:13px;padding:20px 0;text-align:center">Loading...</div>';
   let tt=[];
   try{const d=await apiGet('/timetable/'+classId);if(d?.timetable)tt=d.timetable;}catch(e){}
   const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const ttMap={};tt.forEach(row=>ttMap[row.day]=row);
   area.innerHTML=`
   <div style="overflow-x:auto">
-    <table style="width:100%;border-collapse:collapse;font-size:12px">
-      <thead><tr style="background:var(--gray-50)">
-        <th style="padding:8px 10px;text-align:left;border:1px solid var(--gray-200);white-space:nowrap">Day</th>
-        ${[1,2,3,4,5,6,7].map(n=>`<th style="padding:8px 10px;text-align:center;border:1px solid var(--gray-200)">P${n}</th>`).join('')}
+    <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:600px">
+      <thead><tr style="background:var(--maroon-lt)">
+        <th style="padding:10px;text-align:left;border:1px solid var(--gray-200);white-space:nowrap;color:var(--maroon);font-weight:700">Day</th>
+        ${[1,2,3,4,5,6,7].map(n=>`<th style="padding:10px;text-align:center;border:1px solid var(--gray-200);color:var(--maroon);font-weight:700">Period ${n}</th>`).join('')}
       </tr></thead>
       <tbody>
         ${days.map(day=>{const row=ttMap[day]||{};return`<tr>
-          <td style="padding:8px 10px;font-weight:600;border:1px solid var(--gray-200);white-space:nowrap">${day}</td>
+          <td style="padding:8px 10px;font-weight:700;border:1px solid var(--gray-200);white-space:nowrap;color:var(--maroon-dp)">${day}</td>
           ${[1,2,3,4,5,6,7].map(n=>`<td style="padding:3px;border:1px solid var(--gray-200)">
-            <input style="width:88px;padding:5px 6px;border:1px solid var(--gray-200);border-radius:5px;font-size:11px;font-family:var(--font-body);outline:none;text-align:center"
+            <input style="width:100%;min-width:80px;padding:6px 7px;border:1.5px solid var(--gray-200);border-radius:6px;font-size:12px;font-family:var(--font-body);outline:none;text-align:center;background:var(--gray-50)"
               id="tt_${day}_${n}" value="${row['period_'+n]||''}" placeholder="Subject"
-              onfocus="this.style.borderColor='var(--black)'" onblur="this.style.borderColor='var(--gray-200)'">
+              onfocus="this.style.borderColor='var(--maroon)';this.style.background='var(--white)'"
+              onblur="this.style.borderColor='var(--gray-200)';this.style.background='var(--gray-50)'">
           </td>`).join('')}
         </tr>`}).join('')}
       </tbody>
     </table>
   </div>
-  <button class="btn btn-black" style="margin-top:14px" onclick="saveTTAdmin(${classId})">Save Timetable</button>`;
+  <button class="btn btn-maroon" style="margin-top:16px" onclick="saveTT(${classId})">Save Timetable</button>`;
 }
 
-async function saveTTAdmin(classId){
+async function saveTT(classId){
   const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  try{
-    for(const day of days){
-      const periods=[1,2,3,4,5,6,7].map(n=>document.getElementById(`tt_${day}_${n}`)?.value.trim()||'');
-      await apiPost('/timetable',{class_id:classId,day,periods});
-    }
-    showToast('Timetable saved!');
-  }catch(e){showToast('Failed','err')}
+  let saved=0;
+  for(const day of days){
+    const periods=[1,2,3,4,5,6,7].map(n=>document.getElementById(`tt_${day}_${n}`)?.value.trim()||'');
+    try{const r=await apiPost('/timetable',{class_id:classId,day,periods});if(r?.success||r?.timetable||r?.id)saved++;}catch(e){}
+  }
+  if(saved>0)showToast('Timetable saved!');
+  else showToast('Failed to save','err');
 }
 
-/* ══════════════════════════
+/* ════════════════════════════
    PROMOTE / PASSOUT
-══════════════════════════ */
-function renderPromote(){
+════════════════════════════ */
+function showPromote(){
   const c=document.getElementById('pageContent');
   c.innerHTML=`
   <div class="card" style="max-width:500px">
     <div class="card-title">Promote Students</div>
-    <p style="font-size:13px;color:var(--gray-400);margin-bottom:20px">Move all students of a class to the next class.</p>
+    <p style="font-size:13px;color:var(--gray-500);margin-bottom:20px">Move all students from one class to the next at year end.</p>
     <div class="form-grid">
       <div class="fg"><label>From Class</label><select class="fi" id="pfFrom">${CLASSES.map(c=>`<option value="${c}">${c}</option>`).join('')}</select></div>
       <div class="fg"><label>To Class</label><select class="fi" id="pfTo">${CLASSES.map(c=>`<option value="${c}">${c}</option>`).join('')}</select></div>
     </div>
-    <button class="btn btn-black" style="margin-top:14px;width:100%;padding:13px" onclick="promoteStudents()">Promote Students</button>
+    <button class="btn btn-maroon" style="margin-top:14px;width:100%;padding:13px" onclick="doPromote()">Promote Students</button>
   </div>`;
 }
 
-async function promoteStudents(){
+async function doPromote(){
   const from=document.getElementById('pfFrom').value;
   const to=document.getElementById('pfTo').value;
   if(from===to){showToast('Classes cannot be same','err');return}
@@ -1233,7 +1219,7 @@ async function promoteStudents(){
   else showToast(d?.error||'Error','err');
 }
 
-async function renderPassout(){
+async function showPassout(){
   const c=document.getElementById('pageContent');
   c.innerHTML=`<div class="loading-state"><div class="spinner"></div></div>`;
   const d=await apiGet('/passout');const students=d?.students||[];
@@ -1243,13 +1229,14 @@ async function renderPassout(){
     <div class="tbl-wrap"><table>
       <thead><tr><th>Name</th><th>Father</th><th>Phone</th><th>Blood</th><th>Year</th><th>Paid</th><th>Remaining</th><th>Del</th></tr></thead>
       <tbody>
-        ${students.length>0?students.map(s=>`<tr>
+        ${!students.length?'<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--gray-300)">No passout students</td></tr>':''}
+        ${students.map(s=>`<tr>
           <td><b>${s.name}</b></td><td>${s.father_name||'-'}</td><td>${s.phone||'-'}</td>
           <td>${s.blood_group||'-'}</td><td>${s.passout_year||'-'}</td>
           <td>${fmtRs(s.fees_paid)}</td>
           <td><span class="badge ${(s.fees_remaining||0)>0?'b-red':'b-green'}">${fmtRs(s.fees_remaining)}</span></td>
-          <td><button class="btn btn-red btn-sm" onclick="deletePassout('${s.id}')">Del</button></td>
-        </tr>`).join(''):'<tr><td colspan="8" style="text-align:center;padding:30px;color:var(--gray-300)">No passout students</td></tr>'}
+          <td><button class="btn btn-red btn-sm" onclick="delPassout('${s.id}')">Del</button></td>
+        </tr>`).join('')}
       </tbody>
     </table></div>
   </div>
@@ -1257,40 +1244,40 @@ async function renderPassout(){
     <div class="card-title">Add Passout Student</div>
     <div class="form-grid">
       <div class="fg"><label>Name *</label><input class="fi" id="poName" placeholder="Student name"></div>
-      <div class="fg"><label>Father Name</label><input class="fi" id="poFather" placeholder="Father name"></div>
-      <div class="fg"><label>Phone</label><input class="fi" id="poPh" type="tel" placeholder="Phone"></div>
+      <div class="fg"><label>Father Name</label><input class="fi" id="poFather"></div>
+      <div class="fg"><label>Phone</label><input class="fi" id="poPh" type="tel"></div>
       <div class="fg"><label>Blood Group</label><select class="fi" id="poBld"><option value="">Select</option>${['A+','A-','B+','B-','O+','O-','AB+','AB-'].map(b=>`<option>${b}</option>`).join('')}</select></div>
       <div class="fg"><label>Passout Year</label><input class="fi" id="poYear" type="number" value="${new Date().getFullYear()}"></div>
       <div class="fg"><label>Fees Paid (Rs.)</label><input class="fi" id="poPaid" type="number" placeholder="0"></div>
       <div class="fg"><label>Fees Remaining (Rs.)</label><input class="fi" id="poRem" type="number" placeholder="0"></div>
     </div>
-    <button class="btn btn-black" style="margin-top:14px;width:100%;padding:13px" onclick="addPassout()">Add</button>
+    <button class="btn btn-maroon" style="margin-top:14px;width:100%;padding:13px" onclick="addPassout()">Add</button>
   </div>`;
 }
 
 async function addPassout(){
   const name=document.getElementById('poName').value.trim();
   if(!name){showToast('Name required','err');return}
-  const g=id=>document.getElementById(id)?.value||'';
+  const g=i=>document.getElementById(i)?.value||'';
   const d=await apiPost('/passout',{name,father_name:g('poFather'),phone:g('poPh'),blood_group:g('poBld'),passout_year:parseInt(g('poYear'))||new Date().getFullYear(),fees_paid:parseFloat(g('poPaid'))||0,fees_remaining:parseFloat(g('poRem'))||0});
-  if(d?.success){showToast('Added');renderPassout();}
+  if(d?.success){showToast('Added');showPassout();}
   else showToast(d?.error||'Error','err');
 }
 
-async function deletePassout(id){
-  if(!confirm('Delete this record?'))return;
+async function delPassout(id){
+  if(!confirm('Delete record?'))return;
   const d=await apiDel('/passout/'+id);
-  if(d?.success){showToast('Deleted');renderPassout();}
+  if(d?.success){showToast('Deleted');showPassout();}
   else showToast('Error','err');
 }
 
-/* ══ MODAL CLOSE ON OVERLAY ══ */
-document.querySelectorAll('.modal-overlay').forEach(overlay=>{
-  overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.classList.remove('show');});
+/* ── MODAL CLOSE ON OVERLAY ── */
+document.querySelectorAll('.modal-overlay').forEach(o=>{
+  o.addEventListener('click',e=>{if(e.target===o)o.classList.remove('show');});
 });
 
-/* ══ INIT ══ */
-renderDashboard();
+/* ── INIT ── */
+(async function(){await fetchClasses();loadDash();})();
 </script>
 </body>
 </html>
