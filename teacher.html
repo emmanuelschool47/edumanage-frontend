@@ -19,12 +19,12 @@
   --red:#c0392b;--rl:#fdf0ef;
   --gold:#b8860b;--goldl:#fdf8e8;
   --ff:'Playfair Display',serif;--fb:'Inter',sans-serif;--fm:'JetBrains Mono',monospace;
-  --r:12px;--tr:all .22s ease;
+  --r:12px;
 }
 html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6);overflow-x:hidden}
 
 /* LOGIN */
-#loginScreen{position:fixed;inset:0;z-index:999;background:linear-gradient(155deg,var(--dp),var(--p),var(--ac));display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;padding-top:max(20px,env(safe-area-inset-top));overflow-y:auto}
+#loginScreen{position:fixed;inset:0;z-index:999;background:linear-gradient(155deg,var(--dp),var(--p),var(--ac));display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
 #loginScreen::before{content:'';position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
 .lw{width:100%;max-width:400px;position:relative;z-index:1}
 .brand{text-align:center;margin-bottom:22px}
@@ -59,7 +59,7 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .topbar-logo-fb{font-family:var(--ff);font-size:12px;font-weight:700;color:var(--p);display:none}
 .topbar-name{font-family:var(--ff);font-size:15px;font-weight:700;color:var(--dp)}
 .topbar-right{display:flex;align-items:center;gap:6px}
-.bell-btn{position:relative;background:none;border:none;cursor:pointer;padding:6px;border-radius:7px;display:flex}
+.bell-btn{position:relative;background:none;border:none;cursor:pointer;padding:7px;border-radius:7px;display:flex;align-items:center;justify-content:center}
 .bell-btn svg{width:20px;height:20px;stroke:var(--b5);fill:none;stroke-width:2;stroke-linecap:round}
 .bell-dot{position:absolute;top:4px;right:4px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid var(--w);display:none}
 .bell-dot.show{display:block}
@@ -90,24 +90,23 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .sec{padding:0 16px;margin-bottom:16px}
 .sec-title{font-family:var(--ff);font-size:15px;font-weight:700;color:var(--dp);margin-bottom:10px}
 
-/* STUDENT LIST ITEM */
-.si{display:flex;align-items:center;gap:11px;padding:11px 13px;background:var(--w);border:1px solid var(--b2);border-radius:var(--r);margin-bottom:8px;cursor:pointer;transition:var(--tr);-webkit-tap-highlight-color:transparent}
+/* STUDENT ITEM */
+.si{display:flex;align-items:center;gap:11px;padding:11px 13px;background:var(--w);border:1px solid var(--b2);border-radius:var(--r);margin-bottom:8px;cursor:pointer;transition:background .15s}
 .si:active{background:var(--b1)}
 .si-av{width:40px;height:40px;background:var(--plt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:15px;color:var(--p);flex-shrink:0;font-weight:700}
 .si-name{font-size:14px;font-weight:600;margin-bottom:1px;color:#1a1a1a}
 .si-meta{font-size:11px;color:var(--b4)}
 
 /* BADGES */
-.badge-ok{background:var(--gl);color:var(--green);padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600;display:inline-block}
-.badge-no{background:var(--rl);color:var(--red);padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600;display:inline-block}
-.badge-ho{background:var(--goldl);color:var(--gold);padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600;display:inline-block}
-.badge-gr{background:var(--b1);color:var(--b5);padding:2px 8px;border-radius:100px;font-size:10px;font-weight:600;display:inline-block}
+.bOK{background:var(--gl);color:var(--green);padding:2px 9px;border-radius:100px;font-size:10px;font-weight:600;display:inline-block}
+.bNO{background:var(--rl);color:var(--red);padding:2px 9px;border-radius:100px;font-size:10px;font-weight:600;display:inline-block}
+.bHO{background:var(--goldl);color:var(--gold);padding:2px 9px;border-radius:100px;font-size:10px;font-weight:600;display:inline-block}
 
-/* STUDENT DETAIL SCREEN */
+/* DETAIL SCREEN */
 .detail-screen{display:none;position:fixed;inset:0;z-index:200;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch}
 .detail-screen.show{display:block}
 .detail-topbar{background:var(--w);border-bottom:1px solid var(--b2);padding:0 16px;height:54px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:10}
-.back-btn{background:none;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:7px;border-radius:8px;color:var(--b6)}
+.back-btn{background:none;border:none;cursor:pointer;display:flex;align-items:center;padding:8px;border-radius:8px;color:var(--b6)}
 .back-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
 .detail-title{font-family:var(--ff);font-size:16px;font-weight:700;color:var(--dp)}
 .info-list{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);overflow:hidden;margin:0 16px 12px}
@@ -126,26 +125,32 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .att-row:last-of-type{border-bottom:none}
 .att-roll{font-family:var(--fm);font-size:12px;color:var(--b4);min-width:28px;flex-shrink:0}
 .att-name{font-size:13px;font-weight:500;flex:1;color:#1a1a1a}
-.att-tog{display:flex;border:2px solid var(--b2);border-radius:8px;overflow:hidden;flex-shrink:0}
-.att-btn{padding:7px 15px;border:none;font-family:var(--fb);font-size:12px;font-weight:700;cursor:pointer;background:transparent;color:var(--b4);transition:background .15s,color .15s}
-.att-btn.p-on{background:var(--green);color:var(--w)}
-.att-btn.a-on{background:var(--red);color:var(--w)}
-.save-btn{width:calc(100% - 28px);margin:12px 14px;padding:12px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
+
+/* ATTENDANCE TOGGLE — CRITICAL FIX */
+.att-tog{display:flex;border-radius:8px;overflow:hidden;flex-shrink:0;gap:0}
+.att-p{padding:8px 18px;border:none;font-family:var(--fb);font-size:13px;font-weight:700;cursor:pointer;background:var(--b1);color:var(--b4);transition:background .15s,color .15s;border-radius:8px 0 0 8px;-webkit-tap-highlight-color:transparent;min-width:44px;text-align:center}
+.att-a{padding:8px 18px;border:none;font-family:var(--fb);font-size:13px;font-weight:700;cursor:pointer;background:var(--b1);color:var(--b4);transition:background .15s,color .15s;border-radius:0 8px 8px 0;-webkit-tap-highlight-color:transparent;min-width:44px;text-align:center}
+.att-p.on{background:var(--green);color:var(--w)}
+.att-a.on{background:var(--red);color:var(--w)}
+
+.save-btn{width:calc(100% - 28px);margin:12px 14px;padding:13px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
 .save-btn:disabled{opacity:.6;cursor:not-allowed}
 
-/* MARKS */
-.fi{width:100%;padding:10px 12px;background:var(--b1);border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:#1a1a1a;outline:none;transition:var(--tr)}
+/* FORMS */
+.fi{width:100%;padding:10px 12px;background:var(--b1);border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:#1a1a1a;outline:none;transition:border-color .2s}
 .fi:focus{border-color:var(--p);background:var(--w)}
 select.fi{-webkit-appearance:none}
 .fgl{display:flex;flex-direction:column;gap:4px;margin-bottom:11px}
 .fgl label{font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px}
+
+/* MARKS */
 .mk-row{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--b1)}
 .mk-row:last-child{border-bottom:none}
 .mk-av{width:30px;height:30px;background:var(--plt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:11px;color:var(--p);flex-shrink:0;font-weight:700}
 .mk-name{font-size:13px;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#1a1a1a}
-.mk-inp{padding:7px;border:2px solid var(--b2);border-radius:7px;font-family:var(--fm);font-size:13px;color:#1a1a1a;outline:none;width:62px;text-align:center;-webkit-appearance:none}
+.mk-inp{padding:7px;border:2px solid var(--b2);border-radius:7px;font-family:var(--fm);font-size:13px;color:#1a1a1a;outline:none;width:62px;text-align:center;-webkit-appearance:none;background:var(--w)}
 .mk-inp:focus{border-color:var(--p)}
-.mk-of{padding:7px;border:2px solid var(--b2);border-radius:7px;font-family:var(--fm);font-size:13px;color:#1a1a1a;outline:none;width:62px;text-align:center;-webkit-appearance:none}
+.mk-of{padding:7px;border:2px solid var(--b2);border-radius:7px;font-family:var(--fm);font-size:13px;color:#1a1a1a;outline:none;width:62px;text-align:center;-webkit-appearance:none;background:var(--w)}
 .mk-of:focus{border-color:var(--p)}
 
 /* POSTS */
@@ -166,35 +171,36 @@ select.fi{-webkit-appearance:none}
 .post-video-ic{width:28px;height:28px;background:var(--p);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .post-video-ic svg{width:12px;height:12px;stroke:var(--w);fill:none;stroke-width:2;stroke-linecap:round}
 .post-video-lbl{font-size:12px;font-weight:700;color:var(--p)}
-.del-post-btn{background:none;border:none;cursor:pointer;color:var(--b4);font-size:18px;padding:3px;line-height:1;margin-left:auto}
-
-/* NOTIFY */
-.nf-card{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px}
-.send-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
-.send-btn:disabled{opacity:.6;cursor:not-allowed}
-
-/* TIMETABLE */
-.tt-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--b2);margin-bottom:12px}
-.tt-table{width:100%;border-collapse:collapse;font-size:11px}
-.tt-table th{padding:8px 6px;background:var(--plt);border:1px solid var(--b2);text-align:center;font-weight:700;color:var(--p);white-space:nowrap}
-.tt-table td{padding:3px 3px;border:1px solid var(--b2);text-align:center}
-.tt-inp{width:72px;padding:5px 4px;border:1.5px solid var(--b2);border-radius:5px;font-size:11px;font-family:var(--fb);color:#1a1a1a;outline:none;text-align:center}
-.tt-inp:focus{border-color:var(--p)}
+.del-post-btn{background:none;border:none;cursor:pointer;color:var(--b4);font-size:18px;padding:3px;line-height:1;margin-left:auto;transition:color .15s}
+.del-post-btn:hover{color:var(--red)}
 
 /* NOTIFICATION PANEL */
 .np{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.5);display:none;align-items:flex-end}
 .np.show{display:flex}
-.np-sheet{background:var(--w);border-radius:18px 18px 0 0;width:100%;max-height:78vh;overflow-y:auto;padding-bottom:max(20px,env(safe-area-inset-bottom))}
+.np-sheet{background:var(--w);border-radius:18px 18px 0 0;width:100%;max-height:78vh;overflow-y:auto;padding-bottom:max(20px,env(safe-area-inset-bottom));animation:slideUp .3s ease}
 .np-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 8px;border-bottom:1px solid var(--b1)}
 .np-title{font-family:var(--ff);font-size:17px;font-weight:700;color:var(--dp)}
 .np-close{background:none;border:none;cursor:pointer;color:var(--b4);font-size:22px;line-height:1;padding:4px}
 .ni-item{display:flex;gap:11px;padding:12px 16px;border-bottom:1px solid var(--b1)}
 .ni-item:last-child{border-bottom:none}
-.ni-icon{width:38px;height:38px;border-radius:50%;background:var(--plt);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ni-icon svg{width:17px;height:17px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
+.ni-ic{width:38px;height:38px;border-radius:50%;background:var(--plt);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ni-ic svg{width:17px;height:17px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
 .ni-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:2px}
 .ni-msg{font-size:12px;color:var(--b5);line-height:1.5}
 .ni-time{font-size:10px;color:var(--b3);margin-top:3px}
+
+/* TIMETABLE */
+.tt-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--b2);margin-bottom:12px}
+.tt-table{width:100%;border-collapse:collapse;font-size:11px}
+.tt-table th{padding:8px 5px;background:var(--plt);border:1px solid var(--b2);text-align:center;font-weight:700;color:var(--p);white-space:nowrap}
+.tt-table td{padding:3px 3px;border:1px solid var(--b2);text-align:center}
+.tt-inp{width:68px;padding:5px 4px;border:1.5px solid var(--b2);border-radius:5px;font-size:11px;font-family:var(--fb);color:#1a1a1a;outline:none;text-align:center;background:var(--b1)}
+.tt-inp:focus{border-color:var(--p);background:var(--w)}
+
+/* NOTIFY */
+.nf-card{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px}
+.send-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
+.send-btn:disabled{opacity:.6;cursor:not-allowed}
 
 /* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--w);border-top:1px solid var(--b2);display:flex;padding:6px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));z-index:100}
@@ -208,9 +214,19 @@ select.fi{-webkit-appearance:none}
 .loading{display:flex;align-items:center;justify-content:center;min-height:38vh;flex-direction:column;gap:11px}
 .spin-el{width:24px;height:24px;border:2px solid var(--b2);border-top-color:var(--p);border-radius:50%;animation:spin .8s linear infinite}
 .empty{text-align:center;padding:36px 20px;color:var(--b4);font-size:13px}
-.toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dp);color:var(--w);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.25);max-width:90vw;overflow:hidden;text-overflow:ellipsis}
+.toast{position:fixed;top:70px;left:50%;transform:translateX(-50%) translateY(-20px);background:var(--dp);color:var(--w);padding:10px 20px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.3);max-width:92vw;overflow:hidden;text-overflow:ellipsis}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.err{background:var(--red)}
+.toast.ok2{background:var(--green)}
+
+/* POPUP NOTIFICATION */
+.popup-notif{position:fixed;top:70px;left:50%;transform:translateX(-50%) translateY(-100px);background:var(--w);border:1px solid var(--b2);border-radius:14px;padding:12px 16px;min-width:280px;max-width:92vw;box-shadow:0 8px 30px rgba(0,0,0,.18);z-index:9998;opacity:0;transition:all .4s cubic-bezier(.4,0,.2,1);display:flex;align-items:flex-start;gap:10px}
+.popup-notif.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.popup-ic{width:36px;height:36px;background:var(--plt);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.popup-ic svg{width:18px;height:18px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
+.popup-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:2px}
+.popup-msg{font-size:12px;color:var(--b5);line-height:1.4}
+
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
 </style>
@@ -242,9 +258,9 @@ select.fi{-webkit-appearance:none}
         <label>Password</label>
         <div class="linp-w">
           <input type="password" id="lPass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
-          <button class="leye" type="button" onclick="toggleLPw()">
-            <svg id="leyeS" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            <svg id="leyeH" viewBox="0 0 24 24" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          <button class="leye" type="button" onclick="togglePw()">
+            <svg id="eyeS" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg id="eyeH" viewBox="0 0 24 24" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
           </button>
         </div>
       </div>
@@ -268,9 +284,19 @@ select.fi{-webkit-appearance:none}
   <div id="detailBody" style="padding-bottom:30px"></div>
 </div>
 
+<!-- NOTIFICATION POPUP -->
+<div class="popup-notif" id="popupNotif">
+  <div class="popup-ic"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+  <div style="flex:1;min-width:0">
+    <div class="popup-title" id="popupTitle">Notification</div>
+    <div class="popup-msg" id="popupMsg"></div>
+  </div>
+  <button onclick="document.getElementById('popupNotif').classList.remove('show')" style="background:none;border:none;cursor:pointer;color:var(--b4);font-size:18px;line-height:1;padding:2px;flex-shrink:0">×</button>
+</div>
+
 <!-- NOTIFICATION PANEL -->
 <div class="np" id="np" onclick="if(event.target===this)closeNP()">
-  <div class="np-sheet" style="animation:slideUp .3s ease">
+  <div class="np-sheet">
     <div class="np-head">
       <div class="np-title">Notifications</div>
       <button class="np-close" onclick="closeNP()">×</button>
@@ -332,30 +358,49 @@ select.fi{-webkit-appearance:none}
 
 <div class="toast" id="toast"></div>
 
-<!-- FIREBASE PUSH NOTIFICATIONS -->
+<!-- FIREBASE -->
 <script type="module">
 import{initializeApp}from'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
 import{getMessaging,getToken,onMessage}from'https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js';
-const FB={apiKey:"AIzaSyA21lqBYdpcsUQCDOvc7Y1ZtIvy5j1VPVw",authDomain:"edumanage-notificationn.firebaseapp.com",projectId:"edumanage-notificationn",messagingSenderId:"956207309076",appId:"1:956207309076:web:6432e350c3536aa49f6201"};
+const FB={
+  apiKey:"AIzaSyA21lqBYdpcsUQCDOvc7Y1ZtIvy5j1VPVw",
+  authDomain:"edumanage-notificationn.firebaseapp.com",
+  projectId:"edumanage-notificationn",
+  messagingSenderId:"956207309076",
+  appId:"1:956207309076:web:6432e350c3536aa49f6201"
+};
 const app=initializeApp(FB);
-const msg=getMessaging(app);
+const messaging=getMessaging(app);
+
 window._reqPush=async function(){
   try{
     const perm=await Notification.requestPermission();
     if(perm!=='granted')return;
-    const token=await getToken(msg,{vapidKey:'BCHbNp4TNGBtB7j5IXbvlpWJ5LRTmEYfJTWTvFHnZD2k3VX4LgLfOhqSLBJGXLZ4lGJ4EJxZ9KAFQgGCxFhJkE'});
+    const token=await getToken(messaging,{vapidKey:'BCHbNp4TNGBtB7j5IXbvlpWJ5LRTmEYfJTWTvFHnZD2k3VX4LgLfOhqSLBJGXLZ4lGJ4EJxZ9KAFQgGCxFhJkE'});
     if(token){
-      localStorage.setItem('fcm_token_tch',token);
+      localStorage.setItem('fcm_tch',token);
       const t=localStorage.getItem('tch_token');
-      if(t)await fetch('https://edumanage-backend-xi.vercel.app/api/notifications/register-token',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},body:JSON.stringify({token,platform:'web'})}).catch(()=>{});
+      if(t){
+        await fetch('https://edumanage-backend-xi.vercel.app/api/notifications/register-token',{
+          method:'POST',
+          headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},
+          body:JSON.stringify({token,platform:'web'})
+        }).catch(()=>{});
+      }
     }
   }catch(e){console.log('Push error:',e.message)}
 };
-onMessage(msg,payload=>{
+
+onMessage(messaging,payload=>{
   const title=payload.notification?.title||'Emmanuel School';
   const body=payload.notification?.body||'';
-  window._showToast?.(title+(body?': '+body:''));
-  if(Notification.permission==='granted')new Notification(title,{body,icon:'/logo.webp',badge:'/logo.webp',vibrate:[200,100,200]});
+  /* Show popup notification */
+  window._showPopup(title,body);
+  /* Also show system notification if permission granted */
+  if(Notification.permission==='granted'){
+    new Notification(title,{body,icon:'/logo.webp',badge:'/logo.webp',vibrate:[200,100,200],tag:'tch-'+Date.now()});
+  }
+  /* Refresh list */
   window._refreshNotifs?.();
   document.getElementById('bellDot')?.classList.add('show');
 });
@@ -364,6 +409,7 @@ onMessage(msg,payload=>{
 <script>
 const API='https://edumanage-backend-xi.vercel.app/api';
 let TOKEN=null,TD=null,CD=null,students=[],posts=[],NOTIFS=[];
+/* attState: {studentId: 'P' or 'A'} */
 let attState={};
 let curTab='home';
 
@@ -372,27 +418,47 @@ function ini(n){if(!n)return'?';return n.split(' ').map(w=>w[0]).join('').toUppe
 function ago(d){if(!d)return'';const s=Math.floor((Date.now()-new Date(d))/1000);if(s<60)return'just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago'}
 function fmtRs(n){return'Rs. '+(parseInt(n||0)).toLocaleString('en-IN')}
 
+/* TOAST */
 let toastT;
-window._showToast=function(msg,err){
+function showToast(msg,type=''){
   const e=document.getElementById('toast');
-  e.textContent=msg;e.className='toast'+(err?' err':'');
-  e.classList.add('show');clearTimeout(toastT);
-  toastT=setTimeout(()=>e.classList.remove('show'),3200);
-};
-function showToast(msg,err){window._showToast(msg,err)}
+  e.textContent=msg;e.className='toast show'+(type?' '+type:'');
+  clearTimeout(toastT);toastT=setTimeout(()=>e.className='toast',3000);
+}
 
-/* ── BOOT ── */
+/* POPUP NOTIFICATION */
+let popT;
+window._showPopup=function(title,body){
+  document.getElementById('popupTitle').textContent=title;
+  document.getElementById('popupMsg').textContent=body;
+  const el=document.getElementById('popupNotif');
+  el.classList.add('show');
+  clearTimeout(popT);popT=setTimeout(()=>el.classList.remove('show'),5000);
+};
+
+/* BOOT */
 (function boot(){
   const saved=localStorage.getItem('tch_token');
-  if(saved&&saved.length>20){TOKEN=saved;TD={name:localStorage.getItem('tch_name')||'Teacher'};showApp();loadData();}
-  else showLogin();
+  if(saved&&saved.length>20){
+    TOKEN=saved;
+    TD={name:localStorage.getItem('tch_name')||'Teacher'};
+    showApp();loadData();
+  }else showLogin();
 })();
 
-function showLogin(){document.getElementById('loginScreen').style.display='flex';document.getElementById('appScreen').style.display='none';setTimeout(()=>document.getElementById('lCode')?.focus(),300)}
-function showApp(){document.getElementById('loginScreen').style.display='none';document.getElementById('appScreen').style.display='flex'}
+function showLogin(){
+  document.getElementById('loginScreen').style.display='flex';
+  document.getElementById('appScreen').style.display='none';
+  setTimeout(()=>document.getElementById('lCode')?.focus(),300);
+}
+function showApp(){
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('appScreen').style.display='flex';
+}
 
-function toggleLPw(){
-  const i=document.getElementById('lPass');const s=document.getElementById('leyeS');const h=document.getElementById('leyeH');
+function togglePw(){
+  const i=document.getElementById('lPass');
+  const s=document.getElementById('eyeS');const h=document.getElementById('eyeH');
   if(i.type==='password'){i.type='text';s.style.display='none';h.style.display='block';}
   else{i.type='password';s.style.display='block';h.style.display='none';}
 }
@@ -403,17 +469,23 @@ async function doLogin(){
   const err=document.getElementById('lerr');
   if(!code||!pass){err.textContent='Code aur password daalo';err.classList.add('show');return}
   err.classList.remove('show');
-  document.getElementById('lTxt').style.display='none';document.getElementById('lSpin').style.display='block';document.getElementById('lBtn').disabled=true;
+  document.getElementById('lTxt').style.display='none';
+  document.getElementById('lSpin').style.display='block';
+  document.getElementById('lBtn').disabled=true;
   try{
     const res=await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code,password:pass,role:'teacher'})});
     const data=await res.json();
     if(res.ok&&data.token){
-      TOKEN=data.token;TD=data.user||{name:code,code};
-      localStorage.setItem('tch_token',TOKEN);localStorage.setItem('tch_name',TD.name||code);
-      showApp();loadData();setTimeout(()=>window._reqPush?.(),2000);
+      TOKEN=data.token;TD=data.user||{name:code};
+      localStorage.setItem('tch_token',TOKEN);
+      localStorage.setItem('tch_name',TD.name||code);
+      showApp();loadData();
+      setTimeout(()=>window._reqPush?.(),2000);
     }else{err.textContent=data.message||data.error||'Invalid credentials';err.classList.add('show');}
   }catch(e){err.textContent='Network error: '+e.message;err.classList.add('show')}
-  document.getElementById('lTxt').style.display='block';document.getElementById('lSpin').style.display='none';document.getElementById('lBtn').disabled=false;
+  document.getElementById('lTxt').style.display='block';
+  document.getElementById('lSpin').style.display='none';
+  document.getElementById('lBtn').disabled=false;
 }
 
 function doLogout(){
@@ -423,7 +495,7 @@ function doLogout(){
   showLogin();
 }
 
-/* ── LOAD DATA ── */
+/* LOAD DATA */
 async function loadData(){
   document.getElementById('mainContent').innerHTML='<div class="loading"><div class="spin-el"></div></div>';
   try{
@@ -431,8 +503,11 @@ async function loadData(){
     if(res.status===401){localStorage.removeItem('tch_token');showLogin();return}
     const data=await res.json();
     CD=data.class||null;students=data.students||[];
-    students.forEach(s=>{if(!attState[s.id])attState[s.id]='P';});
-    if(CD){try{const pr=await fetch(API+'/posts/'+CD.id,{headers:H()});if(pr.ok){const pd=await pr.json();posts=pd.posts||[];}}catch(_){}}
+    /* Default all to Present */
+    students.forEach(s=>{if(attState[s.id]===undefined)attState[s.id]='P';});
+    if(CD){
+      try{const pr=await fetch(API+'/posts/'+CD.id,{headers:H()});if(pr.ok){const pd=await pr.json();posts=pd.posts||[];}}catch(_){}
+    }
     await loadNotifs();
     showTab(curTab);
     setTimeout(()=>window._reqPush?.(),2000);
@@ -441,12 +516,12 @@ async function loadData(){
   }
 }
 
-/* ── NOTIFICATIONS ── */
+/* NOTIFICATIONS */
 async function loadNotifs(){
   try{
     const r=await fetch(API+'/notifications',{headers:H()});
     if(r.ok){const d=await r.json();NOTIFS=d.notifications||[];}
-    if(NOTIFS.length){document.getElementById('bellDot')?.classList.add('show');}
+    if(NOTIFS.length)document.getElementById('bellDot')?.classList.add('show');
   }catch(_){}
 }
 
@@ -461,10 +536,10 @@ function closeNP(){document.getElementById('np').classList.remove('show')}
 
 function renderNPList(){
   const el=document.getElementById('npList');if(!el)return;
-  if(!NOTIFS.length){el.innerHTML='<div class="empty" style="min-height:60px">No notifications yet</div>';return}
+  if(!NOTIFS.length){el.innerHTML='<div class="empty">No notifications yet</div>';return}
   el.innerHTML=NOTIFS.map(n=>`
     <div class="ni-item">
-      <div class="ni-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+      <div class="ni-ic"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
       <div style="flex:1">
         <div class="ni-title">${n.title||''}</div>
         <div class="ni-msg">${n.message||''}</div>
@@ -473,7 +548,7 @@ function renderNPList(){
     </div>`).join('');
 }
 
-/* ── ROUTER ── */
+/* ROUTER */
 function showTab(tab,btn){
   curTab=tab;
   document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
@@ -489,17 +564,20 @@ function showTab(tab,btn){
   document.getElementById('scrollArea').scrollTop=0;
 }
 
-/* ══ HOME — Students List ══ */
+/* ═══ HOME ═══ */
 function renderHome(){
   const name=TD?.name||'Teacher';
-  const present=Object.values(attState).filter(v=>v==='P').length;
-  const absent=Object.values(attState).filter(v=>v==='A').length;
+  const present=students.filter(s=>attState[s.id]==='P').length;
+  const absent=students.filter(s=>attState[s.id]==='A').length;
   if(!CD)return`<div class="hero"><div class="hero-grid"></div><div class="hero-inner"><div class="hero-grt">Teacher</div><div class="hero-name">${name}</div></div></div><div style="padding:20px 16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:24px;text-align:center;color:var(--b4)">No class assigned. Contact admin.</div></div>`;
   return`
   <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
     <div class="hero-grt">Class Teacher</div>
     <div class="hero-name">${name}</div>
-    <div class="hero-chips"><span class="hero-chip">${CD.standard}${CD.section?' - '+CD.section:''}</span><span class="hero-chip">${students.length} Students</span></div>
+    <div class="hero-chips">
+      <span class="hero-chip">${CD.standard}${CD.section?' - '+CD.section:''}</span>
+      <span class="hero-chip">${students.length} Students</span>
+    </div>
   </div></div>
   <div class="stats-row">
     <div class="stat-tile"><div class="stat-val">${students.length}</div><div class="stat-lbl">Total</div></div>
@@ -517,21 +595,22 @@ function renderHome(){
           <div class="si-meta">Roll ${s.roll_no||'-'} • ${s.parent_phone||'No phone'}</div>
         </div>
         <div style="display:flex;align-items:center;gap:7px;flex-shrink:0">
-          ${attState[s.id]==='P'?'<span class="badge-ok">P</span>':attState[s.id]==='A'?'<span class="badge-no">A</span>':''}
+          ${attState[s.id]==='P'?'<span class="bOK">P</span>':'<span class="bNO">A</span>'}
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--b3)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
         </div>
       </div>`).join('')}
   </div>`;
 }
 
-/* ══ STUDENT DETAIL — with fees, marks, attendance ══ */
+/* ═══ STUDENT DETAIL ═══ */
 function openDetail(id){
-  const s=students.find(x=>x.id===id);if(!s)return;
+  const s=students.find(x=>x.id===id);
+  if(!s){showToast('Student not found','err');return}
   document.getElementById('detailTitle').textContent=s.name;
   const total=parseFloat(s.total_amount)||0;
   const paid=parseFloat(s.paid_amount)||0;
   const rem=parseFloat(s.remaining_amount)||Math.max(0,total-paid);
-  const feeStatus=s.fees_status||'pending';
+  const fStatus=s.fees_status||'pending';
   document.getElementById('detailBody').innerHTML=`
   <div style="padding:16px 16px 0">
     <div style="display:flex;align-items:center;gap:13px;margin-bottom:16px">
@@ -543,7 +622,7 @@ function openDetail(id){
     </div>
   </div>
   <div class="info-list">
-    ${s.parent_name?`<div class="info-row"><span class="info-lbl">Parent / Guardian</span><span class="info-val">${s.parent_name}</span></div>`:''}
+    ${s.parent_name?`<div class="info-row"><span class="info-lbl">Parent</span><span class="info-val">${s.parent_name}</span></div>`:''}
     ${s.parent_phone?`<div class="info-row"><span class="info-lbl">Parent Phone</span><span class="info-val">${s.parent_phone}</span></div>`:''}
     ${s.phone?`<div class="info-row"><span class="info-lbl">Student Phone</span><span class="info-val">${s.phone}</span></div>`:''}
     ${s.dob?`<div class="info-row"><span class="info-lbl">Date of Birth</span><span class="info-val">${new Date(s.dob).toLocaleDateString('en-IN')}</span></div>`:''}
@@ -551,14 +630,16 @@ function openDetail(id){
     ${s.blood_group?`<div class="info-row"><span class="info-lbl">Blood Group</span><span class="info-val">${s.blood_group}</span></div>`:''}
     ${s.address?`<div class="info-row"><span class="info-lbl">Address</span><span class="info-val" style="font-size:12px">${s.address}</span></div>`:''}
     <div class="info-row"><span class="info-lbl">Bus</span><span class="info-val">${s.has_bus?(s.bus_route?'Yes — '+s.bus_route:'Yes'):'No'}</span></div>
-    <div class="info-row"><span class="info-lbl">Today's Attendance</span><span class="info-val">${attState[s.id]==='P'?'<span class="badge-ok">Present</span>':'<span class="badge-no">Absent</span>'}</span></div>
+    <div class="info-row"><span class="info-lbl">Today Attendance</span><span class="info-val">${attState[s.id]==='P'?'<span class="bOK">Present</span>':'<span class="bNO">Absent</span>'}</span></div>
   </div>
-  <!-- FEES SECTION -->
   <div style="margin:0 16px 12px">
     <div style="font-family:var(--ff);font-size:15px;font-weight:700;color:var(--dp);margin-bottom:10px">Fees Details</div>
-    <div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);overflow:hidden">
-      <div class="info-row"><span class="info-lbl">Fees Status</span><span class="info-val"><span class="${feeStatus==='paid'?'badge-ok':feeStatus==='partial'?'badge-ho':'badge-no'}">${feeStatus}</span></span></div>
-      <div class="info-row"><span class="info-lbl">Total Fees</span><span class="info-val" style="color:var(--dp);font-family:var(--fm)">${fmtRs(total)}</span></div>
+    <div class="info-list" style="margin:0">
+      <div class="info-row">
+        <span class="info-lbl">Status</span>
+        <span class="info-val"><span class="${fStatus==='paid'?'bOK':fStatus==='partial'?'bHO':'bNO'}">${fStatus}</span></span>
+      </div>
+      <div class="info-row"><span class="info-lbl">Total Fees</span><span class="info-val" style="font-family:var(--fm)">${fmtRs(total)}</span></div>
       <div class="info-row"><span class="info-lbl">Amount Paid</span><span class="info-val" style="color:var(--green);font-family:var(--fm)">${fmtRs(paid)}</span></div>
       <div class="info-row"><span class="info-lbl">Remaining</span><span class="info-val" style="color:${rem>0?'var(--red)':'var(--green)'};font-family:var(--fm)">${fmtRs(rem)}</span></div>
     </div>
@@ -571,10 +652,10 @@ function openDetail(id){
 }
 function closeDetail(){document.getElementById('detailScreen').classList.remove('show')}
 
-/* ══ ATTENDANCE ══ */
+/* ═══ ATTENDANCE ═══ */
 function renderAttendance(){
   if(!CD)return`<div style="padding:20px 16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:20px;text-align:center;color:var(--b4)">No class assigned</div></div>`;
-  if(!students.length)return`<div style="padding:20px 16px"><div class="empty">No students in your class</div></div>`;
+  if(!students.length)return`<div style="padding:20px 16px"><div class="empty">No students</div></div>`;
   const today=new Date().toISOString().slice(0,10);
   return`
   <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
@@ -587,13 +668,14 @@ function renderAttendance(){
         <input type="date" class="date-inp" id="attDate" value="${today}">
       </div>
       ${students.map(s=>{
-        if(!attState[s.id])attState[s.id]='P';
+        if(attState[s.id]===undefined)attState[s.id]='P';
+        const isP=attState[s.id]==='P';
         return`<div class="att-row">
           <div class="att-roll">${s.roll_no||'-'}</div>
           <div class="att-name">${s.name}</div>
           <div class="att-tog">
-            <button class="att-btn ${attState[s.id]==='P'?'p-on':''}" id="btnP_${s.id}" onclick="setAtt(${s.id},'P')">P</button>
-            <button class="att-btn ${attState[s.id]==='A'?'a-on':''}" id="btnA_${s.id}" onclick="setAtt(${s.id},'A')">A</button>
+            <button class="att-p ${isP?'on':''}" id="btnP_${s.id}" onclick="setAtt(${s.id},'P')">P</button>
+            <button class="att-a ${!isP?'on':''}" id="btnA_${s.id}" onclick="setAtt(${s.id},'A')">A</button>
           </div>
         </div>`;
       }).join('')}
@@ -604,13 +686,20 @@ function renderAttendance(){
   </div>`;
 }
 
+/* CRITICAL — P/A toggle fix */
 function setAtt(sid,val){
+  sid=parseInt(sid);
   attState[sid]=val;
-  const pB=document.getElementById('btnP_'+sid);
-  const aB=document.getElementById('btnA_'+sid);
-  if(!pB||!aB)return;
-  if(val==='P'){pB.className='att-btn p-on';aB.className='att-btn';}
-  else{aB.className='att-btn a-on';pB.className='att-btn';}
+  const pBtn=document.getElementById('btnP_'+sid);
+  const aBtn=document.getElementById('btnA_'+sid);
+  if(!pBtn||!aBtn)return;
+  if(val==='P'){
+    pBtn.className='att-p on';
+    aBtn.className='att-a';
+  }else{
+    pBtn.className='att-p';
+    aBtn.className='att-a on';
+  }
 }
 
 async function saveAttendance(){
@@ -618,13 +707,19 @@ async function saveAttendance(){
   const btn=document.getElementById('saveAttBtn');
   if(!btn)return;
   btn.disabled=true;btn.textContent='Saving...';
-  const attendance_list=students.map(s=>({student_id:s.id,status:attState[s.id]==='A'?'absent':'present'}));
+  const attendance_list=students.map(s=>({
+    student_id:s.id,
+    status:attState[s.id]==='A'?'absent':'present'
+  }));
   try{
-    const res=await fetch(API+'/attendance/mark',{method:'POST',headers:H(),body:JSON.stringify({attendance_list,date})});
+    const res=await fetch(API+'/attendance/mark',{
+      method:'POST',headers:H(),
+      body:JSON.stringify({attendance_list,date})
+    });
     const d=await res.json().catch(()=>({}));
     if(res.ok){
-      showToast('Attendance saved for '+students.length+' students!');
-      /* Auto notification — absent students */
+      showToast('Attendance saved!','ok2');
+      /* Send notification for absent students */
       const absentList=students.filter(s=>attState[s.id]==='A');
       if(absentList.length>0&&CD){
         const names=absentList.map(s=>s.name).join(', ');
@@ -632,18 +727,20 @@ async function saveAttendance(){
           method:'POST',headers:H(),
           body:JSON.stringify({
             title:'Attendance — '+date,
-            message:absentList.length===1?`${absentList[0].name} absent today.`:`${absentList.length} students absent today: ${names.length>80?names.slice(0,80)+'...':names}`,
+            message:absentList.length===1
+              ?absentList[0].name+' absent today.'
+              :absentList.length+' students absent: '+(names.length>80?names.slice(0,80)+'...':names),
             target_type:'class',
             target_id:String(CD.id)
           })
         }).catch(()=>{});
       }
-    }else{showToast(d.error||'Failed to save',true);}
-  }catch(e){showToast('Network error: '+e.message,true)}
+    }else{showToast(d.error||'Failed to save','err');}
+  }catch(e){showToast('Network error: '+e.message,'err')}
   if(btn){btn.disabled=false;btn.textContent='Save Attendance ('+students.length+' students)';}
 }
 
-/* ══ MARKS ══ */
+/* ═══ MARKS ═══ */
 function renderMarks(){
   if(!CD)return`<div style="padding:20px 16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:20px;text-align:center;color:var(--b4)">No class assigned</div></div>`;
   if(!students.length)return`<div style="padding:20px 16px"><div class="empty">No students</div></div>`;
@@ -655,60 +752,69 @@ function renderMarks(){
   <div style="padding:13px 16px">
     <div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px;margin-bottom:12px">
       <div class="fgl"><label>Subject *</label><input class="fi" id="mk_sub" placeholder="e.g. Mathematics, English, Science"></div>
-      <div class="fgl"><label>Exam Type *</label>
+      <div class="fgl"><label>Exam Type</label>
         <select class="fi" id="mk_exam">
-          <option value="Unit Test 1">Unit Test 1</option><option value="Unit Test 2">Unit Test 2</option>
-          <option value="Mid Term">Mid Term</option><option value="Final Exam">Final Exam</option>
-          <option value="Class Test">Class Test</option><option value="Assignment">Assignment</option>
+          <option value="Unit Test 1">Unit Test 1</option>
+          <option value="Unit Test 2">Unit Test 2</option>
+          <option value="Mid Term">Mid Term</option>
+          <option value="Final Exam">Final Exam</option>
+          <option value="Class Test">Class Test</option>
+          <option value="Assignment">Assignment</option>
           <option value="Practical">Practical</option>
         </select>
       </div>
-      <div class="fgl"><label>Total Marks (apply to all)</label><input type="number" class="fi" id="mk_total" value="100" min="1"></div>
-      <button style="padding:7px 14px;background:var(--plt);border:1px solid rgba(128,0,32,.2);border-radius:8px;font-family:var(--fb);font-size:12px;font-weight:700;color:var(--p);cursor:pointer" onclick="applyTotal()">Apply to all students</button>
+      <div class="fgl"><label>Total Marks</label><input type="number" class="fi" id="mk_total" value="100" min="1"></div>
+      <button style="padding:7px 14px;background:var(--plt);border:1px solid rgba(128,0,32,.2);border-radius:8px;font-family:var(--fb);font-size:12px;font-weight:700;color:var(--p);cursor:pointer" onclick="applyTotal()">Apply to all</button>
     </div>
     <div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px">
-      <div style="font-size:12px;color:var(--b5);margin-bottom:11px">Enter marks. Leave blank to skip that student.</div>
+      <div style="font-size:12px;color:var(--b5);margin-bottom:11px">Enter marks. Leave blank to skip.</div>
       ${students.map(s=>`
         <div class="mk-row">
           <div class="mk-av">${ini(s.name)}</div>
           <div class="mk-name">${s.name}<span style="font-size:10px;color:var(--b4);display:block">Roll ${s.roll_no||'-'}</span></div>
           <input type="number" class="mk-inp" id="mkI_${s.id}" data-sid="${s.id}" placeholder="--" min="0" inputmode="numeric">
           <span style="font-size:11px;color:var(--b4)">/</span>
-          <input type="number" class="mk-of" id="mkO_${s.id}" data-sid="${s.id}" value="100" min="1" inputmode="numeric">
+          <input type="number" class="mk-of" id="mkO_${s.id}" value="100" min="1" inputmode="numeric">
         </div>`).join('')}
-      <button class="save-btn" id="saveMarksBtn" onclick="saveMarks()" style="margin:13px 0 0 0;width:100%">Save Marks</button>
+      <button class="save-btn" id="saveMarksBtn" onclick="saveMarks()" style="width:100%;margin:13px 0 0 0">Save Marks</button>
     </div>
   </div>`;
 }
 
 function applyTotal(){
-  const total=document.getElementById('mk_total')?.value||'100';
-  document.querySelectorAll('.mk-of').forEach(el=>el.value=total);
+  const v=document.getElementById('mk_total')?.value||'100';
+  document.querySelectorAll('.mk-of').forEach(el=>el.value=v);
 }
 
 async function saveMarks(){
   const sub=document.getElementById('mk_sub')?.value.trim();
   const exam=document.getElementById('mk_exam')?.value||'Unit Test 1';
-  if(!sub){showToast('Subject name likhao pehle',true);return}
-  const btn=document.getElementById('saveMarksBtn');btn.disabled=true;btn.textContent='Saving...';
+  if(!sub){showToast('Subject name likhao pehle','err');return}
+  const btn=document.getElementById('saveMarksBtn');
+  btn.disabled=true;btn.textContent='Saving...';
   let saved=0,failed=0;
   for(const s of students){
-    const inp=document.getElementById('mkI_'+s.id);const ofEl=document.getElementById('mkO_'+s.id);
+    const inp=document.getElementById('mkI_'+s.id);
+    const ofEl=document.getElementById('mkO_'+s.id);
     if(!inp||inp.value.trim()==='')continue;
-    const obtained=parseInt(inp.value);const total=parseInt(ofEl?.value)||100;
+    const obtained=parseInt(inp.value);
+    const total=parseInt(ofEl?.value)||100;
     if(isNaN(obtained)||obtained<0)continue;
     try{
-      const res=await fetch(API+'/marks/update',{method:'POST',headers:H(),body:JSON.stringify({student_id:s.id,subject:sub,marks_obtained:obtained,total_marks:total,exam_type:exam})});
+      const res=await fetch(API+'/marks/update',{
+        method:'POST',headers:H(),
+        body:JSON.stringify({student_id:s.id,subject:sub,marks_obtained:obtained,total_marks:total,exam_type:exam})
+      });
       if(res.ok)saved++;else failed++;
     }catch(e){failed++;}
   }
-  if(saved>0){showToast('Marks saved for '+saved+' student'+(saved>1?'s':'')+'!');document.querySelectorAll('.mk-inp').forEach(el=>el.value='');}
-  else if(failed>0)showToast('Failed — check subject & retry',true);
-  else showToast('Koi marks enter nahi kiye',true);
+  if(saved>0){showToast('Marks saved for '+saved+' student'+(saved>1?'s':'')+'!','ok2');document.querySelectorAll('.mk-inp').forEach(el=>el.value='');}
+  else if(failed>0)showToast('Failed — retry','err');
+  else showToast('Koi marks enter nahi kiye','err');
   btn.disabled=false;btn.textContent='Save Marks';
 }
 
-/* ══ GROUP ══ */
+/* ═══ GROUP ═══ */
 function postCard(p){
   return`<div class="post-card">
     <div class="post-head">
@@ -746,14 +852,20 @@ function renderGroup(){
 async function doPost(){
   const txt=document.getElementById('postTxt')?.value.trim();
   const vid=document.getElementById('postVid')?.value.trim();
-  if(!txt&&!vid){showToast('Kuch likho pehle',true);return}
-  const btn=document.getElementById('postBtn');btn.disabled=true;btn.textContent='Posting...';
+  if(!txt&&!vid){showToast('Kuch likho pehle','err');return}
+  const btn=document.getElementById('postBtn');
+  btn.disabled=true;btn.textContent='Posting...';
   try{
-    const res=await fetch(API+'/posts',{method:'POST',headers:H(),body:JSON.stringify({class_id:CD?.id,text_content:txt||null,video_link:vid||null})});
+    const res=await fetch(API+'/posts',{
+      method:'POST',headers:H(),
+      body:JSON.stringify({class_id:CD?.id,text_content:txt||null,video_link:vid||null})
+    });
     const d=await res.json().catch(()=>({}));
-    if(res.ok){posts.unshift(d.post||{id:Date.now(),text_content:txt,video_link:vid,created_at:new Date().toISOString(),posted_by_name:TD?.name||'Teacher'});showToast('Posted!');showTab('group');}
-    else showToast(d.error||'Failed',true);
-  }catch(e){showToast('Network error',true)}
+    if(res.ok){
+      posts.unshift(d.post||{id:Date.now(),text_content:txt,video_link:vid,created_at:new Date().toISOString(),posted_by_name:TD?.name||'Teacher'});
+      showToast('Posted!','ok2');showTab('group');
+    }else showToast(d.error||'Failed','err');
+  }catch(e){showToast('Network error','err')}
   if(btn){btn.disabled=false;btn.textContent='Post to Class';}
 }
 
@@ -762,13 +874,16 @@ async function delPost(id){
   try{
     const res=await fetch(API+'/posts/'+id,{method:'DELETE',headers:H()});
     if(res.ok){posts=posts.filter(p=>p.id!==id);showToast('Deleted');showTab('group');}
-    else showToast('Failed',true);
-  }catch(e){showToast('Network error',true)}
+    else showToast('Failed','err');
+  }catch(e){showToast('Network error','err')}
 }
 
-/* ══ TIMETABLE — 9 periods ══ */
+/* ═══ TIMETABLE — 9 periods ═══ */
 async function loadTimetable(){
-  if(!CD){document.getElementById('mainContent').innerHTML='<div style="padding:20px 16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:20px;text-align:center;color:var(--b4)">No class assigned</div></div>';return}
+  if(!CD){
+    document.getElementById('mainContent').innerHTML='<div style="padding:20px 16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:20px;text-align:center;color:var(--b4)">No class assigned</div></div>';
+    return;
+  }
   let tt=[];
   try{const res=await fetch(API+'/timetable/'+CD.id,{headers:H()});if(res.ok){const d=await res.json();tt=d.timetable||[];}}catch(_){}
   const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
@@ -779,18 +894,21 @@ async function loadTimetable(){
     <div class="hero-grt">Timetable</div><div class="hero-name">${CD.standard}</div>
   </div></div>
   <div style="padding:13px 16px">
-    <div style="font-size:12px;color:var(--b5);margin-bottom:10px">Edit subjects for each period and save.</div>
+    <div style="font-size:12px;color:var(--b5);margin-bottom:10px">Edit subjects for each period and tap Save.</div>
     <div class="tt-wrap">
       <table class="tt-table">
         <thead><tr>
-          <th style="min-width:58px">Day</th>
+          <th style="min-width:50px">Day</th>
           ${Array.from({length:PERIODS},(_,i)=>`<th>P${i+1}</th>`).join('')}
         </tr></thead>
         <tbody>
-          ${days.map(day=>{const row=ttMap[day]||{};return`<tr>
-            <td style="padding:8px 7px;font-weight:700;color:var(--p);white-space:nowrap">${day.slice(0,3)}</td>
-            ${Array.from({length:PERIODS},(_,i)=>`<td><input class="tt-inp" id="tt_${day}_${i+1}" value="${row['period_'+(i+1)]||''}" placeholder="—"></td>`).join('')}
-          </tr>`;}).join('')}
+          ${days.map(day=>{
+            const row=ttMap[day]||{};
+            return`<tr>
+              <td style="padding:7px 6px;font-weight:700;color:var(--p);white-space:nowrap">${day.slice(0,3)}</td>
+              ${Array.from({length:PERIODS},(_,i)=>`<td><input class="tt-inp" id="tt_${day}_${i+1}" value="${row['period_'+(i+1)]||''}" placeholder="—"></td>`).join('')}
+            </tr>`;
+          }).join('')}
         </tbody>
       </table>
     </div>
@@ -800,20 +918,20 @@ async function loadTimetable(){
 
 async function saveTimetable(){
   if(!CD)return;
-  const btn=document.getElementById('saveTTBtn');btn.disabled=true;btn.textContent='Saving...';
+  const btn=document.getElementById('saveTTBtn');
+  btn.disabled=true;btn.textContent='Saving...';
   const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const PERIODS=9;
-  let ok=0;
+  const PERIODS=9;let ok=0;
   for(const day of days){
     const periods=Array.from({length:PERIODS},(_,i)=>document.getElementById(`tt_${day}_${i+1}`)?.value.trim()||'');
     try{const res=await fetch(API+'/timetable',{method:'POST',headers:H(),body:JSON.stringify({class_id:CD.id,day,periods})});if(res.ok)ok++;}catch(_){}
   }
-  if(ok>0)showToast('Timetable saved!');
-  else showToast('Failed',true);
+  if(ok>0)showToast('Timetable saved!','ok2');
+  else showToast('Failed','err');
   btn.disabled=false;btn.textContent='Save Timetable';
 }
 
-/* ══ NOTIFY ══ */
+/* ═══ NOTIFY ═══ */
 function renderNotify(){
   if(!CD)return`<div style="padding:20px 16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:20px;text-align:center;color:var(--b4)">No class assigned</div></div>`;
   return`
@@ -827,16 +945,16 @@ function renderNotify(){
         <label>Message *</label>
         <textarea class="fi" id="nMsg" rows="4" style="resize:none;min-height:88px" placeholder="Write message for students and parents..."></textarea>
       </div>
-      <!-- Recent notifications -->
-      <div id="ntHistory" style="margin-bottom:13px">
+      ${NOTIFS.length?`
+      <div style="margin-bottom:13px">
         <div style="font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Recent Notifications</div>
-        ${!NOTIFS.length?'<div style="font-size:13px;color:var(--b4)">No notifications yet</div>':
-          NOTIFS.slice(0,5).map(n=>`<div style="border-bottom:1px solid var(--b1);padding:9px 0">
+        ${NOTIFS.slice(0,5).map(n=>`
+          <div style="border-bottom:1px solid var(--b1);padding:9px 0">
             <div style="font-size:13px;font-weight:700;color:var(--dp);margin-bottom:2px">${n.title||''}</div>
             <div style="font-size:12px;color:var(--b5)">${n.message||''}</div>
             <div style="font-size:10px;color:var(--b3);margin-top:3px">${n.created_at?new Date(n.created_at).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):''}</div>
           </div>`).join('')}
-      </div>
+      </div>`:''}
       <button class="send-btn" id="sendBtn" onclick="sendNotif()">Send Notification to Class</button>
     </div>
   </div>`;
@@ -845,16 +963,21 @@ function renderNotify(){
 async function sendNotif(){
   const title=document.getElementById('nTitle')?.value.trim();
   const msg=document.getElementById('nMsg')?.value.trim();
-  if(!title||!msg){showToast('Title aur message daalo',true);return}
-  const btn=document.getElementById('sendBtn');btn.disabled=true;btn.textContent='Sending...';
+  if(!title||!msg){showToast('Title aur message daalo','err');return}
+  const btn=document.getElementById('sendBtn');
+  btn.disabled=true;btn.textContent='Sending...';
   try{
-    const res=await fetch(API+'/notifications/send',{method:'POST',headers:H(),body:JSON.stringify({title,message:msg,target_type:'class',target_id:String(CD?.id)})});
+    const res=await fetch(API+'/notifications/send',{
+      method:'POST',headers:H(),
+      body:JSON.stringify({title,message:msg,target_type:'class',target_id:String(CD?.id)})
+    });
     if(res.ok){
-      showToast('Notification sent to class!');
-      document.getElementById('nTitle').value='';document.getElementById('nMsg').value='';
+      showToast('Notification sent!','ok2');
+      document.getElementById('nTitle').value='';
+      document.getElementById('nMsg').value='';
       await loadNotifs();showTab('notify');
-    }else{const d=await res.json().catch(()=>({}));showToast(d.error||'Failed',true);}
-  }catch(e){showToast('Network error',true)}
+    }else{const d=await res.json().catch(()=>({}));showToast(d.error||'Failed','err');}
+  }catch(e){showToast('Network error','err')}
   if(btn){btn.disabled=false;btn.textContent='Send Notification to Class';}
 }
 
