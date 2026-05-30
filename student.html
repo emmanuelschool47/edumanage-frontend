@@ -8,7 +8,6 @@
 <title>Student Portal — Emmanuel School</title>
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -20,12 +19,10 @@
   --red:#c0392b;--rl:#fdf0ef;
   --gold:#b8860b;--goldl:#fdf8e8;
   --ff:'Playfair Display',serif;--fb:'Inter',sans-serif;--fm:'JetBrains Mono',monospace;
-  --r:12px;--tr:all .22s ease;
+  --r:12px;
 }
 html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6);overflow-x:hidden}
-
-/* LOGIN */
-#loginScreen{position:fixed;inset:0;z-index:999;background:linear-gradient(155deg,var(--dp),var(--p),var(--ac));display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;padding-top:max(20px,env(safe-area-inset-top));overflow-y:auto}
+#loginScreen{position:fixed;inset:0;z-index:999;background:linear-gradient(155deg,var(--dp),var(--p),var(--ac));display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
 #loginScreen::before{content:'';position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
 .lw{width:100%;max-width:400px;position:relative;z-index:1}
 .brand{text-align:center;margin-bottom:22px}
@@ -50,8 +47,6 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .lbtn:disabled{opacity:.6;cursor:not-allowed}
 .lspin{display:none;width:16px;height:16px;border:2.5px solid rgba(255,255,255,.3);border-top-color:var(--w);border-radius:50%;animation:spin .7s linear infinite}
 .lhint{text-align:center;margin-top:14px;font-size:12px;color:rgba(255,255,255,.4);position:relative;z-index:1}
-
-/* APP */
 #appScreen{display:none;flex-direction:column;height:100vh;height:100dvh}
 .topbar{background:var(--w);border-bottom:1px solid var(--b2);padding:0 16px;height:54px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:100}
 .topbar-left{display:flex;align-items:center;gap:10px}
@@ -60,19 +55,15 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .topbar-logo-fb{font-family:var(--ff);font-size:12px;font-weight:700;color:var(--p);display:none}
 .topbar-name{font-family:var(--ff);font-size:15px;font-weight:700;color:var(--dp)}
 .topbar-right{display:flex;align-items:center;gap:6px}
-.bell-btn{position:relative;background:none;border:none;cursor:pointer;padding:6px;border-radius:7px;display:flex}
+.bell-btn{position:relative;background:none;border:none;cursor:pointer;padding:7px;border-radius:7px;display:flex;align-items:center}
 .bell-btn svg{width:20px;height:20px;stroke:var(--b5);fill:none;stroke-width:2;stroke-linecap:round}
 .bell-dot{position:absolute;top:4px;right:4px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid var(--w);display:none}
 .bell-dot.show{display:block}
 .out-btn{background:none;border:1px solid var(--b2);border-radius:7px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--b5);cursor:pointer;font-family:var(--fb)}
-
-/* SCROLL */
 .scroll-area{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .scroll-area::-webkit-scrollbar{width:3px}
 .scroll-area::-webkit-scrollbar-thumb{background:var(--b3);border-radius:3px}
 .cnt{max-width:600px;margin:0 auto;padding-bottom:90px}
-
-/* HERO */
 .hero{background:linear-gradient(135deg,var(--dp),var(--p));color:var(--w);padding:20px 16px 24px;position:relative;overflow:hidden}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
 .hero-inner{position:relative;z-index:1;display:flex;align-items:flex-start;gap:13px}
@@ -82,52 +73,32 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .hero-name{font-family:var(--ff);font-size:20px;font-weight:700;line-height:1.15;margin-bottom:7px}
 .hero-chips{display:flex;gap:6px;flex-wrap:wrap}
 .hero-chip{padding:3px 10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:100px;font-size:10px;color:rgba(255,255,255,.85);font-weight:500}
-
-/* STATS */
 .stats-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 16px}
-.stat-tile{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px;cursor:pointer;transition:var(--tr)}
+.stat-tile{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px;cursor:pointer;transition:transform .15s}
 .stat-tile:active{transform:scale(.97)}
 .stat-ic{width:28px;height:28px;background:var(--plt);border-radius:6px;display:flex;align-items:center;justify-content:center;margin-bottom:7px}
 .stat-ic svg{width:14px;height:14px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
 .stat-val{font-family:var(--ff);font-size:22px;font-weight:700;color:var(--p);line-height:1;margin-bottom:3px}
 .stat-lbl{font-size:10px;color:var(--b4);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-
-/* SECTIONS */
 .sec{padding:0 16px;margin-bottom:16px}
 .sec-title{font-family:var(--ff);font-size:15px;font-weight:700;color:var(--dp);margin-bottom:10px}
-
-/* FEES */
-.fees-card{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:15px}
-.fees-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:13px}
-.fees-amt{font-family:var(--ff);font-size:20px;font-weight:700}
-.fees-lbl{font-size:11px;color:var(--b4);margin-top:2px}
-.pay-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px}
-.pay-btn svg{width:15px;height:15px;stroke:var(--w);fill:none;stroke-width:2;stroke-linecap:round}
-
-/* INFO LIST */
+.bOK{background:var(--gl);color:var(--green);padding:2px 9px;border-radius:100px;font-size:11px;font-weight:600;display:inline-block}
+.bNO{background:var(--rl);color:var(--red);padding:2px 9px;border-radius:100px;font-size:11px;font-weight:600;display:inline-block}
+.bHO{background:var(--goldl);color:var(--gold);padding:2px 9px;border-radius:100px;font-size:11px;font-weight:600;display:inline-block}
 .info-list{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);overflow:hidden;margin-bottom:12px}
 .info-row{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-bottom:1px solid var(--b1)}
 .info-row:last-child{border-bottom:none}
 .info-lbl{font-size:12px;color:var(--b4);font-weight:500}
 .info-val{font-size:13px;font-weight:600;color:#1a1a1a;text-align:right;max-width:60%;word-break:break-word}
-
-/* BADGES */
-.badge-ok{background:var(--gl);color:var(--green);padding:2px 9px;border-radius:100px;font-size:11px;font-weight:600;display:inline-block}
-.badge-no{background:var(--rl);color:var(--red);padding:2px 9px;border-radius:100px;font-size:11px;font-weight:600;display:inline-block}
-.badge-ho{background:var(--goldl);color:var(--gold);padding:2px 9px;border-radius:100px;font-size:11px;font-weight:600;display:inline-block}
-
-/* MARKS */
 .mark-group{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px;margin-bottom:12px}
 .mark-group-title{font-size:12px;font-weight:700;color:var(--dp);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--b1)}
 .mark-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--b1)}
 .mark-row:last-child{border-bottom:none}
-.mark-sub{font-size:13px;font-weight:600;min-width:110px;color:#1a1a1a}
+.mark-sub{font-size:13px;font-weight:600;min-width:100px;color:#1a1a1a}
 .mark-bar{flex:1;height:5px;background:var(--b1);border-radius:3px;overflow:hidden}
 .mark-fill{height:100%;background:linear-gradient(90deg,var(--p),var(--ac));border-radius:3px;width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
 .mark-score{font-family:var(--fm);font-size:12px;font-weight:600;color:var(--b6);min-width:52px;text-align:right}
-.mark-pct{font-size:10px;font-weight:700;min-width:36px;text-align:right}
-
-/* POSTS */
+.mark-pct{font-size:10px;font-weight:700;min-width:34px;text-align:right}
 .post-card{background:var(--w);border:1px solid var(--b2);border-radius:13px;margin-bottom:11px;overflow:hidden}
 .post-head{display:flex;align-items:center;gap:9px;padding:11px 13px 0}
 .post-av{width:34px;height:34px;border-radius:50%;background:var(--plt);display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:13px;color:var(--p);font-weight:700;flex-shrink:0}
@@ -140,44 +111,43 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .post-video-ic{width:28px;height:28px;background:var(--p);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .post-video-ic svg{width:12px;height:12px;stroke:var(--w);fill:none;stroke-width:2;stroke-linecap:round}
 .post-video-lbl{font-size:12px;font-weight:700;color:var(--p)}
-
-/* TIMETABLE */
 .tt-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--b2)}
 .tt-table{width:100%;border-collapse:collapse;font-size:11px}
 .tt-table th{padding:8px 5px;background:var(--plt);border:1px solid var(--b2);text-align:center;font-weight:700;color:var(--p);white-space:nowrap}
-.tt-table td{padding:7px 5px;border:1px solid var(--b2);text-align:center;color:var(--b6);font-size:11px}
+.tt-table td{padding:7px 5px;border:1px solid var(--b2);text-align:center;color:var(--b6)}
 .tt-table tr:nth-child(even) td{background:var(--b1)}
-.tt-empty{text-align:center;padding:8px;color:var(--b4);font-style:italic}
-
-/* PAYMENT UPLOAD */
-.pay-section{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:15px;margin-top:12px}
-.pay-section-title{font-size:12px;font-weight:700;color:var(--dp);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px}
-.upi-box{background:var(--plt);border:1px solid rgba(128,0,32,.15);border-radius:var(--r);padding:12px 13px;margin-bottom:12px}
-.upi-lbl{font-size:10px;color:var(--p);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:3px}
-.upi-id{font-family:var(--fm);font-size:15px;font-weight:700;color:var(--dp)}
-.upi-apps{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:12px}
-.upi-app{padding:10px 5px;background:var(--b1);border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:11px;font-weight:700;color:var(--p);cursor:pointer;text-align:center;display:block;text-decoration:none;transition:var(--tr)}
-.upi-app:active{background:var(--p);color:var(--w)}
-.dvdr{display:flex;align-items:center;gap:9px;color:var(--b3);font-size:12px;margin-bottom:12px}
-.dvdr::before,.dvdr::after{content:'';flex:1;height:1px;background:var(--b2)}
-.fi{width:100%;padding:10px 12px;background:var(--b1);border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:#1a1a1a;outline:none;margin-bottom:10px;transition:var(--tr)}
-.fi:focus{border-color:var(--p);background:var(--w)}
-.fgl{margin-bottom:10px}
-.fgl label{display:block;font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
-/* Screenshot upload area */
-.ss-area{border:2px dashed var(--b2);border-radius:var(--r);padding:18px;text-align:center;cursor:pointer;transition:var(--tr);margin-bottom:10px;position:relative;overflow:hidden}
-.ss-area:hover,.ss-area.has-img{border-color:var(--p);border-style:solid}
-.ss-area input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.ss-area svg{width:30px;height:30px;stroke:var(--b3);fill:none;stroke-width:1.5;stroke-linecap:round;margin:0 auto 7px;display:block}
+/* FEES */
+.fees-card{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:15px}
+.fees-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:13px}
+.fees-amt{font-family:var(--ff);font-size:20px;font-weight:700}
+.fees-lbl{font-size:11px;color:var(--b4);margin-top:2px}
+.pay-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px}
+.pay-btn svg{width:15px;height:15px;stroke:var(--w);fill:none;stroke-width:2;stroke-linecap:round}
+/* SCREENSHOT UPLOAD */
+.ss-area{border:2px dashed var(--b2);border-radius:var(--r);padding:18px;text-align:center;cursor:pointer;transition:border-color .2s;position:relative;overflow:hidden}
+.ss-area.has-img{border-color:var(--p);border-style:solid}
+.ss-area svg{width:28px;height:28px;stroke:var(--b3);fill:none;stroke-width:1.5;stroke-linecap:round;margin:0 auto 7px;display:block}
 .ss-area.has-img svg{display:none}
 .ss-area-txt{font-size:12px;color:var(--b4);font-weight:500}
 .ss-area.has-img .ss-area-txt{display:none}
 .ss-preview{display:none;width:100%;max-height:180px;object-fit:cover;border-radius:8px}
 .ss-area.has-img .ss-preview{display:block}
-.submit-pay-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
-.submit-pay-btn:disabled{opacity:.6;cursor:not-allowed}
-
-/* NOTIFICATIONS */
+.ss-input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.fi{width:100%;padding:10px 12px;background:var(--b1);border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:#1a1a1a;outline:none;margin-bottom:10px;transition:border-color .2s}
+.fi:focus{border-color:var(--p);background:var(--w)}
+.fgl{margin-bottom:10px}
+.fgl label{display:block;font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
+.submit-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed}
+.upi-box{background:var(--plt);border:1px solid rgba(128,0,32,.15);border-radius:var(--r);padding:12px 13px;margin-bottom:12px}
+.upi-lbl{font-size:10px;color:var(--p);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:3px}
+.upi-id{font-family:var(--fm);font-size:15px;font-weight:700;color:var(--dp)}
+.upi-apps{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-bottom:12px}
+.upi-app{padding:10px 5px;background:var(--b1);border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:11px;font-weight:700;color:var(--p);cursor:pointer;text-align:center;display:block;text-decoration:none;transition:background .15s}
+.upi-app:active{background:var(--p);color:var(--w)}
+.dvdr{display:flex;align-items:center;gap:9px;color:var(--b3);font-size:12px;margin-bottom:12px}
+.dvdr::before,.dvdr::after{content:'';flex:1;height:1px;background:var(--b2)}
+/* NOTIFICATION PANEL */
 .np{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.5);display:none;align-items:flex-end}
 .np.show{display:flex}
 .np-sheet{background:var(--w);border-radius:18px 18px 0 0;width:100%;max-height:78vh;overflow-y:auto;padding-bottom:max(20px,env(safe-area-inset-bottom));animation:slideUp .3s ease}
@@ -186,24 +156,25 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .np-close{background:none;border:none;cursor:pointer;color:var(--b4);font-size:22px;line-height:1;padding:4px}
 .ni-item{display:flex;gap:11px;padding:12px 16px;border-bottom:1px solid var(--b1)}
 .ni-item:last-child{border-bottom:none}
-.ni-icon{width:38px;height:38px;border-radius:50%;background:var(--plt);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ni-icon svg{width:17px;height:17px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
+.ni-ic{width:38px;height:38px;border-radius:50%;background:var(--plt);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ni-ic svg{width:17px;height:17px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
 .ni-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:2px}
 .ni-msg{font-size:12px;color:var(--b5);line-height:1.5}
 .ni-time{font-size:10px;color:var(--b3);margin-top:3px}
-
-/* PUSH BANNER */
-.push-banner{background:var(--plt);border:1px solid rgba(128,0,32,.15);border-radius:var(--r);padding:11px 13px;margin:12px 16px 0;display:flex;align-items:center;gap:10px}
-.push-banner-txt{flex:1;font-size:12px;color:var(--dp);font-weight:500;line-height:1.5}
-.push-allow{padding:7px 13px;background:var(--p);color:var(--w);border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--fb);white-space:nowrap;flex-shrink:0}
-
+/* POPUP */
+.notif-popup{position:fixed;top:64px;left:12px;right:12px;background:var(--w);border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.18);z-index:9999;display:flex;align-items:flex-start;gap:11px;padding:13px 14px;border-left:4px solid var(--p);transform:translateY(-120px);opacity:0;transition:all .4s cubic-bezier(.4,0,.2,1);pointer-events:none}
+.notif-popup.show{transform:translateY(0);opacity:1;pointer-events:auto}
+.notif-popup-ic{width:38px;height:38px;background:var(--plt);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.notif-popup-ic svg{width:18px;height:18px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
+.notif-popup-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:2px}
+.notif-popup-msg{font-size:12px;color:var(--b5);line-height:1.4}
+.notif-popup-close{background:none;border:none;cursor:pointer;color:var(--b4);font-size:18px;line-height:1;padding:2px;flex-shrink:0}
 /* PROFILE */
 .prof-hero{background:linear-gradient(135deg,var(--dp),var(--p));border-radius:var(--r);padding:20px;text-align:center;margin-bottom:12px;position:relative;overflow:hidden}
 .prof-hero-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
-.prof-av{width:60px;height:60px;border-radius:50%;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.25);margin:0 auto 9px;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:22px;color:var(--w);position:relative;z-index:1;font-weight:700}
+.prof-av{width:58px;height:58px;border-radius:50%;background:rgba(255,255,255,.15);border:2px solid rgba(255,255,255,.25);margin:0 auto 9px;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:22px;color:var(--w);position:relative;z-index:1;font-weight:700}
 .prof-name{font-family:var(--ff);font-size:19px;font-weight:700;color:var(--w);position:relative;z-index:1}
 .prof-code{font-family:var(--fm);font-size:11px;color:rgba(255,255,255,.45);margin-top:3px;position:relative;z-index:1}
-
 /* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--w);border-top:1px solid var(--b2);display:flex;padding:6px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));z-index:100}
 .nav-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 4px;background:none;border:none;cursor:pointer;position:relative}
@@ -213,16 +184,17 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .nav-tab.active span{color:var(--p)}
 .nav-dot{position:absolute;top:3px;right:calc(50% - 13px);width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid var(--w);display:none}
 .nav-dot.show{display:block}
-
-/* UTILS */
 .loading{display:flex;align-items:center;justify-content:center;min-height:38vh;flex-direction:column;gap:11px}
 .spin-el{width:24px;height:24px;border:2px solid var(--b2);border-top-color:var(--p);border-radius:50%;animation:spin .8s linear infinite}
 .empty{text-align:center;padding:36px 20px;color:var(--b4);font-size:13px;line-height:1.6}
-.toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dp);color:var(--w);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.25);max-width:90vw;overflow:hidden;text-overflow:ellipsis}
+.toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dp);color:var(--w);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:8000;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.25);max-width:90vw;overflow:hidden;text-overflow:ellipsis}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.err{background:var(--red)}
+.toast.ok2{background:var(--green)}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes bellRing{0%,100%{transform:rotate(0)}10%,30%,50%,70%,90%{transform:rotate(-12deg)}20%,40%,60%,80%{transform:rotate(12deg)}}
+.bell-ringing{animation:bellRing .8s ease}
 </style>
 </head>
 <body>
@@ -252,9 +224,9 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
         <label>Password</label>
         <div class="linp-w">
           <input type="password" id="lPass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
-          <button class="leye" type="button" onclick="toggleLPw()">
-            <svg id="leyeS" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            <svg id="leyeH" viewBox="0 0 24 24" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+          <button class="leye" type="button" onclick="togglePw()">
+            <svg id="eyeS" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            <svg id="eyeH" viewBox="0 0 24 24" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
           </button>
         </div>
       </div>
@@ -265,6 +237,18 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
     </div>
     <div class="lhint">Credentials bhool gaye? Class teacher se contact karo</div>
   </div>
+</div>
+
+<!-- NOTIFICATION POPUP -->
+<div class="notif-popup" id="notifPopup">
+  <div class="notif-popup-ic">
+    <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+  </div>
+  <div style="flex:1;min-width:0">
+    <div class="notif-popup-title" id="popupTitle">Notification</div>
+    <div class="notif-popup-msg" id="popupMsg"></div>
+  </div>
+  <button class="notif-popup-close" onclick="closePopup()">×</button>
 </div>
 
 <!-- NOTIFICATION PANEL -->
@@ -289,7 +273,7 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
       <div class="topbar-name">Emmanuel School</div>
     </div>
     <div class="topbar-right">
-      <button class="bell-btn" onclick="openNP()">
+      <button class="bell-btn" id="bellBtn" onclick="openNP()">
         <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         <div class="bell-dot" id="bellDot"></div>
       </button>
@@ -336,37 +320,59 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 <script type="module">
 import{initializeApp}from'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
 import{getMessaging,getToken,onMessage}from'https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js';
-const FB={apiKey:"AIzaSyA21lqBYdpcsUQCDOvc7Y1ZtIvy5j1VPVw",authDomain:"edumanage-notificationn.firebaseapp.com",projectId:"edumanage-notificationn",messagingSenderId:"956207309076",appId:"1:956207309076:web:6432e350c3536aa49f6201"};
-const app=initializeApp(FB);const msg=getMessaging(app);
+const FB={
+  apiKey:"AIzaSyA21lqBYdpcsUQCDOvc7Y1ZtIvy5j1VPVw",
+  authDomain:"edumanage-notificationn.firebaseapp.com",
+  projectId:"edumanage-notificationn",
+  messagingSenderId:"956207309076",
+  appId:"1:956207309076:web:6432e350c3536aa49f6201"
+};
+const app=initializeApp(FB);
+const messaging=getMessaging(app);
+
 window._reqPush=async function(){
   try{
     const perm=await Notification.requestPermission();
-    if(perm!=='granted')return;
-    const token=await getToken(msg,{vapidKey:'BCHbNp4TNGBtB7j5IXbvlpWJ5LRTmEYfJTWTvFHnZD2k3VX4LgLfOhqSLBJGXLZ4lGJ4EJxZ9KAFQgGCxFhJkE'});
+    if(perm!=='granted'){console.log('Push denied');return;}
+    const token=await getToken(messaging,{vapidKey:'BCHbNp4TNGBtB7j5IXbvlpWJ5LRTmEYfJTWTvFHnZD2k3VX4LgLfOhqSLBJGXLZ4lGJ4EJxZ9KAFQgGCxFhJkE'});
     if(token){
-      localStorage.setItem('fcm_token_stu',token);
+      localStorage.setItem('fcm_stu',token);
       const t=localStorage.getItem('edu_token');
-      if(t)await fetch('https://edumanage-backend-xi.vercel.app/api/notifications/register-token',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},body:JSON.stringify({token,platform:'web'})}).catch(()=>{});
+      if(t){
+        await fetch('https://edumanage-backend-xi.vercel.app/api/notifications/register-token',{
+          method:'POST',
+          headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},
+          body:JSON.stringify({token,platform:'web'})
+        }).catch(e=>console.log('Token reg:',e));
+      }
       document.getElementById('pushBanner')?.remove();
+      console.log('Push registered');
     }
-  }catch(e){console.log('Push:',e.message)}
+  }catch(e){console.log('Push error:',e.message)}
 };
-onMessage(msg,payload=>{
+
+/* Foreground message handler */
+onMessage(messaging,payload=>{
   const title=payload.notification?.title||'Emmanuel School';
   const body=payload.notification?.body||'';
-  window._showToast?.(title+(body?': '+body:''));
-  if(Notification.permission==='granted')new Notification(title,{body,icon:'/logo.webp',badge:'/logo.webp',vibrate:[200,100,200]});
+  /* 1. Show popup */
+  window._showNotifPopup(title,body);
+  /* 2. Ring bell */
+  window._ringBell();
+  /* 3. System notification */
+  if(Notification.permission==='granted'){
+    new Notification(title,{body,icon:'/logo.webp',badge:'/logo.webp',vibrate:[300,100,300,100,300],tag:'stu-'+Date.now()});
+  }
+  /* 4. Refresh list */
   window._refreshNotifs?.();
-  document.getElementById('bellDot')?.classList.add('show');
-  document.getElementById('alertsDot')?.classList.add('show');
 });
 </script>
 
 <script>
 const API='https://edumanage-backend-xi.vercel.app/api';
 let TOKEN=null,SD=null,MARKS=[],FEES=null,ATT={},TT=[],POSTS=[],NOTIFS=[],UPI='',myPayments=[];
-let curTab='home';
 let ssBase64=null,ssMime=null;
+let curTab='home';
 
 function H(){return{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN}}
 function ini(n){if(!n)return'?';return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}
@@ -376,15 +382,46 @@ function avgPct(){if(!MARKS.length)return 0;return Math.round(MARKS.reduce((a,m)
 function grade(p){return p>=90?'A+':p>=80?'A':p>=70?'B+':p>=60?'B':p>=50?'C':'D'}
 
 let toastT;
-window._showToast=function(msg,err){
+function showToast(msg,type=''){
   const e=document.getElementById('toast');
-  e.textContent=msg;e.className='toast'+(err?' err':'');
-  e.classList.add('show');clearTimeout(toastT);
-  toastT=setTimeout(()=>e.classList.remove('show'),3500);
-};
-function showToast(msg,err){window._showToast(msg,err)}
+  e.textContent=msg;e.className='toast show'+(type?' '+type:'');
+  clearTimeout(toastT);toastT=setTimeout(()=>e.className='toast',3500);
+}
 
-/* ── BOOT ── */
+/* POPUP NOTIFICATION */
+let popupT;
+window._showNotifPopup=function(title,body){
+  document.getElementById('popupTitle').textContent=title||'Notification';
+  document.getElementById('popupMsg').textContent=body||'';
+  const el=document.getElementById('notifPopup');
+  el.classList.add('show');
+  clearTimeout(popupT);
+  popupT=setTimeout(()=>el.classList.remove('show'),6000);
+  document.getElementById('bellDot')?.classList.add('show');
+  document.getElementById('alertsDot')?.classList.add('show');
+};
+function closePopup(){
+  clearTimeout(popupT);
+  document.getElementById('notifPopup').classList.remove('show');
+}
+
+/* BELL RING */
+window._ringBell=function(){
+  const btn=document.getElementById('bellBtn');
+  if(!btn)return;
+  btn.classList.remove('bell-ringing');
+  void btn.offsetWidth;
+  btn.classList.add('bell-ringing');
+  setTimeout(()=>btn.classList.remove('bell-ringing'),800);
+};
+
+/* REFRESH NOTIFS */
+window._refreshNotifs=async function(){
+  await loadNotifs();
+  renderNPList();
+};
+
+/* BOOT */
 (function boot(){
   const t=localStorage.getItem('edu_token');
   const r=localStorage.getItem('edu_role');
@@ -392,11 +429,19 @@ function showToast(msg,err){window._showToast(msg,err)}
   else showLogin();
 })();
 
-function showLogin(){document.getElementById('loginScreen').style.display='flex';document.getElementById('appScreen').style.display='none';setTimeout(()=>document.getElementById('lCode')?.focus(),300)}
-function showApp(){document.getElementById('loginScreen').style.display='none';document.getElementById('appScreen').style.display='flex'}
+function showLogin(){
+  document.getElementById('loginScreen').style.display='flex';
+  document.getElementById('appScreen').style.display='none';
+  setTimeout(()=>document.getElementById('lCode')?.focus(),300);
+}
+function showApp(){
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('appScreen').style.display='flex';
+}
 
-function toggleLPw(){
-  const i=document.getElementById('lPass');const s=document.getElementById('leyeS');const h=document.getElementById('leyeH');
+function togglePw(){
+  const i=document.getElementById('lPass');
+  const s=document.getElementById('eyeS');const h=document.getElementById('eyeH');
   if(i.type==='password'){i.type='text';s.style.display='none';h.style.display='block';}
   else{i.type='password';s.style.display='block';h.style.display='none';}
 }
@@ -407,55 +452,52 @@ async function doLogin(){
   const err=document.getElementById('lerr');
   if(!code||!pass){err.textContent='Code aur password daalo';err.classList.add('show');return}
   err.classList.remove('show');
-  document.getElementById('lTxt').style.display='none';document.getElementById('lSpin').style.display='block';document.getElementById('lBtn').disabled=true;
+  document.getElementById('lTxt').style.display='none';
+  document.getElementById('lSpin').style.display='block';
+  document.getElementById('lBtn').disabled=true;
   try{
     const res=await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code,password:pass,role:'student'})});
     const data=await res.json();
     if(res.ok&&data.token){
       TOKEN=data.token;
-      localStorage.setItem('edu_token',TOKEN);localStorage.setItem('edu_role','student');localStorage.setItem('edu_code',code);
+      localStorage.setItem('edu_token',TOKEN);
+      localStorage.setItem('edu_role','student');
+      localStorage.setItem('edu_code',code);
       showApp();loadMe();
     }else{err.textContent=data.message||data.error||'Invalid credentials';err.classList.add('show');}
   }catch(e){err.textContent='Network error: '+e.message;err.classList.add('show')}
-  document.getElementById('lTxt').style.display='block';document.getElementById('lSpin').style.display='none';document.getElementById('lBtn').disabled=false;
+  document.getElementById('lTxt').style.display='block';
+  document.getElementById('lSpin').style.display='none';
+  document.getElementById('lBtn').disabled=false;
 }
 
 function doLogout(){
   if(!confirm('Logout?'))return;
-  TOKEN=null;SD=null;MARKS=[];FEES=null;ATT={};TT=[];POSTS=[];NOTIFS=[];UPI='';myPayments=[];
+  TOKEN=null;SD=null;MARKS=[];FEES=null;ATT={};TT=[];POSTS=[];NOTIFS=[];UPI='';myPayments=[];ssBase64=null;
   localStorage.removeItem('edu_token');localStorage.removeItem('edu_role');localStorage.removeItem('edu_code');
   showLogin();
 }
 
-/* ── LOAD ALL DATA ── */
+/* LOAD ALL */
 async function loadMe(){
   document.getElementById('mainContent').innerHTML='<div class="loading"><div class="spin-el"></div></div>';
   try{
-    /* GET /api/students/me → {student,marks,fees,attendance,timetable} */
     const res=await fetch(API+'/students/me',{headers:H()});
     if(res.status===401){doLogout();return}
     const d=await res.json();
-    SD=d.student||null;
-    MARKS=d.marks||[];
-    FEES=d.fees||null;
-    ATT=d.attendance||{};
-    TT=d.timetable||[];
-
-    /* Posts */
+    SD=d.student||null;MARKS=d.marks||[];FEES=d.fees||null;ATT=d.attendance||{};TT=d.timetable||[];
     if(SD?.class_id){
       try{const pr=await fetch(API+'/posts/'+SD.class_id,{headers:H()});if(pr.ok){const pd=await pr.json();POSTS=pd.posts||[];}}catch(_){}
     }
-    /* Notifications */
     await loadNotifs();
-    /* UPI details */
     try{const ur=await fetch(API+'/fees/upi-details',{headers:H()});if(ur.ok){const ud=await ur.json();UPI=ud.upi_id||'';}}catch(_){}
-    /* My payments history */
     try{const mr=await fetch(API+'/fees/me',{headers:H()});if(mr.ok){const md=await mr.json();myPayments=md.payments||[];}}catch(_){}
-
-    /* Push permission */
-    if(Notification.permission==='granted'){setTimeout(()=>window._reqPush?.(),1500);}
-    else if(Notification.permission==='default'){setTimeout(askPush,2500);}
-
+    /* Push */
+    if(Notification.permission==='granted'){
+      setTimeout(()=>window._reqPush?.(),1000);
+    }else if(Notification.permission==='default'){
+      setTimeout(askPush,3000);
+    }
     showTab(curTab);
   }catch(e){
     document.getElementById('mainContent').innerHTML=`<div class="loading"><div style="color:var(--red);font-size:13px">Error: ${e.message}</div></div>`;
@@ -463,18 +505,17 @@ async function loadMe(){
 }
 
 function askPush(){
-  if(localStorage.getItem('push_asked_stu'))return;
-  localStorage.setItem('push_asked_stu','1');
+  if(localStorage.getItem('push_asked'))return;
+  localStorage.setItem('push_asked','1');
   const el=document.getElementById('mainContent');
   if(!el||document.getElementById('pushBanner'))return;
   const b=document.createElement('div');
-  b.id='pushBanner';b.className='push-banner';
-  b.style.cssText='margin:12px 16px 0;';
-  b.innerHTML=`<div class="push-banner-txt">🔔 Notifications allow karo — school alerts, marks, attendance updates turant milenge!</div><button class="push-allow" onclick="window._reqPush&&window._reqPush();this.closest('.push-banner').remove()">Allow</button>`;
+  b.id='pushBanner';
+  b.style.cssText='margin:12px 16px 0;background:var(--plt);border:1px solid rgba(128,0,32,.15);border-radius:var(--r);padding:12px 13px;display:flex;align-items:center;gap:10px';
+  b.innerHTML=`<div style="flex:1;font-size:12px;color:var(--dp);font-weight:500;line-height:1.5">🔔 Notifications allow karo — school alerts aur marks updates turant milenge!</div><button style="padding:7px 13px;background:var(--p);color:var(--w);border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--fb);white-space:nowrap;flex-shrink:0" onclick="window._reqPush&&window._reqPush()">Allow</button>`;
   el.prepend(b);
 }
 
-/* ── NOTIFICATIONS ── */
 async function loadNotifs(){
   try{
     const r=await fetch(API+'/notifications',{headers:H()});
@@ -483,21 +524,15 @@ async function loadNotifs(){
   }catch(_){}
 }
 
-window._refreshNotifs=async function(){await loadNotifs();renderNPList();};
-
-function openNP(){
-  document.getElementById('np').classList.add('show');
-  document.getElementById('bellDot').classList.remove('show');
-  renderNPList();
-}
+function openNP(){document.getElementById('np').classList.add('show');document.getElementById('bellDot').classList.remove('show');renderNPList()}
 function closeNP(){document.getElementById('np').classList.remove('show')}
 
 function renderNPList(){
   const el=document.getElementById('npList');if(!el)return;
-  if(!NOTIFS.length){el.innerHTML='<div class="empty" style="min-height:60px">No notifications yet</div>';return}
+  if(!NOTIFS.length){el.innerHTML='<div class="empty">No notifications yet</div>';return}
   el.innerHTML=NOTIFS.map(n=>`
     <div class="ni-item">
-      <div class="ni-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+      <div class="ni-ic"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
       <div style="flex:1">
         <div class="ni-title">${n.title||''}</div>
         <div class="ni-msg">${n.message||''}</div>
@@ -506,7 +541,7 @@ function renderNPList(){
     </div>`).join('');
 }
 
-/* ── ROUTER ── */
+/* ROUTER */
 function showTab(tab,btn){
   curTab=tab;
   document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
@@ -514,19 +549,15 @@ function showTab(tab,btn){
   else{const idx={home:0,marks:1,fees:2,group:3,alerts:4,profile:5}[tab]??0;document.querySelectorAll('.nav-tab')[idx]?.classList.add('active');}
   const el=document.getElementById('mainContent');
   if(tab==='home')el.innerHTML=renderHome();
-  else if(tab==='marks')el.innerHTML=renderMarks();
+  else if(tab==='marks'){el.innerHTML=renderMarks();setTimeout(()=>{document.querySelectorAll('.mark-fill').forEach(e=>{e.style.width=e.dataset.w||'0%'})},100);}
   else if(tab==='fees')el.innerHTML=renderFees();
   else if(tab==='group')el.innerHTML=renderGroup();
   else if(tab==='alerts'){el.innerHTML=renderAlerts();document.getElementById('alertsDot')?.classList.remove('show');document.getElementById('bellDot')?.classList.remove('show');}
   else if(tab==='profile')el.innerHTML=renderProfile();
   document.getElementById('scrollArea').scrollTop=0;
-  /* Animate mark bars */
-  if(tab==='marks')setTimeout(()=>{document.querySelectorAll('.mark-fill').forEach(e=>{e.style.width=e.dataset.w||'0%'})},100);
 }
 
-/* ══════════════
-   HOME
-══════════════ */
+/* HOME */
 function renderHome(){
   if(!SD)return'<div class="loading"><div class="spin-el"></div></div>';
   const a=avgPct();
@@ -553,7 +584,7 @@ function renderHome(){
   <div class="stats-grid">
     <div class="stat-tile" onclick="showTab('marks')">
       <div class="stat-ic"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-      <div class="stat-val">${MARKS.length?a+'%':'--'}</div><div class="stat-lbl">${MARKS.length?'Avg Marks':'No marks yet'}</div>
+      <div class="stat-val">${MARKS.length?a+'%':'--'}</div><div class="stat-lbl">${MARKS.length?'Avg Marks':'No Marks Yet'}</div>
     </div>
     <div class="stat-tile" onclick="showTab('marks')">
       <div class="stat-ic"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
@@ -565,7 +596,7 @@ function renderHome(){
     </div>
     <div class="stat-tile" onclick="showTab('fees')">
       <div class="stat-ic"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
-      <div class="stat-val" style="font-size:13px;padding-top:4px"><span class="${fStatus==='paid'?'badge-ok':fStatus==='partial'?'badge-ho':'badge-no'}">${fStatus}</span></div>
+      <div class="stat-val" style="font-size:13px;padding-top:4px"><span class="${fStatus==='paid'?'bOK':fStatus==='partial'?'bHO':'bNO'}">${fStatus}</span></div>
       <div class="stat-lbl">Fees</div>
     </div>
   </div>
@@ -591,7 +622,7 @@ function renderHome(){
   ${POSTS.length?`
   <div class="sec">
     <div class="sec-title">Latest from Class</div>
-    ${POSTS.slice(0,2).map(p=>renderPostCard(p)).join('')}
+    ${POSTS.slice(0,2).map(p=>postCard(p)).join('')}
     ${POSTS.length>2?`<button style="width:100%;padding:10px;background:none;border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:13px;font-weight:600;color:var(--b5);cursor:pointer" onclick="showTab('group')">View all ${POSTS.length} posts</button>`:''}
   </div>`:''}
   ${NOTIFS.length?`
@@ -606,7 +637,7 @@ function renderHome(){
   </div>`:''}`;
 }
 
-function renderPostCard(p){
+function postCard(p){
   return`<div class="post-card">
     <div class="post-head">
       <div class="post-av">${ini(p.posted_by_name||'T')}</div>
@@ -620,17 +651,13 @@ function renderPostCard(p){
   </div>`;
 }
 
-/* ══════════════
-   MARKS — only real data
-══════════════ */
+/* MARKS */
 function renderMarks(){
   if(!MARKS.length)return`
   <div class="hero"><div class="hero-grid"></div><div class="hero-inner" style="display:block"><div class="hero-grt">Marks</div><div class="hero-name">${SD?.name||''}</div></div></div>
   <div style="padding:16px"><div class="empty">No marks uploaded yet<br><small style="font-size:12px;color:var(--b4)">Teacher will add marks soon</small></div></div>`;
-
   const a=avgPct();
   const exams=[...new Set(MARKS.map(m=>m.exam_type).filter(Boolean))];
-
   return`
   <div class="hero"><div class="hero-grid"></div>
     <div class="hero-inner">
@@ -646,9 +673,9 @@ function renderMarks(){
     ${exams.length
       ?exams.map(exam=>{
           const mks=MARKS.filter(m=>m.exam_type===exam);
-          const examAvg=Math.round(mks.reduce((a,m)=>a+(m.marks_obtained/m.total_marks*100),0)/mks.length);
+          const ea=Math.round(mks.reduce((a,m)=>a+(m.marks_obtained/m.total_marks*100),0)/mks.length);
           return`<div class="mark-group">
-            <div class="mark-group-title">${exam} — Avg: ${examAvg}% (${grade(examAvg)})</div>
+            <div class="mark-group-title">${exam} — Avg: ${ea}% (${grade(ea)})</div>
             ${mks.map(m=>{const pct=Math.round((m.marks_obtained/m.total_marks)*100);return`
               <div class="mark-row">
                 <div class="mark-sub">${m.subject}</div>
@@ -657,38 +684,25 @@ function renderMarks(){
                 <div class="mark-pct" style="color:${pct>=60?'var(--green)':pct>=40?'var(--gold)':'var(--red)'}">${pct}%</div>
               </div>`}).join('')}
           </div>`;}).join('')
-      :`<div class="mark-group">
-          ${MARKS.map(m=>{const pct=Math.round((m.marks_obtained/m.total_marks)*100);return`
-            <div class="mark-row">
-              <div class="mark-sub">${m.subject}</div>
-              <div class="mark-bar"><div class="mark-fill" data-w="${pct}%" style="width:0%"></div></div>
-              <div class="mark-score">${m.marks_obtained}/${m.total_marks}</div>
-              <div class="mark-pct" style="color:${pct>=60?'var(--green)':pct>=40?'var(--gold)':'var(--red)'}">${pct}%</div>
-            </div>`}).join('')}
-        </div>`}
-    <!-- TIMETABLE -->
+      :`<div class="mark-group">${MARKS.map(m=>{const pct=Math.round((m.marks_obtained/m.total_marks)*100);return`
+        <div class="mark-row">
+          <div class="mark-sub">${m.subject}</div>
+          <div class="mark-bar"><div class="mark-fill" data-w="${pct}%" style="width:0%"></div></div>
+          <div class="mark-score">${m.marks_obtained}/${m.total_marks}</div>
+          <div class="mark-pct" style="color:${pct>=60?'var(--green)':pct>=40?'var(--gold)':'var(--red)'}">${pct}%</div>
+        </div>`}).join('')}</div>`}
     ${TT.length?`
     <div style="font-family:var(--ff);font-size:15px;font-weight:700;color:var(--dp);margin:16px 0 10px">Timetable</div>
     <div class="tt-wrap">
       <table class="tt-table">
-        <thead><tr>
-          <th>Day</th>
-          ${Array.from({length:9},(_,i)=>`<th>P${i+1}</th>`).join('')}
-        </tr></thead>
-        <tbody>
-          ${TT.map(row=>`<tr>
-            <td style="font-weight:700;color:var(--p);white-space:nowrap">${row.day?.slice(0,3)||''}</td>
-            ${Array.from({length:9},(_,i)=>`<td>${row['period_'+(i+1)]||'<span class="tt-empty">—</span>'}</td>`).join('')}
-          </tr>`).join('')}
-        </tbody>
+        <thead><tr><th>Day</th>${Array.from({length:9},(_,i)=>`<th>P${i+1}</th>`).join('')}</tr></thead>
+        <tbody>${TT.map(row=>`<tr><td style="font-weight:700;color:var(--p);white-space:nowrap">${row.day?.slice(0,3)||''}</td>${Array.from({length:9},(_,i)=>`<td>${row['period_'+(i+1)]||'—'}</td>`).join('')}</tr>`).join('')}</tbody>
       </table>
     </div>`:''}
   </div>`;
 }
 
-/* ══════════════
-   FEES — pay + screenshot upload
-══════════════ */
+/* FEES */
 function renderFees(){
   if(!FEES)return`<div style="padding:16px"><div class="empty">No fees data available</div></div>`;
   const total=parseFloat(FEES.total_amount)||0;
@@ -697,12 +711,9 @@ function renderFees(){
   const fStatus=FEES.status||'pending';
   return`
   <div class="hero"><div class="hero-grid"></div><div class="hero-inner" style="display:block">
-    <div class="hero-grt">Fees</div>
-    <div class="hero-name">${SD?.name||''}</div>
-    <div class="hero-chips"><span class="hero-chip">${SD?.standard||''}</span></div>
+    <div class="hero-grt">Fees</div><div class="hero-name">${SD?.name||''}</div>
   </div></div>
   <div style="padding:13px 16px">
-    <!-- STATUS CARDS -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
       <div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px;text-align:center">
         <div style="font-family:var(--fm);font-size:18px;font-weight:700;color:var(--red)">${fmtRs(rem)}</div>
@@ -713,15 +724,14 @@ function renderFees(){
         <div style="font-size:10px;color:var(--b4);text-transform:uppercase;font-weight:600;margin-top:3px">Amount Paid</div>
       </div>
     </div>
-    <div class="info-list" style="margin-bottom:12px">
+    <div class="info-list">
       <div class="info-row"><span class="info-lbl">Total Fees</span><span class="info-val" style="font-family:var(--fm)">${fmtRs(total)}</span></div>
-      <div class="info-row"><span class="info-lbl">Fees Status</span><span class="info-val"><span class="${fStatus==='paid'?'badge-ok':fStatus==='partial'?'badge-ho':'badge-no'}">${fStatus}</span></span></div>
+      <div class="info-row"><span class="info-lbl">Status</span><span class="info-val"><span class="${fStatus==='paid'?'bOK':fStatus==='partial'?'bHO':'bNO'}">${fStatus}</span></span></div>
     </div>
-    ${fStatus==='paid'?`<div style="background:var(--gl);border-radius:var(--r);padding:14px;text-align:center;color:var(--green);font-weight:700;font-size:14px;margin-bottom:12px">✅ All fees paid! Thank you.</div>`:''}
+    ${fStatus==='paid'?`<div style="background:var(--gl);border-radius:var(--r);padding:14px;text-align:center;color:var(--green);font-weight:700;font-size:14px;margin-bottom:12px">✅ All fees paid!</div>`:''}
     ${fStatus!=='paid'?`
-    <!-- UPI PAYMENT SECTION -->
-    <div class="pay-section">
-      <div class="pay-section-title">Pay via UPI</div>
+    <div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px;margin-bottom:12px">
+      <div style="font-size:12px;font-weight:700;color:var(--dp);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px">Pay via UPI</div>
       <div class="upi-box">
         <div class="upi-lbl">School UPI ID</div>
         <div class="upi-id">${UPI||'Contact school for UPI ID'}</div>
@@ -734,30 +744,29 @@ function renderFees(){
       <div class="dvdr">Payment ke baad yahan submit karo</div>
       <div class="fgl"><label>Amount Paid (Rs) *</label><input type="number" class="fi" id="payAmt" placeholder="Enter amount paid" value="${rem||''}" style="margin-bottom:0"></div>
       <div class="fgl" style="margin-top:10px"><label>UPI Transaction ID *</label><input type="text" class="fi" id="upiRef" placeholder="e.g. 123456789012" style="margin-bottom:0"></div>
-      <!-- SCREENSHOT UPLOAD -->
       <div style="margin-top:10px">
         <label style="font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:5px">Payment Screenshot</label>
         <div class="ss-area" id="ssArea">
-          <input type="file" accept="image/*" onchange="handleSS(this)">
+          <input type="file" accept="image/*" class="ss-input" onchange="handleSS(this)">
           <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
           <div class="ss-area-txt">Tap to upload payment screenshot</div>
           <img class="ss-preview" id="ssPreview">
         </div>
       </div>
-      <button class="submit-pay-btn" id="submitPayBtn" onclick="submitPayment()" style="margin-top:12px">Submit Payment</button>
+      <button class="submit-btn" id="submitPayBtn" onclick="submitPayment()" style="margin-top:13px">Submit Payment</button>
     </div>`:''}
-    <!-- PAYMENT HISTORY -->
     ${myPayments.length?`
-    <div style="margin-top:16px">
+    <div>
       <div style="font-family:var(--ff);font-size:15px;font-weight:700;color:var(--dp);margin-bottom:10px">Payment History</div>
       ${myPayments.map(p=>`
         <div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px;margin-bottom:8px">
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
             <div style="font-family:var(--fm);font-size:15px;font-weight:700;color:var(--dp)">${fmtRs(p.amount)}</div>
-            <span class="${p.status==='verified'?'badge-ok':p.status==='rejected'?'badge-no':'badge-ho'}">${p.status==='verified'?'Verified':p.status==='rejected'?'Rejected':'Pending'}</span>
+            <span class="${p.status==='verified'?'bOK':p.status==='rejected'?'bNO':'bHO'}">${p.status==='verified'?'Verified':p.status==='rejected'?'Rejected':'Pending'}</span>
           </div>
           <div style="font-size:12px;color:var(--b5)">UPI: ${p.upi_ref||'-'}</div>
-          <div style="font-size:11px;color:var(--b3);margin-top:3px">${p.submitted_at?new Date(p.submitted_at).toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}):''}</div>
+          ${p.screenshot_url||p.screenshot_path?`<img src="${p.screenshot_url||p.screenshot_path}" style="width:100%;max-height:120px;object-fit:cover;border-radius:7px;margin-top:8px;border:1px solid var(--b2)" onerror="this.style.display='none'">`:''}
+          <div style="font-size:11px;color:var(--b3);margin-top:4px">${p.submitted_at?new Date(p.submitted_at).toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}):''}</div>
         </div>`).join('')}
     </div>`:''}
   </div>`;
@@ -771,48 +780,44 @@ function handleSS(input){
     ssBase64=e.target.result.split(',')[1];
     const prev=document.getElementById('ssPreview');
     const area=document.getElementById('ssArea');
-    if(prev){prev.src=e.target.result;area.classList.add('has-img');}
+    if(prev&&area){prev.src=e.target.result;area.classList.add('has-img');}
   };
   reader.readAsDataURL(file);
 }
 
 function openUPI(app,e){
   e.preventDefault();
-  if(!UPI){showToast('UPI ID not available',true);return}
+  if(!UPI){showToast('UPI ID not available','err');return}
   const amt=document.getElementById('payAmt')?.value||'';
   const upi=encodeURIComponent(UPI);const am=encodeURIComponent(amt);const pn=encodeURIComponent('Emmanuel School');
   const urls={phonepe:`phonepe://pay?pa=${upi}&pn=${pn}&am=${am}&cu=INR`,gpay:`tez://upi/pay?pa=${upi}&pn=${pn}&am=${am}&cu=INR`,paytm:`paytmmp://pay?pa=${upi}&pn=${pn}&am=${am}&cu=INR`};
   window.location.href=urls[app];
-  const fallbacks={phonepe:'https://phon.pe/',gpay:'https://pay.google.com/',paytm:'https://paytm.com/'};
-  setTimeout(()=>{try{window.open(fallbacks[app],'_blank')}catch(_){}},2000);
+  const fb={phonepe:'https://phon.pe/',gpay:'https://pay.google.com/',paytm:'https://paytm.com/'};
+  setTimeout(()=>{try{window.open(fb[app],'_blank')}catch(_){}},2000);
 }
 
 async function submitPayment(){
   const ref=document.getElementById('upiRef')?.value.trim();
   const amt=document.getElementById('payAmt')?.value;
-  if(!ref){showToast('UPI Transaction ID daalo',true);return}
-  if(!amt||parseFloat(amt)<=0){showToast('Amount daalo',true);return}
+  if(!ref){showToast('UPI Transaction ID daalo','err');return}
+  if(!amt||parseFloat(amt)<=0){showToast('Amount daalo','err');return}
   const btn=document.getElementById('submitPayBtn');
   btn.disabled=true;btn.textContent='Submitting...';
   try{
-    /* POST /api/fees/submit-payment → {upi_ref, amount, screenshot_base64?, screenshot_mime?} */
     const payload={upi_ref:ref,amount:parseFloat(amt)};
     if(ssBase64){payload.screenshot_base64=ssBase64;payload.screenshot_mime=ssMime||'image/jpeg';}
     const res=await fetch(API+'/fees/submit-payment',{method:'POST',headers:H(),body:JSON.stringify(payload)});
     if(res.ok){
-      showToast('Payment submitted! Admin will verify soon.');
-      /* Refresh payments */
-      try{const mr=await fetch(API+'/fees/me',{headers:H()});if(mr.ok){const md=await mr.json();myPayments=md.payments||[];}}catch(_){}
+      showToast('Payment submitted! Admin will verify soon.','ok2');
       ssBase64=null;ssMime=null;
+      try{const mr=await fetch(API+'/fees/me',{headers:H()});if(mr.ok){const md=await mr.json();myPayments=md.payments||[];}}catch(_){}
       showTab('fees');
-    }else{const d=await res.json().catch(()=>({}));showToast(d.error||'Failed to submit',true);}
-  }catch(e){showToast('Network error',true)}
+    }else{const d=await res.json().catch(()=>({}));showToast(d.error||'Failed','err');}
+  }catch(e){showToast('Network error','err')}
   if(btn){btn.disabled=false;btn.textContent='Submit Payment';}
 }
 
-/* ══════════════
-   GROUP
-══════════════ */
+/* GROUP */
 function renderGroup(){
   return`
   <div class="hero"><div class="hero-grid"></div><div class="hero-inner" style="display:block">
@@ -820,13 +825,11 @@ function renderGroup(){
   </div></div>
   <div style="padding:13px 16px">
     ${!POSTS.length?`<div class="empty">No posts yet<br><small style="font-size:12px;color:var(--b4)">Teacher will post updates here</small></div>`:''}
-    ${POSTS.map(p=>renderPostCard(p)).join('')}
+    ${POSTS.map(p=>postCard(p)).join('')}
   </div>`;
 }
 
-/* ══════════════
-   ALERTS
-══════════════ */
+/* ALERTS */
 function renderAlerts(){
   return`
   <div class="hero"><div class="hero-grid"></div><div class="hero-inner" style="display:block">
@@ -837,7 +840,7 @@ function renderAlerts(){
     ${NOTIFS.length?`<div class="info-list">
       ${NOTIFS.map(n=>`
         <div class="ni-item">
-          <div class="ni-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+          <div class="ni-ic"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
           <div style="flex:1">
             <div class="ni-title">${n.title||''}</div>
             <div class="ni-msg">${n.message||''}</div>
@@ -848,9 +851,7 @@ function renderAlerts(){
   </div>`;
 }
 
-/* ══════════════
-   PROFILE
-══════════════ */
+/* PROFILE */
 function renderProfile(){
   if(!SD)return'<div class="loading"><div class="spin-el"></div></div>';
   const total=parseFloat(FEES?.total_amount)||0;
@@ -884,7 +885,7 @@ function renderProfile(){
       <div class="info-row"><span class="info-lbl">Total Fees</span><span class="info-val" style="font-family:var(--fm)">${fmtRs(total)}</span></div>
       <div class="info-row"><span class="info-lbl">Paid</span><span class="info-val" style="color:var(--green);font-family:var(--fm)">${fmtRs(paid)}</span></div>
       <div class="info-row"><span class="info-lbl">Remaining</span><span class="info-val" style="color:var(--red);font-family:var(--fm)">${fmtRs(rem)}</span></div>
-      <div class="info-row"><span class="info-lbl">Status</span><span class="info-val"><span class="${fStatus==='paid'?'badge-ok':fStatus==='partial'?'badge-ho':'badge-no'}">${fStatus}</span></span></div>
+      <div class="info-row"><span class="info-lbl">Status</span><span class="info-val"><span class="${fStatus==='paid'?'bOK':fStatus==='partial'?'bHO':'bNO'}">${fStatus}</span></span></div>
     </div>`:''}
     ${ATT.total?`<div class="info-list">
       <div class="info-row"><span class="info-lbl">Present Days</span><span class="info-val" style="color:var(--green)">${ATT.present||0}</span></div>
@@ -896,7 +897,7 @@ function renderProfile(){
   </div>`;
 }
 
-/* Service Worker */
+/* SERVICE WORKER */
 if('serviceWorker'in navigator)navigator.serviceWorker.register('firebase-messaging-sw.js').catch(()=>{});
 </script>
 </body>
