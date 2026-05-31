@@ -16,15 +16,13 @@
   --red:#c0392b;--rl:#fdf0ef;
   --gold:#b8860b;--goldl:#fdf8e8;
   --ff:'Playfair Display',serif;--fb:'Inter',sans-serif;--fm:'JetBrains Mono',monospace;
-  --r:12px;--sh:0 4px 16px rgba(128,0,32,.1);--tr:all .2s ease;
+  --r:12px;--sh:0 4px 16px rgba(128,0,32,.1);
 }
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 body{display:flex;min-height:100vh;background:var(--bg);font-family:var(--fb);color:var(--g7)}
-
-/* SIDEBAR */
 .sidebar{width:240px;background:var(--dp);display:flex;flex-direction:column;position:fixed;top:0;left:0;bottom:0;z-index:300;overflow-y:auto;transition:transform .3s}
 .sidebar::-webkit-scrollbar{width:3px}
-.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:3px}
+.sidebar::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1)}
 .sb-head{padding:16px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:10px;min-height:62px}
 .sb-logo{width:34px;height:34px;border-radius:8px;overflow:hidden;border:1.5px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .sb-logo img{width:100%;height:100%;object-fit:cover;display:block}
@@ -33,7 +31,7 @@ body{display:flex;min-height:100vh;background:var(--bg);font-family:var(--fb);co
 .sb-role{font-size:10px;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px}
 .sb-nav{flex:1;padding:8px}
 .nav-grp{font-size:10px;font-weight:600;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:1.5px;padding:10px 8px 3px}
-.ni{display:flex;align-items:center;gap:10px;width:100%;padding:9px 11px;border-radius:8px;border:none;background:transparent;color:rgba(255,255,255,.5);font-size:13px;font-weight:500;cursor:pointer;text-align:left;transition:var(--tr);margin-bottom:1px;font-family:var(--fb)}
+.ni{display:flex;align-items:center;gap:10px;width:100%;padding:9px 11px;border-radius:8px;border:none;background:transparent;color:rgba(255,255,255,.5);font-size:13px;font-weight:500;cursor:pointer;text-align:left;transition:all .2s;margin-bottom:1px;font-family:var(--fb)}
 .ni:hover{background:rgba(255,255,255,.07);color:var(--w)}
 .ni.active{background:var(--w);color:var(--p);font-weight:700}
 .ni svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
@@ -42,11 +40,9 @@ body{display:flex;min-height:100vh;background:var(--bg);font-family:var(--fb);co
 .sb-av{width:32px;height:32px;background:rgba(255,255,255,.12);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;color:var(--w);flex-shrink:0}
 .sb-aname{font-size:13px;font-weight:600;color:var(--w);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .sb-acode{font-size:10px;color:rgba(255,255,255,.3);font-family:var(--fm)}
-.logout-btn{width:100%;padding:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:rgba(255,255,255,.5);font-size:12px;font-weight:600;cursor:pointer;font-family:var(--fb);transition:var(--tr)}
+.logout-btn{width:100%;padding:8px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:8px;color:rgba(255,255,255,.5);font-size:12px;font-weight:600;cursor:pointer;font-family:var(--fb);transition:all .2s}
 .logout-btn:hover{background:var(--red);border-color:var(--red);color:var(--w)}
 .sb-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:299}
-
-/* MAIN */
 .main{margin-left:240px;flex:1;display:flex;flex-direction:column;min-width:0;min-height:100vh}
 .topbar{position:sticky;top:0;z-index:100;background:var(--w);border-bottom:1px solid var(--g2);padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between}
 .tb-title{font-family:var(--ff);font-size:19px;font-weight:600;color:var(--dp)}
@@ -56,23 +52,17 @@ body{display:flex;min-height:100vh;background:var(--bg);font-family:var(--fb);co
 .live-dot{width:5px;height:5px;background:var(--green);border-radius:50%;animation:pulse 1.5s infinite}
 .pg{padding:24px;flex:1}
 .panel{display:none}.panel.active{display:block}
-
-/* STATS */
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
-.sc{background:var(--w);border:1px solid var(--g2);border-radius:14px;padding:18px;cursor:pointer;transition:var(--tr)}
+.sc{background:var(--w);border:1px solid var(--g2);border-radius:14px;padding:18px;cursor:pointer;transition:all .2s}
 .sc:hover{border-color:var(--p);transform:translateY(-2px);box-shadow:var(--sh)}
 .sc-ic{width:34px;height:34px;background:var(--plt);border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
 .sc-ic svg{width:17px;height:17px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
 .sc-num{font-family:var(--ff);font-size:28px;font-weight:700;line-height:1;margin-bottom:3px;color:var(--dp)}
 .sc-lbl{font-size:11px;color:var(--g4);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-
-/* CARDS */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px}
 .card{background:var(--w);border:1px solid var(--g2);border-radius:14px;padding:20px;margin-bottom:18px}
 .card-title{font-family:var(--ff);font-size:17px;font-weight:700;color:var(--dp);margin-bottom:14px}
 .card-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;gap:12px;flex-wrap:wrap}
-.two-col{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:18px}
-
-/* TABLE */
 .tw{overflow-x:auto}
 table{width:100%;border-collapse:collapse}
 thead{background:var(--g1)}
@@ -80,16 +70,12 @@ th{padding:10px 13px;text-align:left;font-size:11px;color:var(--g4);text-transfo
 td{padding:10px 13px;font-size:13px;border-bottom:1px solid var(--g1);vertical-align:middle;color:var(--g7)}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:#fdf5f7}
-
-/* BADGES */
 .badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:100px;font-size:11px;font-weight:600}
 .bg{background:var(--gl);color:var(--green)}
 .br{background:var(--rl);color:var(--red)}
 .bo{background:var(--goldl);color:var(--gold)}
 .bgr{background:var(--g1);color:var(--g6)}
-
-/* BTNS */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 15px;border-radius:8px;border:none;font-size:13px;font-weight:600;cursor:pointer;transition:var(--tr);font-family:var(--fb)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;padding:8px 15px;border-radius:8px;border:none;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;font-family:var(--fb)}
 .btn:active{transform:scale(.97)}
 .btn-p{background:var(--p);color:var(--w)}.btn-p:hover{background:var(--dk)}
 .btn-g{background:var(--green);color:var(--w)}
@@ -97,14 +83,12 @@ tr:hover td{background:#fdf5f7}
 .btn-o{background:transparent;border:1.5px solid var(--g2);color:var(--g6)}.btn-o:hover{border-color:var(--p);color:var(--p)}
 .btn-sm{padding:5px 11px;font-size:11px;border-radius:7px}
 .btn svg{width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
-
-/* INPUTS */
-.srch{padding:9px 13px;border:1.5px solid var(--g2);border-radius:9px;font-size:13px;color:var(--g7);outline:none;transition:var(--tr);min-width:180px;font-family:var(--fb)}
+.srch{padding:9px 13px;border:1.5px solid var(--g2);border-radius:9px;font-size:13px;color:var(--g7);outline:none;transition:all .2s;min-width:180px;font-family:var(--fb)}
 .srch:focus{border-color:var(--p)}
 .fg2{display:grid;grid-template-columns:1fr 1fr;gap:13px}
 .fgl{display:flex;flex-direction:column;gap:4px;margin-bottom:10px}
 .fgl label{font-size:11px;font-weight:700;color:var(--g5);text-transform:uppercase;letter-spacing:.7px}
-.fi{width:100%;padding:10px 12px;background:var(--g1);border:1.5px solid var(--g2);border-radius:9px;font-size:13px;color:var(--g7);outline:none;transition:var(--tr);font-family:var(--fb)}
+.fi{width:100%;padding:10px 12px;background:var(--g1);border:1.5px solid var(--g2);border-radius:9px;font-size:13px;color:var(--g7);outline:none;transition:all .2s;font-family:var(--fb)}
 .fi:focus{border-color:var(--p);background:var(--w)}
 .fi[readonly]{background:#eee;color:var(--g5)}
 select.fi{-webkit-appearance:none}
@@ -112,27 +96,21 @@ select.fi{-webkit-appearance:none}
 .pw-wrap .fi{padding-right:38px}
 .pw-eye{position:absolute;right:10px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--g4);display:flex;padding:2px}
 .pw-eye svg{width:15px;height:15px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
-
-/* FILTER */
 .filter-row{display:flex;gap:7px;margin-bottom:14px;flex-wrap:wrap;overflow-x:auto;padding-bottom:3px}
-.fbtn{padding:5px 13px;border-radius:100px;border:1.5px solid var(--g2);background:var(--w);font-size:12px;font-weight:600;color:var(--g5);cursor:pointer;white-space:nowrap;font-family:var(--fb);transition:var(--tr)}
+.fbtn{padding:5px 13px;border-radius:100px;border:1.5px solid var(--g2);background:var(--w);font-size:12px;font-weight:600;color:var(--g5);cursor:pointer;white-space:nowrap;font-family:var(--fb);transition:all .2s}
 .fbtn.active{background:var(--p);border-color:var(--p);color:var(--w)}
-
-/* INFO */
 .ig{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:14px}
 .ic{background:var(--g1);border-radius:8px;padding:10px 12px}
 .ic-lbl{font-size:10px;color:var(--g4);text-transform:uppercase;letter-spacing:.5px;font-weight:600;margin-bottom:2px}
 .ic-val{font-size:13px;font-weight:600;color:var(--g7)}
-
-/* CRED */
 .cred-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 0}
 .cred-item{background:var(--dp);border-radius:10px;padding:13px;text-align:center}
 .cred-lbl{font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:.7px;font-weight:600;margin-bottom:5px}
 .cred-val{font-family:var(--fm);font-size:17px;font-weight:700;color:var(--w);word-break:break-all}
 .warn-box{background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:10px 13px;font-size:12px;color:#5d4037;margin-bottom:10px}
 .err-box{background:var(--rl);color:var(--red);padding:10px 13px;border-radius:8px;font-size:13px;margin-bottom:12px;display:none}
-
-/* MODALS */
+.fees-calc{background:var(--g1);border-radius:9px;padding:12px;margin:10px 0}
+.fees-row{display:flex;justify-content:space-between;padding:3px 0}
 .mo{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:600;display:none;align-items:center;justify-content:center;padding:16px}
 .mo.show{display:flex}
 .mb{background:var(--w);border-radius:16px;padding:22px;width:100%;max-width:520px;max-height:92vh;overflow-y:auto;position:relative}
@@ -142,21 +120,22 @@ select.fi{-webkit-appearance:none}
 .mo-close{position:absolute;top:13px;right:13px;background:var(--g1);border:none;cursor:pointer;color:var(--g6);width:27px;height:27px;border-radius:7px;font-size:17px;display:flex;align-items:center;justify-content:center}
 .mo-close:hover{background:var(--rl);color:var(--red)}
 .mo-foot{display:flex;gap:10px;margin-top:14px;justify-content:flex-end}
-.fees-calc{background:var(--g1);border-radius:9px;padding:12px;margin:10px 0}
-.fees-row{display:flex;justify-content:space-between;padding:3px 0}
-
-/* POST */
 .post-item{border:1px solid var(--g2);border-radius:10px;padding:13px;margin-bottom:10px}
 .post-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px}
 .post-author{font-size:13px;font-weight:700;color:var(--p)}
 .post-meta{font-size:11px;color:var(--g4)}
 .post-text{font-size:13px;color:var(--g6);line-height:1.6}
-
-/* SCREENSHOT */
-.ss-img{width:100%;max-height:220px;object-fit:contain;border-radius:8px;border:1px solid var(--g2);margin-top:10px;cursor:zoom-in}
-
-/* UTILS */
-.spin{display:flex;align-items:center;justify-content:center;padding:60px}<br>.spinner{width:26px;height:26px;border:2px solid var(--g2);border-top-color:var(--p);border-radius:50%;animation:spin .8s linear infinite}
+/* Payment screenshot */
+.pay-ss{width:100%;max-height:260px;object-fit:contain;border-radius:9px;margin-top:10px;border:1px solid var(--g2);cursor:zoom-in;display:block}
+.pay-ss-full{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:700;display:none;align-items:center;justify-content:center;padding:20px}
+.pay-ss-full.show{display:flex}
+.pay-ss-full img{max-width:100%;max-height:90vh;border-radius:10px;object-fit:contain}
+.pay-ss-full-close{position:absolute;top:16px;right:16px;background:rgba(255,255,255,.1);border:none;cursor:pointer;color:var(--w);width:36px;height:36px;border-radius:50%;font-size:20px;display:flex;align-items:center;justify-content:center}
+/* TT */
+.tt-inp{width:100%;min-width:74px;padding:5px 6px;border:1.5px solid var(--g2);border-radius:6px;font-size:11px;font-family:var(--fb);outline:none;text-align:center;background:var(--g1)}
+.tt-inp:focus{border-color:var(--p);background:var(--w)}
+.spin{display:flex;align-items:center;justify-content:center;padding:60px}
+.spinner{width:26px;height:26px;border:2px solid var(--g2);border-top-color:var(--p);border-radius:50%;animation:spin .8s linear infinite}
 .empty{text-align:center;padding:40px;color:var(--g4)}
 .empty svg{width:38px;height:38px;stroke:var(--g3);fill:none;stroke-width:2;stroke-linecap:round;margin:0 auto 10px;display:block}
 .toast{position:fixed;bottom:22px;right:22px;padding:10px 18px;border-radius:10px;font-size:13px;font-weight:600;z-index:999;transform:translateY(50px);opacity:0;transition:all .3s;box-shadow:0 6px 24px rgba(0,0,0,.18);max-width:300px}
@@ -165,7 +144,6 @@ select.fi{-webkit-appearance:none}
 .t-err{background:var(--red);color:var(--w)}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
-
 @media(max-width:900px){
   .sidebar{transform:translateX(-100%)}
   .sidebar.open{transform:translateX(0);box-shadow:4px 0 30px rgba(0,0,0,.2)}
@@ -185,8 +163,18 @@ select.fi{-webkit-appearance:none}
 </style>
 </head>
 <body>
+<script>(function(){
+  const t=sessionStorage.getItem('admin_token')||sessionStorage.getItem('edu_token')||localStorage.getItem('edu_token')||localStorage.getItem('admin_token');
+  if(!t)window.location.href='login.html';
+})();</script>
 
 <div class="sb-overlay" id="sbOverlay" onclick="closeSB()"></div>
+
+<!-- FULLSCREEN SCREENSHOT VIEWER -->
+<div class="pay-ss-full" id="ssFullView" onclick="this.classList.remove('show')">
+  <button class="pay-ss-full-close" onclick="document.getElementById('ssFullView').classList.remove('show')">×</button>
+  <img id="ssFullImg" src="" alt="Payment Screenshot">
+</div>
 
 <aside class="sidebar" id="sidebar">
   <div class="sb-head">
@@ -337,16 +325,6 @@ select.fi{-webkit-appearance:none}
   </div>
 </div>
 
-<!-- PAYMENT SCREENSHOT MODAL -->
-<div class="mo" id="moPay">
-  <div class="mb" style="max-width:480px">
-    <button class="mo-close" onclick="closeMo('moPay')">×</button>
-    <div class="mo-title">Payment Details</div>
-    <div id="moPayBody"></div>
-    <div class="mo-foot" id="moPayFoot"></div>
-  </div>
-</div>
-
 <!-- SUCCESS MODAL -->
 <div class="mo" id="moOK">
   <div class="mb" style="max-width:400px;text-align:center">
@@ -367,22 +345,13 @@ select.fi{-webkit-appearance:none}
 <script>
 const API='https://edumanage-backend-xi.vercel.app/api';
 
-/* ── TOKEN — check all possible storage locations ── */
 function getToken(){
-  return sessionStorage.getItem('admin_token')||
-         sessionStorage.getItem('edu_token')||
-         localStorage.getItem('edu_token')||
-         localStorage.getItem('admin_token')||'';
+  return sessionStorage.getItem('admin_token')||sessionStorage.getItem('edu_token')||
+         localStorage.getItem('edu_token')||localStorage.getItem('admin_token')||'';
 }
-
-/* ── REDIRECT IF NO TOKEN ── */
-(function(){
-  if(!getToken()){window.location.href='login.html';}
-})();
-
 function H(){return{'Content-Type':'application/json','Authorization':'Bearer '+getToken()}}
 
-/* ── ADMIN INFO ── */
+/* Admin info */
 (function(){
   const n=sessionStorage.getItem('admin_name')||localStorage.getItem('admin_name')||'Administrator';
   const c=sessionStorage.getItem('admin_code')||localStorage.getItem('admin_code')||'ADMIN';
@@ -394,7 +363,6 @@ function H(){return{'Content-Type':'application/json','Authorization':'Bearer '+
 const CLASSES=['Nursery','LKG','UKG','Class 1','Class 2','Class 3','Class 4','Class 5','Class 6','Class 7','Class 8','Class 9','Class 10'];
 let allStudents=[],allTeachers=[],allClasses=[],allFees=[];
 
-/* ── UTILS ── */
 function openSB(){document.getElementById('sidebar').classList.add('open');document.getElementById('sbOverlay').classList.add('open')}
 function closeSB(){document.getElementById('sidebar').classList.remove('open');document.getElementById('sbOverlay').classList.remove('open')}
 function openMo(id){document.getElementById(id).classList.add('show')}
@@ -409,17 +377,6 @@ function fRs(n){return'Rs. '+(parseInt(n||0)).toLocaleString('en-IN')}
 function fDate(ts){if(!ts)return'-';return new Date(ts).toLocaleDateString('en-IN',{day:'numeric',month:'short',year:'numeric'})}
 function feeB(st){if(st==='paid')return'<span class="badge bg">Paid</span>';if(st==='partial')return'<span class="badge bo">Partial</span>';return'<span class="badge br">Pending</span>'}
 function iCell(l,v){return`<div class="ic"><div class="ic-lbl">${l}</div><div class="ic-val">${v||'N/A'}</div></div>`}
-
-let toastT;
-function toast(msg,ok=true){
-  const e=document.getElementById('toast');
-  e.textContent=msg;e.className='toast show '+(ok?'t-ok':'t-err');
-  clearTimeout(toastT);toastT=setTimeout(()=>e.className='toast',3200);
-}
-
-function spin(){return'<div class="spin"><div class="spinner"></div></div>'}
-function errBox(m){return`<div style="background:var(--rl);color:var(--red);padding:12px;border-radius:9px;font-size:13px;margin-bottom:14px">${m}</div>`}
-
 function showOK(title,sub,code,pass,extra=''){
   document.getElementById('okTitle').textContent=title;
   document.getElementById('okSub').textContent=sub||'';
@@ -428,11 +385,23 @@ function showOK(title,sub,code,pass,extra=''){
   document.getElementById('okExtra').innerHTML=extra;
   openMo('moOK');
 }
+function spin(){return'<div class="spin"><div class="spinner"></div></div>'}
+function errBox(m){return`<div style="background:var(--rl);color:var(--red);padding:12px;border-radius:9px;font-size:13px;margin-bottom:14px">${m}</div>`}
+function viewSS(url){
+  document.getElementById('ssFullImg').src=url;
+  document.getElementById('ssFullView').classList.add('show');
+}
 
-/* ── API ── */
+let toastT;
+function toast(msg,ok=true){
+  const e=document.getElementById('toast');
+  e.textContent=msg;e.className='toast show '+(ok?'t-ok':'t-err');
+  clearTimeout(toastT);toastT=setTimeout(()=>e.className='toast',3200);
+}
+
 async function apiGet(path){
   const r=await fetch(API+path,{headers:H()});
-  if(r.status===401){toast('Session expired. Logging out.',false);setTimeout(doLogout,1200);return null}
+  if(r.status===401){toast('Session expired',false);setTimeout(doLogout,1200);return null}
   return r.json();
 }
 async function apiPost(path,body){
@@ -470,7 +439,6 @@ function fillClassSelects(){
   });
 }
 
-/* ── NAV ── */
 const TITLES={dashboard:'Dashboard',students:'All Students',addStudent:'Add Student',promote:'Promote Class',passout:'Passout Students',teachers:'All Teachers',addTeacher:'Add Teacher',fees:'Fee Management',payments:'Payment Requests',notify:'Notifications',classes:'Classes & Groups',timetable:'Timetable'};
 
 function getP(name){
@@ -490,17 +458,14 @@ function goto(page,btn){
   if(map[page])map[page](p);
 }
 
-/* ════════════════
-   DASHBOARD
-════════════════ */
+/* ═══════════ DASHBOARD ═══════════ */
 async function loadDash(p){
   if(!p)p=getP('dashboard');
   p.innerHTML=spin();
   try{
     const [sd,td,fd]=await Promise.all([apiGet('/students'),apiGet('/teachers'),apiGet('/fees/stats')]);
-    if(!sd){p.innerHTML=errBox('Could not load data. Check if backend is running.');return}
-    allStudents=sd.students||[];
-    allTeachers=td?.teachers||[];
+    if(!sd){p.innerHTML=errBox('Could not load data. Check backend.');return}
+    allStudents=sd.students||[];allTeachers=td?.teachers||[];
     const st=fd?.stats||{};
     p.innerHTML=`
     <div class="stats-grid">
@@ -541,12 +506,10 @@ async function loadDash(p){
         </div>
       </div>
     </div>`;
-  }catch(e){p.innerHTML=errBox('Error loading dashboard: '+e.message)}
+  }catch(e){p.innerHTML=errBox('Error: '+e.message)}
 }
 
-/* ════════════════
-   STUDENTS
-════════════════ */
+/* ═══════════ STUDENTS ═══════════ */
 async function loadStudents(p,filter='',std=''){
   if(!p)p=getP('students');
   p.innerHTML=spin();
@@ -574,7 +537,7 @@ async function loadStudents(p,filter='',std=''){
     <div class="tw"><table>
       <thead><tr><th>Name</th><th>Code</th><th>Class</th><th>Roll</th><th>Parent Phone</th><th>Fees</th><th>Actions</th></tr></thead>
       <tbody>
-        ${!allStudents.length?'<tr><td colspan="7" class="empty">No students found</td></tr>':''}
+        ${!allStudents.length?'<tr><td colspan="7" class="empty" style="padding:28px">No students found</td></tr>':''}
         ${allStudents.map(s=>`<tr>
           <td><b>${s.name}</b><br><span style="font-size:11px;color:var(--g4)">${s.parent_name||''}</span></td>
           <td><span style="font-family:var(--fm);font-size:11px;background:var(--plt);color:var(--p);padding:2px 7px;border-radius:4px">${s.code}</span></td>
@@ -605,12 +568,9 @@ async function viewStudent(id){
     <div><div style="font-family:var(--ff);font-size:17px;font-weight:700">${s.name}</div><span style="font-family:var(--fm);font-size:11px;background:var(--plt);color:var(--p);padding:2px 7px;border-radius:4px">${s.code}</span></div>
   </div>
   <div class="ig">
-    ${iCell('Class',s.standard+(s.section?' '+s.section:''))}
-    ${iCell('Roll No',s.roll_no)}
-    ${iCell('Parent',s.parent_name)}
-    ${iCell('Parent Phone',s.parent_phone)}
-    ${iCell('Blood Group',s.blood_group)}
-    ${iCell('Gender',s.gender)}
+    ${iCell('Class',s.standard+(s.section?' '+s.section:''))}${iCell('Roll No',s.roll_no)}
+    ${iCell('Parent',s.parent_name)}${iCell('Parent Phone',s.parent_phone)}
+    ${iCell('Blood Group',s.blood_group)}${iCell('Gender',s.gender)}
     ${iCell('DOB',s.dob?new Date(s.dob).toLocaleDateString('en-IN'):'')}
     ${iCell('Bus',s.has_bus?(s.bus_route?'Yes — '+s.bus_route:'Yes'):'No')}
     ${s.address?`<div class="ic" style="grid-column:1/-1">${iCell('Address',s.address)}</div>`:''}
@@ -659,8 +619,7 @@ function calcEF(){
 }
 
 async function saveES(){
-  const id=document.getElementById('esId').value;
-  if(!id)return;
+  const id=document.getElementById('esId').value;if(!id)return;
   const err=document.getElementById('esErr');err.style.display='none';
   const g=i=>document.getElementById(i)?.value||'';
   const payload={};
@@ -692,12 +651,9 @@ async function delStudent(id,name){
   else toast(d?.error||'Error',false);
 }
 
-/* ════════════════
-   ADD STUDENT
-════════════════ */
+/* ═══════════ ADD STUDENT ═══════════ */
 function showAddStudent(p){
   if(!p)p=getP('addStudent');
-  if(!allClasses.length)fetchClasses();
   p.innerHTML=`
   <div class="card" style="max-width:680px">
     <div class="card-title">Add New Student</div>
@@ -709,18 +665,18 @@ function showAddStudent(p){
         <div class="pw-wrap"><input class="fi" type="password" id="asPass" placeholder="Min 4 chars">
         <button class="pw-eye" type="button" onclick="tPw('asPass')"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
       </div>
-      <div class="fgl"><label>Phone</label><input class="fi" id="asPhone" type="tel" placeholder="Contact number"></div>
+      <div class="fgl"><label>Phone</label><input class="fi" id="asPhone" type="tel"></div>
       <div class="fgl"><label>Class *</label><select class="fi" id="asCls"><option value="">Select Class</option>${CLASSES.map(c=>`<option value="${c}">${c}</option>`).join('')}</select></div>
-      <div class="fgl"><label>Roll Number</label><input class="fi" id="asRoll" type="number" placeholder="Roll no"></div>
+      <div class="fgl"><label>Roll Number</label><input class="fi" id="asRoll" type="number"></div>
       <div class="fgl"><label>Date of Birth</label><input class="fi" id="asDob" type="date"></div>
       <div class="fgl"><label>Gender</label><select class="fi" id="asGen"><option>Male</option><option>Female</option><option>Other</option></select></div>
-      <div class="fgl"><label>Parent Name</label><input class="fi" id="asPar" placeholder="Parent/Guardian name"></div>
-      <div class="fgl"><label>Parent Phone</label><input class="fi" id="asPph" type="tel" placeholder="Parent phone"></div>
-      <div class="fgl"><label>Address</label><input class="fi" id="asAddr" placeholder="Address"></div>
+      <div class="fgl"><label>Parent Name</label><input class="fi" id="asPar"></div>
+      <div class="fgl"><label>Parent Phone</label><input class="fi" id="asPph" type="tel"></div>
+      <div class="fgl"><label>Address</label><input class="fi" id="asAddr"></div>
       <div class="fgl"><label>Blood Group</label><select class="fi" id="asBld"><option value="">Select</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select></div>
       <div class="fgl"><label>Bus</label><select class="fi" id="asBus"><option value="false">No Bus</option><option value="true">Has Bus</option></select></div>
-      <div class="fgl"><label>Bus Route</label><input class="fi" id="asBRoute" placeholder="Route name"></div>
-      <div class="fgl"><label>Total Fees (Rs.)</label><input class="fi" id="asFees" type="number" placeholder="Annual fees"></div>
+      <div class="fgl"><label>Bus Route</label><input class="fi" id="asBRoute"></div>
+      <div class="fgl"><label>Total Fees (Rs.)</label><input class="fi" id="asFees" type="number"></div>
     </div>
     <div style="font-size:12px;color:var(--g4);margin:8px 0">* Required</div>
     <button class="btn btn-p" style="width:100%;padding:12px" id="asSBtn" onclick="addStudent()">Add Student</button>
@@ -752,9 +708,7 @@ async function addStudent(){
   }else{e.textContent=d?.error||d?.message||'Error';e.style.display='block';}
 }
 
-/* ════════════════
-   FEES MODAL
-════════════════ */
+/* ═══════════ FEES MODAL ═══════════ */
 function openFees(sid,name,total,paid){
   document.getElementById('fmId').value=String(sid);
   document.getElementById('fmName').textContent='Student: '+name;
@@ -762,7 +716,6 @@ function openFees(sid,name,total,paid){
   document.getElementById('fmPaid').value=paid||'';
   calcFM();openMo('moFees');
 }
-
 function calcFM(){
   const t=parseFloat(document.getElementById('fmTotal').value)||0;
   const p=parseFloat(document.getElementById('fmPaid').value)||0;
@@ -774,7 +727,6 @@ function calcFM(){
   document.getElementById('fmcSt').textContent=st;
   document.getElementById('fmCalc').style.display='block';
 }
-
 async function saveFM(){
   const id=document.getElementById('fmId').value;
   const t=parseFloat(document.getElementById('fmTotal').value);
@@ -785,9 +737,7 @@ async function saveFM(){
   else toast(d?.error||'Error',false);
 }
 
-/* ════════════════
-   ALL FEES
-════════════════ */
+/* ═══════════ ALL FEES ═══════════ */
 async function loadFees(p){
   if(!p)p=getP('fees');
   p.innerHTML=spin();
@@ -797,9 +747,9 @@ async function loadFees(p){
   p.innerHTML=`
   <div class="stats-grid">
     <div class="sc"><div class="sc-ic"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div><div class="sc-num" style="color:var(--green)">${stats.paid||0}</div><div class="sc-lbl">Paid</div></div>
-    <div class="sc"><div class="sc-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div><div class="sc-num" style="color:var(--gold)">${stats.partial||0}</div><div class="sc-lbl">Partial</div></div>
+    <div class="sc"><div class="sc-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg></div><div class="sc-num" style="color:var(--gold)">${stats.partial||0}</div><div class="sc-lbl">Partial</div></div>
     <div class="sc"><div class="sc-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><div class="sc-num" style="color:var(--red)">${stats.pending||0}</div><div class="sc-lbl">Pending</div></div>
-    <div class="sc"><div class="sc-ic"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><div class="sc-num">${allFees.length}</div><div class="sc-lbl">Total</div></div>
+    <div class="sc"><div class="sc-ic"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><div class="sc-num">${allFees.length}</div><div class="sc-lbl">Total Records</div></div>
   </div>
   <div class="card">
     <div class="card-hdr">
@@ -809,7 +759,7 @@ async function loadFees(p){
     <div class="tw"><table>
       <thead><tr><th>Student</th><th>Class</th><th>Total</th><th>Paid</th><th>Remaining</th><th>Status</th><th>Action</th></tr></thead>
       <tbody id="feesTbody">
-        ${!allFees.length?'<tr><td colspan="7" class="empty">No fee records</td></tr>':''}
+        ${!allFees.length?'<tr><td colspan="7" class="empty" style="padding:28px">No records</td></tr>':''}
         ${allFees.map(f=>{
           const t=parseFloat(f.total_amount)||0,pd=parseFloat(f.paid_amount)||0,rm=parseFloat(f.remaining_amount)||Math.max(0,t-pd);
           return`<tr data-name="${(f.student_name||'').toLowerCase()}">
@@ -826,12 +776,9 @@ async function loadFees(p){
     </table></div>
   </div>`;
 }
-
 function filterFees(q){document.querySelectorAll('#feesTbody tr').forEach(r=>{r.style.display=(r.getAttribute('data-name')||'').includes(q.toLowerCase())?'':'none'})}
 
-/* ════════════════
-   PAYMENT REQUESTS — with screenshot
-════════════════ */
+/* ═══════════ PAYMENTS — VERIFY/REJECT + SCREENSHOT ═══════════ */
 async function loadPayments(p){
   if(!p)p=getP('payments');
   p.innerHTML=spin();
@@ -861,12 +808,14 @@ async function loadPayments(p){
           &nbsp;|&nbsp; UPI: <span style="font-family:var(--fm);font-size:12px">${pm.upi_ref||'-'}</span>
         </div>
         <div style="font-size:11px;color:var(--g4);margin-bottom:9px">${fDate(pm.submitted_at)}</div>
-        ${pm.screenshot_url||pm.screenshot_path?`
-        <div style="margin-bottom:9px">
-          <img src="${pm.screenshot_url||pm.screenshot_path}" class="ss-img" alt="Payment screenshot"
-            onclick="viewSS('${pm.screenshot_url||pm.screenshot_path}')"
-            onerror="this.parentNode.innerHTML='<span style=\\'font-size:12px;color:var(--g4)\\'>Screenshot not available</span>'">
-        </div>`:''}
+        ${pm.screenshot_url?`
+        <div style="margin-bottom:10px">
+          <div style="font-size:11px;font-weight:700;color:var(--g5);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px">Payment Screenshot</div>
+          <img src="${pm.screenshot_url}" class="pay-ss" alt="Payment Screenshot"
+            onclick="viewSS('${pm.screenshot_url}')"
+            onerror="this.parentNode.innerHTML='<div style=\\'font-size:12px;color:var(--g4);padding:8px;background:var(--g1);border-radius:7px\\'>Screenshot not available</div>'">
+          <div style="font-size:11px;color:var(--g5);margin-top:4px">Tap image to view full size</div>
+        </div>`:`<div style="font-size:12px;color:var(--g4);margin-bottom:9px;padding:8px;background:var(--g1);border-radius:7px">No screenshot uploaded</div>`}
         <div id="pmBtns_${pm.id}" ${pm.status!=='pending'?'style="display:none"':''}>
           <button class="btn btn-g btn-sm" style="margin-right:7px" id="pmV_${pm.id}" onclick="actPay('${pm.id}','verified')">✓ Verify</button>
           <button class="btn btn-r btn-sm" id="pmR_${pm.id}" onclick="actPay('${pm.id}','rejected')">✗ Reject</button>
@@ -875,38 +824,32 @@ async function loadPayments(p){
   </div>`;
 }
 
-function viewSS(url){
-  document.getElementById('moPayBody').innerHTML=`<img src="${url}" style="width:100%;border-radius:8px;max-height:400px;object-fit:contain" onerror="this.src='';this.alt='Image not available'">`;
-  document.getElementById('moPayFoot').innerHTML=`<a href="${url}" target="_blank" class="btn btn-p">Open Full Size</a><button class="btn btn-o" onclick="closeMo('moPay')">Close</button>`;
-  openMo('moPay');
-}
-
 async function actPay(id,status){
-  const vB=document.getElementById('pmV_'+id);const rB=document.getElementById('pmR_'+id);
+  const vB=document.getElementById('pmV_'+id);
+  const rB=document.getElementById('pmR_'+id);
   if(vB){vB.disabled=true;vB.textContent=status==='verified'?'Verifying...':'Verify';}
   if(rB){rB.disabled=true;rB.textContent=status==='rejected'?'Rejecting...':'Reject';}
   try{
+    /* POST /api/fees/verify/:payment_id with {status: 'verified'|'rejected'} */
     const d=await apiPost('/fees/verify/'+id,{status});
     if(d?.success){
-      toast(status==='verified'?'Payment verified!':'Payment rejected.');
+      toast(status==='verified'?'Payment verified! Fees updated.':'Payment rejected.');
       const badge=document.getElementById('pmBadge_'+id);
       if(badge){badge.className='badge '+(status==='verified'?'bg':'br');badge.textContent=status==='verified'?'Verified':'Rejected';}
       const btns=document.getElementById('pmBtns_'+id);if(btns)btns.style.display='none';
     }else{
-      toast(d?.error||'Failed',false);
+      toast(d?.error||d?.message||'Failed — try again',false);
       if(vB){vB.disabled=false;vB.textContent='✓ Verify';}
       if(rB){rB.disabled=false;rB.textContent='✗ Reject';}
     }
   }catch(e){
-    toast('Network error',false);
+    toast('Network error: '+e.message,false);
     if(vB){vB.disabled=false;vB.textContent='✓ Verify';}
     if(rB){rB.disabled=false;rB.textContent='✗ Reject';}
   }
 }
 
-/* ════════════════
-   TEACHERS
-════════════════ */
+/* ═══════════ TEACHERS ═══════════ */
 async function loadTeachers(p){
   if(!p)p=getP('teachers');
   p.innerHTML=spin();
@@ -922,13 +865,13 @@ async function loadTeachers(p){
     <div class="tw"><table>
       <thead><tr><th>Name</th><th>Code</th><th>Phone</th><th>Subject</th><th>Class</th><th>Actions</th></tr></thead>
       <tbody>
-        ${!allTeachers.length?'<tr><td colspan="6" class="empty">No teachers</td></tr>':''}
+        ${!allTeachers.length?'<tr><td colspan="6" class="empty" style="padding:28px">No teachers</td></tr>':''}
         ${allTeachers.map(t=>`<tr>
           <td><b>${t.name}</b></td>
           <td><span style="font-family:var(--fm);font-size:11px;background:var(--plt);color:var(--p);padding:2px 7px;border-radius:4px">${t.code}</span></td>
           <td>${t.phone||'-'}</td>
           <td>${t.subject||'-'}</td>
-          <td>${t.standard?`<span class="badge bgr">${t.standard}${t.section?' '+t.section:''}</span>`:'<span style="color:var(--g4);font-size:12px">Not assigned</span>'}</td>
+          <td>${t.standard?`<span class="badge bgr">${t.standard}${t.section?' - '+t.section:''}</span>`:'<span style="color:var(--g4);font-size:12px">Not assigned</span>'}</td>
           <td><div style="display:flex;gap:4px">
             <button class="btn btn-o btn-sm" onclick="openEditTeacher('${t.id}')">Edit</button>
             <button class="btn btn-r btn-sm" onclick="delTeacher('${t.id}','${(t.name||'').replace(/'/g,"\\'")}')">Del</button>
@@ -942,8 +885,7 @@ async function loadTeachers(p){
 function openEditTeacher(id){
   id=String(id);
   const t=allTeachers.find(x=>String(x.id)===id);if(!t)return;
-  if(!allClasses.length)fetchClasses().then(fillClassSelects);
-  else fillClassSelects();
+  if(!allClasses.length)fetchClasses().then(fillClassSelects);else fillClassSelects();
   document.getElementById('etId').value=id;
   document.getElementById('etName').value=t.name||'';
   document.getElementById('etPass').value='';
@@ -978,9 +920,7 @@ async function delTeacher(id,name){
   else toast('Error',false);
 }
 
-/* ════════════════
-   ADD TEACHER
-════════════════ */
+/* ═══════════ ADD TEACHER ═══════════ */
 function showAddTeacher(p){
   if(!p)p=getP('addTeacher');
   p.innerHTML=`
@@ -988,14 +928,14 @@ function showAddTeacher(p){
     <div class="card-title">Add New Teacher</div>
     <div class="err-box" id="atErr"></div>
     <div class="fg2">
-      <div class="fgl"><label>Full Name *</label><input class="fi" id="atName" placeholder="Teacher name"></div>
-      <div class="fgl"><label>Login Code *</label><input class="fi" id="atCode" placeholder="e.g. TCH001" oninput="this.value=this.value.toUpperCase()"></div>
+      <div class="fgl"><label>Full Name *</label><input class="fi" id="atName"></div>
+      <div class="fgl"><label>Login Code *</label><input class="fi" id="atCode" oninput="this.value=this.value.toUpperCase()"></div>
       <div class="fgl"><label>Password *</label>
-        <div class="pw-wrap"><input class="fi" type="password" id="atPass" placeholder="Set password">
+        <div class="pw-wrap"><input class="fi" type="password" id="atPass">
         <button class="pw-eye" type="button" onclick="tPw('atPass')"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></button></div>
       </div>
-      <div class="fgl"><label>Phone</label><input class="fi" id="atPh" type="tel" placeholder="Phone number"></div>
-      <div class="fgl"><label>Subject</label><input class="fi" id="atSub" placeholder="e.g. Mathematics"></div>
+      <div class="fgl"><label>Phone</label><input class="fi" id="atPh" type="tel"></div>
+      <div class="fgl"><label>Subject</label><input class="fi" id="atSub"></div>
       <div class="fgl"><label>Assign Class</label><select class="fi" id="atCls"><option value="">No class yet</option>${CLASSES.map(c=>`<option value="${c}">${c}</option>`).join('')}</select></div>
     </div>
     <div style="font-size:12px;color:var(--g4);margin:8px 0">* Required</div>
@@ -1024,9 +964,7 @@ async function addTeacher(){
   }else{e.textContent=d?.error||d?.message||'Error';e.style.display='block';}
 }
 
-/* ════════════════
-   NOTIFICATIONS
-════════════════ */
+/* ═══════════ NOTIFICATIONS ═══════════ */
 function showNotify(p){
   if(!p)p=getP('notify');
   p.innerHTML=`
@@ -1079,9 +1017,7 @@ async function sendNotify(){
   else toast(d?.error||'Error',false);
 }
 
-/* ════════════════
-   CLASSES & GROUP
-════════════════ */
+/* ═══════════ CLASSES & GROUP ═══════════ */
 async function loadClasses(p){
   if(!p)p=getP('classes');
   p.innerHTML=spin();
@@ -1090,7 +1026,7 @@ async function loadClasses(p){
     const sd=await apiGet('/students');allStudents=sd?.students||[];
     const cc={};allStudents.forEach(s=>{const c=s.standard||'Other';cc[c]=(cc[c]||0)+1;});
     p.innerHTML=`
-    <p style="font-size:13px;color:var(--g5);margin-bottom:14px">Click a class to open group and post announcements.</p>
+    <p style="font-size:13px;color:var(--g5);margin-bottom:14px">Click a class card to open group and post announcements.</p>
     <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:13px">
       ${allClasses.length
         ?allClasses.map(cls=>`
@@ -1111,7 +1047,7 @@ async function loadClasses(p){
             <div style="font-size:10px;color:var(--g4);font-weight:600;text-transform:uppercase">Students</div>
           </div>`).join('')}
     </div>`;
-  }catch(e){p.innerHTML=errBox('Could not load classes: '+e.message)}
+  }catch(e){p.innerHTML=errBox('Could not load: '+e.message)}
 }
 
 async function openGroup(classId,className){
@@ -1125,7 +1061,6 @@ async function openGroup(classId,className){
   p.innerHTML=spin();
   let posts=[];
   try{
-    /* GET /api/posts/:class_id */
     const r=await apiGet('/posts/'+classId);
     posts=r?.posts||[];
   }catch(e){}
@@ -1134,7 +1069,7 @@ async function openGroup(classId,className){
 
 function renderGroup(p,classId,className,posts){
   p.innerHTML=`
-  <button style="display:inline-flex;align-items:center;gap:6px;padding:7px 13px;background:var(--g1);border:none;border-radius:8px;font-size:13px;color:var(--g6);cursor:pointer;margin-bottom:16px;font-family:var(--fb)" onclick="loadClasses(getP('classes'));document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));getP('classes').classList.add('active');document.getElementById('pgTitle').textContent='Classes & Groups'">← Back to Classes</button>
+  <button style="display:inline-flex;align-items:center;gap:6px;padding:7px 13px;background:var(--g1);border:none;border-radius:8px;font-size:13px;color:var(--g6);cursor:pointer;margin-bottom:16px;font-family:var(--fb);transition:all .2s" onclick="loadClasses(getP('classes'));document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));getP('classes').classList.add('active');document.getElementById('pgTitle').textContent='Classes & Groups'">← Back to Classes</button>
   <div class="card">
     <div class="card-title">Post to ${className}</div>
     <textarea class="fi" id="gTxt" rows="3" style="resize:none;margin-bottom:9px" placeholder="Write an announcement for ${className}..."></textarea>
@@ -1148,18 +1083,18 @@ function renderGroup(p,classId,className,posts){
       ${posts.map(pp=>renderPost(pp,classId,className)).join('')}
     </div>
   </div>`;
-  /* Save state */
   const card=document.getElementById('gPostsCard');
   card._posts=posts;card._classId=classId;card._className=className;
 }
 
 function renderPost(pp,classId,className){
+  const safeClass=(className||'').replace(/'/g,"\\'");
   return`<div class="post-item" id="post_${pp.id}">
     <div class="post-head">
       <div class="post-author">${pp.posted_by_name||'Admin'}</div>
       <div style="display:flex;align-items:center;gap:10px">
         <div class="post-meta">${pp.created_at?new Date(pp.created_at).toLocaleDateString('en-IN',{day:'numeric',month:'short'}):''}</div>
-        <button onclick="deletePost(${pp.id},${classId},'${(className||'').replace(/'/g,"\\'")}',this)" style="background:none;border:none;cursor:pointer;color:var(--g4);font-size:20px;line-height:1;padding:2px;transition:.15s" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--g4)'">×</button>
+        <button onclick="deletePost(${pp.id},${classId},'${safeClass}',this)" style="background:none;border:none;cursor:pointer;color:var(--g4);font-size:20px;line-height:1;padding:2px;transition:.15s" onmouseover="this.style.color='var(--red)'" onmouseout="this.style.color='var(--g4)'">×</button>
       </div>
     </div>
     <div class="post-text">${pp.text_content||''}</div>
@@ -1175,16 +1110,10 @@ async function doPost(classId,className){
   const btn=document.getElementById('gPostBtn');
   if(btn){btn.disabled=true;btn.textContent='Posting...';}
   try{
-    /* POST /api/posts → {class_id, text_content, video_link} */
     const d=await apiPost('/posts',{class_id:classId,text_content:txt||null,video_link:vid||null});
     if(d?.success||d?.post||d?.id){
       toast('Posted!');
-      const newPost=d.post||{
-        id:d.id||Date.now(),
-        text_content:txt,video_link:vid||null,
-        created_at:new Date().toISOString(),
-        posted_by_name:sessionStorage.getItem('admin_name')||localStorage.getItem('admin_name')||'Admin'
-      };
+      const newPost=d.post||{id:d.id||Date.now(),text_content:txt,video_link:vid||null,created_at:new Date().toISOString(),posted_by_name:sessionStorage.getItem('admin_name')||localStorage.getItem('admin_name')||'Admin'};
       const card=document.getElementById('gPostsCard');
       if(card){
         card._posts=[newPost,...(card._posts||[])];
@@ -1204,7 +1133,7 @@ async function deletePost(id,classId,className,btnEl){
   try{
     const d=await apiDel('/posts/'+id);
     if(d?.success||d?.message){
-      toast('Post deleted');
+      toast('Deleted');
       const card=document.getElementById('gPostsCard');
       if(card){
         card._posts=(card._posts||[]).filter(p=>p.id!==id);
@@ -1216,15 +1145,14 @@ async function deletePost(id,classId,className,btnEl){
   }catch(e){toast('Network error',false)}
 }
 
-/* ════════════════
-   TIMETABLE
-════════════════ */
+/* ═══════════ TIMETABLE — 7 periods (backend supports only 7) ═══════════ */
 async function showTimetable(p){
   if(!p)p=getP('timetable');
   if(!allClasses.length)await fetchClasses();
   p.innerHTML=`
   <div class="card" style="max-width:750px">
     <div class="card-title">Manage Timetable</div>
+    <p style="font-size:13px;color:var(--g5);margin-bottom:14px">Backend supports 7 periods (period_1 to period_7).</p>
     <div class="fgl" style="margin-bottom:14px"><label>Select Class</label>
       <select class="fi" id="ttCls" onchange="loadTT(this.value)">
         <option value="">Select a class</option>
@@ -1243,10 +1171,11 @@ async function loadTT(classId){
   try{const d=await apiGet('/timetable/'+classId);if(d?.timetable)tt=d.timetable;}catch(e){}
   const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const ttMap={};tt.forEach(row=>ttMap[row.day]=row);
-  const PERIODS=9;
+  /* Backend only has period_1 to period_7 */
+  const PERIODS=7;
   area.innerHTML=`
   <div style="overflow-x:auto">
-    <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:700px">
+    <table style="width:100%;border-collapse:collapse;font-size:12px;min-width:600px">
       <thead><tr style="background:var(--plt)">
         <th style="padding:9px 10px;text-align:left;border:1px solid var(--g2);white-space:nowrap;color:var(--p);font-weight:700">Day</th>
         ${Array.from({length:PERIODS},(_,i)=>`<th style="padding:9px 8px;text-align:center;border:1px solid var(--g2);color:var(--p);font-weight:700">P${i+1}</th>`).join('')}
@@ -1255,8 +1184,7 @@ async function loadTT(classId){
         ${days.map(day=>{const row=ttMap[day]||{};return`<tr>
           <td style="padding:7px 10px;font-weight:700;border:1px solid var(--g2);white-space:nowrap;color:var(--dp)">${day}</td>
           ${Array.from({length:PERIODS},(_,i)=>`<td style="padding:3px;border:1px solid var(--g2)">
-            <input style="width:100%;min-width:76px;padding:5px 6px;border:1.5px solid var(--g2);border-radius:6px;font-size:11px;font-family:var(--fb);outline:none;text-align:center;background:var(--g1)"
-              id="tt_${day}_${i+1}" value="${row['period_'+(i+1)]||''}" placeholder="Subject"
+            <input class="tt-inp" id="tt_${day}_${i+1}" value="${row['period_'+(i+1)]||''}" placeholder="Subject"
               onfocus="this.style.borderColor='var(--p)';this.style.background='var(--w)'"
               onblur="this.style.borderColor='var(--g2)';this.style.background='var(--g1)'">
           </td>`).join('')}
@@ -1269,17 +1197,23 @@ async function loadTT(classId){
 
 async function saveTT(classId){
   const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const PERIODS=9;let saved=0;
+  const PERIODS=7;
+  let saved=0,failed=0;
   for(const day of days){
+    /* Send exactly 7 periods as array — backend expects periods[0..6] */
     const periods=Array.from({length:PERIODS},(_,i)=>document.getElementById(`tt_${day}_${i+1}`)?.value.trim()||'');
-    try{const r=await apiPost('/timetable',{class_id:classId,day,periods});if(r?.success||r?.id||r?.timetable)saved++;}catch(e){}
+    try{
+      const r=await apiPost('/timetable',{class_id:parseInt(classId),day,periods});
+      if(r?.success)saved++;
+      else{console.error('TT save error for '+day+':',r);failed++;}
+    }catch(e){failed++;}
   }
-  toast(saved>0?'Timetable saved!':'Failed to save',saved>0);
+  if(saved>0&&failed===0)toast('Timetable saved!');
+  else if(saved>0)toast('Saved '+saved+'/6 days');
+  else toast('Failed to save timetable',false);
 }
 
-/* ════════════════
-   PROMOTE / PASSOUT
-════════════════ */
+/* ═══════════ PROMOTE / PASSOUT ═══════════ */
 function showPromote(p){
   if(!p)p=getP('promote');
   p.innerHTML=`
@@ -1313,7 +1247,7 @@ async function showPassout(p){
     <div class="tw"><table>
       <thead><tr><th>Name</th><th>Father</th><th>Phone</th><th>Blood</th><th>Year</th><th>Paid</th><th>Remaining</th><th>Del</th></tr></thead>
       <tbody>
-        ${!students.length?'<tr><td colspan="8" class="empty">No passout students</td></tr>':''}
+        ${!students.length?'<tr><td colspan="8" class="empty" style="padding:28px">No passout students</td></tr>':''}
         ${students.map(s=>`<tr>
           <td><b>${s.name}</b></td><td>${s.father_name||'-'}</td><td>${s.phone||'-'}</td>
           <td>${s.blood_group||'-'}</td><td>${s.passout_year||'-'}</td>
@@ -1327,7 +1261,7 @@ async function showPassout(p){
   <div class="card" style="max-width:580px">
     <div class="card-title">Add Passout Student</div>
     <div class="fg2">
-      <div class="fgl"><label>Name *</label><input class="fi" id="poName" placeholder="Student name"></div>
+      <div class="fgl"><label>Name *</label><input class="fi" id="poName"></div>
       <div class="fgl"><label>Father Name</label><input class="fi" id="poFather"></div>
       <div class="fgl"><label>Phone</label><input class="fi" id="poPh" type="tel"></div>
       <div class="fgl"><label>Blood Group</label><select class="fi" id="poBld"><option value="">Select</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select></div>
