@@ -22,7 +22,6 @@
   --r:12px;
 }
 html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6);overflow-x:hidden}
-
 /* LOGIN */
 #loginScreen{position:fixed;inset:0;z-index:999;background:linear-gradient(155deg,var(--dp),var(--p),var(--ac));display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
 #loginScreen::before{content:'';position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
@@ -49,7 +48,6 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .lbtn:disabled{opacity:.6;cursor:not-allowed}
 .lspin{display:none;width:16px;height:16px;border:2.5px solid rgba(255,255,255,.3);border-top-color:var(--w);border-radius:50%;animation:spin .7s linear infinite}
 .lhint{text-align:center;margin-top:14px;font-size:12px;color:rgba(255,255,255,.4);position:relative;z-index:1}
-
 /* APP */
 #appScreen{display:none;flex-direction:column;height:100vh;height:100dvh}
 .topbar{background:var(--w);border-bottom:1px solid var(--b2);padding:0 16px;height:54px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:100}
@@ -59,18 +57,15 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .topbar-logo-fb{font-family:var(--ff);font-size:12px;font-weight:700;color:var(--p);display:none}
 .topbar-name{font-family:var(--ff);font-size:15px;font-weight:700;color:var(--dp)}
 .topbar-right{display:flex;align-items:center;gap:6px}
-.bell-btn{position:relative;background:none;border:none;cursor:pointer;padding:7px;border-radius:7px;display:flex;align-items:center;justify-content:center}
+.bell-btn{position:relative;background:none;border:none;cursor:pointer;padding:7px;border-radius:7px;display:flex;align-items:center}
 .bell-btn svg{width:20px;height:20px;stroke:var(--b5);fill:none;stroke-width:2;stroke-linecap:round}
 .bell-dot{position:absolute;top:4px;right:4px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid var(--w);display:none}
 .bell-dot.show{display:block}
 .out-btn{background:none;border:1px solid var(--b2);border-radius:7px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--b5);cursor:pointer;font-family:var(--fb)}
-
-/* SCROLL */
 .scroll-area{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
 .scroll-area::-webkit-scrollbar{width:3px}
 .scroll-area::-webkit-scrollbar-thumb{background:var(--b3);border-radius:3px}
 .cnt{max-width:600px;margin:0 auto;padding-bottom:90px}
-
 /* HERO */
 .hero{background:linear-gradient(135deg,var(--dp),var(--p));color:var(--w);padding:20px 16px 24px;position:relative;overflow:hidden}
 .hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
@@ -79,31 +74,24 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .hero-name{font-family:var(--ff);font-size:21px;font-weight:700;line-height:1.15;margin-bottom:7px}
 .hero-chips{display:flex;gap:6px;flex-wrap:wrap}
 .hero-chip{padding:3px 10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:100px;font-size:10px;color:rgba(255,255,255,.85);font-weight:500}
-
-/* STATS */
 .stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:12px 16px}
 .stat-tile{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:12px;text-align:center}
 .stat-val{font-family:var(--ff);font-size:22px;font-weight:700;color:var(--p);margin-bottom:2px}
 .stat-lbl{font-size:10px;color:var(--b4);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-
-/* SECTION */
 .sec{padding:0 16px;margin-bottom:16px}
 .sec-title{font-family:var(--ff);font-size:15px;font-weight:700;color:var(--dp);margin-bottom:10px}
-
 /* STUDENT ITEM */
 .si{display:flex;align-items:center;gap:11px;padding:11px 13px;background:var(--w);border:1px solid var(--b2);border-radius:var(--r);margin-bottom:8px;cursor:pointer;transition:background .15s}
 .si:active{background:var(--b1)}
 .si-av{width:40px;height:40px;background:var(--plt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:15px;color:var(--p);flex-shrink:0;font-weight:700}
 .si-name{font-size:14px;font-weight:600;margin-bottom:1px;color:#1a1a1a}
 .si-meta{font-size:11px;color:var(--b4)}
-
 /* BADGES */
-.bOK{background:var(--gl);color:var(--green);padding:2px 9px;border-radius:100px;font-size:10px;font-weight:600;display:inline-block}
-.bNO{background:var(--rl);color:var(--red);padding:2px 9px;border-radius:100px;font-size:10px;font-weight:600;display:inline-block}
-.bHO{background:var(--goldl);color:var(--gold);padding:2px 9px;border-radius:100px;font-size:10px;font-weight:600;display:inline-block}
-
+.bOK{background:var(--gl);color:var(--green);padding:2px 9px;border-radius:100px;font-size:11px;font-weight:600;display:inline-block}
+.bNO{background:var(--rl);color:var(--red);padding:2px 9px;border-radius:100px;font-size:11px;font-weight:600;display:inline-block}
+.bHO{background:var(--goldl);color:var(--gold);padding:2px 9px;border-radius:100px;font-size:11px;font-weight:600;display:inline-block}
 /* DETAIL SCREEN */
-.detail-screen{display:none;position:fixed;inset:0;z-index:200;background:var(--bg);overflow-y:auto;-webkit-overflow-scrolling:touch}
+.detail-screen{display:none;position:fixed;inset:0;z-index:200;background:var(--bg);overflow-y:auto}
 .detail-screen.show{display:block}
 .detail-topbar{background:var(--w);border-bottom:1px solid var(--b2);padding:0 16px;height:54px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:10}
 .back-btn{background:none;border:none;cursor:pointer;display:flex;align-items:center;padding:8px;border-radius:8px;color:var(--b6)}
@@ -114,35 +102,30 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .info-row:last-child{border-bottom:none}
 .info-lbl{font-size:12px;color:var(--b4);font-weight:500}
 .info-val{font-size:13px;font-weight:600;color:#1a1a1a;text-align:right;max-width:60%;word-break:break-word}
-
-/* ATTENDANCE */
+/* ATTENDANCE — CRITICAL TOGGLE FIX */
 .att-sheet{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);overflow:hidden}
 .att-date-row{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--b1);gap:10px}
 .att-date-lbl{font-size:13px;font-weight:600;color:var(--dp)}
 .date-inp{padding:7px 10px;border:1.5px solid var(--b2);border-radius:7px;font-family:var(--fm);font-size:12px;color:#1a1a1a;outline:none}
 .date-inp:focus{border-color:var(--p)}
-.att-row{display:flex;align-items:center;padding:10px 14px;border-bottom:1px solid var(--b1);gap:10px}
+.att-row{display:flex;align-items:center;padding:11px 14px;border-bottom:1px solid var(--b1);gap:10px}
 .att-row:last-of-type{border-bottom:none}
 .att-roll{font-family:var(--fm);font-size:12px;color:var(--b4);min-width:28px;flex-shrink:0}
 .att-name{font-size:13px;font-weight:500;flex:1;color:#1a1a1a}
-
-/* ATTENDANCE TOGGLE — CRITICAL FIX */
-.att-tog{display:flex;border-radius:8px;overflow:hidden;flex-shrink:0;gap:0}
-.att-p{padding:8px 18px;border:none;font-family:var(--fb);font-size:13px;font-weight:700;cursor:pointer;background:var(--b1);color:var(--b4);transition:background .15s,color .15s;border-radius:8px 0 0 8px;-webkit-tap-highlight-color:transparent;min-width:44px;text-align:center}
-.att-a{padding:8px 18px;border:none;font-family:var(--fb);font-size:13px;font-weight:700;cursor:pointer;background:var(--b1);color:var(--b4);transition:background .15s,color .15s;border-radius:0 8px 8px 0;-webkit-tap-highlight-color:transparent;min-width:44px;text-align:center}
-.att-p.on{background:var(--green);color:var(--w)}
-.att-a.on{background:var(--red);color:var(--w)}
-
+/* TOGGLE BUTTONS — COMPLETELY SEPARATE, NO SHARED CLASSES */
+.tog-wrap{display:flex;border-radius:9px;overflow:hidden;flex-shrink:0;gap:2px;background:var(--b1);padding:2px;border:1px solid var(--b2)}
+.tog-p{padding:7px 18px;border:none;font-family:var(--fb);font-size:13px;font-weight:700;cursor:pointer;border-radius:7px;background:transparent;color:var(--b4);transition:all .15s;min-width:46px;text-align:center;-webkit-tap-highlight-color:transparent}
+.tog-a{padding:7px 18px;border:none;font-family:var(--fb);font-size:13px;font-weight:700;cursor:pointer;border-radius:7px;background:transparent;color:var(--b4);transition:all .15s;min-width:46px;text-align:center;-webkit-tap-highlight-color:transparent}
+.tog-p.active{background:var(--green);color:var(--w);box-shadow:0 2px 8px rgba(26,122,74,.3)}
+.tog-a.active{background:var(--red);color:var(--w);box-shadow:0 2px 8px rgba(192,57,43,.3)}
 .save-btn{width:calc(100% - 28px);margin:12px 14px;padding:13px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
 .save-btn:disabled{opacity:.6;cursor:not-allowed}
-
 /* FORMS */
 .fi{width:100%;padding:10px 12px;background:var(--b1);border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:#1a1a1a;outline:none;transition:border-color .2s}
 .fi:focus{border-color:var(--p);background:var(--w)}
 select.fi{-webkit-appearance:none}
 .fgl{display:flex;flex-direction:column;gap:4px;margin-bottom:11px}
 .fgl label{font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px}
-
 /* MARKS */
 .mk-row{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--b1)}
 .mk-row:last-child{border-bottom:none}
@@ -152,7 +135,6 @@ select.fi{-webkit-appearance:none}
 .mk-inp:focus{border-color:var(--p)}
 .mk-of{padding:7px;border:2px solid var(--b2);border-radius:7px;font-family:var(--fm);font-size:13px;color:#1a1a1a;outline:none;width:62px;text-align:center;-webkit-appearance:none;background:var(--w)}
 .mk-of:focus{border-color:var(--p)}
-
 /* POSTS */
 .composer{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px;margin-bottom:12px}
 .ctxt{width:100%;min-height:80px;padding:10px;border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:14px;color:#1a1a1a;resize:none;outline:none;margin-bottom:9px}
@@ -173,7 +155,13 @@ select.fi{-webkit-appearance:none}
 .post-video-lbl{font-size:12px;font-weight:700;color:var(--p)}
 .del-post-btn{background:none;border:none;cursor:pointer;color:var(--b4);font-size:18px;padding:3px;line-height:1;margin-left:auto;transition:color .15s}
 .del-post-btn:hover{color:var(--red)}
-
+/* NOTIFICATION POPUP */
+.notif-popup{position:fixed;top:64px;left:12px;right:12px;background:var(--w);border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.18);z-index:9999;display:flex;align-items:flex-start;gap:11px;padding:13px 14px;border-left:4px solid var(--p);transform:translateY(-120px);opacity:0;transition:all .4s cubic-bezier(.4,0,.2,1);pointer-events:none;max-width:500px;margin:0 auto}
+.notif-popup.show{transform:translateY(0);opacity:1;pointer-events:auto}
+.notif-popup-ic{width:38px;height:38px;background:var(--plt);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.notif-popup-ic svg{width:18px;height:18px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
+.notif-popup-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:2px}
+.notif-popup-msg{font-size:12px;color:var(--b5);line-height:1.4}
 /* NOTIFICATION PANEL */
 .np{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.5);display:none;align-items:flex-end}
 .np.show{display:flex}
@@ -188,20 +176,17 @@ select.fi{-webkit-appearance:none}
 .ni-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:2px}
 .ni-msg{font-size:12px;color:var(--b5);line-height:1.5}
 .ni-time{font-size:10px;color:var(--b3);margin-top:3px}
-
 /* TIMETABLE */
 .tt-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--b2);margin-bottom:12px}
 .tt-table{width:100%;border-collapse:collapse;font-size:11px}
 .tt-table th{padding:8px 5px;background:var(--plt);border:1px solid var(--b2);text-align:center;font-weight:700;color:var(--p);white-space:nowrap}
 .tt-table td{padding:3px 3px;border:1px solid var(--b2);text-align:center}
-.tt-inp{width:68px;padding:5px 4px;border:1.5px solid var(--b2);border-radius:5px;font-size:11px;font-family:var(--fb);color:#1a1a1a;outline:none;text-align:center;background:var(--b1)}
+.tt-inp{width:66px;padding:5px 4px;border:1.5px solid var(--b2);border-radius:5px;font-size:11px;font-family:var(--fb);color:#1a1a1a;outline:none;text-align:center;background:var(--b1)}
 .tt-inp:focus{border-color:var(--p);background:var(--w)}
-
 /* NOTIFY */
 .nf-card{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px}
 .send-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
 .send-btn:disabled{opacity:.6;cursor:not-allowed}
-
 /* BOTTOM NAV */
 .bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--w);border-top:1px solid var(--b2);display:flex;padding:6px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));z-index:100}
 .nav-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 4px;background:none;border:none;cursor:pointer}
@@ -209,26 +194,17 @@ select.fi{-webkit-appearance:none}
 .nav-tab span{font-size:9px;font-weight:700;color:var(--b3);text-transform:uppercase;letter-spacing:.5px;font-family:var(--fb);transition:color .2s}
 .nav-tab.active svg{stroke:var(--p)}
 .nav-tab.active span{color:var(--p)}
-
-/* UTILS */
 .loading{display:flex;align-items:center;justify-content:center;min-height:38vh;flex-direction:column;gap:11px}
 .spin-el{width:24px;height:24px;border:2px solid var(--b2);border-top-color:var(--p);border-radius:50%;animation:spin .8s linear infinite}
 .empty{text-align:center;padding:36px 20px;color:var(--b4);font-size:13px}
-.toast{position:fixed;top:70px;left:50%;transform:translateX(-50%) translateY(-20px);background:var(--dp);color:var(--w);padding:10px 20px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:9999;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,.3);max-width:92vw;overflow:hidden;text-overflow:ellipsis}
+.toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dp);color:var(--w);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:8000;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.25);max-width:90vw;overflow:hidden;text-overflow:ellipsis}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 .toast.err{background:var(--red)}
 .toast.ok2{background:var(--green)}
-
-/* POPUP NOTIFICATION */
-.popup-notif{position:fixed;top:70px;left:50%;transform:translateX(-50%) translateY(-100px);background:var(--w);border:1px solid var(--b2);border-radius:14px;padding:12px 16px;min-width:280px;max-width:92vw;box-shadow:0 8px 30px rgba(0,0,0,.18);z-index:9998;opacity:0;transition:all .4s cubic-bezier(.4,0,.2,1);display:flex;align-items:flex-start;gap:10px}
-.popup-notif.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.popup-ic{width:36px;height:36px;background:var(--plt);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.popup-ic svg{width:18px;height:18px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
-.popup-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:2px}
-.popup-msg{font-size:12px;color:var(--b5);line-height:1.4}
-
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+@keyframes bellRing{0%,100%{transform:rotate(0)}15%,45%,75%{transform:rotate(-15deg)}30%,60%,90%{transform:rotate(15deg)}}
+.bell-ringing{animation:bellRing .8s ease}
 </style>
 </head>
 <body>
@@ -284,14 +260,16 @@ select.fi{-webkit-appearance:none}
   <div id="detailBody" style="padding-bottom:30px"></div>
 </div>
 
-<!-- NOTIFICATION POPUP -->
-<div class="popup-notif" id="popupNotif">
-  <div class="popup-ic"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
-  <div style="flex:1;min-width:0">
-    <div class="popup-title" id="popupTitle">Notification</div>
-    <div class="popup-msg" id="popupMsg"></div>
+<!-- NOTIFICATION POPUP — slides down from top -->
+<div class="notif-popup" id="notifPopup">
+  <div class="notif-popup-ic">
+    <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
   </div>
-  <button onclick="document.getElementById('popupNotif').classList.remove('show')" style="background:none;border:none;cursor:pointer;color:var(--b4);font-size:18px;line-height:1;padding:2px;flex-shrink:0">×</button>
+  <div style="flex:1;min-width:0">
+    <div class="notif-popup-title" id="popupTitle">New Notification</div>
+    <div class="notif-popup-msg" id="popupMsg"></div>
+  </div>
+  <button onclick="closePopup()" style="background:none;border:none;cursor:pointer;color:var(--b4);font-size:18px;line-height:1;padding:2px;flex-shrink:0">×</button>
 </div>
 
 <!-- NOTIFICATION PANEL -->
@@ -316,7 +294,7 @@ select.fi{-webkit-appearance:none}
       <div class="topbar-name">Emmanuel School</div>
     </div>
     <div class="topbar-right">
-      <button class="bell-btn" onclick="openNP()">
+      <button class="bell-btn" id="bellBtn" onclick="openNP()">
         <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
         <div class="bell-dot" id="bellDot"></div>
       </button>
@@ -388,19 +366,22 @@ window._reqPush=async function(){
         }).catch(()=>{});
       }
     }
-  }catch(e){console.log('Push error:',e.message)}
+  }catch(e){console.log('Push:',e.message)}
 };
 
 onMessage(messaging,payload=>{
   const title=payload.notification?.title||'Emmanuel School';
   const body=payload.notification?.body||'';
-  /* Show popup notification */
+  /* 1. Show popup */
   window._showPopup(title,body);
-  /* Also show system notification if permission granted */
+  /* 2. Ring bell animation */
+  const btn=document.getElementById('bellBtn');
+  if(btn){btn.classList.remove('bell-ringing');void btn.offsetWidth;btn.classList.add('bell-ringing');setTimeout(()=>btn.classList.remove('bell-ringing'),800);}
+  /* 3. System notification */
   if(Notification.permission==='granted'){
-    new Notification(title,{body,icon:'/logo.webp',badge:'/logo.webp',vibrate:[200,100,200],tag:'tch-'+Date.now()});
+    new Notification(title,{body,icon:'/logo.webp',badge:'/logo.webp',vibrate:[300,100,300],tag:'tch-'+Date.now()});
   }
-  /* Refresh list */
+  /* 4. Refresh */
   window._refreshNotifs?.();
   document.getElementById('bellDot')?.classList.add('show');
 });
@@ -409,7 +390,7 @@ onMessage(messaging,payload=>{
 <script>
 const API='https://edumanage-backend-xi.vercel.app/api';
 let TOKEN=null,TD=null,CD=null,students=[],posts=[],NOTIFS=[];
-/* attState: {studentId: 'P' or 'A'} */
+/* attState stores 'P' or 'A' for each student id */
 let attState={};
 let curTab='home';
 
@@ -418,47 +399,40 @@ function ini(n){if(!n)return'?';return n.split(' ').map(w=>w[0]).join('').toUppe
 function ago(d){if(!d)return'';const s=Math.floor((Date.now()-new Date(d))/1000);if(s<60)return'just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago'}
 function fmtRs(n){return'Rs. '+(parseInt(n||0)).toLocaleString('en-IN')}
 
-/* TOAST */
 let toastT;
 function showToast(msg,type=''){
   const e=document.getElementById('toast');
   e.textContent=msg;e.className='toast show'+(type?' '+type:'');
-  clearTimeout(toastT);toastT=setTimeout(()=>e.className='toast',3000);
+  clearTimeout(toastT);toastT=setTimeout(()=>e.className='toast',3200);
 }
 
-/* POPUP NOTIFICATION */
+/* POPUP */
 let popT;
 window._showPopup=function(title,body){
-  document.getElementById('popupTitle').textContent=title;
-  document.getElementById('popupMsg').textContent=body;
-  const el=document.getElementById('popupNotif');
+  document.getElementById('popupTitle').textContent=title||'Notification';
+  document.getElementById('popupMsg').textContent=body||'';
+  const el=document.getElementById('notifPopup');
   el.classList.add('show');
-  clearTimeout(popT);popT=setTimeout(()=>el.classList.remove('show'),5000);
+  clearTimeout(popT);popT=setTimeout(()=>el.classList.remove('show'),6000);
 };
+function closePopup(){clearTimeout(popT);document.getElementById('notifPopup').classList.remove('show')}
+
+window._refreshNotifs=async function(){await loadNotifs();renderNPList();};
 
 /* BOOT */
 (function boot(){
   const saved=localStorage.getItem('tch_token');
   if(saved&&saved.length>20){
-    TOKEN=saved;
-    TD={name:localStorage.getItem('tch_name')||'Teacher'};
+    TOKEN=saved;TD={name:localStorage.getItem('tch_name')||'Teacher'};
     showApp();loadData();
   }else showLogin();
 })();
 
-function showLogin(){
-  document.getElementById('loginScreen').style.display='flex';
-  document.getElementById('appScreen').style.display='none';
-  setTimeout(()=>document.getElementById('lCode')?.focus(),300);
-}
-function showApp(){
-  document.getElementById('loginScreen').style.display='none';
-  document.getElementById('appScreen').style.display='flex';
-}
+function showLogin(){document.getElementById('loginScreen').style.display='flex';document.getElementById('appScreen').style.display='none';setTimeout(()=>document.getElementById('lCode')?.focus(),300)}
+function showApp(){document.getElementById('loginScreen').style.display='none';document.getElementById('appScreen').style.display='flex'}
 
 function togglePw(){
-  const i=document.getElementById('lPass');
-  const s=document.getElementById('eyeS');const h=document.getElementById('eyeH');
+  const i=document.getElementById('lPass');const s=document.getElementById('eyeS');const h=document.getElementById('eyeH');
   if(i.type==='password'){i.type='text';s.style.display='none';h.style.display='block';}
   else{i.type='password';s.style.display='block';h.style.display='none';}
 }
@@ -469,23 +443,17 @@ async function doLogin(){
   const err=document.getElementById('lerr');
   if(!code||!pass){err.textContent='Code aur password daalo';err.classList.add('show');return}
   err.classList.remove('show');
-  document.getElementById('lTxt').style.display='none';
-  document.getElementById('lSpin').style.display='block';
-  document.getElementById('lBtn').disabled=true;
+  document.getElementById('lTxt').style.display='none';document.getElementById('lSpin').style.display='block';document.getElementById('lBtn').disabled=true;
   try{
     const res=await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code,password:pass,role:'teacher'})});
     const data=await res.json();
     if(res.ok&&data.token){
       TOKEN=data.token;TD=data.user||{name:code};
-      localStorage.setItem('tch_token',TOKEN);
-      localStorage.setItem('tch_name',TD.name||code);
-      showApp();loadData();
-      setTimeout(()=>window._reqPush?.(),2000);
+      localStorage.setItem('tch_token',TOKEN);localStorage.setItem('tch_name',TD.name||code);
+      showApp();loadData();setTimeout(()=>window._reqPush?.(),2000);
     }else{err.textContent=data.message||data.error||'Invalid credentials';err.classList.add('show');}
   }catch(e){err.textContent='Network error: '+e.message;err.classList.add('show')}
-  document.getElementById('lTxt').style.display='block';
-  document.getElementById('lSpin').style.display='none';
-  document.getElementById('lBtn').disabled=false;
+  document.getElementById('lTxt').style.display='block';document.getElementById('lSpin').style.display='none';document.getElementById('lBtn').disabled=false;
 }
 
 function doLogout(){
@@ -495,7 +463,6 @@ function doLogout(){
   showLogin();
 }
 
-/* LOAD DATA */
 async function loadData(){
   document.getElementById('mainContent').innerHTML='<div class="loading"><div class="spin-el"></div></div>';
   try{
@@ -503,7 +470,7 @@ async function loadData(){
     if(res.status===401){localStorage.removeItem('tch_token');showLogin();return}
     const data=await res.json();
     CD=data.class||null;students=data.students||[];
-    /* Default all to Present */
+    /* Init all to Present */
     students.forEach(s=>{if(attState[s.id]===undefined)attState[s.id]='P';});
     if(CD){
       try{const pr=await fetch(API+'/posts/'+CD.id,{headers:H()});if(pr.ok){const pd=await pr.json();posts=pd.posts||[];}}catch(_){}
@@ -516,7 +483,6 @@ async function loadData(){
   }
 }
 
-/* NOTIFICATIONS */
 async function loadNotifs(){
   try{
     const r=await fetch(API+'/notifications',{headers:H()});
@@ -525,13 +491,7 @@ async function loadNotifs(){
   }catch(_){}
 }
 
-window._refreshNotifs=async function(){await loadNotifs();renderNPList();};
-
-function openNP(){
-  document.getElementById('np').classList.add('show');
-  document.getElementById('bellDot').classList.remove('show');
-  renderNPList();
-}
+function openNP(){document.getElementById('np').classList.add('show');document.getElementById('bellDot').classList.remove('show');renderNPList()}
 function closeNP(){document.getElementById('np').classList.remove('show')}
 
 function renderNPList(){
@@ -548,7 +508,6 @@ function renderNPList(){
     </div>`).join('');
 }
 
-/* ROUTER */
 function showTab(tab,btn){
   curTab=tab;
   document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
@@ -602,7 +561,7 @@ function renderHome(){
   </div>`;
 }
 
-/* ═══ STUDENT DETAIL ═══ */
+/* ═══ STUDENT DETAIL with FEES ═══ */
 function openDetail(id){
   const s=students.find(x=>x.id===id);
   if(!s){showToast('Student not found','err');return}
@@ -636,8 +595,10 @@ function openDetail(id){
     <div style="font-family:var(--ff);font-size:15px;font-weight:700;color:var(--dp);margin-bottom:10px">Fees Details</div>
     <div class="info-list" style="margin:0">
       <div class="info-row">
-        <span class="info-lbl">Status</span>
-        <span class="info-val"><span class="${fStatus==='paid'?'bOK':fStatus==='partial'?'bHO':'bNO'}">${fStatus}</span></span>
+        <span class="info-lbl">Fees Status</span>
+        <span class="info-val">
+          <span class="${fStatus==='paid'?'bOK':fStatus==='partial'?'bHO':'bNO'}">${fStatus}</span>
+        </span>
       </div>
       <div class="info-row"><span class="info-lbl">Total Fees</span><span class="info-val" style="font-family:var(--fm)">${fmtRs(total)}</span></div>
       <div class="info-row"><span class="info-lbl">Amount Paid</span><span class="info-val" style="color:var(--green);font-family:var(--fm)">${fmtRs(paid)}</span></div>
@@ -652,7 +613,7 @@ function openDetail(id){
 }
 function closeDetail(){document.getElementById('detailScreen').classList.remove('show')}
 
-/* ═══ ATTENDANCE ═══ */
+/* ═══ ATTENDANCE — TOGGLE FIX ═══ */
 function renderAttendance(){
   if(!CD)return`<div style="padding:20px 16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:20px;text-align:center;color:var(--b4)">No class assigned</div></div>`;
   if(!students.length)return`<div style="padding:20px 16px"><div class="empty">No students</div></div>`;
@@ -673,9 +634,17 @@ function renderAttendance(){
         return`<div class="att-row">
           <div class="att-roll">${s.roll_no||'-'}</div>
           <div class="att-name">${s.name}</div>
-          <div class="att-tog">
-            <button class="att-p ${isP?'on':''}" id="btnP_${s.id}" onclick="setAtt(${s.id},'P')">P</button>
-            <button class="att-a ${!isP?'on':''}" id="btnA_${s.id}" onclick="setAtt(${s.id},'A')">A</button>
+          <div class="tog-wrap">
+            <button
+              type="button"
+              class="tog-p ${isP?'active':''}"
+              id="tp_${s.id}"
+              onclick="setAtt(${s.id},'P')">P</button>
+            <button
+              type="button"
+              class="tog-a ${!isP?'active':''}"
+              id="ta_${s.id}"
+              onclick="setAtt(${s.id},'A')">A</button>
           </div>
         </div>`;
       }).join('')}
@@ -686,19 +655,19 @@ function renderAttendance(){
   </div>`;
 }
 
-/* CRITICAL — P/A toggle fix */
+/* THE KEY FIX — completely replace classes, no toggling */
 function setAtt(sid,val){
   sid=parseInt(sid);
   attState[sid]=val;
-  const pBtn=document.getElementById('btnP_'+sid);
-  const aBtn=document.getElementById('btnA_'+sid);
+  const pBtn=document.getElementById('tp_'+sid);
+  const aBtn=document.getElementById('ta_'+sid);
   if(!pBtn||!aBtn)return;
   if(val==='P'){
-    pBtn.className='att-p on';
-    aBtn.className='att-a';
+    pBtn.className='tog-p active';
+    aBtn.className='tog-a';
   }else{
-    pBtn.className='att-p';
-    aBtn.className='att-a on';
+    pBtn.className='tog-p';
+    aBtn.className='tog-a active';
   }
 }
 
@@ -719,7 +688,7 @@ async function saveAttendance(){
     const d=await res.json().catch(()=>({}));
     if(res.ok){
       showToast('Attendance saved!','ok2');
-      /* Send notification for absent students */
+      /* Auto-send notification for absent students */
       const absentList=students.filter(s=>attState[s.id]==='A');
       if(absentList.length>0&&CD){
         const names=absentList.map(s=>s.name).join(', ');
@@ -735,7 +704,7 @@ async function saveAttendance(){
           })
         }).catch(()=>{});
       }
-    }else{showToast(d.error||'Failed to save','err');}
+    }else showToast(d.error||'Failed to save','err');
   }catch(e){showToast('Network error: '+e.message,'err')}
   if(btn){btn.disabled=false;btn.textContent='Save Attendance ('+students.length+' students)';}
 }
@@ -790,21 +759,15 @@ async function saveMarks(){
   const sub=document.getElementById('mk_sub')?.value.trim();
   const exam=document.getElementById('mk_exam')?.value||'Unit Test 1';
   if(!sub){showToast('Subject name likhao pehle','err');return}
-  const btn=document.getElementById('saveMarksBtn');
-  btn.disabled=true;btn.textContent='Saving...';
+  const btn=document.getElementById('saveMarksBtn');btn.disabled=true;btn.textContent='Saving...';
   let saved=0,failed=0;
   for(const s of students){
-    const inp=document.getElementById('mkI_'+s.id);
-    const ofEl=document.getElementById('mkO_'+s.id);
+    const inp=document.getElementById('mkI_'+s.id);const ofEl=document.getElementById('mkO_'+s.id);
     if(!inp||inp.value.trim()==='')continue;
-    const obtained=parseInt(inp.value);
-    const total=parseInt(ofEl?.value)||100;
+    const obtained=parseInt(inp.value);const total=parseInt(ofEl?.value)||100;
     if(isNaN(obtained)||obtained<0)continue;
     try{
-      const res=await fetch(API+'/marks/update',{
-        method:'POST',headers:H(),
-        body:JSON.stringify({student_id:s.id,subject:sub,marks_obtained:obtained,total_marks:total,exam_type:exam})
-      });
+      const res=await fetch(API+'/marks/update',{method:'POST',headers:H(),body:JSON.stringify({student_id:s.id,subject:sub,marks_obtained:obtained,total_marks:total,exam_type:exam})});
       if(res.ok)saved++;else failed++;
     }catch(e){failed++;}
   }
@@ -853,13 +816,9 @@ async function doPost(){
   const txt=document.getElementById('postTxt')?.value.trim();
   const vid=document.getElementById('postVid')?.value.trim();
   if(!txt&&!vid){showToast('Kuch likho pehle','err');return}
-  const btn=document.getElementById('postBtn');
-  btn.disabled=true;btn.textContent='Posting...';
+  const btn=document.getElementById('postBtn');btn.disabled=true;btn.textContent='Posting...';
   try{
-    const res=await fetch(API+'/posts',{
-      method:'POST',headers:H(),
-      body:JSON.stringify({class_id:CD?.id,text_content:txt||null,video_link:vid||null})
-    });
+    const res=await fetch(API+'/posts',{method:'POST',headers:H(),body:JSON.stringify({class_id:CD?.id,text_content:txt||null,video_link:vid||null})});
     const d=await res.json().catch(()=>({}));
     if(res.ok){
       posts.unshift(d.post||{id:Date.now(),text_content:txt,video_link:vid,created_at:new Date().toISOString(),posted_by_name:TD?.name||'Teacher'});
@@ -918,16 +877,18 @@ async function loadTimetable(){
 
 async function saveTimetable(){
   if(!CD)return;
-  const btn=document.getElementById('saveTTBtn');
-  btn.disabled=true;btn.textContent='Saving...';
+  const btn=document.getElementById('saveTTBtn');btn.disabled=true;btn.textContent='Saving...';
   const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   const PERIODS=9;let ok=0;
   for(const day of days){
     const periods=Array.from({length:PERIODS},(_,i)=>document.getElementById(`tt_${day}_${i+1}`)?.value.trim()||'');
-    try{const res=await fetch(API+'/timetable',{method:'POST',headers:H(),body:JSON.stringify({class_id:CD.id,day,periods})});if(res.ok)ok++;}catch(_){}
+    try{
+      const res=await fetch(API+'/timetable',{method:'POST',headers:H(),body:JSON.stringify({class_id:parseInt(CD.id),day,periods})});
+      if(res.ok)ok++;
+    }catch(_){}
   }
   if(ok>0)showToast('Timetable saved!','ok2');
-  else showToast('Failed','err');
+  else showToast('Failed — backend updated karo (period_8, period_9 columns)','err');
   btn.disabled=false;btn.textContent='Save Timetable';
 }
 
@@ -941,12 +902,18 @@ function renderNotify(){
   <div style="padding:13px 16px">
     <div class="nf-card">
       <div class="fgl"><label>Title *</label><input class="fi" id="nTitle" placeholder="e.g. Homework, Test tomorrow..."></div>
+      <div class="fgl"><label>Send To</label>
+        <select class="fi" id="nTarget">
+          <option value="class">My Class Only</option>
+          <option value="all">All Students</option>
+        </select>
+      </div>
       <div class="fgl" style="margin-bottom:13px">
         <label>Message *</label>
         <textarea class="fi" id="nMsg" rows="4" style="resize:none;min-height:88px" placeholder="Write message for students and parents..."></textarea>
       </div>
       ${NOTIFS.length?`
-      <div style="margin-bottom:13px">
+      <div style="margin-bottom:13px;border-top:1px solid var(--b1);padding-top:12px">
         <div style="font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Recent Notifications</div>
         ${NOTIFS.slice(0,5).map(n=>`
           <div style="border-bottom:1px solid var(--b1);padding:9px 0">
@@ -955,7 +922,7 @@ function renderNotify(){
             <div style="font-size:10px;color:var(--b3);margin-top:3px">${n.created_at?new Date(n.created_at).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):''}</div>
           </div>`).join('')}
       </div>`:''}
-      <button class="send-btn" id="sendBtn" onclick="sendNotif()">Send Notification to Class</button>
+      <button class="send-btn" id="sendBtn" onclick="sendNotif()">Send Notification</button>
     </div>
   </div>`;
 }
@@ -963,22 +930,25 @@ function renderNotify(){
 async function sendNotif(){
   const title=document.getElementById('nTitle')?.value.trim();
   const msg=document.getElementById('nMsg')?.value.trim();
+  const target=document.getElementById('nTarget')?.value||'class';
   if(!title||!msg){showToast('Title aur message daalo','err');return}
-  const btn=document.getElementById('sendBtn');
-  btn.disabled=true;btn.textContent='Sending...';
+  const btn=document.getElementById('sendBtn');btn.disabled=true;btn.textContent='Sending...';
+  const body={title,message:msg};
+  if(target==='all'){
+    body.target_type='all';
+  }else{
+    body.target_type='class';
+    body.target_id=String(CD?.id);
+  }
   try{
-    const res=await fetch(API+'/notifications/send',{
-      method:'POST',headers:H(),
-      body:JSON.stringify({title,message:msg,target_type:'class',target_id:String(CD?.id)})
-    });
+    const res=await fetch(API+'/notifications/send',{method:'POST',headers:H(),body:JSON.stringify(body)});
     if(res.ok){
       showToast('Notification sent!','ok2');
-      document.getElementById('nTitle').value='';
-      document.getElementById('nMsg').value='';
+      document.getElementById('nTitle').value='';document.getElementById('nMsg').value='';
       await loadNotifs();showTab('notify');
     }else{const d=await res.json().catch(()=>({}));showToast(d.error||'Failed','err');}
   }catch(e){showToast('Network error','err')}
-  if(btn){btn.disabled=false;btn.textContent='Send Notification to Class';}
+  if(btn){btn.disabled=false;btn.textContent='Send Notification';}
 }
 
 /* Service Worker */
