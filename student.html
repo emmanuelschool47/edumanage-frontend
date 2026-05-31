@@ -55,7 +55,7 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .topbar-logo-fb{font-family:var(--ff);font-size:12px;font-weight:700;color:var(--p);display:none}
 .topbar-name{font-family:var(--ff);font-size:15px;font-weight:700;color:var(--dp)}
 .topbar-right{display:flex;align-items:center;gap:6px}
-.bell-btn{position:relative;background:none;border:none;cursor:pointer;padding:7px;border-radius:7px;display:flex;align-items:center}
+.bell-btn{position:relative;background:none;border:none;cursor:pointer;padding:7px;border-radius:7px;display:flex;align-items:center;transform-origin:top center}
 .bell-btn svg{width:20px;height:20px;stroke:var(--b5);fill:none;stroke-width:2;stroke-linecap:round}
 .bell-dot{position:absolute;top:4px;right:4px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid var(--w);display:none}
 .bell-dot.show{display:block}
@@ -90,6 +90,7 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .info-row:last-child{border-bottom:none}
 .info-lbl{font-size:12px;color:var(--b4);font-weight:500}
 .info-val{font-size:13px;font-weight:600;color:#1a1a1a;text-align:right;max-width:60%;word-break:break-word}
+/* MARKS */
 .mark-group{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px;margin-bottom:12px}
 .mark-group-title{font-size:12px;font-weight:700;color:var(--dp);text-transform:uppercase;letter-spacing:.8px;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--b1)}
 .mark-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--b1)}
@@ -99,6 +100,14 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .mark-fill{height:100%;background:linear-gradient(90deg,var(--p),var(--ac));border-radius:3px;width:0;transition:width 1.2s cubic-bezier(.4,0,.2,1)}
 .mark-score{font-family:var(--fm);font-size:12px;font-weight:600;color:var(--b6);min-width:52px;text-align:right}
 .mark-pct{font-size:10px;font-weight:700;min-width:34px;text-align:right}
+/* TIMETABLE */
+.tt-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--b2);margin-bottom:12px}
+.tt-table{width:100%;border-collapse:collapse;font-size:11px}
+.tt-table th{padding:8px 5px;background:var(--plt);border:1px solid var(--b2);text-align:center;font-weight:700;color:var(--p);white-space:nowrap;min-width:62px}
+.tt-table td{padding:8px 5px;border:1px solid var(--b2);text-align:center;color:var(--b6);font-size:11px}
+.tt-table tr:nth-child(even) td{background:var(--b1)}
+.tt-empty-cell{color:var(--b3);font-style:italic}
+/* POSTS */
 .post-card{background:var(--w);border:1px solid var(--b2);border-radius:13px;margin-bottom:11px;overflow:hidden}
 .post-head{display:flex;align-items:center;gap:9px;padding:11px 13px 0}
 .post-av{width:34px;height:34px;border-radius:50%;background:var(--plt);display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:13px;color:var(--p);font-weight:700;flex-shrink:0}
@@ -111,34 +120,11 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .post-video-ic{width:28px;height:28px;background:var(--p);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .post-video-ic svg{width:12px;height:12px;stroke:var(--w);fill:none;stroke-width:2;stroke-linecap:round}
 .post-video-lbl{font-size:12px;font-weight:700;color:var(--p)}
-.tt-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--b2)}
-.tt-table{width:100%;border-collapse:collapse;font-size:11px}
-.tt-table th{padding:8px 5px;background:var(--plt);border:1px solid var(--b2);text-align:center;font-weight:700;color:var(--p);white-space:nowrap}
-.tt-table td{padding:7px 5px;border:1px solid var(--b2);text-align:center;color:var(--b6)}
-.tt-table tr:nth-child(even) td{background:var(--b1)}
 /* FEES */
-.fees-card{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:15px}
-.fees-row{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:13px}
-.fees-amt{font-family:var(--ff);font-size:20px;font-weight:700}
-.fees-lbl{font-size:11px;color:var(--b4);margin-top:2px}
-.pay-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:7px}
-.pay-btn svg{width:15px;height:15px;stroke:var(--w);fill:none;stroke-width:2;stroke-linecap:round}
-/* SCREENSHOT UPLOAD */
-.ss-area{border:2px dashed var(--b2);border-radius:var(--r);padding:18px;text-align:center;cursor:pointer;transition:border-color .2s;position:relative;overflow:hidden}
-.ss-area.has-img{border-color:var(--p);border-style:solid}
-.ss-area svg{width:28px;height:28px;stroke:var(--b3);fill:none;stroke-width:1.5;stroke-linecap:round;margin:0 auto 7px;display:block}
-.ss-area.has-img svg{display:none}
-.ss-area-txt{font-size:12px;color:var(--b4);font-weight:500}
-.ss-area.has-img .ss-area-txt{display:none}
-.ss-preview{display:none;width:100%;max-height:180px;object-fit:cover;border-radius:8px}
-.ss-area.has-img .ss-preview{display:block}
-.ss-input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
 .fi{width:100%;padding:10px 12px;background:var(--b1);border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:#1a1a1a;outline:none;margin-bottom:10px;transition:border-color .2s}
 .fi:focus{border-color:var(--p);background:var(--w)}
 .fgl{margin-bottom:10px}
 .fgl label{display:block;font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px}
-.submit-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
-.submit-btn:disabled{opacity:.6;cursor:not-allowed}
 .upi-box{background:var(--plt);border:1px solid rgba(128,0,32,.15);border-radius:var(--r);padding:12px 13px;margin-bottom:12px}
 .upi-lbl{font-size:10px;color:var(--p);text-transform:uppercase;letter-spacing:.8px;font-weight:700;margin-bottom:3px}
 .upi-id{font-family:var(--fm);font-size:15px;font-weight:700;color:var(--dp)}
@@ -147,6 +133,25 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .upi-app:active{background:var(--p);color:var(--w)}
 .dvdr{display:flex;align-items:center;gap:9px;color:var(--b3);font-size:12px;margin-bottom:12px}
 .dvdr::before,.dvdr::after{content:'';flex:1;height:1px;background:var(--b2)}
+/* SCREENSHOT */
+.ss-area{border:2px dashed var(--b2);border-radius:var(--r);padding:18px;text-align:center;cursor:pointer;transition:border-color .2s;position:relative;overflow:hidden;margin-bottom:10px}
+.ss-area.has-img{border-color:var(--p);border-style:solid}
+.ss-area svg{width:28px;height:28px;stroke:var(--b3);fill:none;stroke-width:1.5;stroke-linecap:round;margin:0 auto 7px;display:block}
+.ss-area.has-img svg{display:none}
+.ss-area-txt{font-size:12px;color:var(--b4);font-weight:500}
+.ss-area.has-img .ss-area-txt{display:none}
+.ss-preview{display:none;width:100%;max-height:180px;object-fit:cover;border-radius:8px}
+.ss-area.has-img .ss-preview{display:block}
+.ss-input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.submit-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
+.submit-btn:disabled{opacity:.6;cursor:not-allowed}
+/* NOTIFICATION POPUP */
+.notif-popup{position:fixed;top:64px;left:12px;right:12px;background:var(--w);border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.2);z-index:9999;display:flex;align-items:flex-start;gap:11px;padding:13px 14px;border-left:4px solid var(--p);transform:translateY(-130px);opacity:0;transition:all .4s cubic-bezier(.4,0,.2,1);pointer-events:none;max-width:480px;left:50%;transform:translateX(-50%) translateY(-130px)}
+.notif-popup.show{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
+.notif-popup-ic{width:38px;height:38px;background:var(--plt);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.notif-popup-ic svg{width:18px;height:18px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
+.notif-popup-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:2px}
+.notif-popup-msg{font-size:12px;color:var(--b5);line-height:1.4}
 /* NOTIFICATION PANEL */
 .np{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.5);display:none;align-items:flex-end}
 .np.show{display:flex}
@@ -161,14 +166,6 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .ni-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:2px}
 .ni-msg{font-size:12px;color:var(--b5);line-height:1.5}
 .ni-time{font-size:10px;color:var(--b3);margin-top:3px}
-/* POPUP */
-.notif-popup{position:fixed;top:64px;left:12px;right:12px;background:var(--w);border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.18);z-index:9999;display:flex;align-items:flex-start;gap:11px;padding:13px 14px;border-left:4px solid var(--p);transform:translateY(-120px);opacity:0;transition:all .4s cubic-bezier(.4,0,.2,1);pointer-events:none}
-.notif-popup.show{transform:translateY(0);opacity:1;pointer-events:auto}
-.notif-popup-ic{width:38px;height:38px;background:var(--plt);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.notif-popup-ic svg{width:18px;height:18px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
-.notif-popup-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:2px}
-.notif-popup-msg{font-size:12px;color:var(--b5);line-height:1.4}
-.notif-popup-close{background:none;border:none;cursor:pointer;color:var(--b4);font-size:18px;line-height:1;padding:2px;flex-shrink:0}
 /* PROFILE */
 .prof-hero{background:linear-gradient(135deg,var(--dp),var(--p));border-radius:var(--r);padding:20px;text-align:center;margin-bottom:12px;position:relative;overflow:hidden}
 .prof-hero-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
@@ -193,8 +190,20 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 .toast.ok2{background:var(--green)}
 @keyframes spin{to{transform:rotate(360deg)}}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-@keyframes bellRing{0%,100%{transform:rotate(0)}10%,30%,50%,70%,90%{transform:rotate(-12deg)}20%,40%,60%,80%{transform:rotate(12deg)}}
-.bell-ringing{animation:bellRing .8s ease}
+@keyframes bellRing{
+  0%{transform:rotate(0) scale(1)}
+  10%{transform:rotate(-20deg) scale(1.1)}
+  20%{transform:rotate(20deg) scale(1.1)}
+  30%{transform:rotate(-18deg) scale(1.05)}
+  40%{transform:rotate(18deg) scale(1.05)}
+  50%{transform:rotate(-12deg)}
+  60%{transform:rotate(12deg)}
+  70%{transform:rotate(-6deg)}
+  80%{transform:rotate(6deg)}
+  90%{transform:rotate(-2deg)}
+  100%{transform:rotate(0) scale(1)}
+}
+.bell-ringing{animation:bellRing 1s ease both}
 </style>
 </head>
 <body>
@@ -235,7 +244,7 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
         <div class="lspin" id="lSpin"></div>
       </button>
     </div>
-    <div class="lhint">Credentials bhool gaye? Class teacher se contact karo</div>
+    <div class="lhint">Credentials bhool gaye? Teacher se contact karo</div>
   </div>
 </div>
 
@@ -248,7 +257,7 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
     <div class="notif-popup-title" id="popupTitle">Notification</div>
     <div class="notif-popup-msg" id="popupMsg"></div>
   </div>
-  <button class="notif-popup-close" onclick="closePopup()">×</button>
+  <button onclick="closePopup()" style="background:none;border:none;cursor:pointer;color:var(--b4);font-size:20px;line-height:1;padding:2px;flex-shrink:0;margin-left:4px">×</button>
 </div>
 
 <!-- NOTIFICATION PANEL -->
@@ -316,10 +325,11 @@ html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6)
 
 <div class="toast" id="toast"></div>
 
-<!-- FIREBASE -->
+<!-- FIREBASE + NOTIFICATION TONE -->
 <script type="module">
 import{initializeApp}from'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
 import{getMessaging,getToken,onMessage}from'https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js';
+
 const FB={
   apiKey:"AIzaSyA21lqBYdpcsUQCDOvc7Y1ZtIvy5j1VPVw",
   authDomain:"edumanage-notificationn.firebaseapp.com",
@@ -327,13 +337,36 @@ const FB={
   messagingSenderId:"956207309076",
   appId:"1:956207309076:web:6432e350c3536aa49f6201"
 };
+
 const app=initializeApp(FB);
 const messaging=getMessaging(app);
+
+/* ── NOTIFICATION TONE using Web Audio API ── */
+function playNotifTone(){
+  try{
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    /* Ding-dong tone */
+    const notes=[880,1108,1318,1108];
+    notes.forEach((freq,i)=>{
+      const osc=ctx.createOscillator();
+      const gain=ctx.createGain();
+      osc.connect(gain);gain.connect(ctx.destination);
+      osc.type='sine';osc.frequency.value=freq;
+      const start=ctx.currentTime+i*0.18;
+      const end=start+0.25;
+      gain.gain.setValueAtTime(0,start);
+      gain.gain.linearRampToValueAtTime(0.4,start+0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001,end);
+      osc.start(start);osc.stop(end);
+    });
+  }catch(e){console.log('Tone error:',e.message)}
+}
+window._playTone=playNotifTone;
 
 window._reqPush=async function(){
   try{
     const perm=await Notification.requestPermission();
-    if(perm!=='granted'){console.log('Push denied');return;}
+    if(perm!=='granted')return;
     const token=await getToken(messaging,{vapidKey:'BCHbNp4TNGBtB7j5IXbvlpWJ5LRTmEYfJTWTvFHnZD2k3VX4LgLfOhqSLBJGXLZ4lGJ4EJxZ9KAFQgGCxFhJkE'});
     if(token){
       localStorage.setItem('fcm_stu',token);
@@ -343,28 +376,35 @@ window._reqPush=async function(){
           method:'POST',
           headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},
           body:JSON.stringify({token,platform:'web'})
-        }).catch(e=>console.log('Token reg:',e));
+        }).catch(()=>{});
       }
       document.getElementById('pushBanner')?.remove();
-      console.log('Push registered');
     }
   }catch(e){console.log('Push error:',e.message)}
 };
 
-/* Foreground message handler */
+/* Foreground message */
 onMessage(messaging,payload=>{
   const title=payload.notification?.title||'Emmanuel School';
   const body=payload.notification?.body||'';
-  /* 1. Show popup */
-  window._showNotifPopup(title,body);
+  /* 1. Play tone */
+  window._playTone?.();
   /* 2. Ring bell */
-  window._ringBell();
-  /* 3. System notification */
+  window._ringBell?.();
+  /* 3. Show popup */
+  window._showPopup?.(title,body);
+  /* 4. System notification */
   if(Notification.permission==='granted'){
-    new Notification(title,{body,icon:'/logo.webp',badge:'/logo.webp',vibrate:[300,100,300,100,300],tag:'stu-'+Date.now()});
+    new Notification(title,{
+      body,icon:'/logo.webp',badge:'/logo.webp',
+      vibrate:[300,100,300,100,300],
+      tag:'stu-notif'
+    });
   }
-  /* 4. Refresh list */
+  /* 5. Refresh */
   window._refreshNotifs?.();
+  document.getElementById('bellDot')?.classList.add('show');
+  document.getElementById('alertsDot')?.classList.add('show');
 });
 </script>
 
@@ -381,28 +421,12 @@ function fmtRs(n){return'Rs. '+(parseInt(n||0)).toLocaleString('en-IN')}
 function avgPct(){if(!MARKS.length)return 0;return Math.round(MARKS.reduce((a,m)=>a+(m.marks_obtained/m.total_marks*100),0)/MARKS.length)}
 function grade(p){return p>=90?'A+':p>=80?'A':p>=70?'B+':p>=60?'B':p>=50?'C':'D'}
 
+/* TOAST */
 let toastT;
 function showToast(msg,type=''){
   const e=document.getElementById('toast');
   e.textContent=msg;e.className='toast show'+(type?' '+type:'');
   clearTimeout(toastT);toastT=setTimeout(()=>e.className='toast',3500);
-}
-
-/* POPUP NOTIFICATION */
-let popupT;
-window._showNotifPopup=function(title,body){
-  document.getElementById('popupTitle').textContent=title||'Notification';
-  document.getElementById('popupMsg').textContent=body||'';
-  const el=document.getElementById('notifPopup');
-  el.classList.add('show');
-  clearTimeout(popupT);
-  popupT=setTimeout(()=>el.classList.remove('show'),6000);
-  document.getElementById('bellDot')?.classList.add('show');
-  document.getElementById('alertsDot')?.classList.add('show');
-};
-function closePopup(){
-  clearTimeout(popupT);
-  document.getElementById('notifPopup').classList.remove('show');
 }
 
 /* BELL RING */
@@ -412,14 +436,21 @@ window._ringBell=function(){
   btn.classList.remove('bell-ringing');
   void btn.offsetWidth;
   btn.classList.add('bell-ringing');
-  setTimeout(()=>btn.classList.remove('bell-ringing'),800);
+  setTimeout(()=>btn.classList.remove('bell-ringing'),1000);
 };
 
-/* REFRESH NOTIFS */
-window._refreshNotifs=async function(){
-  await loadNotifs();
-  renderNPList();
+/* POPUP */
+let popT;
+window._showPopup=function(title,body){
+  document.getElementById('popupTitle').textContent=title||'Notification';
+  document.getElementById('popupMsg').textContent=body||'';
+  const el=document.getElementById('notifPopup');
+  el.classList.add('show');
+  clearTimeout(popT);popT=setTimeout(()=>el.classList.remove('show'),7000);
 };
+function closePopup(){clearTimeout(popT);document.getElementById('notifPopup').classList.remove('show')}
+
+window._refreshNotifs=async function(){await loadNotifs();renderNPList();};
 
 /* BOOT */
 (function boot(){
@@ -429,19 +460,11 @@ window._refreshNotifs=async function(){
   else showLogin();
 })();
 
-function showLogin(){
-  document.getElementById('loginScreen').style.display='flex';
-  document.getElementById('appScreen').style.display='none';
-  setTimeout(()=>document.getElementById('lCode')?.focus(),300);
-}
-function showApp(){
-  document.getElementById('loginScreen').style.display='none';
-  document.getElementById('appScreen').style.display='flex';
-}
+function showLogin(){document.getElementById('loginScreen').style.display='flex';document.getElementById('appScreen').style.display='none';setTimeout(()=>document.getElementById('lCode')?.focus(),300)}
+function showApp(){document.getElementById('loginScreen').style.display='none';document.getElementById('appScreen').style.display='flex'}
 
 function togglePw(){
-  const i=document.getElementById('lPass');
-  const s=document.getElementById('eyeS');const h=document.getElementById('eyeH');
+  const i=document.getElementById('lPass');const s=document.getElementById('eyeS');const h=document.getElementById('eyeH');
   if(i.type==='password'){i.type='text';s.style.display='none';h.style.display='block';}
   else{i.type='password';s.style.display='block';h.style.display='none';}
 }
@@ -452,28 +475,22 @@ async function doLogin(){
   const err=document.getElementById('lerr');
   if(!code||!pass){err.textContent='Code aur password daalo';err.classList.add('show');return}
   err.classList.remove('show');
-  document.getElementById('lTxt').style.display='none';
-  document.getElementById('lSpin').style.display='block';
-  document.getElementById('lBtn').disabled=true;
+  document.getElementById('lTxt').style.display='none';document.getElementById('lSpin').style.display='block';document.getElementById('lBtn').disabled=true;
   try{
     const res=await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code,password:pass,role:'student'})});
     const data=await res.json();
     if(res.ok&&data.token){
       TOKEN=data.token;
-      localStorage.setItem('edu_token',TOKEN);
-      localStorage.setItem('edu_role','student');
-      localStorage.setItem('edu_code',code);
+      localStorage.setItem('edu_token',TOKEN);localStorage.setItem('edu_role','student');localStorage.setItem('edu_code',code);
       showApp();loadMe();
     }else{err.textContent=data.message||data.error||'Invalid credentials';err.classList.add('show');}
   }catch(e){err.textContent='Network error: '+e.message;err.classList.add('show')}
-  document.getElementById('lTxt').style.display='block';
-  document.getElementById('lSpin').style.display='none';
-  document.getElementById('lBtn').disabled=false;
+  document.getElementById('lTxt').style.display='block';document.getElementById('lSpin').style.display='none';document.getElementById('lBtn').disabled=false;
 }
 
 function doLogout(){
   if(!confirm('Logout?'))return;
-  TOKEN=null;SD=null;MARKS=[];FEES=null;ATT={};TT=[];POSTS=[];NOTIFS=[];UPI='';myPayments=[];ssBase64=null;
+  TOKEN=null;SD=null;MARKS=[];FEES=null;ATT={};TT=[];POSTS=[];NOTIFS=[];UPI='';myPayments=[];ssBase64=null;ssMime=null;
   localStorage.removeItem('edu_token');localStorage.removeItem('edu_role');localStorage.removeItem('edu_code');
   showLogin();
 }
@@ -486,33 +503,33 @@ async function loadMe(){
     if(res.status===401){doLogout();return}
     const d=await res.json();
     SD=d.student||null;MARKS=d.marks||[];FEES=d.fees||null;ATT=d.attendance||{};TT=d.timetable||[];
+    /* Posts */
     if(SD?.class_id){
       try{const pr=await fetch(API+'/posts/'+SD.class_id,{headers:H()});if(pr.ok){const pd=await pr.json();POSTS=pd.posts||[];}}catch(_){}
     }
     await loadNotifs();
+    /* UPI */
     try{const ur=await fetch(API+'/fees/upi-details',{headers:H()});if(ur.ok){const ud=await ur.json();UPI=ud.upi_id||'';}}catch(_){}
+    /* My payments */
     try{const mr=await fetch(API+'/fees/me',{headers:H()});if(mr.ok){const md=await mr.json();myPayments=md.payments||[];}}catch(_){}
     /* Push */
-    if(Notification.permission==='granted'){
-      setTimeout(()=>window._reqPush?.(),1000);
-    }else if(Notification.permission==='default'){
-      setTimeout(askPush,3000);
-    }
+    if(Notification.permission==='granted'){setTimeout(()=>window._reqPush?.(),1000);}
+    else if(Notification.permission==='default'){setTimeout(askPush,3000);}
     showTab(curTab);
   }catch(e){
-    document.getElementById('mainContent').innerHTML=`<div class="loading"><div style="color:var(--red);font-size:13px">Error: ${e.message}</div></div>`;
+    document.getElementById('mainContent').innerHTML=`<div class="loading"><div style="color:var(--red);font-size:13px">Error loading data: ${e.message}</div></div>`;
   }
 }
 
 function askPush(){
-  if(localStorage.getItem('push_asked'))return;
-  localStorage.setItem('push_asked','1');
+  if(localStorage.getItem('push_asked_stu'))return;
+  localStorage.setItem('push_asked_stu','1');
   const el=document.getElementById('mainContent');
   if(!el||document.getElementById('pushBanner'))return;
   const b=document.createElement('div');
   b.id='pushBanner';
   b.style.cssText='margin:12px 16px 0;background:var(--plt);border:1px solid rgba(128,0,32,.15);border-radius:var(--r);padding:12px 13px;display:flex;align-items:center;gap:10px';
-  b.innerHTML=`<div style="flex:1;font-size:12px;color:var(--dp);font-weight:500;line-height:1.5">🔔 Notifications allow karo — school alerts aur marks updates turant milenge!</div><button style="padding:7px 13px;background:var(--p);color:var(--w);border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--fb);white-space:nowrap;flex-shrink:0" onclick="window._reqPush&&window._reqPush()">Allow</button>`;
+  b.innerHTML=`<div style="flex:1;font-size:12px;color:var(--dp);font-weight:500;line-height:1.5">🔔 Notifications on karo — school alerts, marks updates turant milenge!</div><button style="padding:7px 13px;background:var(--p);color:var(--w);border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--fb);white-space:nowrap;flex-shrink:0" onclick="window._reqPush&&window._reqPush()">Allow</button>`;
   el.prepend(b);
 }
 
@@ -549,7 +566,7 @@ function showTab(tab,btn){
   else{const idx={home:0,marks:1,fees:2,group:3,alerts:4,profile:5}[tab]??0;document.querySelectorAll('.nav-tab')[idx]?.classList.add('active');}
   const el=document.getElementById('mainContent');
   if(tab==='home')el.innerHTML=renderHome();
-  else if(tab==='marks'){el.innerHTML=renderMarks();setTimeout(()=>{document.querySelectorAll('.mark-fill').forEach(e=>{e.style.width=e.dataset.w||'0%'})},100);}
+  else if(tab==='marks'){el.innerHTML=renderMarks();setTimeout(()=>{document.querySelectorAll('.mark-fill').forEach(e=>{e.style.width=e.dataset.w||'0%'})},120);}
   else if(tab==='fees')el.innerHTML=renderFees();
   else if(tab==='group')el.innerHTML=renderGroup();
   else if(tab==='alerts'){el.innerHTML=renderAlerts();document.getElementById('alertsDot')?.classList.remove('show');document.getElementById('bellDot')?.classList.remove('show');}
@@ -557,7 +574,7 @@ function showTab(tab,btn){
   document.getElementById('scrollArea').scrollTop=0;
 }
 
-/* HOME */
+/* ══ HOME ══ */
 function renderHome(){
   if(!SD)return'<div class="loading"><div class="spin-el"></div></div>';
   const a=avgPct();
@@ -584,15 +601,18 @@ function renderHome(){
   <div class="stats-grid">
     <div class="stat-tile" onclick="showTab('marks')">
       <div class="stat-ic"><svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
-      <div class="stat-val">${MARKS.length?a+'%':'--'}</div><div class="stat-lbl">${MARKS.length?'Avg Marks':'No Marks Yet'}</div>
+      <div class="stat-val">${MARKS.length?a+'%':'--'}</div>
+      <div class="stat-lbl">${MARKS.length?'Avg Marks':'No Marks'}</div>
     </div>
     <div class="stat-tile" onclick="showTab('marks')">
       <div class="stat-ic"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
-      <div class="stat-val">${MARKS.length?grade(a):'--'}</div><div class="stat-lbl">Grade</div>
+      <div class="stat-val">${MARKS.length?grade(a):'--'}</div>
+      <div class="stat-lbl">Grade</div>
     </div>
     <div class="stat-tile">
       <div class="stat-ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-      <div class="stat-val">${ATT.total>0?attPct+'%':'--'}</div><div class="stat-lbl">Attendance</div>
+      <div class="stat-val">${ATT.total>0?attPct+'%':'--'}</div>
+      <div class="stat-lbl">Attendance</div>
     </div>
     <div class="stat-tile" onclick="showTab('fees')">
       <div class="stat-ic"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div>
@@ -611,29 +631,31 @@ function renderHome(){
   ${FEES&&fStatus!=='paid'?`
   <div class="sec">
     <div class="sec-title">Fees Due</div>
-    <div class="fees-card">
-      <div class="fees-row">
-        <div><div class="fees-amt" style="color:var(--red)">${fmtRs(rem)}</div><div class="fees-lbl">Amount Due</div></div>
-        <div style="text-align:right"><div class="fees-amt" style="color:var(--green)">${fmtRs(paid)}</div><div class="fees-lbl">Amount Paid</div></div>
+    <div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:15px">
+      <div style="display:flex;justify-content:space-between;margin-bottom:13px">
+        <div><div style="font-family:var(--ff);font-size:20px;font-weight:700;color:var(--red)">${fmtRs(rem)}</div><div style="font-size:11px;color:var(--b4);margin-top:2px">Amount Due</div></div>
+        <div style="text-align:right"><div style="font-family:var(--ff);font-size:20px;font-weight:700;color:var(--green)">${fmtRs(paid)}</div><div style="font-size:11px;color:var(--b4);margin-top:2px">Amount Paid</div></div>
       </div>
-      <button class="pay-btn" onclick="showTab('fees')"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg>Pay Fees</button>
+      <button style="width:100%;padding:12px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer" onclick="showTab('fees')">Pay Fees →</button>
     </div>
   </div>`:FEES?`<div class="sec"><div style="background:var(--gl);border-radius:var(--r);padding:13px;text-align:center;color:var(--green);font-weight:700;font-size:13px">✅ Fees fully paid!</div></div>`:''}
   ${POSTS.length?`
   <div class="sec">
     <div class="sec-title">Latest from Class</div>
     ${POSTS.slice(0,2).map(p=>postCard(p)).join('')}
-    ${POSTS.length>2?`<button style="width:100%;padding:10px;background:none;border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:13px;font-weight:600;color:var(--b5);cursor:pointer" onclick="showTab('group')">View all ${POSTS.length} posts</button>`:''}
+    ${POSTS.length>2?`<button style="width:100%;padding:10px;background:none;border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:13px;font-weight:600;color:var(--b5);cursor:pointer" onclick="showTab('group')">View all ${POSTS.length} posts →</button>`:''}
   </div>`:''}
   ${NOTIFS.length?`
   <div class="sec">
     <div class="sec-title">Recent Alerts</div>
     ${NOTIFS.slice(0,3).map(n=>`
       <div style="display:flex;gap:10px;padding:10px 0;border-bottom:1px solid var(--b1)">
-        <div style="width:34px;height:34px;border-radius:50%;background:var(--plt);display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
+        <div style="width:34px;height:34px;border-radius:50%;background:var(--plt);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--p)" stroke-width="2" stroke-linecap="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </div>
         <div><div style="font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:2px">${n.title||''}</div><div style="font-size:12px;color:var(--b5)">${n.message||''}</div></div>
       </div>`).join('')}
-    ${NOTIFS.length>3?`<button style="width:100%;padding:9px;background:none;border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:13px;font-weight:600;color:var(--b5);cursor:pointer;margin-top:4px" onclick="showTab('alerts')">View all alerts</button>`:''}
+    ${NOTIFS.length>3?`<button style="width:100%;padding:9px;background:none;border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:13px;font-weight:600;color:var(--b5);cursor:pointer;margin-top:4px" onclick="showTab('alerts')">View all alerts →</button>`:''}
   </div>`:''}`;
 }
 
@@ -651,25 +673,34 @@ function postCard(p){
   </div>`;
 }
 
-/* MARKS */
+/* ══ MARKS + TIMETABLE ══ */
 function renderMarks(){
-  if(!MARKS.length)return`
-  <div class="hero"><div class="hero-grid"></div><div class="hero-inner" style="display:block"><div class="hero-grt">Marks</div><div class="hero-name">${SD?.name||''}</div></div></div>
-  <div style="padding:16px"><div class="empty">No marks uploaded yet<br><small style="font-size:12px;color:var(--b4)">Teacher will add marks soon</small></div></div>`;
+  const hasTT=TT&&TT.length>0;
+  if(!MARKS.length&&!hasTT)return`
+  <div class="hero"><div class="hero-grid"></div><div class="hero-inner" style="display:block">
+    <div class="hero-grt">Marks & Timetable</div><div class="hero-name">${SD?.name||''}</div>
+  </div></div>
+  <div style="padding:16px"><div class="empty">No marks or timetable yet<br><small style="font-size:12px;color:var(--b4)">Teacher will add soon</small></div></div>`;
+
   const a=avgPct();
   const exams=[...new Set(MARKS.map(m=>m.exam_type).filter(Boolean))];
+
   return`
   <div class="hero"><div class="hero-grid"></div>
     <div class="hero-inner">
       <div class="hero-av">${ini(SD?.name)}</div>
       <div class="hero-info">
-        <div class="hero-grt">Overall Average</div>
-        <div class="hero-name" style="font-size:28px">${a}% <span style="font-size:16px;opacity:.7">${grade(a)}</span></div>
-        <div class="hero-chips"><span class="hero-chip">${MARKS.length} entries</span></div>
+        <div class="hero-grt">Marks & Timetable</div>
+        <div class="hero-name" style="font-size:${MARKS.length?'26px':'18px'}">${MARKS.length?a+'% — '+grade(a):'No marks yet'}</div>
+        <div class="hero-chips">
+          ${MARKS.length?`<span class="hero-chip">${MARKS.length} entries</span>`:''}
+          ${hasTT?`<span class="hero-chip">📅 Timetable Available</span>`:''}
+        </div>
       </div>
     </div>
   </div>
   <div style="padding:13px 16px">
+    ${MARKS.length?`
     ${exams.length
       ?exams.map(exam=>{
           const mks=MARKS.filter(m=>m.exam_type===exam);
@@ -684,25 +715,41 @@ function renderMarks(){
                 <div class="mark-pct" style="color:${pct>=60?'var(--green)':pct>=40?'var(--gold)':'var(--red)'}">${pct}%</div>
               </div>`}).join('')}
           </div>`;}).join('')
-      :`<div class="mark-group">${MARKS.map(m=>{const pct=Math.round((m.marks_obtained/m.total_marks)*100);return`
-        <div class="mark-row">
-          <div class="mark-sub">${m.subject}</div>
-          <div class="mark-bar"><div class="mark-fill" data-w="${pct}%" style="width:0%"></div></div>
-          <div class="mark-score">${m.marks_obtained}/${m.total_marks}</div>
-          <div class="mark-pct" style="color:${pct>=60?'var(--green)':pct>=40?'var(--gold)':'var(--red)'}">${pct}%</div>
-        </div>`}).join('')}</div>`}
-    ${TT.length?`
-    <div style="font-family:var(--ff);font-size:15px;font-weight:700;color:var(--dp);margin:16px 0 10px">Timetable</div>
+      :`<div class="mark-group">
+          ${MARKS.map(m=>{const pct=Math.round((m.marks_obtained/m.total_marks)*100);return`
+            <div class="mark-row">
+              <div class="mark-sub">${m.subject}</div>
+              <div class="mark-bar"><div class="mark-fill" data-w="${pct}%" style="width:0%"></div></div>
+              <div class="mark-score">${m.marks_obtained}/${m.total_marks}</div>
+              <div class="mark-pct" style="color:${pct>=60?'var(--green)':pct>=40?'var(--gold)':'var(--red)'}">${pct}%</div>
+            </div>`}).join('')}
+        </div>`}`:''}
+    ${hasTT?`
+    <div style="font-family:var(--ff);font-size:16px;font-weight:700;color:var(--dp);margin:${MARKS.length?'16px':0} 0 10px">📅 Class Timetable</div>
     <div class="tt-wrap">
       <table class="tt-table">
-        <thead><tr><th>Day</th>${Array.from({length:9},(_,i)=>`<th>P${i+1}</th>`).join('')}</tr></thead>
-        <tbody>${TT.map(row=>`<tr><td style="font-weight:700;color:var(--p);white-space:nowrap">${row.day?.slice(0,3)||''}</td>${Array.from({length:9},(_,i)=>`<td>${row['period_'+(i+1)]||'—'}</td>`).join('')}</tr>`).join('')}</tbody>
+        <thead>
+          <tr>
+            <th style="min-width:50px">Day</th>
+            ${Array.from({length:9},(_,i)=>`<th>P${i+1}</th>`).join('')}
+          </tr>
+        </thead>
+        <tbody>
+          ${TT.map(row=>`
+            <tr>
+              <td style="font-weight:700;color:var(--p);white-space:nowrap;padding:8px 7px">${row.day?.slice(0,3)||''}</td>
+              ${Array.from({length:9},(_,i)=>{
+                const sub=row['period_'+(i+1)]||'';
+                return`<td>${sub?`<span style="font-weight:500;color:#1a1a1a">${sub}</span>`:`<span class="tt-empty-cell">—</span>`}</td>`;
+              }).join('')}
+            </tr>`).join('')}
+        </tbody>
       </table>
     </div>`:''}
   </div>`;
 }
 
-/* FEES */
+/* ══ FEES ══ */
 function renderFees(){
   if(!FEES)return`<div style="padding:16px"><div class="empty">No fees data available</div></div>`;
   const total=parseFloat(FEES.total_amount)||0;
@@ -712,15 +759,16 @@ function renderFees(){
   return`
   <div class="hero"><div class="hero-grid"></div><div class="hero-inner" style="display:block">
     <div class="hero-grt">Fees</div><div class="hero-name">${SD?.name||''}</div>
+    <div class="hero-chips"><span class="hero-chip">${SD?.standard||''}</span></div>
   </div></div>
   <div style="padding:13px 16px">
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px">
       <div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px;text-align:center">
-        <div style="font-family:var(--fm);font-size:18px;font-weight:700;color:var(--red)">${fmtRs(rem)}</div>
+        <div style="font-family:var(--fm);font-size:17px;font-weight:700;color:var(--red)">${fmtRs(rem)}</div>
         <div style="font-size:10px;color:var(--b4);text-transform:uppercase;font-weight:600;margin-top:3px">Amount Due</div>
       </div>
       <div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px;text-align:center">
-        <div style="font-family:var(--fm);font-size:18px;font-weight:700;color:var(--green)">${fmtRs(paid)}</div>
+        <div style="font-family:var(--fm);font-size:17px;font-weight:700;color:var(--green)">${fmtRs(paid)}</div>
         <div style="font-size:10px;color:var(--b4);text-transform:uppercase;font-weight:600;margin-top:3px">Amount Paid</div>
       </div>
     </div>
@@ -728,7 +776,7 @@ function renderFees(){
       <div class="info-row"><span class="info-lbl">Total Fees</span><span class="info-val" style="font-family:var(--fm)">${fmtRs(total)}</span></div>
       <div class="info-row"><span class="info-lbl">Status</span><span class="info-val"><span class="${fStatus==='paid'?'bOK':fStatus==='partial'?'bHO':'bNO'}">${fStatus}</span></span></div>
     </div>
-    ${fStatus==='paid'?`<div style="background:var(--gl);border-radius:var(--r);padding:14px;text-align:center;color:var(--green);font-weight:700;font-size:14px;margin-bottom:12px">✅ All fees paid!</div>`:''}
+    ${fStatus==='paid'?`<div style="background:var(--gl);border-radius:var(--r);padding:14px;text-align:center;color:var(--green);font-weight:700;font-size:14px;margin-bottom:12px">✅ All fees paid! Thank you.</div>`:''}
     ${fStatus!=='paid'?`
     <div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:14px;margin-bottom:12px">
       <div style="font-size:12px;font-weight:700;color:var(--dp);text-transform:uppercase;letter-spacing:.8px;margin-bottom:12px">Pay via UPI</div>
@@ -741,19 +789,23 @@ function renderFees(){
         <a class="upi-app" href="#" onclick="openUPI('gpay',event)">G<br>GPay</a>
         <a class="upi-app" href="#" onclick="openUPI('paytm',event)">P<br>Paytm</a>
       </div>
-      <div class="dvdr">Payment ke baad yahan submit karo</div>
-      <div class="fgl"><label>Amount Paid (Rs) *</label><input type="number" class="fi" id="payAmt" placeholder="Enter amount paid" value="${rem||''}" style="margin-bottom:0"></div>
-      <div class="fgl" style="margin-top:10px"><label>UPI Transaction ID *</label><input type="text" class="fi" id="upiRef" placeholder="e.g. 123456789012" style="margin-bottom:0"></div>
+      <div class="dvdr">Payment ke baad screenshot upload karo</div>
+      <div class="fgl"><label>Amount Paid (Rs) *</label>
+        <input type="number" class="fi" id="payAmt" placeholder="Enter amount" value="${rem||''}" style="margin-bottom:0">
+      </div>
+      <div class="fgl" style="margin-top:10px"><label>UPI Transaction ID *</label>
+        <input type="text" class="fi" id="upiRef" placeholder="e.g. 123456789012" style="margin-bottom:0">
+      </div>
       <div style="margin-top:10px">
         <label style="font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:5px">Payment Screenshot</label>
         <div class="ss-area" id="ssArea">
           <input type="file" accept="image/*" class="ss-input" onchange="handleSS(this)">
           <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
           <div class="ss-area-txt">Tap to upload payment screenshot</div>
-          <img class="ss-preview" id="ssPreview">
+          <img class="ss-preview" id="ssPreview" src="" alt="">
         </div>
       </div>
-      <button class="submit-btn" id="submitPayBtn" onclick="submitPayment()" style="margin-top:13px">Submit Payment</button>
+      <button class="submit-btn" id="submitPayBtn" onclick="submitPayment()" style="margin-top:12px">Submit Payment</button>
     </div>`:''}
     ${myPayments.length?`
     <div>
@@ -762,10 +814,10 @@ function renderFees(){
         <div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px;margin-bottom:8px">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:5px">
             <div style="font-family:var(--fm);font-size:15px;font-weight:700;color:var(--dp)">${fmtRs(p.amount)}</div>
-            <span class="${p.status==='verified'?'bOK':p.status==='rejected'?'bNO':'bHO'}">${p.status==='verified'?'Verified':p.status==='rejected'?'Rejected':'Pending'}</span>
+            <span class="${p.status==='verified'?'bOK':p.status==='rejected'?'bNO':'bHO'}">${p.status==='verified'?'✓ Verified':p.status==='rejected'?'✗ Rejected':'⏳ Pending'}</span>
           </div>
-          <div style="font-size:12px;color:var(--b5)">UPI: ${p.upi_ref||'-'}</div>
-          ${p.screenshot_url||p.screenshot_path?`<img src="${p.screenshot_url||p.screenshot_path}" style="width:100%;max-height:120px;object-fit:cover;border-radius:7px;margin-top:8px;border:1px solid var(--b2)" onerror="this.style.display='none'">`:''}
+          <div style="font-size:12px;color:var(--b5)">Ref: ${p.upi_ref||'-'}</div>
+          ${p.screenshot_url?`<img src="${p.screenshot_url}" style="width:100%;max-height:110px;object-fit:cover;border-radius:7px;margin-top:8px;border:1px solid var(--b2);cursor:pointer" onclick="window.open('${p.screenshot_url}','_blank')" onerror="this.style.display='none'">`:''}
           <div style="font-size:11px;color:var(--b3);margin-top:4px">${p.submitted_at?new Date(p.submitted_at).toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'}):''}</div>
         </div>`).join('')}
     </div>`:''}
@@ -790,7 +842,11 @@ function openUPI(app,e){
   if(!UPI){showToast('UPI ID not available','err');return}
   const amt=document.getElementById('payAmt')?.value||'';
   const upi=encodeURIComponent(UPI);const am=encodeURIComponent(amt);const pn=encodeURIComponent('Emmanuel School');
-  const urls={phonepe:`phonepe://pay?pa=${upi}&pn=${pn}&am=${am}&cu=INR`,gpay:`tez://upi/pay?pa=${upi}&pn=${pn}&am=${am}&cu=INR`,paytm:`paytmmp://pay?pa=${upi}&pn=${pn}&am=${am}&cu=INR`};
+  const urls={
+    phonepe:`phonepe://pay?pa=${upi}&pn=${pn}&am=${am}&cu=INR`,
+    gpay:`tez://upi/pay?pa=${upi}&pn=${pn}&am=${am}&cu=INR`,
+    paytm:`paytmmp://pay?pa=${upi}&pn=${pn}&am=${am}&cu=INR`
+  };
   window.location.href=urls[app];
   const fb={phonepe:'https://phon.pe/',gpay:'https://pay.google.com/',paytm:'https://paytm.com/'};
   setTimeout(()=>{try{window.open(fb[app],'_blank')}catch(_){}},2000);
@@ -808,16 +864,16 @@ async function submitPayment(){
     if(ssBase64){payload.screenshot_base64=ssBase64;payload.screenshot_mime=ssMime||'image/jpeg';}
     const res=await fetch(API+'/fees/submit-payment',{method:'POST',headers:H(),body:JSON.stringify(payload)});
     if(res.ok){
-      showToast('Payment submitted! Admin will verify soon.','ok2');
+      showToast('Payment submitted! Admin will verify.','ok2');
       ssBase64=null;ssMime=null;
       try{const mr=await fetch(API+'/fees/me',{headers:H()});if(mr.ok){const md=await mr.json();myPayments=md.payments||[];}}catch(_){}
       showTab('fees');
-    }else{const d=await res.json().catch(()=>({}));showToast(d.error||'Failed','err');}
+    }else{const d=await res.json().catch(()=>({}));showToast(d.error||'Failed to submit','err');}
   }catch(e){showToast('Network error','err')}
   if(btn){btn.disabled=false;btn.textContent='Submit Payment';}
 }
 
-/* GROUP */
+/* ══ GROUP ══ */
 function renderGroup(){
   return`
   <div class="hero"><div class="hero-grid"></div><div class="hero-inner" style="display:block">
@@ -829,7 +885,7 @@ function renderGroup(){
   </div>`;
 }
 
-/* ALERTS */
+/* ══ ALERTS ══ */
 function renderAlerts(){
   return`
   <div class="hero"><div class="hero-grid"></div><div class="hero-inner" style="display:block">
@@ -851,7 +907,7 @@ function renderAlerts(){
   </div>`;
 }
 
-/* PROFILE */
+/* ══ PROFILE ══ */
 function renderProfile(){
   if(!SD)return'<div class="loading"><div class="spin-el"></div></div>';
   const total=parseFloat(FEES?.total_amount)||0;
@@ -884,7 +940,7 @@ function renderProfile(){
     ${FEES?`<div class="info-list">
       <div class="info-row"><span class="info-lbl">Total Fees</span><span class="info-val" style="font-family:var(--fm)">${fmtRs(total)}</span></div>
       <div class="info-row"><span class="info-lbl">Paid</span><span class="info-val" style="color:var(--green);font-family:var(--fm)">${fmtRs(paid)}</span></div>
-      <div class="info-row"><span class="info-lbl">Remaining</span><span class="info-val" style="color:var(--red);font-family:var(--fm)">${fmtRs(rem)}</span></div>
+      <div class="info-row"><span class="info-lbl">Remaining</span><span class="info-val" style="color:${rem>0?'var(--red)':'var(--green)'};font-family:var(--fm)">${fmtRs(rem)}</span></div>
       <div class="info-row"><span class="info-lbl">Status</span><span class="info-val"><span class="${fStatus==='paid'?'bOK':fStatus==='partial'?'bHO':'bNO'}">${fStatus}</span></span></div>
     </div>`:''}
     ${ATT.total?`<div class="info-list">
@@ -897,7 +953,7 @@ function renderProfile(){
   </div>`;
 }
 
-/* SERVICE WORKER */
+/* Service Worker */
 if('serviceWorker'in navigator)navigator.serviceWorker.register('firebase-messaging-sw.js').catch(()=>{});
 </script>
 </body>
