@@ -2,957 +2,1008 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#800020">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>Teacher Panel — Emmanuel School</title>
+<link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+*{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --p:#800020;--dk:#5c0018;--dp:#3d0010;--ac:#a30027;--plt:rgba(128,0,32,.08);
-  --w:#fff;--bg:#fafafa;
-  --b1:#f5f5f5;--b2:#eeeeee;--b3:#e0e0e0;--b4:#bdbdbd;--b5:#9e9e9e;--b6:#757575;
-  --green:#1a7a4a;--gl:#e8f5ee;
-  --red:#c0392b;--rl:#fdf0ef;
-  --gold:#b8860b;--goldl:#fdf8e8;
-  --ff:'Playfair Display',serif;--fb:'Inter',sans-serif;--fm:'JetBrains Mono',monospace;
-  --r:12px;
+  --p:#800020;--dp:#3d0010;--ac:#a30027;
+  --white:#fff;--black:#0a0a0a;
+  --gray-50:#fafafa;--gray-100:#f5f5f5;--gray-200:#eee;
+  --gray-300:#e0e0e0;--gray-400:#bdbdbd;--gray-500:#9e9e9e;
+  --gray-600:#757575;--gray-700:#616161;
+  --green:#1a7a4a;--green-light:#e8f5ee;
+  --red:#c0392b;--red-light:#fdf0ef;
+  --gold:#b8860b;--gold-light:#fdf8e8;
+  --font-display:'Playfair Display',serif;
+  --font-body:'Inter',sans-serif;
+  --font-mono:'JetBrains Mono',monospace;
+  --radius:12px
 }
-html,body{height:100%;font-family:var(--fb);background:var(--bg);color:var(--b6);overflow-x:hidden}
+body{font-family:var(--font-body);background:var(--gray-50);color:var(--black);padding-bottom:80px;min-height:100vh}
+
 /* LOGIN */
-#loginScreen{position:fixed;inset:0;z-index:999;background:linear-gradient(155deg,var(--dp),var(--p),var(--ac));display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px;overflow-y:auto}
-#loginScreen::before{content:'';position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
-.lw{width:100%;max-width:400px;position:relative;z-index:1}
-.brand{text-align:center;margin-bottom:22px}
-.logo-box{width:72px;height:72px;border-radius:18px;margin:0 auto 12px;overflow:hidden;border:2.5px solid rgba(255,255,255,.25);background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center}
-.logo-box img{width:100%;height:100%;object-fit:cover;display:block}
-.logo-fb{font-family:var(--ff);font-size:26px;font-weight:700;color:var(--w);display:none}
-.brand-name{font-family:var(--ff);font-size:20px;font-weight:700;color:var(--w);margin-bottom:2px}
-.brand-sub{font-size:12px;color:rgba(255,255,255,.5)}
-.lcard{background:var(--w);border-radius:20px;padding:24px 20px;box-shadow:0 20px 60px rgba(0,0,0,.28)}
-.lcard-title{font-family:var(--ff);font-size:19px;font-weight:700;color:var(--dp);margin-bottom:2px}
-.lcard-sub{font-size:13px;color:var(--b5);margin-bottom:16px}
-.lerr{display:none;background:#fff0f2;border:1.5px solid #ffc8d0;color:var(--red);font-size:13px;font-weight:500;padding:10px 14px;border-radius:9px;margin-bottom:12px}
-.lerr.show{display:block}
-.lfield{margin-bottom:12px}
-.lfield label{display:block;font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.9px;margin-bottom:5px}
-.linp-w{position:relative}
-.linp-w input{width:100%;padding:12px 42px 12px 13px;background:#f8f8f8;border:2px solid #eee;border-radius:10px;font-size:14px;font-family:var(--fb);color:#1a1a1a;outline:none;transition:border-color .2s;-webkit-appearance:none}
-.linp-w input:focus{border-color:var(--p);background:var(--w)}
-.leye{position:absolute;right:11px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:#bbb;display:flex;padding:4px}
-.leye svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
-.lbtn{width:100%;padding:13px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:11px;font-size:14px;font-weight:700;font-family:var(--fb);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
-.lbtn:disabled{opacity:.6;cursor:not-allowed}
-.lspin{display:none;width:16px;height:16px;border:2.5px solid rgba(255,255,255,.3);border-top-color:var(--w);border-radius:50%;animation:spin .7s linear infinite}
-.lhint{text-align:center;margin-top:14px;font-size:12px;color:rgba(255,255,255,.4);position:relative;z-index:1}
-/* APP */
-#appScreen{display:none;flex-direction:column;height:100vh;height:100dvh}
-.topbar{background:var(--w);border-bottom:1px solid var(--b2);padding:0 16px;height:54px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0;position:sticky;top:0;z-index:100}
-.topbar-left{display:flex;align-items:center;gap:10px}
-.topbar-logo{width:30px;height:30px;border-radius:7px;overflow:hidden;border:1.5px solid var(--b2);display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--plt)}
-.topbar-logo img{width:100%;height:100%;object-fit:cover;display:block}
-.topbar-logo-fb{font-family:var(--ff);font-size:12px;font-weight:700;color:var(--p);display:none}
-.topbar-name{font-family:var(--ff);font-size:15px;font-weight:700;color:var(--dp)}
-.topbar-right{display:flex;align-items:center;gap:6px}
-.bell-btn{position:relative;background:none;border:none;cursor:pointer;padding:7px;border-radius:7px;display:flex;align-items:center}
-.bell-btn svg{width:20px;height:20px;stroke:var(--b5);fill:none;stroke-width:2;stroke-linecap:round}
-.bell-dot{position:absolute;top:4px;right:4px;width:7px;height:7px;background:var(--red);border-radius:50%;border:1.5px solid var(--w);display:none}
-.bell-dot.show{display:block}
-.out-btn{background:none;border:1px solid var(--b2);border-radius:7px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--b5);cursor:pointer;font-family:var(--fb)}
-.scroll-area{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
-.scroll-area::-webkit-scrollbar{width:3px}
-.scroll-area::-webkit-scrollbar-thumb{background:var(--b3);border-radius:3px}
-.cnt{max-width:600px;margin:0 auto;padding-bottom:90px}
+.login-screen{min-height:100vh;background:linear-gradient(155deg,var(--dp),var(--p),var(--ac));display:flex;align-items:center;justify-content:center;padding:20px;position:relative}
+.login-bg{position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+.login-card{background:var(--white);border-radius:20px;padding:28px 22px;width:100%;max-width:360px;position:relative;z-index:1;box-shadow:0 25px 60px rgba(0,0,0,.4)}
+.login-logo{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:4px}
+.login-lm{width:34px;height:34px;background:var(--p);color:var(--white);border-radius:9px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:16px}
+.login-name{font-family:var(--font-display);font-size:20px;font-weight:700;color:var(--dp)}
+.login-sub{text-align:center;font-size:12px;color:var(--gray-400);margin-bottom:20px}
+.login-label{display:block;font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
+.login-input{width:100%;padding:12px 14px;background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:14px;color:var(--black);outline:none;margin-bottom:12px}
+.login-input:focus{border-color:var(--p);background:var(--white)}
+.login-btn{width:100%;padding:13px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--white);border:none;border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px}
+.login-err{background:var(--red-light);border:1px solid rgba(192,57,43,.15);border-radius:var(--radius);padding:10px 14px;font-size:13px;color:var(--red);margin-top:10px;display:none}
+.login-err.show{display:block}
+.login-sp{width:16px;height:16px;border:2px solid rgba(255,255,255,.3);border-top-color:var(--white);border-radius:50%;animation:spin .7s linear infinite}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:100;background:var(--white);border-bottom:1px solid var(--gray-200);padding:12px 16px;display:flex;align-items:center;justify-content:space-between}
+.tl{font-family:var(--font-display);font-size:17px;font-weight:700;color:var(--dp);display:flex;align-items:center;gap:8px}
+.lm{width:28px;height:28px;background:var(--p);color:var(--white);border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700}
+.tr{display:flex;align-items:center;gap:6px}
+.bell-wrap{position:relative;display:flex;align-items:center}
+.bell-btn{background:none;border:none;cursor:pointer;padding:6px;border-radius:7px;display:flex;align-items:center;justify-content:center;transform-origin:top center}
+.bell-btn svg{width:20px;height:20px;stroke:var(--gray-500);fill:none;stroke-width:2;stroke-linecap:round}
+.bell-dot{position:absolute;top:2px;right:2px;width:8px;height:8px;background:var(--red);border-radius:50%;border:1.5px solid var(--white);display:none}
+.bell-dot.on{display:block}
+.ob{background:none;border:1px solid var(--gray-200);border-radius:7px;padding:5px 10px;font-size:11px;font-weight:600;color:var(--gray-500);cursor:pointer;font-family:var(--font-body)}
+
+/* NOTIFICATION POPUP — slides from top */
+.notif-pop{
+  position:fixed;top:62px;left:50%;
+  transform:translateX(-50%) translateY(-130px);
+  width:calc(100% - 24px);max-width:520px;
+  background:var(--white);border-radius:14px;
+  box-shadow:0 8px 30px rgba(0,0,0,.18);
+  z-index:9999;border-left:4px solid var(--p);
+  padding:13px 14px;display:flex;align-items:flex-start;gap:11px;
+  opacity:0;pointer-events:none;
+  transition:all .4s cubic-bezier(.4,0,.2,1);
+}
+.notif-pop.show{transform:translateX(-50%) translateY(0);opacity:1;pointer-events:auto}
+.notif-pop-ic{width:36px;height:36px;background:rgba(128,0,32,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.notif-pop-ic svg{width:17px;height:17px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
+
+/* CONTENT */
+.cnt{max-width:600px;margin:0 auto}
+
 /* HERO */
-.hero{background:linear-gradient(135deg,var(--dp),var(--p));color:var(--w);padding:20px 16px 24px;position:relative;overflow:hidden}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
-.hero-inner{position:relative;z-index:1}
-.hero-grt{font-size:11px;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px;margin-bottom:3px;font-weight:600}
-.hero-name{font-family:var(--ff);font-size:21px;font-weight:700;line-height:1.15;margin-bottom:7px}
-.hero-chips{display:flex;gap:6px;flex-wrap:wrap}
-.hero-chip{padding:3px 10px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:100px;font-size:10px;color:rgba(255,255,255,.85);font-weight:500}
-.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:12px 16px}
-.stat-tile{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:12px;text-align:center}
-.stat-val{font-family:var(--ff);font-size:22px;font-weight:700;color:var(--p);margin-bottom:2px}
-.stat-lbl{font-size:10px;color:var(--b4);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
-.sec{padding:0 16px;margin-bottom:16px}
-.sec-title{font-family:var(--ff);font-size:15px;font-weight:700;color:var(--dp);margin-bottom:10px}
-/* STUDENT ITEM */
-.si{display:flex;align-items:center;gap:11px;padding:11px 13px;background:var(--w);border:1px solid var(--b2);border-radius:var(--r);margin-bottom:8px;cursor:pointer;transition:background .15s}
-.si:active{background:var(--b1)}
-.si-av{width:40px;height:40px;background:var(--plt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:15px;color:var(--p);flex-shrink:0;font-weight:700}
-.si-name{font-size:14px;font-weight:600;margin-bottom:1px;color:#1a1a1a}
-.si-meta{font-size:11px;color:var(--b4)}
-/* BADGES */
-.bOK{background:var(--gl);color:var(--green);padding:2px 9px;border-radius:100px;font-size:11px;font-weight:600;display:inline-block}
-.bNO{background:var(--rl);color:var(--red);padding:2px 9px;border-radius:100px;font-size:11px;font-weight:600;display:inline-block}
-.bHO{background:var(--goldl);color:var(--gold);padding:2px 9px;border-radius:100px;font-size:11px;font-weight:600;display:inline-block}
-/* DETAIL SCREEN */
-.detail-screen{display:none;position:fixed;inset:0;z-index:200;background:var(--bg);overflow-y:auto}
-.detail-screen.show{display:block}
-.detail-topbar{background:var(--w);border-bottom:1px solid var(--b2);padding:0 16px;height:54px;display:flex;align-items:center;gap:10px;position:sticky;top:0;z-index:10}
-.back-btn{background:none;border:none;cursor:pointer;display:flex;align-items:center;padding:8px;border-radius:8px;color:var(--b6)}
-.back-btn svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round}
-.detail-title{font-family:var(--ff);font-size:16px;font-weight:700;color:var(--dp)}
-.info-list{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);overflow:hidden;margin:0 16px 12px}
-.info-row{display:flex;justify-content:space-between;align-items:center;padding:11px 14px;border-bottom:1px solid var(--b1)}
-.info-row:last-child{border-bottom:none}
-.info-lbl{font-size:12px;color:var(--b4);font-weight:500}
-.info-val{font-size:13px;font-weight:600;color:#1a1a1a;text-align:right;max-width:60%;word-break:break-word}
-/* ATTENDANCE — CRITICAL TOGGLE FIX */
-.att-sheet{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);overflow:hidden}
-.att-date-row{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--b1);gap:10px}
-.att-date-lbl{font-size:13px;font-weight:600;color:var(--dp)}
-.date-inp{padding:7px 10px;border:1.5px solid var(--b2);border-radius:7px;font-family:var(--fm);font-size:12px;color:#1a1a1a;outline:none}
-.date-inp:focus{border-color:var(--p)}
-.att-row{display:flex;align-items:center;padding:11px 14px;border-bottom:1px solid var(--b1);gap:10px}
-.att-row:last-of-type{border-bottom:none}
-.att-roll{font-family:var(--fm);font-size:12px;color:var(--b4);min-width:28px;flex-shrink:0}
-.att-name{font-size:13px;font-weight:500;flex:1;color:#1a1a1a}
-/* TOGGLE BUTTONS — COMPLETELY SEPARATE, NO SHARED CLASSES */
-.tog-wrap{display:flex;border-radius:9px;overflow:hidden;flex-shrink:0;gap:2px;background:var(--b1);padding:2px;border:1px solid var(--b2)}
-.tog-p{padding:7px 18px;border:none;font-family:var(--fb);font-size:13px;font-weight:700;cursor:pointer;border-radius:7px;background:transparent;color:var(--b4);transition:all .15s;min-width:46px;text-align:center;-webkit-tap-highlight-color:transparent}
-.tog-a{padding:7px 18px;border:none;font-family:var(--fb);font-size:13px;font-weight:700;cursor:pointer;border-radius:7px;background:transparent;color:var(--b4);transition:all .15s;min-width:46px;text-align:center;-webkit-tap-highlight-color:transparent}
-.tog-p.active{background:var(--green);color:var(--w);box-shadow:0 2px 8px rgba(26,122,74,.3)}
-.tog-a.active{background:var(--red);color:var(--w);box-shadow:0 2px 8px rgba(192,57,43,.3)}
-.save-btn{width:calc(100% - 28px);margin:12px 14px;padding:13px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
-.save-btn:disabled{opacity:.6;cursor:not-allowed}
-/* FORMS */
-.fi{width:100%;padding:10px 12px;background:var(--b1);border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:13px;color:#1a1a1a;outline:none;transition:border-color .2s}
-.fi:focus{border-color:var(--p);background:var(--w)}
-select.fi{-webkit-appearance:none}
-.fgl{display:flex;flex-direction:column;gap:4px;margin-bottom:11px}
-.fgl label{font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px}
+.hdr{background:linear-gradient(135deg,var(--dp),var(--p));color:var(--white);padding:20px 16px 24px;position:relative;overflow:hidden}
+.hg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);background-size:32px 32px}
+.hc{position:relative;z-index:1}
+.grt{font-size:11px;color:rgba(255,255,255,.4);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px;font-weight:600}
+.tnm{font-family:var(--font-display);font-size:22px;font-weight:700;line-height:1.1;margin-bottom:6px}
+.cps{display:flex;gap:6px;flex-wrap:wrap}
+.cp{padding:3px 10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.1);border-radius:100px;font-size:10px;color:rgba(255,255,255,.7);font-weight:500}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:14px 16px}
+.sc{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:14px;text-align:center}
+.sv{font-family:var(--font-display);font-size:24px;font-weight:700;line-height:1;margin-bottom:2px;color:var(--p)}
+.sl{font-size:10px;color:var(--gray-400);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
+.sec{padding:0 16px;margin-bottom:18px}
+.stt{font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:10px;color:var(--dp)}
+.card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:14px;margin-bottom:10px}
+.si{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);margin-bottom:8px;cursor:pointer}
+.sav{width:40px;height:40px;background:rgba(128,0,32,.08);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:16px;color:var(--p);flex-shrink:0;font-weight:700}
+.snm{font-size:14px;font-weight:600;margin-bottom:2px}
+.smeta{font-size:11px;color:var(--gray-400)}
+
+/* ATTENDANCE */
+.att-sheet{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden}
+.att-date-row{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--gray-100)}
+.att-dl{font-size:13px;font-weight:600;color:var(--dp)}
+.di{padding:6px 10px;border:1.5px solid var(--gray-200);border-radius:8px;font-family:var(--font-mono);font-size:12px;color:var(--black);outline:none}
+.di:focus{border-color:var(--p)}
+.ar{display:flex;align-items:center;padding:11px 14px;border-bottom:1px solid var(--gray-100);gap:10px}
+.ar:last-child{border-bottom:none}
+.aroll{font-family:var(--font-mono);font-size:12px;color:var(--gray-400);min-width:26px}
+.anm{font-size:13px;font-weight:500;flex:1}
+.atog{display:flex;border:1.5px solid var(--gray-200);border-radius:8px;overflow:hidden}
+.atb{padding:7px 14px;border:none;font-family:var(--font-body);font-size:12px;font-weight:600;cursor:pointer;background:transparent;color:var(--gray-400);touch-action:manipulation}
+.atb.pa{background:var(--green);color:var(--white)}
+.atb.aa{background:var(--red);color:var(--white)}
+.save-btn{width:calc(100% - 28px);margin:14px;padding:12px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--white);border:none;border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer}
+
 /* MARKS */
-.mk-row{display:flex;align-items:center;gap:8px;padding:10px 0;border-bottom:1px solid var(--b1)}
-.mk-row:last-child{border-bottom:none}
-.mk-av{width:30px;height:30px;background:var(--plt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:11px;color:var(--p);flex-shrink:0;font-weight:700}
-.mk-name{font-size:13px;font-weight:500;flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#1a1a1a}
-.mk-inp{padding:7px;border:2px solid var(--b2);border-radius:7px;font-family:var(--fm);font-size:13px;color:#1a1a1a;outline:none;width:62px;text-align:center;-webkit-appearance:none;background:var(--w)}
-.mk-inp:focus{border-color:var(--p)}
-.mk-of{padding:7px;border:2px solid var(--b2);border-radius:7px;font-family:var(--fm);font-size:13px;color:#1a1a1a;outline:none;width:62px;text-align:center;-webkit-appearance:none;background:var(--w)}
-.mk-of:focus{border-color:var(--p)}
-/* POSTS */
-.composer{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px;margin-bottom:12px}
-.ctxt{width:100%;min-height:80px;padding:10px;border:1.5px solid var(--b2);border-radius:var(--r);font-family:var(--fb);font-size:14px;color:#1a1a1a;resize:none;outline:none;margin-bottom:9px}
+.marks-sheet{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden}
+.ms-row{display:flex;align-items:center;gap:10px;padding:11px 14px;border-bottom:1px solid var(--gray-100)}
+.ms-row:last-child{border-bottom:none}
+.ms-roll{font-family:var(--font-mono);font-size:12px;color:var(--gray-400);min-width:26px;flex-shrink:0}
+.ms-name{font-size:13px;font-weight:600;flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.ms-inp{width:60px;padding:7px 8px;border:1.5px solid var(--gray-200);border-radius:8px;font-family:var(--font-mono);font-size:13px;color:var(--black);outline:none;text-align:center;background:var(--white);-webkit-appearance:none}
+.ms-inp:focus{border-color:var(--p)}
+
+/* STUDENT DETAIL */
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:var(--gray-100);border:none;border-radius:8px;padding:9px 14px;font-family:var(--font-body);font-size:13px;color:var(--gray-600);cursor:pointer;margin:14px 16px 10px}
+.back-btn svg{width:14px;height:14px;stroke:currentColor;stroke-width:2}
+.det-card{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:14px;margin:0 16px 12px}
+.il{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);overflow:hidden;margin-bottom:10px}
+.ir{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;border-bottom:1px solid var(--gray-100)}
+.ir:last-child{border-bottom:none}
+.irl{font-size:12px;color:var(--gray-400);font-weight:500}
+.irv{font-size:13px;font-weight:600}
+.mrow{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.mlbl{font-size:13px;font-weight:500;min-width:100px;color:var(--gray-700)}
+.minput{flex:1;padding:7px 10px;border:1.5px solid var(--gray-200);border-radius:8px;font-family:var(--font-mono);font-size:13px;color:var(--black);outline:none;text-align:center;max-width:75px;-webkit-appearance:none}
+.minput:focus{border-color:var(--p)}
+.msave{width:100%;padding:9px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--white);border:none;border-radius:8px;font-family:var(--font-body);font-size:12px;font-weight:600;cursor:pointer;margin-top:6px}
+
+/* GROUP */
+.composer{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:14px}
+.ctxt{width:100%;min-height:90px;padding:11px;border:1.5px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:14px;color:var(--black);resize:none;outline:none;margin-bottom:10px}
 .ctxt:focus{border-color:var(--p)}
-.post-btn{width:100%;padding:11px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
-.post-btn:disabled{opacity:.6;cursor:not-allowed}
-.post-card{background:var(--w);border:1px solid var(--b2);border-radius:13px;margin-bottom:11px;overflow:hidden}
-.post-head{display:flex;align-items:center;gap:9px;padding:11px 13px 0}
-.post-av{width:34px;height:34px;border-radius:50%;background:var(--plt);display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:13px;color:var(--p);font-weight:700;flex-shrink:0}
-.post-author{font-size:13px;font-weight:700;color:#1a1a1a}
-.post-role{font-size:11px;color:var(--b4)}
-.post-time{font-size:10px;color:var(--b4);margin-left:auto}
-.post-body{padding:9px 13px 13px}
-.post-text{font-size:13px;color:#1a1a1a;line-height:1.6}
-.post-video{display:flex;align-items:center;gap:7px;margin-top:9px;padding:9px 11px;background:var(--plt);border-radius:8px;text-decoration:none}
-.post-video-ic{width:28px;height:28px;background:var(--p);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.post-video-ic svg{width:12px;height:12px;stroke:var(--w);fill:none;stroke-width:2;stroke-linecap:round}
-.post-video-lbl{font-size:12px;font-weight:700;color:var(--p)}
-.del-post-btn{background:none;border:none;cursor:pointer;color:var(--b4);font-size:18px;padding:3px;line-height:1;margin-left:auto;transition:color .15s}
-.del-post-btn:hover{color:var(--red)}
-/* NOTIFICATION POPUP */
-.notif-popup{position:fixed;top:64px;left:12px;right:12px;background:var(--w);border-radius:14px;box-shadow:0 8px 32px rgba(0,0,0,.18);z-index:9999;display:flex;align-items:flex-start;gap:11px;padding:13px 14px;border-left:4px solid var(--p);transform:translateY(-120px);opacity:0;transition:all .4s cubic-bezier(.4,0,.2,1);pointer-events:none;max-width:500px;margin:0 auto}
-.notif-popup.show{transform:translateY(0);opacity:1;pointer-events:auto}
-.notif-popup-ic{width:38px;height:38px;background:var(--plt);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.notif-popup-ic svg{width:18px;height:18px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
-.notif-popup-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:2px}
-.notif-popup-msg{font-size:12px;color:var(--b5);line-height:1.4}
-/* NOTIFICATION PANEL */
-.np{position:fixed;inset:0;z-index:400;background:rgba(0,0,0,.5);display:none;align-items:flex-end}
-.np.show{display:flex}
-.np-sheet{background:var(--w);border-radius:18px 18px 0 0;width:100%;max-height:78vh;overflow-y:auto;padding-bottom:max(20px,env(safe-area-inset-bottom));animation:slideUp .3s ease}
-.np-head{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 8px;border-bottom:1px solid var(--b1)}
-.np-title{font-family:var(--ff);font-size:17px;font-weight:700;color:var(--dp)}
-.np-close{background:none;border:none;cursor:pointer;color:var(--b4);font-size:22px;line-height:1;padding:4px}
-.ni-item{display:flex;gap:11px;padding:12px 16px;border-bottom:1px solid var(--b1)}
-.ni-item:last-child{border-bottom:none}
-.ni-ic{width:38px;height:38px;border-radius:50%;background:var(--plt);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ni-ic svg{width:17px;height:17px;stroke:var(--p);fill:none;stroke-width:2;stroke-linecap:round}
-.ni-title{font-size:13px;font-weight:700;color:#1a1a1a;margin-bottom:2px}
-.ni-msg{font-size:12px;color:var(--b5);line-height:1.5}
-.ni-time{font-size:10px;color:var(--b3);margin-top:3px}
+.post-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--white);border:none;border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer}
+.pi{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:12px;margin-bottom:8px}
+.ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.pau{font-size:12px;font-weight:700;color:var(--p)}
+.ptm{font-size:10px;color:var(--gray-300)}
+.ptxt{font-size:13px;color:var(--gray-700);line-height:1.6}
+.del-btn{background:none;border:none;cursor:pointer;color:var(--gray-300);padding:2px}
+.del-btn svg{width:13px;height:13px;stroke:currentColor}
+
 /* TIMETABLE */
-.tt-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--b2);margin-bottom:12px}
-.tt-table{width:100%;border-collapse:collapse;font-size:11px}
-.tt-table th{padding:8px 5px;background:var(--plt);border:1px solid var(--b2);text-align:center;font-weight:700;color:var(--p);white-space:nowrap}
-.tt-table td{padding:3px 3px;border:1px solid var(--b2);text-align:center}
-.tt-inp{width:66px;padding:5px 4px;border:1.5px solid var(--b2);border-radius:5px;font-size:11px;font-family:var(--fb);color:#1a1a1a;outline:none;text-align:center;background:var(--b1)}
-.tt-inp:focus{border-color:var(--p);background:var(--w)}
+.tt-wrap{overflow-x:auto;border:1px solid var(--gray-200);border-radius:var(--radius);margin-bottom:12px}
+.tt-table{width:100%;border-collapse:collapse;font-size:11px;min-width:400px}
+.tt-table th{padding:8px 5px;background:rgba(128,0,32,.07);border:1px solid var(--gray-200);text-align:center;font-weight:700;color:var(--p);white-space:nowrap}
+.tt-table td{padding:3px;border:1px solid var(--gray-200);text-align:center}
+.tt-inp{width:72px;padding:5px 4px;border:1.5px solid var(--gray-200);border-radius:5px;font-size:11px;font-family:var(--font-body);color:var(--black);outline:none;text-align:center;background:var(--gray-50)}
+.tt-inp:focus{border-color:var(--p);background:var(--white)}
+
 /* NOTIFY */
-.nf-card{background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px}
-.send-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:14px;font-weight:700;cursor:pointer}
-.send-btn:disabled{opacity:.6;cursor:not-allowed}
-/* BOTTOM NAV */
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:var(--w);border-top:1px solid var(--b2);display:flex;padding:6px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));z-index:100}
-.nav-tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:5px 4px;background:none;border:none;cursor:pointer}
-.nav-tab svg{width:20px;height:20px;stroke:var(--b3);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:stroke .2s}
-.nav-tab span{font-size:9px;font-weight:700;color:var(--b3);text-transform:uppercase;letter-spacing:.5px;font-family:var(--fb);transition:color .2s}
-.nav-tab.active svg{stroke:var(--p)}
-.nav-tab.active span{color:var(--p)}
-.loading{display:flex;align-items:center;justify-content:center;min-height:38vh;flex-direction:column;gap:11px}
-.spin-el{width:24px;height:24px;border:2px solid var(--b2);border-top-color:var(--p);border-radius:50%;animation:spin .8s linear infinite}
-.empty{text-align:center;padding:36px 20px;color:var(--b4);font-size:13px}
-.toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dp);color:var(--w);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:8000;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,.25);max-width:90vw;overflow:hidden;text-overflow:ellipsis}
+.nf{background:var(--white);border:1px solid var(--gray-200);border-radius:var(--radius);padding:14px}
+.fg{margin-bottom:12px}
+.fg label{display:block;font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px}
+.fi{width:100%;padding:10px 13px;background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:13px;color:var(--black);outline:none}
+.fi:focus{border-color:var(--p);background:var(--white)}
+select.fi{-webkit-appearance:none}
+.fita{width:100%;padding:10px 13px;background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:var(--radius);font-family:var(--font-body);font-size:13px;color:var(--black);outline:none;resize:none;min-height:80px}
+.fita:focus{border-color:var(--p);background:var(--white)}
+.send-btn{width:100%;padding:12px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--white);border:none;border-radius:var(--radius);font-family:var(--font-body);font-size:14px;font-weight:600;cursor:pointer}
+/* Student checkboxes for multi-select notify */
+.stu-list-wrap{max-height:220px;overflow-y:auto;border:1.5px solid var(--gray-200);border-radius:var(--radius);padding:6px 0;background:var(--white)}
+.stu-chk-row{display:flex;align-items:center;gap:10px;padding:8px 13px;cursor:pointer;transition:background .12s}
+.stu-chk-row:hover{background:var(--gray-50)}
+.stu-chk-row input[type=checkbox]{width:16px;height:16px;accent-color:var(--p);cursor:pointer;flex-shrink:0}
+.stu-chk-label{font-size:13px;font-weight:500;cursor:pointer}
+.stu-chk-meta{font-size:11px;color:var(--gray-400)}
+
+/* BOTTOM NAV — 6 tabs */
+.bn{position:fixed;bottom:0;left:0;right:0;background:var(--white);border-top:1px solid var(--gray-200);display:flex;padding:6px 0;padding-bottom:max(8px,env(safe-area-inset-bottom));z-index:100}
+.bb{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 2px;background:none;border:none;cursor:pointer}
+.bi{width:19px;height:19px;stroke:var(--gray-300);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.bla{font-size:8px;font-weight:600;color:var(--gray-300);text-transform:uppercase;letter-spacing:.4px;font-family:var(--font-body)}
+.bb.active .bi{stroke:var(--p)}
+.bb.active .bla{color:var(--p)}
+
+/* UTILS */
+.ls2{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60vh;gap:12px}
+.sp{width:26px;height:26px;border:2px solid var(--gray-200);border-top-color:var(--p);border-radius:50%;animation:spin .8s linear infinite}
+.lt{font-size:13px;color:var(--gray-400);text-align:center}
+.eb{text-align:center;padding:28px;color:var(--gray-300)}
+.eb p{font-size:13px}
+.toast{position:fixed;bottom:88px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--dp);color:var(--white);padding:9px 18px;border-radius:100px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:999;white-space:nowrap;box-shadow:0 4px 14px rgba(0,0,0,.22);max-width:90vw;overflow:hidden;text-overflow:ellipsis}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-.toast.err{background:var(--red)}
-.toast.ok2{background:var(--green)}
+
 @keyframes spin{to{transform:rotate(360deg)}}
-@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-@keyframes bellRing{0%,100%{transform:rotate(0)}15%,45%,75%{transform:rotate(-15deg)}30%,60%,90%{transform:rotate(15deg)}}
-.bell-ringing{animation:bellRing .8s ease}
+@keyframes bellRing{
+  0%,100%{transform:rotate(0)}
+  15%{transform:rotate(-22deg)}30%{transform:rotate(22deg)}
+  45%{transform:rotate(-15deg)}60%{transform:rotate(15deg)}
+  75%{transform:rotate(-7deg)}90%{transform:rotate(7deg)}
+}
+.bell-ring{animation:bellRing 1s ease both}
 </style>
 </head>
 <body>
 
 <!-- LOGIN -->
-<div id="loginScreen">
-  <div class="lw">
-    <div class="brand">
-      <div class="logo-box">
-        <img src="logo.webp" alt="E" onerror="this.style.display='none';document.getElementById('lFb').style.display='block'">
-        <span class="logo-fb" id="lFb">E</span>
-      </div>
-      <div class="brand-name">Emmanuel School</div>
-      <div class="brand-sub">Teacher Panel</div>
+<div class="login-screen" id="loginScreen" style="display:none">
+  <div class="login-bg"></div>
+  <div class="login-card">
+    <div class="login-logo">
+      <div class="login-lm">E</div>
+      <div class="login-name">Emmanuel School</div>
     </div>
-    <div class="lcard">
-      <div class="lcard-title">Teacher Login</div>
-      <div class="lcard-sub">Code aur password enter karo</div>
-      <div class="lerr" id="lerr"></div>
-      <div class="lfield">
-        <label>Teacher Code</label>
-        <div class="linp-w">
-          <input type="text" id="lCode" placeholder="e.g. TCH001" autocomplete="off" oninput="this.value=this.value.toUpperCase()" onkeydown="if(event.key==='Enter')document.getElementById('lPass').focus()">
-        </div>
-      </div>
-      <div class="lfield">
-        <label>Password</label>
-        <div class="linp-w">
-          <input type="password" id="lPass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doLogin()">
-          <button class="leye" type="button" onclick="togglePw()">
-            <svg id="eyeS" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-            <svg id="eyeH" viewBox="0 0 24 24" style="display:none"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
-          </button>
-        </div>
-      </div>
-      <button class="lbtn" id="lBtn" onclick="doLogin()">
-        <span id="lTxt">Login</span>
-        <div class="lspin" id="lSpin"></div>
-      </button>
-    </div>
-    <div class="lhint">Credentials bhool gaye? Admin se contact karo</div>
-  </div>
-</div>
-
-<!-- STUDENT DETAIL SCREEN -->
-<div class="detail-screen" id="detailScreen">
-  <div class="detail-topbar">
-    <button class="back-btn" onclick="closeDetail()">
-      <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+    <div class="login-sub">Teacher Login</div>
+    <label class="login-label">Teacher Code</label>
+    <input type="text" class="login-input" id="lCode" placeholder="e.g. TCH001"
+      autocomplete="off" spellcheck="false" style="text-transform:uppercase"
+      onkeydown="if(event.key==='Enter')document.getElementById('lPass').focus()">
+    <label class="login-label">Password</label>
+    <input type="password" class="login-input" id="lPass" placeholder="Enter password"
+      onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" id="lBtn" onclick="doLogin()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+      Sign In
     </button>
-    <div class="detail-title" id="detailTitle">Student Detail</div>
+    <div class="login-err" id="lErr"></div>
   </div>
-  <div id="detailBody" style="padding-bottom:30px"></div>
 </div>
 
-<!-- NOTIFICATION POPUP — slides down from top -->
-<div class="notif-popup" id="notifPopup">
-  <div class="notif-popup-ic">
+<!-- NOTIFICATION POPUP -->
+<div class="notif-pop" id="notifPop">
+  <div class="notif-pop-ic">
     <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
   </div>
   <div style="flex:1;min-width:0">
-    <div class="notif-popup-title" id="popupTitle">New Notification</div>
-    <div class="notif-popup-msg" id="popupMsg"></div>
+    <div style="font-size:13px;font-weight:700;color:var(--black);margin-bottom:2px" id="npTitle">Notification</div>
+    <div style="font-size:12px;color:var(--gray-500);line-height:1.4" id="npMsg"></div>
   </div>
-  <button onclick="closePopup()" style="background:none;border:none;cursor:pointer;color:var(--b4);font-size:18px;line-height:1;padding:2px;flex-shrink:0">×</button>
+  <button onclick="closeNPop()" style="background:none;border:none;cursor:pointer;color:var(--gray-400);font-size:20px;line-height:1;padding:2px;flex-shrink:0;margin-left:6px">×</button>
 </div>
 
-<!-- NOTIFICATION PANEL -->
-<div class="np" id="np" onclick="if(event.target===this)closeNP()">
-  <div class="np-sheet">
-    <div class="np-head">
-      <div class="np-title">Notifications</div>
-      <button class="np-close" onclick="closeNP()">×</button>
-    </div>
-    <div id="npList"><div class="loading" style="min-height:80px"><div class="spin-el"></div></div></div>
-  </div>
-</div>
-
-<!-- APP -->
-<div id="appScreen">
+<!-- MAIN APP -->
+<div id="appScreen" style="display:none">
   <div class="topbar">
-    <div class="topbar-left">
-      <div class="topbar-logo">
-        <img src="logo.webp" alt="E" onerror="this.style.display='none';document.getElementById('tlFb').style.display='block'">
-        <span class="topbar-logo-fb" id="tlFb">E</span>
-      </div>
-      <div class="topbar-name">Emmanuel School</div>
-    </div>
-    <div class="topbar-right">
-      <button class="bell-btn" id="bellBtn" onclick="openNP()">
-        <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    <div class="tl"><div class="lm">E</div>Emmanuel School</div>
+    <div class="tr">
+      <div class="bell-wrap">
+        <button class="bell-btn" id="bellBtn" onclick="toggleNotifList()">
+          <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        </button>
         <div class="bell-dot" id="bellDot"></div>
-      </button>
-      <button class="out-btn" onclick="doLogout()">Logout</button>
+      </div>
+      <button class="ob" onclick="doLogout()">Logout</button>
     </div>
   </div>
-  <div class="scroll-area" id="scrollArea">
-    <div class="cnt" id="mainContent">
-      <div class="loading"><div class="spin-el"></div></div>
+  <!-- Notifications dropdown -->
+  <div id="notifList" style="display:none;position:fixed;top:54px;right:8px;width:calc(100% - 16px);max-width:380px;background:var(--white);border:1px solid var(--gray-200);border-radius:14px;box-shadow:0 8px 28px rgba(0,0,0,.15);z-index:500;max-height:340px;overflow-y:auto">
+    <div style="padding:12px 14px 8px;border-bottom:1px solid var(--gray-100);font-family:var(--font-display);font-size:15px;font-weight:700;color:var(--dp);display:flex;justify-content:space-between;align-items:center">
+      Notifications
+      <button onclick="toggleNotifList()" style="background:none;border:none;cursor:pointer;color:var(--gray-400);font-size:20px;line-height:1">×</button>
     </div>
+    <div id="notifItems"><div style="padding:20px;text-align:center;color:var(--gray-400);font-size:13px">No notifications yet</div></div>
   </div>
-  <nav class="bottom-nav">
-    <button class="nav-tab active" onclick="showTab('home',this)">
-      <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-      <span>Students</span>
+  <div class="cnt" id="mainContent">
+    <div class="ls2"><div class="sp"></div><div class="lt">Loading...</div></div>
+  </div>
+  <nav class="bn">
+    <button class="bb active" onclick="showPage('students',this)">
+      <svg class="bi" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <span class="bla">Students</span>
     </button>
-    <button class="nav-tab" onclick="showTab('attendance',this)">
-      <svg viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-      <span>Attend.</span>
+    <button class="bb" onclick="showPage('attendance',this)">
+      <svg class="bi" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span class="bla">Attend.</span>
     </button>
-    <button class="nav-tab" onclick="showTab('marks',this)">
-      <svg viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
-      <span>Marks</span>
+    <button class="bb" onclick="showPage('marks',this)">
+      <svg class="bi" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      <span class="bla">Marks</span>
     </button>
-    <button class="nav-tab" onclick="showTab('group',this)">
-      <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      <span>Group</span>
+    <button class="bb" onclick="showPage('group',this)">
+      <svg class="bi" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      <span class="bla">Group</span>
     </button>
-    <button class="nav-tab" onclick="showTab('timetable',this)">
-      <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-      <span>Time</span>
+    <button class="bb" onclick="showPage('timetable',this)">
+      <svg class="bi" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <span class="bla">Time</span>
     </button>
-    <button class="nav-tab" onclick="showTab('notify',this)">
-      <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-      <span>Notify</span>
+    <button class="bb" onclick="showPage('notify',this)">
+      <svg class="bi" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="bla">Notify</span>
     </button>
   </nav>
 </div>
 
 <div class="toast" id="toast"></div>
 
-<!-- FIREBASE -->
+<!-- FIREBASE — foreground notification handler -->
 <script type="module">
-import{initializeApp}from'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
-import{getMessaging,getToken,onMessage}from'https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js';
-const FB={
-  apiKey:"AIzaSyA21lqBYdpcsUQCDOvc7Y1ZtIvy5j1VPVw",
-  authDomain:"edumanage-notificationn.firebaseapp.com",
-  projectId:"edumanage-notificationn",
-  messagingSenderId:"956207309076",
-  appId:"1:956207309076:web:6432e350c3536aa49f6201"
-};
-const app=initializeApp(FB);
-const messaging=getMessaging(app);
+import { initializeApp }    from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+import { getMessaging, getToken, onMessage } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging.js';
 
-window._reqPush=async function(){
-  try{
-    const perm=await Notification.requestPermission();
-    if(perm!=='granted')return;
-    const token=await getToken(messaging,{vapidKey:'BCHbNp4TNGBtB7j5IXbvlpWJ5LRTmEYfJTWTvFHnZD2k3VX4LgLfOhqSLBJGXLZ4lGJ4EJxZ9KAFQgGCxFhJkE'});
-    if(token){
-      localStorage.setItem('fcm_tch',token);
-      const t=localStorage.getItem('tch_token');
-      if(t){
-        await fetch('https://edumanage-backend-xi.vercel.app/api/notifications/register-token',{
-          method:'POST',
-          headers:{'Content-Type':'application/json','Authorization':'Bearer '+t},
-          body:JSON.stringify({token,platform:'web'})
-        }).catch(()=>{});
-      }
+const fbApp = initializeApp({
+  apiKey: "AIzaSyA21lqBYdpcsUQCDOvc7Y1ZtIvy5j1VPVw",
+  authDomain: "edumanage-notificationn.firebaseapp.com",
+  projectId: "edumanage-notificationn",
+  messagingSenderId: "956207309076",
+  appId: "1:956207309076:web:6432e350c3536aa49f6201"
+});
+const fbMsg = getMessaging(fbApp);
+
+/* Ding-dong tone */
+function playTone() {
+  try {
+    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    [[523,.00],[659,.16],[784,.32],[1047,.48]].forEach(([freq, delay]) => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.type = 'sine'; o.frequency.value = freq;
+      const t = ctx.currentTime + delay;
+      g.gain.setValueAtTime(0, t);
+      g.gain.linearRampToValueAtTime(0.35, t + 0.03);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.30);
+      o.start(t); o.stop(t + 0.32);
+    });
+  } catch(e) {}
+}
+
+/* Register push token with backend */
+window._setupPush = async function() {
+  try {
+    const perm = await Notification.requestPermission();
+    if (perm !== 'granted') return;
+    const tok = await getToken(fbMsg, {
+      vapidKey: 'BCHbNp4TNGBtB7j5IXbvlpWJ5LRTmEYfJTWTvFHnZD2k3VX4LgLfOhqSLBJGXLZ4lGJ4EJxZ9KAFQgGCxFhJkE'
+    });
+    if (!tok) return;
+    localStorage.setItem('fcm_tch', tok);
+    const at = localStorage.getItem('tch_token');
+    if (at) {
+      fetch('https://edumanage-backend-xi.vercel.app/api/notifications/register-token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + at },
+        body: JSON.stringify({ token: tok, platform: 'web' })
+      }).catch(() => {});
     }
-  }catch(e){console.log('Push:',e.message)}
+  } catch(e) { console.log('Push setup:', e.message); }
 };
 
-onMessage(messaging,payload=>{
-  const title=payload.notification?.title||'Emmanuel School';
-  const body=payload.notification?.body||'';
-  /* 1. Show popup */
-  window._showPopup(title,body);
-  /* 2. Ring bell animation */
-  const btn=document.getElementById('bellBtn');
-  if(btn){btn.classList.remove('bell-ringing');void btn.offsetWidth;btn.classList.add('bell-ringing');setTimeout(()=>btn.classList.remove('bell-ringing'),800);}
-  /* 3. System notification */
-  if(Notification.permission==='granted'){
-    new Notification(title,{body,icon:'/logo.webp',badge:'/logo.webp',vibrate:[300,100,300],tag:'tch-'+Date.now()});
+/* Foreground message — fires when app is open */
+onMessage(fbMsg, payload => {
+  const title = payload.notification?.title || 'Emmanuel School';
+  const body  = payload.notification?.body  || '';
+
+  /* 1. Play tone */
+  playTone();
+
+  /* 2. Bell ring animation */
+  const bell = document.getElementById('bellBtn');
+  if (bell) {
+    bell.classList.remove('bell-ring');
+    void bell.offsetWidth;
+    bell.classList.add('bell-ring');
+    setTimeout(() => bell.classList.remove('bell-ring'), 1000);
   }
-  /* 4. Refresh */
-  window._refreshNotifs?.();
-  document.getElementById('bellDot')?.classList.add('show');
+
+  /* 3. Show slide-in popup */
+  const pop = document.getElementById('notifPop');
+  const npTitle = document.getElementById('npTitle');
+  const npMsg   = document.getElementById('npMsg');
+  if (pop && npTitle && npMsg) {
+    npTitle.textContent = title;
+    npMsg.textContent   = body;
+    pop.classList.add('show');
+    if (window._npopTimer) clearTimeout(window._npopTimer);
+    window._npopTimer = setTimeout(() => pop.classList.remove('show'), 7000);
+  }
+
+  /* 4. System notification (Android status bar) */
+  if (Notification.permission === 'granted') {
+    navigator.serviceWorker?.ready.then(sw => {
+      sw.showNotification(title, {
+        body, icon: '/logo.webp', badge: '/logo.webp',
+        vibrate: [300, 100, 300], tag: 'tch-' + Date.now()
+      });
+    }).catch(() => {
+      try { new Notification(title, { body, icon: '/logo.webp' }); } catch(_) {}
+    });
+  }
+
+  /* 5. Show red dot on bell */
+  document.getElementById('bellDot')?.classList.add('on');
+
+  /* 6. Add to notification list */
+  window._addNotifItem && window._addNotifItem(title, body);
 });
 </script>
 
 <script>
-const API='https://edumanage-backend-xi.vercel.app/api';
-let TOKEN=null,TD=null,CD=null,students=[],posts=[],NOTIFS=[];
-/* attState stores 'P' or 'A' for each student id */
-let attState={};
-let curTab='home';
+const API = 'https://edumanage-backend-xi.vercel.app/api';
+let activeToken = null;
+let cd = null;
+let students = [];
+let attState = {};
+let cp = 'students';
+let NOTIFS = [];
 
-function H(){return{'Content-Type':'application/json','Authorization':'Bearer '+TOKEN}}
-function ini(n){if(!n)return'?';return n.split(' ').map(w=>w[0]).join('').toUpperCase().slice(0,2)}
-function ago(d){if(!d)return'';const s=Math.floor((Date.now()-new Date(d))/1000);if(s<60)return'just now';if(s<3600)return Math.floor(s/60)+'m ago';if(s<86400)return Math.floor(s/3600)+'h ago';return Math.floor(s/86400)+'d ago'}
-function fmtRs(n){return'Rs. '+(parseInt(n||0)).toLocaleString('en-IN')}
-
-let toastT;
-function showToast(msg,type=''){
-  const e=document.getElementById('toast');
-  e.textContent=msg;e.className='toast show'+(type?' '+type:'');
-  clearTimeout(toastT);toastT=setTimeout(()=>e.className='toast',3200);
-}
-
-/* POPUP */
-let popT;
-window._showPopup=function(title,body){
-  document.getElementById('popupTitle').textContent=title||'Notification';
-  document.getElementById('popupMsg').textContent=body||'';
-  const el=document.getElementById('notifPopup');
-  el.classList.add('show');
-  clearTimeout(popT);popT=setTimeout(()=>el.classList.remove('show'),6000);
-};
-function closePopup(){clearTimeout(popT);document.getElementById('notifPopup').classList.remove('show')}
-
-window._refreshNotifs=async function(){await loadNotifs();renderNPList();};
-
-/* BOOT */
-(function boot(){
-  const saved=localStorage.getItem('tch_token');
-  if(saved&&saved.length>20){
-    TOKEN=saved;TD={name:localStorage.getItem('tch_name')||'Teacher'};
-    showApp();loadData();
-  }else showLogin();
-})();
-
-function showLogin(){document.getElementById('loginScreen').style.display='flex';document.getElementById('appScreen').style.display='none';setTimeout(()=>document.getElementById('lCode')?.focus(),300)}
-function showApp(){document.getElementById('loginScreen').style.display='none';document.getElementById('appScreen').style.display='flex'}
-
-function togglePw(){
-  const i=document.getElementById('lPass');const s=document.getElementById('eyeS');const h=document.getElementById('eyeH');
-  if(i.type==='password'){i.type='text';s.style.display='none';h.style.display='block';}
-  else{i.type='password';s.style.display='block';h.style.display='none';}
-}
-
-async function doLogin(){
-  const code=document.getElementById('lCode').value.trim().toUpperCase();
-  const pass=document.getElementById('lPass').value;
-  const err=document.getElementById('lerr');
-  if(!code||!pass){err.textContent='Code aur password daalo';err.classList.add('show');return}
-  err.classList.remove('show');
-  document.getElementById('lTxt').style.display='none';document.getElementById('lSpin').style.display='block';document.getElementById('lBtn').disabled=true;
-  try{
-    const res=await fetch(API+'/auth/login',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({code,password:pass,role:'teacher'})});
-    const data=await res.json();
-    if(res.ok&&data.token){
-      TOKEN=data.token;TD=data.user||{name:code};
-      localStorage.setItem('tch_token',TOKEN);localStorage.setItem('tch_name',TD.name||code);
-      showApp();loadData();setTimeout(()=>window._reqPush?.(),2000);
-    }else{err.textContent=data.message||data.error||'Invalid credentials';err.classList.add('show');}
-  }catch(e){err.textContent='Network error: '+e.message;err.classList.add('show')}
-  document.getElementById('lTxt').style.display='block';document.getElementById('lSpin').style.display='none';document.getElementById('lBtn').disabled=false;
-}
-
-function doLogout(){
-  if(!confirm('Logout?'))return;
-  TOKEN=null;TD=null;CD=null;students=[];posts=[];attState={};NOTIFS=[];
-  localStorage.removeItem('tch_token');localStorage.removeItem('tch_name');
-  showLogin();
-}
-
-async function loadData(){
-  document.getElementById('mainContent').innerHTML='<div class="loading"><div class="spin-el"></div></div>';
-  try{
-    const res=await fetch(API+'/teachers/my-class',{headers:H()});
-    if(res.status===401){localStorage.removeItem('tch_token');showLogin();return}
-    const data=await res.json();
-    CD=data.class||null;students=data.students||[];
-    /* Init all to Present */
-    students.forEach(s=>{if(attState[s.id]===undefined)attState[s.id]='P';});
-    if(CD){
-      try{const pr=await fetch(API+'/posts/'+CD.id,{headers:H()});if(pr.ok){const pd=await pr.json();posts=pd.posts||[];}}catch(_){}
-    }
-    await loadNotifs();
-    showTab(curTab);
-    setTimeout(()=>window._reqPush?.(),2000);
-  }catch(e){
-    document.getElementById('mainContent').innerHTML=`<div class="loading"><div style="color:var(--red);font-size:13px">Error: ${e.message}</div></div>`;
+function init() {
+  const t = localStorage.getItem('tch_token');
+  if (t && t.length > 20) {
+    activeToken = t;
+    showApp();
+    loadData();
+  } else {
+    showLogin();
   }
 }
 
-async function loadNotifs(){
-  try{
-    const r=await fetch(API+'/notifications',{headers:H()});
-    if(r.ok){const d=await r.json();NOTIFS=d.notifications||[];}
-    if(NOTIFS.length)document.getElementById('bellDot')?.classList.add('show');
-  }catch(_){}
+function showLogin() {
+  document.getElementById('loginScreen').style.display = 'flex';
+  document.getElementById('appScreen').style.display = 'none';
+}
+function showApp() {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('appScreen').style.display = 'block';
 }
 
-function openNP(){document.getElementById('np').classList.add('show');document.getElementById('bellDot').classList.remove('show');renderNPList()}
-function closeNP(){document.getElementById('np').classList.remove('show')}
+async function doLogin() {
+  const code = document.getElementById('lCode').value.trim().toUpperCase();
+  const pass = document.getElementById('lPass').value.trim();
+  const errEl = document.getElementById('lErr');
+  const btn   = document.getElementById('lBtn');
+  if (!code || !pass) { errEl.textContent = 'Please enter code and password'; errEl.classList.add('show'); return; }
+  errEl.classList.remove('show');
+  btn.innerHTML = '<div class="login-sp"></div> Signing in...';
+  btn.disabled  = true;
+  try {
+    const res  = await fetch(API + '/auth/login', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ code, password: pass })
+    });
+    const data = await res.json();
+    if ((data.success || res.ok) && data.token) {
+      if (data.user && data.user.role && data.user.role !== 'teacher') {
+        errEl.textContent = 'This login is for teachers only';
+        errEl.classList.add('show'); btn.innerHTML = 'Sign In'; btn.disabled = false; return;
+      }
+      activeToken = data.token;
+      localStorage.setItem('tch_token', data.token);
+      localStorage.setItem('tch_user', JSON.stringify(data.user));
+      showApp(); loadData();
+    } else {
+      errEl.textContent = data.error || 'Invalid code or password';
+      errEl.classList.add('show'); btn.innerHTML = 'Sign In'; btn.disabled = false;
+    }
+  } catch(e) {
+    errEl.textContent = 'Could not connect. Check internet.';
+    errEl.classList.add('show'); btn.innerHTML = 'Sign In'; btn.disabled = false;
+  }
+}
 
-function renderNPList(){
-  const el=document.getElementById('npList');if(!el)return;
-  if(!NOTIFS.length){el.innerHTML='<div class="empty">No notifications yet</div>';return}
-  el.innerHTML=NOTIFS.map(n=>`
-    <div class="ni-item">
-      <div class="ni-ic"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></div>
-      <div style="flex:1">
-        <div class="ni-title">${n.title||''}</div>
-        <div class="ni-msg">${n.message||''}</div>
-        <div class="ni-time">${n.created_at?new Date(n.created_at).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):''}</div>
-      </div>
+document.getElementById('lCode').addEventListener('input', function() { this.value = this.value.toUpperCase(); });
+
+async function loadData() {
+  document.getElementById('mainContent').innerHTML = '<div class="ls2"><div class="sp"></div><div class="lt">Loading your class...</div></div>';
+  try {
+    const res = await fetch(API + '/teachers/my-class', { headers: { 'Authorization': 'Bearer ' + activeToken } });
+    if (res.status === 401) { activeToken = null; localStorage.removeItem('tch_token'); showLogin(); return; }
+    const data = await res.json();
+    if (!data.class) {
+      document.getElementById('mainContent').innerHTML = '<div class="ls2"><div class="lt">No class assigned. Contact admin.</div></div>';
+      return;
+    }
+    cd = data.class;
+    students = data.students || [];
+    await loadNotifs();
+    showPage('students');
+    setTimeout(() => window._setupPush && window._setupPush(), 2000);
+  } catch(e) {
+    document.getElementById('mainContent').innerHTML = `<div class="ls2"><div class="lt">Could not load.<br>Check internet.</div><button onclick="loadData()" style="margin-top:12px;padding:10px 20px;background:var(--p);color:var(--white);border:none;border-radius:8px;cursor:pointer;font-family:var(--font-body);font-weight:600;font-size:13px">Try Again</button></div>`;
+  }
+}
+
+/* NOTIFICATIONS */
+async function loadNotifs() {
+  try {
+    const r = await fetch(API + '/notifications', { headers: { 'Authorization': 'Bearer ' + activeToken } });
+    if (r.ok) { const d = await r.json(); NOTIFS = d.notifications || []; }
+    if (NOTIFS.length) document.getElementById('bellDot')?.classList.add('on');
+    renderNotifItems();
+  } catch(_) {}
+}
+
+function renderNotifItems() {
+  const el = document.getElementById('notifItems');
+  if (!el) return;
+  if (!NOTIFS.length) { el.innerHTML = '<div style="padding:20px;text-align:center;color:var(--gray-400);font-size:13px">No notifications yet</div>'; return; }
+  el.innerHTML = NOTIFS.slice(0, 20).map(n => `
+    <div style="padding:11px 14px;border-bottom:1px solid var(--gray-100)">
+      <div style="font-size:13px;font-weight:700;color:var(--dp);margin-bottom:2px">${n.title || ''}</div>
+      <div style="font-size:12px;color:var(--gray-500);line-height:1.5">${n.message || ''}</div>
+      <div style="font-size:10px;color:var(--gray-300);margin-top:3px">${n.created_at ? new Date(n.created_at).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}) : ''}</div>
     </div>`).join('');
 }
 
-function showTab(tab,btn){
-  curTab=tab;
-  document.querySelectorAll('.nav-tab').forEach(b=>b.classList.remove('active'));
-  if(btn)btn.classList.add('active');
-  else{const idx={home:0,attendance:1,marks:2,group:3,timetable:4,notify:5}[tab]??0;document.querySelectorAll('.nav-tab')[idx]?.classList.add('active');}
-  const el=document.getElementById('mainContent');
-  if(tab==='home')el.innerHTML=renderHome();
-  else if(tab==='attendance')el.innerHTML=renderAttendance();
-  else if(tab==='marks')el.innerHTML=renderMarks();
-  else if(tab==='group')el.innerHTML=renderGroup();
-  else if(tab==='timetable'){el.innerHTML='<div class="loading"><div class="spin-el"></div></div>';loadTimetable();}
-  else if(tab==='notify')el.innerHTML=renderNotify();
-  document.getElementById('scrollArea').scrollTop=0;
+/* Add new notification to list */
+window._addNotifItem = function(title, body) {
+  NOTIFS.unshift({ title, message: body, created_at: new Date().toISOString() });
+  renderNotifItems();
+};
+
+function toggleNotifList() {
+  const el = document.getElementById('notifList');
+  if (el.style.display === 'none' || !el.style.display) {
+    el.style.display = 'block';
+    document.getElementById('bellDot').classList.remove('on');
+  } else {
+    el.style.display = 'none';
+  }
 }
 
-/* ═══ HOME ═══ */
-function renderHome(){
-  const name=TD?.name||'Teacher';
-  const present=students.filter(s=>attState[s.id]==='P').length;
-  const absent=students.filter(s=>attState[s.id]==='A').length;
-  if(!CD)return`<div class="hero"><div class="hero-grid"></div><div class="hero-inner"><div class="hero-grt">Teacher</div><div class="hero-name">${name}</div></div></div><div style="padding:20px 16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:24px;text-align:center;color:var(--b4)">No class assigned. Contact admin.</div></div>`;
-  return`
-  <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
-    <div class="hero-grt">Class Teacher</div>
-    <div class="hero-name">${name}</div>
-    <div class="hero-chips">
-      <span class="hero-chip">${CD.standard}${CD.section?' - '+CD.section:''}</span>
-      <span class="hero-chip">${students.length} Students</span>
+function closeNPop() {
+  if (window._npopTimer) clearTimeout(window._npopTimer);
+  document.getElementById('notifPop').classList.remove('show');
+}
+
+function showPage(p, btn) {
+  cp = p;
+  if (btn) { document.querySelectorAll('.bb').forEach(b => b.classList.remove('active')); btn.classList.add('active'); }
+  if (!cd) { loadData(); return; }
+  const c = document.getElementById('mainContent');
+  if (document.getElementById('notifList')) document.getElementById('notifList').style.display = 'none';
+  if (p === 'students')   c.innerHTML = rStudents();
+  else if (p === 'attendance') c.innerHTML = rAtt();
+  else if (p === 'marks')      c.innerHTML = rMarks();
+  else if (p === 'group')    { rGroup(); return; }
+  else if (p === 'timetable') { c.innerHTML = '<div class="ls2"><div class="sp"></div><div class="lt">Loading timetable...</div></div>'; loadTT(); }
+  else if (p === 'notify')     c.innerHTML = rNotify();
+}
+
+function getUserName() {
+  try { return JSON.parse(localStorage.getItem('tch_user') || '{}').name || 'Teacher'; } catch(e) { return 'Teacher'; }
+}
+
+/* ── STUDENTS ── */
+function rStudents() {
+  return `
+  <div class="hdr"><div class="hg"></div><div class="hc">
+    <div class="grt">Teacher</div>
+    <div class="tnm">${getUserName()}</div>
+    <div class="cps">
+      <span class="cp">Class ${cd.standard || ''}</span>
+      <span class="cp">${students.length} Students</span>
     </div>
   </div></div>
   <div class="stats-row">
-    <div class="stat-tile"><div class="stat-val">${students.length}</div><div class="stat-lbl">Total</div></div>
-    <div class="stat-tile"><div class="stat-val" style="color:var(--green)">${present}</div><div class="stat-lbl">Present</div></div>
-    <div class="stat-tile"><div class="stat-val" style="color:var(--red)">${absent}</div><div class="stat-lbl">Absent</div></div>
+    <div class="sc"><div class="sv">${students.length}</div><div class="sl">Total</div></div>
+    <div class="sc"><div class="sv">${cd.standard || 'N/A'}</div><div class="sl">Class</div></div>
+    <div class="sc"><div class="sv">${cd.section || 'A'}</div><div class="sl">Section</div></div>
   </div>
-  <div class="sec">
-    <div class="sec-title">My Students — tap for details</div>
-    ${!students.length?'<div class="empty">No students in your class</div>':''}
-    ${students.map(s=>`
-      <div class="si" onclick="openDetail(${s.id})">
-        <div class="si-av">${ini(s.name)}</div>
-        <div style="flex:1;min-width:0">
-          <div class="si-name">${s.name}</div>
-          <div class="si-meta">Roll ${s.roll_no||'-'} • ${s.parent_phone||'No phone'}</div>
-        </div>
-        <div style="display:flex;align-items:center;gap:7px;flex-shrink:0">
-          ${attState[s.id]==='P'?'<span class="bOK">P</span>':'<span class="bNO">A</span>'}
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--b3)" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
-        </div>
-      </div>`).join('')}
+  <div class="sec"><div class="stt">My Class</div>
+  ${students.length > 0 ? students.map(s => `
+    <div class="si" onclick="viewStudent('${s.id}')">
+      <div class="sav">${s.name[0].toUpperCase()}</div>
+      <div style="flex:1"><div class="snm">${s.name}</div><div class="smeta">Roll ${s.roll_no || 'N/A'} · ${s.parent_phone || s.phone || 'No phone'}</div></div>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--gray-300)" stroke-width="2" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+    </div>`).join('') : '<div class="eb"><p>No students in your class</p></div>'}
   </div>`;
 }
 
-/* ═══ STUDENT DETAIL with FEES ═══ */
-function openDetail(id){
-  const s=students.find(x=>x.id===id);
-  if(!s){showToast('Student not found','err');return}
-  document.getElementById('detailTitle').textContent=s.name;
-  const total=parseFloat(s.total_amount)||0;
-  const paid=parseFloat(s.paid_amount)||0;
-  const rem=parseFloat(s.remaining_amount)||Math.max(0,total-paid);
-  const fStatus=s.fees_status||'pending';
-  document.getElementById('detailBody').innerHTML=`
-  <div style="padding:16px 16px 0">
-    <div style="display:flex;align-items:center;gap:13px;margin-bottom:16px">
-      <div style="width:54px;height:54px;background:var(--plt);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--ff);font-size:20px;color:var(--p);flex-shrink:0;font-weight:700">${ini(s.name)}</div>
+/* ── STUDENT DETAIL with FEES ── */
+function viewStudent(id) {
+  const s = students.find(x => x.id == id);
+  if (!s) return;
+  const total = parseFloat(s.total_amount) || 0;
+  const paid  = parseFloat(s.paid_amount)  || 0;
+  const rem   = parseFloat(s.remaining_amount) || Math.max(0, total - paid);
+  const fs    = s.fees_status || 'pending';
+  const fRs   = n => 'Rs. ' + parseInt(n || 0).toLocaleString('en-IN');
+  const SUBS  = ['Math','Science','English','Hindi','Social Science','Marathi'];
+  document.getElementById('mainContent').innerHTML = `
+  <button class="back-btn" onclick="showPage('students',document.querySelectorAll('.bb')[0])">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>Back
+  </button>
+  <div class="det-card">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px">
+      <div class="sav" style="width:48px;height:48px;font-size:20px">${s.name[0].toUpperCase()}</div>
       <div>
-        <div style="font-family:var(--ff);font-size:19px;font-weight:700;color:#1a1a1a">${s.name}</div>
-        <div style="font-size:12px;color:var(--b4);margin-top:2px">Roll ${s.roll_no||'-'} • ${CD?.standard||''}</div>
+        <div style="font-family:var(--font-display);font-size:18px;font-weight:700">${s.name}</div>
+        <div style="font-size:12px;color:var(--gray-400)">Roll ${s.roll_no || 'N/A'} · ${s.code || ''}</div>
       </div>
     </div>
-  </div>
-  <div class="info-list">
-    ${s.parent_name?`<div class="info-row"><span class="info-lbl">Parent</span><span class="info-val">${s.parent_name}</span></div>`:''}
-    ${s.parent_phone?`<div class="info-row"><span class="info-lbl">Parent Phone</span><span class="info-val">${s.parent_phone}</span></div>`:''}
-    ${s.phone?`<div class="info-row"><span class="info-lbl">Student Phone</span><span class="info-val">${s.phone}</span></div>`:''}
-    ${s.dob?`<div class="info-row"><span class="info-lbl">Date of Birth</span><span class="info-val">${new Date(s.dob).toLocaleDateString('en-IN')}</span></div>`:''}
-    ${s.gender?`<div class="info-row"><span class="info-lbl">Gender</span><span class="info-val">${s.gender}</span></div>`:''}
-    ${s.blood_group?`<div class="info-row"><span class="info-lbl">Blood Group</span><span class="info-val">${s.blood_group}</span></div>`:''}
-    ${s.address?`<div class="info-row"><span class="info-lbl">Address</span><span class="info-val" style="font-size:12px">${s.address}</span></div>`:''}
-    <div class="info-row"><span class="info-lbl">Bus</span><span class="info-val">${s.has_bus?(s.bus_route?'Yes — '+s.bus_route:'Yes'):'No'}</span></div>
-    <div class="info-row"><span class="info-lbl">Today Attendance</span><span class="info-val">${attState[s.id]==='P'?'<span class="bOK">Present</span>':'<span class="bNO">Absent</span>'}</span></div>
-  </div>
-  <div style="margin:0 16px 12px">
-    <div style="font-family:var(--ff);font-size:15px;font-weight:700;color:var(--dp);margin-bottom:10px">Fees Details</div>
-    <div class="info-list" style="margin:0">
-      <div class="info-row">
-        <span class="info-lbl">Fees Status</span>
-        <span class="info-val">
-          <span class="${fStatus==='paid'?'bOK':fStatus==='partial'?'bHO':'bNO'}">${fStatus}</span>
-        </span>
-      </div>
-      <div class="info-row"><span class="info-lbl">Total Fees</span><span class="info-val" style="font-family:var(--fm)">${fmtRs(total)}</span></div>
-      <div class="info-row"><span class="info-lbl">Amount Paid</span><span class="info-val" style="color:var(--green);font-family:var(--fm)">${fmtRs(paid)}</span></div>
-      <div class="info-row"><span class="info-lbl">Remaining</span><span class="info-val" style="color:${rem>0?'var(--red)':'var(--green)'};font-family:var(--fm)">${fmtRs(rem)}</span></div>
+    <div class="il">
+      ${ir('Parent', s.parent_name || 'N/A')}
+      ${ir('Phone',  s.parent_phone || s.phone || 'N/A')}
+      ${ir('Blood',  s.blood_group || 'N/A')}
+      ${ir('Bus',    s.has_bus ? (s.bus_route ? 'Yes — ' + s.bus_route : 'Yes') : 'No')}
     </div>
   </div>
-  <div style="padding:0 16px;display:flex;gap:10px;flex-wrap:wrap">
-    <button style="padding:9px 16px;background:linear-gradient(135deg,var(--p),var(--ac));color:var(--w);border:none;border-radius:var(--r);font-family:var(--fb);font-size:13px;font-weight:700;cursor:pointer" onclick="closeDetail();showTab('attendance')">Mark Attendance</button>
-    <button style="padding:9px 16px;background:transparent;color:var(--p);border:1.5px solid var(--p);border-radius:var(--r);font-family:var(--fb);font-size:13px;font-weight:700;cursor:pointer" onclick="closeDetail();showTab('marks')">Enter Marks</button>
-  </div>`;
-  document.getElementById('detailScreen').classList.add('show');
-}
-function closeDetail(){document.getElementById('detailScreen').classList.remove('show')}
-
-/* ═══ ATTENDANCE — TOGGLE FIX ═══ */
-function renderAttendance(){
-  if(!CD)return`<div style="padding:20px 16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:20px;text-align:center;color:var(--b4)">No class assigned</div></div>`;
-  if(!students.length)return`<div style="padding:20px 16px"><div class="empty">No students</div></div>`;
-  const today=new Date().toISOString().slice(0,10);
-  return`
-  <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
-    <div class="hero-grt">Attendance</div><div class="hero-name">${CD.standard}</div>
-  </div></div>
-  <div style="padding:13px 16px">
-    <div class="att-sheet">
-      <div class="att-date-row">
-        <div class="att-date-lbl">Date</div>
-        <input type="date" class="date-inp" id="attDate" value="${today}">
+  <div class="det-card">
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:12px;color:var(--dp)">Fees</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:10px">
+      <div style="background:${rem > 0 ? 'var(--red-light)' : 'var(--green-light)'};border-radius:var(--radius);padding:12px;text-align:center">
+        <div style="font-family:var(--font-mono);font-size:16px;font-weight:700;color:${rem > 0 ? 'var(--red)' : 'var(--green)'};">${fRs(rem)}</div>
+        <div style="font-size:10px;color:${rem > 0 ? 'var(--red)' : 'var(--green)'};font-weight:700;text-transform:uppercase;margin-top:2px;opacity:.8">${rem > 0 ? 'Due' : 'Clear'}</div>
       </div>
-      ${students.map(s=>{
-        if(attState[s.id]===undefined)attState[s.id]='P';
-        const isP=attState[s.id]==='P';
-        return`<div class="att-row">
-          <div class="att-roll">${s.roll_no||'-'}</div>
-          <div class="att-name">${s.name}</div>
-          <div class="tog-wrap">
-            <button
-              type="button"
-              class="tog-p ${isP?'active':''}"
-              id="tp_${s.id}"
-              onclick="setAtt(${s.id},'P')">P</button>
-            <button
-              type="button"
-              class="tog-a ${!isP?'active':''}"
-              id="ta_${s.id}"
-              onclick="setAtt(${s.id},'A')">A</button>
-          </div>
-        </div>`;
-      }).join('')}
-      <button class="save-btn" id="saveAttBtn" onclick="saveAttendance()">
-        Save Attendance (${students.length} students)
-      </button>
+      <div style="background:var(--green-light);border-radius:var(--radius);padding:12px;text-align:center">
+        <div style="font-family:var(--font-mono);font-size:16px;font-weight:700;color:var(--green)">${fRs(paid)}</div>
+        <div style="font-size:10px;color:var(--green);font-weight:700;text-transform:uppercase;margin-top:2px;opacity:.8">Paid</div>
+      </div>
     </div>
+    <div class="il" style="margin-bottom:0">
+      ${ir('Total Fees', fRs(total))}
+      ${ir('Status', fs === 'paid' ? '✓ Paid' : fs === 'partial' ? 'Partial' : 'Pending')}
+    </div>
+  </div>
+  <div class="det-card">
+    <div style="font-family:var(--font-display);font-size:16px;font-weight:600;margin-bottom:10px;color:var(--dp)">Enter Marks</div>
+    <div style="margin-bottom:12px">
+      <label style="font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.8px;display:block;margin-bottom:5px">Exam Type</label>
+      <select class="fi" id="etype_${s.id}">
+        <option value="Unit Test 1">Unit Test 1</option><option value="Unit Test 2">Unit Test 2</option>
+        <option value="Mid Term">Mid Term</option><option value="Final Exam">Final Exam</option>
+        <option value="Monthly Test">Monthly Test</option>
+      </select>
+    </div>
+    ${SUBS.map(sub => `<div class="mrow"><div class="mlbl">${sub}</div><input type="number" class="minput" id="mk_${s.id}_${sub.replace(/ /g,'_')}" placeholder="0" min="0" max="100"></div>`).join('')}
+    <button class="msave" onclick="saveMks('${s.id}')">Save Marks</button>
   </div>`;
 }
 
-/* THE KEY FIX — completely replace classes, no toggling */
-function setAtt(sid,val){
-  sid=parseInt(sid);
-  attState[sid]=val;
-  const pBtn=document.getElementById('tp_'+sid);
-  const aBtn=document.getElementById('ta_'+sid);
-  if(!pBtn||!aBtn)return;
-  if(val==='P'){
-    pBtn.className='tog-p active';
-    aBtn.className='tog-a';
-  }else{
-    pBtn.className='tog-p';
-    aBtn.className='tog-a active';
-  }
-}
+function ir(l, v) { return `<div class="ir"><span class="irl">${l}</span><span class="irv">${v}</span></div>`; }
 
-async function saveAttendance(){
-  const date=document.getElementById('attDate')?.value||new Date().toISOString().slice(0,10);
-  const btn=document.getElementById('saveAttBtn');
-  if(!btn)return;
-  btn.disabled=true;btn.textContent='Saving...';
-  const attendance_list=students.map(s=>({
-    student_id:s.id,
-    status:attState[s.id]==='A'?'absent':'present'
-  }));
-  try{
-    const res=await fetch(API+'/attendance/mark',{
-      method:'POST',headers:H(),
-      body:JSON.stringify({attendance_list,date})
+async function saveMks(sid) {
+  const et   = document.getElementById('etype_' + sid)?.value || 'Unit Test 1';
+  const SUBS = ['Math','Science','English','Hindi','Social Science','Marathi'];
+  let saved  = 0;
+  for (const sub of SUBS) {
+    const el = document.getElementById('mk_' + sid + '_' + sub.replace(/ /g,'_'));
+    if (!el || el.value === '') continue;
+    const val = parseInt(el.value); if (isNaN(val)) continue;
+    await fetch(API + '/marks/update', {
+      method: 'POST',
+      headers: { Authorization: 'Bearer ' + activeToken, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ student_id: sid, subject: sub, marks_obtained: val, total_marks: 100, exam_type: et })
     });
-    const d=await res.json().catch(()=>({}));
-    if(res.ok){
-      showToast('Attendance saved!','ok2');
-      /* Auto-send notification for absent students */
-      const absentList=students.filter(s=>attState[s.id]==='A');
-      if(absentList.length>0&&CD){
-        const names=absentList.map(s=>s.name).join(', ');
-        await fetch(API+'/notifications/send',{
-          method:'POST',headers:H(),
-          body:JSON.stringify({
-            title:'Attendance — '+date,
-            message:absentList.length===1
-              ?absentList[0].name+' absent today.'
-              :absentList.length+' students absent: '+(names.length>80?names.slice(0,80)+'...':names),
-            target_type:'class',
-            target_id:String(CD.id)
-          })
-        }).catch(()=>{});
-      }
-    }else showToast(d.error||'Failed to save','err');
-  }catch(e){showToast('Network error: '+e.message,'err')}
-  if(btn){btn.disabled=false;btn.textContent='Save Attendance ('+students.length+' students)';}
-}
-
-/* ═══ MARKS ═══ */
-function renderMarks(){
-  if(!CD)return`<div style="padding:20px 16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:20px;text-align:center;color:var(--b4)">No class assigned</div></div>`;
-  if(!students.length)return`<div style="padding:20px 16px"><div class="empty">No students</div></div>`;
-  return`
-  <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
-    <div class="hero-grt">Marks Entry</div><div class="hero-name">${CD.standard}</div>
-    <div class="hero-chips"><span class="hero-chip">${students.length} students</span></div>
-  </div></div>
-  <div style="padding:13px 16px">
-    <div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px;margin-bottom:12px">
-      <div class="fgl"><label>Subject *</label><input class="fi" id="mk_sub" placeholder="e.g. Mathematics, English, Science"></div>
-      <div class="fgl"><label>Exam Type</label>
-        <select class="fi" id="mk_exam">
-          <option value="Unit Test 1">Unit Test 1</option>
-          <option value="Unit Test 2">Unit Test 2</option>
-          <option value="Mid Term">Mid Term</option>
-          <option value="Final Exam">Final Exam</option>
-          <option value="Class Test">Class Test</option>
-          <option value="Assignment">Assignment</option>
-          <option value="Practical">Practical</option>
-        </select>
-      </div>
-      <div class="fgl"><label>Total Marks</label><input type="number" class="fi" id="mk_total" value="100" min="1"></div>
-      <button style="padding:7px 14px;background:var(--plt);border:1px solid rgba(128,0,32,.2);border-radius:8px;font-family:var(--fb);font-size:12px;font-weight:700;color:var(--p);cursor:pointer" onclick="applyTotal()">Apply to all</button>
-    </div>
-    <div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:13px">
-      <div style="font-size:12px;color:var(--b5);margin-bottom:11px">Enter marks. Leave blank to skip.</div>
-      ${students.map(s=>`
-        <div class="mk-row">
-          <div class="mk-av">${ini(s.name)}</div>
-          <div class="mk-name">${s.name}<span style="font-size:10px;color:var(--b4);display:block">Roll ${s.roll_no||'-'}</span></div>
-          <input type="number" class="mk-inp" id="mkI_${s.id}" data-sid="${s.id}" placeholder="--" min="0" inputmode="numeric">
-          <span style="font-size:11px;color:var(--b4)">/</span>
-          <input type="number" class="mk-of" id="mkO_${s.id}" value="100" min="1" inputmode="numeric">
-        </div>`).join('')}
-      <button class="save-btn" id="saveMarksBtn" onclick="saveMarks()" style="width:100%;margin:13px 0 0 0">Save Marks</button>
-    </div>
-  </div>`;
-}
-
-function applyTotal(){
-  const v=document.getElementById('mk_total')?.value||'100';
-  document.querySelectorAll('.mk-of').forEach(el=>el.value=v);
-}
-
-async function saveMarks(){
-  const sub=document.getElementById('mk_sub')?.value.trim();
-  const exam=document.getElementById('mk_exam')?.value||'Unit Test 1';
-  if(!sub){showToast('Subject name likhao pehle','err');return}
-  const btn=document.getElementById('saveMarksBtn');btn.disabled=true;btn.textContent='Saving...';
-  let saved=0,failed=0;
-  for(const s of students){
-    const inp=document.getElementById('mkI_'+s.id);const ofEl=document.getElementById('mkO_'+s.id);
-    if(!inp||inp.value.trim()==='')continue;
-    const obtained=parseInt(inp.value);const total=parseInt(ofEl?.value)||100;
-    if(isNaN(obtained)||obtained<0)continue;
-    try{
-      const res=await fetch(API+'/marks/update',{method:'POST',headers:H(),body:JSON.stringify({student_id:s.id,subject:sub,marks_obtained:obtained,total_marks:total,exam_type:exam})});
-      if(res.ok)saved++;else failed++;
-    }catch(e){failed++;}
+    saved++;
   }
-  if(saved>0){showToast('Marks saved for '+saved+' student'+(saved>1?'s':'')+'!','ok2');document.querySelectorAll('.mk-inp').forEach(el=>el.value='');}
-  else if(failed>0)showToast('Failed — retry','err');
-  else showToast('Koi marks enter nahi kiye','err');
-  btn.disabled=false;btn.textContent='Save Marks';
+  toast(saved > 0 ? 'Marks saved!' : 'Enter at least one mark');
 }
 
-/* ═══ GROUP ═══ */
-function postCard(p){
-  return`<div class="post-card">
-    <div class="post-head">
-      <div class="post-av">${ini(p.posted_by_name||'T')}</div>
-      <div><div class="post-author">${p.posted_by_name||'Teacher'}</div><div class="post-role">Teacher</div></div>
-      <div style="display:flex;align-items:center;gap:5px;margin-left:auto">
-        <div class="post-time">${ago(p.created_at)}</div>
-        <button class="del-post-btn" onclick="delPost(${p.id})">×</button>
+/* ── ATTENDANCE — original working toggle ── */
+function rAtt() {
+  const today = new Date().toISOString().split('T')[0];
+  students.forEach(s => { if (!attState[s.id]) attState[s.id] = 'present'; });
+  return `<div style="padding:16px"><div class="stt" style="margin-bottom:12px">Mark Attendance</div>
+  <div class="att-sheet">
+    <div class="att-date-row"><div class="att-dl">Select Date</div><input type="date" class="di" id="attDate" value="${today}"></div>
+    ${students.map(s => `<div class="ar">
+      <div class="aroll">${s.roll_no || '-'}</div>
+      <div class="anm">${s.name}</div>
+      <div class="atog">
+        <button class="atb ${attState[s.id] === 'present' ? 'pa' : ''}" id="pb_${s.id}" onclick="setAtt('${s.id}','present')">P</button>
+        <button class="atb ${attState[s.id] === 'absent'  ? 'aa' : ''}" id="ab_${s.id}" onclick="setAtt('${s.id}','absent')">A</button>
+      </div>
+    </div>`).join('')}
+    <button class="save-btn" onclick="saveAtt()">Save Attendance</button>
+  </div></div>`;
+}
+
+function setAtt(sid, status) {
+  attState[sid] = status;
+  const pb = document.getElementById('pb_' + sid);
+  const ab = document.getElementById('ab_' + sid);
+  if (pb) pb.className = 'atb ' + (status === 'present' ? 'pa' : '');
+  if (ab) ab.className = 'atb ' + (status === 'absent'  ? 'aa' : '');
+}
+
+async function saveAtt() {
+  const date = document.getElementById('attDate')?.value;
+  if (!date) { toast('Select date'); return; }
+  const list = students.map(s => ({ student_id: s.id, status: attState[s.id] || 'present' }));
+  try {
+    const r = await fetch(API + '/attendance/mark', {
+      method: 'POST',
+      headers: { Authorization: 'Bearer ' + activeToken, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ attendance_list: list, date })
+    });
+    const d = await r.json();
+    if (d.success || r.ok) toast('Attendance saved!');
+    else toast(d.error || 'Error');
+  } catch(e) { toast('Could not save'); }
+}
+
+/* ── MARKS — subject first, then all students ── */
+function rMarks() {
+  return `
+  <div style="padding:16px">
+    <div class="stt" style="margin-bottom:12px">Update Marks</div>
+    <div class="card" style="margin-bottom:14px">
+      <div style="margin-bottom:10px">
+        <label style="font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.7px;display:block;margin-bottom:5px">Subject Name *</label>
+        <input type="text" class="fi" id="mk_sub" placeholder="e.g. Mathematics, English, Science">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div>
+          <label style="font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.7px;display:block;margin-bottom:5px">Exam Type</label>
+          <select class="fi" id="mk_exam">
+            <option value="Unit Test 1">Unit Test 1</option>
+            <option value="Unit Test 2">Unit Test 2</option>
+            <option value="Mid Term">Mid Term</option>
+            <option value="Final Exam">Final Exam</option>
+            <option value="Monthly Test">Monthly Test</option>
+            <option value="Class Test">Class Test</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px;font-weight:600;color:var(--gray-500);text-transform:uppercase;letter-spacing:.7px;display:block;margin-bottom:5px">Out of (Total)</label>
+          <input type="number" class="fi" id="mk_total" value="100" min="1"
+            oninput="document.querySelectorAll('.mk-of-val').forEach(e=>e.textContent=this.value||'100')">
+        </div>
       </div>
     </div>
-    <div class="post-body">
-      <div class="post-text">${p.text_content||''}</div>
-      ${p.video_link?`<a href="${p.video_link}" target="_blank" class="post-video"><div class="post-video-ic"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div class="post-video-lbl">Watch Video</div></a>`:''}
+    <div class="marks-sheet">
+      ${students.map(s => `
+      <div class="ms-row">
+        <div class="ms-roll">${s.roll_no || '-'}</div>
+        <div style="flex:1;min-width:0">
+          <div class="ms-name">${s.name}</div>
+        </div>
+        <input type="number" class="ms-inp" id="mki_${s.id}" placeholder="--" min="0" inputmode="numeric">
+        <div style="font-size:12px;color:var(--gray-400);min-width:36px">/ <span class="mk-of-val">100</span></div>
+      </div>`).join('')}
     </div>
+    <button class="save-btn" id="saveMkBtn" onclick="saveAllMarks()" style="margin-top:0">Save Marks for All</button>
   </div>`;
 }
 
-function renderGroup(){
-  if(!CD)return`<div style="padding:20px 16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:20px;text-align:center;color:var(--b4)">No class assigned</div></div>`;
-  return`
-  <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
-    <div class="hero-grt">Class Group</div><div class="hero-name">${CD.standard}</div>
-  </div></div>
-  <div style="padding:13px 16px">
-    <div class="composer">
-      <textarea class="ctxt" id="postTxt" placeholder="Write something for your class..."></textarea>
-      <input class="fi" id="postVid" placeholder="Video link (optional)" style="margin-bottom:9px">
-      <button class="post-btn" id="postBtn" onclick="doPost()">Post to Class</button>
-    </div>
-    ${!posts.length?'<div class="empty">No posts yet</div>':''}
-    ${posts.map(p=>postCard(p)).join('')}
-  </div>`;
-}
-
-async function doPost(){
-  const txt=document.getElementById('postTxt')?.value.trim();
-  const vid=document.getElementById('postVid')?.value.trim();
-  if(!txt&&!vid){showToast('Kuch likho pehle','err');return}
-  const btn=document.getElementById('postBtn');btn.disabled=true;btn.textContent='Posting...';
-  try{
-    const res=await fetch(API+'/posts',{method:'POST',headers:H(),body:JSON.stringify({class_id:CD?.id,text_content:txt||null,video_link:vid||null})});
-    const d=await res.json().catch(()=>({}));
-    if(res.ok){
-      posts.unshift(d.post||{id:Date.now(),text_content:txt,video_link:vid,created_at:new Date().toISOString(),posted_by_name:TD?.name||'Teacher'});
-      showToast('Posted!','ok2');showTab('group');
-    }else showToast(d.error||'Failed','err');
-  }catch(e){showToast('Network error','err')}
-  if(btn){btn.disabled=false;btn.textContent='Post to Class';}
-}
-
-async function delPost(id){
-  if(!confirm('Delete post?'))return;
-  try{
-    const res=await fetch(API+'/posts/'+id,{method:'DELETE',headers:H()});
-    if(res.ok){posts=posts.filter(p=>p.id!==id);showToast('Deleted');showTab('group');}
-    else showToast('Failed','err');
-  }catch(e){showToast('Network error','err')}
-}
-
-/* ═══ TIMETABLE — 9 periods ═══ */
-async function loadTimetable(){
-  if(!CD){
-    document.getElementById('mainContent').innerHTML='<div style="padding:20px 16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:20px;text-align:center;color:var(--b4)">No class assigned</div></div>';
-    return;
+async function saveAllMarks() {
+  const subject = document.getElementById('mk_sub')?.value.trim();
+  const exam    = document.getElementById('mk_exam')?.value || 'Unit Test 1';
+  const total   = parseInt(document.getElementById('mk_total')?.value) || 100;
+  if (!subject) { toast('Enter subject name first'); return; }
+  const btn = document.getElementById('saveMkBtn');
+  btn.disabled = true; btn.textContent = 'Saving...';
+  let saved = 0;
+  for (const s of students) {
+    const el = document.getElementById('mki_' + s.id);
+    if (!el || el.value.trim() === '') continue;
+    const val = parseInt(el.value);
+    if (isNaN(val) || val < 0) continue;
+    await fetch(API + '/marks/update', {
+      method: 'POST',
+      headers: { Authorization: 'Bearer ' + activeToken, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ student_id: s.id, subject, marks_obtained: val, total_marks: total, exam_type: exam })
+    });
+    saved++;
   }
-  let tt=[];
-  try{const res=await fetch(API+'/timetable/'+CD.id,{headers:H()});if(res.ok){const d=await res.json();tt=d.timetable||[];}}catch(_){}
-  const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const ttMap={};tt.forEach(row=>ttMap[row.day]=row);
-  const PERIODS=9;
-  document.getElementById('mainContent').innerHTML=`
-  <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
-    <div class="hero-grt">Timetable</div><div class="hero-name">${CD.standard}</div>
+  toast(saved > 0 ? 'Saved for ' + saved + ' students!' : 'Enter at least one score');
+  if (saved > 0) document.querySelectorAll('.ms-inp').forEach(el => el.value = '');
+  btn.disabled = false; btn.textContent = 'Save Marks for All';
+}
+
+/* ── GROUP ── */
+async function rGroup() {
+  const c = document.getElementById('mainContent');
+  c.innerHTML = `<div style="padding:16px"><div class="stt" style="margin-bottom:12px">Class Group</div>
+  <div class="composer">
+    <textarea class="ctxt" id="postTxt" placeholder="Write something for your class..."></textarea>
+    <button class="post-btn" onclick="submitPost()">Post</button>
+  </div>
+  <div style="margin-top:16px"><div class="stt" style="margin-bottom:10px">Recent Posts</div>
+  <div id="gpl"><div class="ls2" style="min-height:100px"><div class="sp"></div></div></div></div></div>`;
+  loadPosts();
+}
+
+async function submitPost() {
+  const txt = document.getElementById('postTxt')?.value.trim();
+  if (!txt) { toast('Write something first'); return; }
+  try {
+    const r = await fetch(API + '/posts', {
+      method: 'POST',
+      headers: { Authorization: 'Bearer ' + activeToken, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ class_id: cd.id, text_content: txt, post_type: 'general' })
+    });
+    const d = await r.json();
+    if (d.success || r.ok) { toast('Posted!'); document.getElementById('postTxt').value = ''; loadPosts(); }
+    else toast(d.error || 'Error');
+  } catch(e) { toast('Could not post'); }
+}
+
+async function loadPosts() {
+  const el = document.getElementById('gpl'); if (!el) return;
+  try {
+    const r = await fetch(API + '/posts/' + cd.id, { headers: { Authorization: 'Bearer ' + activeToken } });
+    const d = await r.json(); const posts = d.posts || [];
+    el.innerHTML = posts.length > 0 ? posts.map(p => `
+      <div class="pi">
+        <div class="ph">
+          <span class="pau">${p.posted_by_name || 'Teacher'}</span>
+          <div style="display:flex;align-items:center;gap:8px">
+            <span class="ptm">${fmtDate(p.created_at)}</span>
+            <button class="del-btn" onclick="delPost('${p.id}')"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/></svg></button>
+          </div>
+        </div>
+        ${p.text_content ? `<div class="ptxt">${p.text_content}</div>` : ''}
+        ${p.video_link   ? `<a href="${p.video_link}" target="_blank" style="font-size:12px;color:var(--p);font-weight:600">▶ Watch Video</a>` : ''}
+      </div>`).join('') : '<div class="eb"><p>No posts yet</p></div>';
+  } catch(e) { if(el) el.innerHTML = '<div class="eb"><p>Could not load</p></div>'; }
+}
+
+async function delPost(id) {
+  try { await fetch(API+'/posts/'+id,{method:'DELETE',headers:{Authorization:'Bearer '+activeToken}}); toast('Deleted'); loadPosts(); }
+  catch(e) { toast('Error'); }
+}
+
+/* ── TIMETABLE — 7 periods ── */
+async function loadTT() {
+  let tt = [];
+  try {
+    const r = await fetch(API + '/timetable/' + cd.id, { headers: { Authorization: 'Bearer ' + activeToken } });
+    if (r.ok) { const d = await r.json(); tt = d.timetable || []; }
+  } catch(_) {}
+
+  const days   = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const ttMap  = {};
+  tt.forEach(row => ttMap[row.day] = row);
+  const P = 7; /* 7 periods only */
+
+  document.getElementById('mainContent').innerHTML = `
+  <div class="hdr"><div class="hg"></div><div class="hc">
+    <div class="grt">Timetable</div>
+    <div class="tnm">Class ${cd.standard || ''}</div>
+    <div class="cps"><span class="cp">7 Periods</span><span class="cp">Mon – Sat</span></div>
   </div></div>
   <div style="padding:13px 16px">
-    <div style="font-size:12px;color:var(--b5);margin-bottom:10px">Edit subjects for each period and tap Save.</div>
+    <div style="font-size:12px;color:var(--gray-500);margin-bottom:10px">Fill subject names for each period and tap Save.</div>
     <div class="tt-wrap">
       <table class="tt-table">
         <thead><tr>
-          <th style="min-width:50px">Day</th>
-          ${Array.from({length:PERIODS},(_,i)=>`<th>P${i+1}</th>`).join('')}
+          <th style="min-width:50px;text-align:left;padding-left:10px">Day</th>
+          ${Array.from({length:P}, (_,i) => `<th>P${i+1}</th>`).join('')}
         </tr></thead>
         <tbody>
-          ${days.map(day=>{
-            const row=ttMap[day]||{};
-            return`<tr>
-              <td style="padding:7px 6px;font-weight:700;color:var(--p);white-space:nowrap">${day.slice(0,3)}</td>
-              ${Array.from({length:PERIODS},(_,i)=>`<td><input class="tt-inp" id="tt_${day}_${i+1}" value="${row['period_'+(i+1)]||''}" placeholder="—"></td>`).join('')}
+          ${days.map(day => {
+            const row = ttMap[day] || {};
+            return `<tr>
+              <td style="padding:7px 10px;font-weight:700;color:var(--dp);white-space:nowrap;font-size:12px">${day.slice(0,3)}</td>
+              ${Array.from({length:P}, (_,i) => `<td><input class="tt-inp" id="tt_${day}_${i+1}" value="${row['period_'+(i+1)] || ''}" placeholder="—"></td>`).join('')}
             </tr>`;
           }).join('')}
         </tbody>
       </table>
     </div>
-    <button class="save-btn" id="saveTTBtn" onclick="saveTimetable()" style="width:100%;margin:0">Save Timetable</button>
+    <button class="save-btn" id="saveTTBtn" onclick="saveTT()" style="margin-top:0;width:calc(100% - 28px)">Save Timetable</button>
   </div>`;
 }
 
-async function saveTimetable(){
-  if(!CD)return;
-  const btn=document.getElementById('saveTTBtn');btn.disabled=true;btn.textContent='Saving...';
-  const days=['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-  const PERIODS=9;let ok=0;
-  for(const day of days){
-    const periods=Array.from({length:PERIODS},(_,i)=>document.getElementById(`tt_${day}_${i+1}`)?.value.trim()||'');
-    try{
-      const res=await fetch(API+'/timetable',{method:'POST',headers:H(),body:JSON.stringify({class_id:parseInt(CD.id),day,periods})});
-      if(res.ok)ok++;
-    }catch(_){}
+async function saveTT() {
+  const btn  = document.getElementById('saveTTBtn');
+  btn.disabled = true; btn.textContent = 'Saving...';
+  const days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const P    = 7;
+  let ok = 0, fail = 0;
+  for (const day of days) {
+    const periods = Array.from({length:P}, (_,i) => document.getElementById(`tt_${day}_${i+1}`)?.value.trim() || '');
+    try {
+      const r = await fetch(API + '/timetable', {
+        method: 'POST',
+        headers: { Authorization: 'Bearer ' + activeToken, 'Content-Type': 'application/json' },
+        body: JSON.stringify({ class_id: parseInt(cd.id), day, periods })
+      });
+      if (r.ok) ok++; else fail++;
+    } catch(_) { fail++; }
   }
-  if(ok>0)showToast('Timetable saved!','ok2');
-  else showToast('Failed — backend updated karo (period_8, period_9 columns)','err');
-  btn.disabled=false;btn.textContent='Save Timetable';
+  toast(ok > 0 ? 'Timetable saved!' : 'Save failed');
+  btn.disabled = false; btn.textContent = 'Save Timetable';
 }
 
-/* ═══ NOTIFY ═══ */
-function renderNotify(){
-  if(!CD)return`<div style="padding:20px 16px"><div style="background:var(--w);border:1px solid var(--b2);border-radius:var(--r);padding:20px;text-align:center;color:var(--b4)">No class assigned</div></div>`;
-  return`
-  <div class="hero"><div class="hero-grid"></div><div class="hero-inner">
-    <div class="hero-grt">Notifications</div><div class="hero-name">${CD.standard}</div>
-  </div></div>
-  <div style="padding:13px 16px">
-    <div class="nf-card">
-      <div class="fgl"><label>Title *</label><input class="fi" id="nTitle" placeholder="e.g. Homework, Test tomorrow..."></div>
-      <div class="fgl"><label>Send To</label>
-        <select class="fi" id="nTarget">
-          <option value="class">My Class Only</option>
-          <option value="all">All Students</option>
+/* ── NOTIFY — class / all / multiple specific students ── */
+function rNotify() {
+  return `
+  <div style="padding:16px">
+    <div class="stt" style="margin-bottom:12px">Send Notification</div>
+    <div class="nf">
+      <div class="fg">
+        <label>Send To</label>
+        <select class="fi" id="nTgt" onchange="onTgtChange()">
+          <option value="class">Entire Class (${cd.standard})</option>
+          <option value="all">All Students — School Wide</option>
+          <option value="students">Select Specific Students</option>
         </select>
       </div>
-      <div class="fgl" style="margin-bottom:13px">
-        <label>Message *</label>
-        <textarea class="fi" id="nMsg" rows="4" style="resize:none;min-height:88px" placeholder="Write message for students and parents..."></textarea>
+
+      <!-- Multi-student checkboxes -->
+      <div id="nStuWrap" style="display:none">
+        <div class="fg">
+          <label>Choose Students (select one or more)</label>
+          <div style="display:flex;gap:7px;margin-bottom:7px">
+            <button type="button" onclick="checkAll(true)"  style="padding:5px 11px;background:rgba(128,0,32,.08);border:1px solid rgba(128,0,32,.2);border-radius:7px;font-size:12px;font-weight:600;color:var(--p);cursor:pointer;font-family:var(--font-body)">Select All</button>
+            <button type="button" onclick="checkAll(false)" style="padding:5px 11px;background:var(--gray-100);border:1px solid var(--gray-200);border-radius:7px;font-size:12px;font-weight:600;color:var(--gray-500);cursor:pointer;font-family:var(--font-body)">Clear</button>
+          </div>
+          <div class="stu-list-wrap">
+            ${students.map(s => `
+            <label class="stu-chk-row">
+              <input type="checkbox" class="stu-chk" value="${s.id}">
+              <div>
+                <div class="stu-chk-label">${s.name}</div>
+                <div class="stu-chk-meta">Roll ${s.roll_no || '-'} · ${s.parent_phone || 'No phone'}</div>
+              </div>
+            </label>`).join('')}
+          </div>
+        </div>
       </div>
-      ${NOTIFS.length?`
-      <div style="margin-bottom:13px;border-top:1px solid var(--b1);padding-top:12px">
-        <div style="font-size:11px;font-weight:700;color:var(--b5);text-transform:uppercase;letter-spacing:.8px;margin-bottom:8px">Recent Notifications</div>
-        ${NOTIFS.slice(0,5).map(n=>`
-          <div style="border-bottom:1px solid var(--b1);padding:9px 0">
-            <div style="font-size:13px;font-weight:700;color:var(--dp);margin-bottom:2px">${n.title||''}</div>
-            <div style="font-size:12px;color:var(--b5)">${n.message||''}</div>
-            <div style="font-size:10px;color:var(--b3);margin-top:3px">${n.created_at?new Date(n.created_at).toLocaleString('en-IN',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'}):''}</div>
-          </div>`).join('')}
-      </div>`:''}
-      <button class="send-btn" id="sendBtn" onclick="sendNotif()">Send Notification</button>
+
+      <div class="fg" style="margin-top:4px">
+        <label>Title *</label>
+        <input type="text" class="fi" id="ntit" placeholder="e.g. Holiday Tomorrow, Test on Monday">
+      </div>
+      <div class="fg">
+        <label>Message *</label>
+        <textarea class="fita" id="nmsg" placeholder="Write your message here..."></textarea>
+      </div>
+      <button class="send-btn" id="nSendBtn" onclick="sendNotif()">Send Notification</button>
     </div>
   </div>`;
 }
 
-async function sendNotif(){
-  const title=document.getElementById('nTitle')?.value.trim();
-  const msg=document.getElementById('nMsg')?.value.trim();
-  const target=document.getElementById('nTarget')?.value||'class';
-  if(!title||!msg){showToast('Title aur message daalo','err');return}
-  const btn=document.getElementById('sendBtn');btn.disabled=true;btn.textContent='Sending...';
-  const body={title,message:msg};
-  if(target==='all'){
-    body.target_type='all';
-  }else{
-    body.target_type='class';
-    body.target_id=String(CD?.id);
-  }
-  try{
-    const res=await fetch(API+'/notifications/send',{method:'POST',headers:H(),body:JSON.stringify(body)});
-    if(res.ok){
-      showToast('Notification sent!','ok2');
-      document.getElementById('nTitle').value='';document.getElementById('nMsg').value='';
-      await loadNotifs();showTab('notify');
-    }else{const d=await res.json().catch(()=>({}));showToast(d.error||'Failed','err');}
-  }catch(e){showToast('Network error','err')}
-  if(btn){btn.disabled=false;btn.textContent='Send Notification';}
+function onTgtChange() {
+  const val = document.getElementById('nTgt')?.value;
+  document.getElementById('nStuWrap').style.display = val === 'students' ? 'block' : 'none';
 }
 
-/* Service Worker */
-if('serviceWorker'in navigator)navigator.serviceWorker.register('firebase-messaging-sw.js').catch(()=>{});
+function checkAll(state) {
+  document.querySelectorAll('.stu-chk').forEach(cb => cb.checked = state);
+}
+
+async function sendNotif() {
+  const title  = document.getElementById('ntit')?.value.trim();
+  const msg    = document.getElementById('nmsg')?.value.trim();
+  const tgt    = document.getElementById('nTgt')?.value || 'class';
+  if (!title || !msg) { toast('Enter title and message'); return; }
+
+  const btn = document.getElementById('nSendBtn');
+  btn.disabled = true; btn.textContent = 'Sending...';
+
+  try {
+    if (tgt === 'students') {
+      /* Send to each checked student individually */
+      const checked = [...document.querySelectorAll('.stu-chk:checked')].map(cb => cb.value);
+      if (checked.length === 0) { toast('Select at least one student'); btn.disabled = false; btn.textContent = 'Send Notification'; return; }
+      let sent = 0;
+      for (const sid of checked) {
+        const r = await fetch(API + '/notifications/send', {
+          method: 'POST',
+          headers: { Authorization: 'Bearer ' + activeToken, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ title, message: msg, target_type: 'student', target_id: String(sid) })
+        });
+        if (r.ok) sent++;
+      }
+      toast('Sent to ' + sent + ' student' + (sent !== 1 ? 's' : '') + '!');
+    } else {
+      /* class or all */
+      const body = { title, message: msg };
+      if (tgt === 'all')   { body.target_type = 'all'; }
+      else                 { body.target_type = 'class'; body.target_id = String(cd?.id); }
+      const r = await fetch(API + '/notifications/send', {
+        method: 'POST',
+        headers: { Authorization: 'Bearer ' + activeToken, 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      });
+      const d = await r.json();
+      if (d.success || r.ok) toast('Notification sent!');
+      else toast(d.error || 'Error');
+    }
+    document.getElementById('ntit').value = '';
+    document.getElementById('nmsg').value = '';
+    checkAll(false);
+  } catch(e) { toast('Could not send'); }
+
+  btn.disabled = false; btn.textContent = 'Send Notification';
+}
+
+/* UTILS */
+function fmtDate(ts) {
+  if (!ts) return '';
+  try { return new Date(ts).toLocaleDateString('en-IN', { day: 'numeric', month: 'short' }); } catch(e) { return ''; }
+}
+
+function toast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 3000);
+}
+
+function doLogout() {
+  activeToken = null;
+  localStorage.removeItem('tch_token'); localStorage.removeItem('tch_user');
+  localStorage.removeItem('ems_role');
+  cd = null; students = [];
+  showLogin();
+  document.getElementById('lCode').value = '';
+  document.getElementById('lPass').value = '';
+  document.getElementById('lErr').classList.remove('show');
+}
+
+if ('serviceWorker' in navigator) { navigator.serviceWorker.register('firebase-messaging-sw.js').catch(() => {}); }
+init();
 </script>
 </body>
 </html>
