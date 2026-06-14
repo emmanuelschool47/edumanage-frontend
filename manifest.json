@@ -2,7 +2,7 @@
   "name": "Emmanuel School",
   "short_name": "Emmanuel School",
   "description": "Emmanuel School Management System",
-  "start_url": "/student.html",
+  "start_url": "/rolepage.html",
   "display": "standalone",
   "background_color": "#800020",
   "theme_color": "#800020",
