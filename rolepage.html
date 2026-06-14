@@ -1,1 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#800020">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Emmanuel School</title>
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --p:#800020;--dp:#3d0010;--ac:#a30027;
+  --w:#fff;--bg:#fafafa;
+  --b2:#eeeeee;--b4:#bdbdbd;--b5:#9e9e9e;
+  --ff:'Playfair Display',serif;--fb:'Inter',sans-serif;
+}
+html,body{
+  height:100%;min-height:100vh;
+  font-family:var(--fb);
+  background:linear-gradient(155deg,var(--dp) 0%,var(--p) 50%,var(--ac) 100%);
+  overflow:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:32px 32px;pointer-events:none;z-index:0;
+}
 
+/* SPLASH — shown while checking saved role */
+#splash{
+  position:fixed;inset:0;z-index:100;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(155deg,var(--dp),var(--p),var(--ac));
+  transition:opacity .4s ease;
+}
+#splash.hide{opacity:0;pointer-events:none;}
+.splash-logo{
+  width:80px;height:80px;border-radius:20px;
+  overflow:hidden;border:2.5px solid rgba(255,255,255,.3);
+  background:rgba(255,255,255,.1);
+  display:flex;align-items:center;justify-content:center;
+}
+.splash-logo img{width:100%;height:100%;object-fit:cover;display:block}
+.splash-logo-fb{font-family:var(--ff);font-size:30px;font-weight:700;color:var(--w);display:none}
+
+/* MAIN CONTENT */
+#roleScreen{
+  position:fixed;inset:0;z-index:50;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  padding:24px 20px;
+  opacity:0;transform:translateY(20px);
+  transition:all .5s cubic-bezier(.4,0,.2,1);
+}
+#roleScreen.show{opacity:1;transform:translateY(0)}
+
+.school-brand{text-align:center;margin-bottom:44px;position:relative;z-index:1}
+.school-logo{
+  width:80px;height:80px;border-radius:20px;
+  margin:0 auto 14px;overflow:hidden;
+  border:2.5px solid rgba(255,255,255,.3);
+  background:rgba(255,255,255,.12);
+  display:flex;align-items:center;justify-content:center;
+}
+.school-logo img{width:100%;height:100%;object-fit:cover;display:block}
+.school-logo-fb{font-family:var(--ff);font-size:28px;font-weight:700;color:var(--w);display:none}
+.school-name{
+  font-family:var(--ff);font-size:26px;font-weight:700;
+  color:var(--w);margin-bottom:6px;line-height:1.2;
+}
+.school-tagline{font-size:13px;color:rgba(255,255,255,.5);font-weight:400}
+
+.role-label{
+  font-size:11px;font-weight:700;color:rgba(255,255,255,.5);
+  text-transform:uppercase;letter-spacing:1.5px;
+  margin-bottom:16px;text-align:center;
+}
+
+.role-cards{
+  display:flex;flex-direction:column;gap:14px;
+  width:100%;max-width:360px;position:relative;z-index:1;
+}
+
+.role-card{
+  background:rgba(255,255,255,.12);
+  border:1.5px solid rgba(255,255,255,.2);
+  border-radius:18px;padding:20px 22px;
+  display:flex;align-items:center;gap:16px;
+  cursor:pointer;
+  transition:all .2s cubic-bezier(.4,0,.2,1);
+  -webkit-tap-highlight-color:transparent;
+  text-decoration:none;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+}
+.role-card:active{
+  transform:scale(.97);
+  background:rgba(255,255,255,.2);
+}
+.role-card.selected{
+  background:rgba(255,255,255,.95);
+  border-color:rgba(255,255,255,.95);
+  transform:scale(1.02);
+}
+.role-card.selected .role-icon{background:var(--plt)}
+.role-card.selected .role-card-title{color:var(--dp)}
+.role-card.selected .role-card-desc{color:var(--b5)}
+.role-card.selected .role-arrow{color:var(--p)}
+
+.role-icon{
+  width:52px;height:52px;
+  background:rgba(255,255,255,.15);
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+}
+.role-icon svg{width:24px;height:24px;stroke:var(--w);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.role-card.selected .role-icon svg{stroke:var(--p)}
+
+.role-card-info{flex:1;min-width:0}
+.role-card-title{
+  font-family:var(--ff);font-size:18px;font-weight:700;
+  color:var(--w);margin-bottom:3px;
+}
+.role-card-desc{font-size:12px;color:rgba(255,255,255,.6);line-height:1.4}
+
+.role-arrow{
+  color:rgba(255,255,255,.4);font-size:20px;flex-shrink:0;
+  transition:transform .2s;
+}
+.role-card:active .role-arrow{transform:translateX(4px)}
+
+.continue-btn{
+  width:100%;max-width:360px;
+  margin-top:20px;padding:15px;
+  background:var(--w);color:var(--dp);
+  border:none;border-radius:14px;
+  font-family:var(--ff);font-size:16px;font-weight:700;
+  cursor:pointer;
+  display:none;
+  align-items:center;justify-content:center;gap:8px;
+  transition:all .2s;
+  position:relative;z-index:1;
+  box-shadow:0 8px 24px rgba(0,0,0,.2);
+}
+.continue-btn.show{display:flex}
+.continue-btn:active{transform:scale(.98);opacity:.9}
+
+.footer-note{
+  position:fixed;bottom:max(24px,env(safe-area-inset-bottom));
+  left:0;right:0;text-align:center;
+  font-size:11px;color:rgba(255,255,255,.3);
+  pointer-events:none;z-index:1;
+}
+
+/* Change role link — shown on student/teacher pages via localStorage */
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+
+<!-- SPLASH -->
+<div id="splash">
+  <div class="splash-logo">
+    <img src="logo.webp" alt="E"
+      onerror="this.style.display='none';document.getElementById('sFb').style.display='block'">
+    <span class="splash-logo-fb" id="sFb">E</span>
+  </div>
+</div>
+
+<!-- ROLE SELECTOR -->
+<div id="roleScreen">
+  <div class="school-brand">
+    <div class="school-logo">
+      <img src="logo.webp" alt="E"
+        onerror="this.style.display='none';document.getElementById('lFb').style.display='block'">
+      <span class="school-logo-fb" id="lFb">E</span>
+    </div>
+    <div class="school-name">Emmanuel School</div>
+    <div class="school-tagline">Management System</div>
+  </div>
+
+  <div class="role-label">I am a —</div>
+
+  <div class="role-cards">
+    <!-- Student Card -->
+    <div class="role-card" id="cardStudent" onclick="selectRole('student')">
+      <div class="role-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+          <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+        </svg>
+      </div>
+      <div class="role-card-info">
+        <div class="role-card-title">Student</div>
+        <div class="role-card-desc">View marks, attendance, fees and class updates</div>
+      </div>
+      <div class="role-arrow">›</div>
+    </div>
+
+    <!-- Teacher Card -->
+    <div class="role-card" id="cardTeacher" onclick="selectRole('teacher')">
+      <div class="role-icon">
+        <svg viewBox="0 0 24 24">
+          <rect x="2" y="3" width="20" height="14" rx="2"/>
+          <path d="M8 21h8M12 17v4"/>
+        </svg>
+      </div>
+      <div class="role-card-info">
+        <div class="role-card-title">Teacher</div>
+        <div class="role-card-desc">Manage attendance, marks and class notifications</div>
+      </div>
+      <div class="role-arrow">›</div>
+    </div>
+  </div>
+
+  <button class="continue-btn" id="continueBtn" onclick="goToRole()">
+    Continue
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+
+  <div class="footer-note">Emmanuel School · Powered by EduManage</div>
+</div>
+
+<script>
+const ROLE_KEY = 'ems_role';
+let selectedRole = null;
+
+const ROUTES = {
+  student: '/student.html',
+  teacher: '/teacher.html'
+};
+
+/* On load — check if role already saved */
+window.addEventListener('load', function() {
+  const saved = localStorage.getItem(ROLE_KEY);
+
+  if (saved && ROUTES[saved]) {
+    /* Role already saved — redirect immediately */
+    window.location.replace(ROUTES[saved]);
+    return;
+  }
+
+  /* No saved role — show selector */
+  setTimeout(function() {
+    document.getElementById('splash').classList.add('hide');
+    setTimeout(function() {
+      document.getElementById('roleScreen').classList.add('show');
+    }, 200);
+  }, 800);
+});
+
+function selectRole(role) {
+  selectedRole = role;
+
+  /* Update card styles */
+  document.getElementById('cardStudent').classList.toggle('selected', role === 'student');
+  document.getElementById('cardTeacher').classList.toggle('selected', role === 'teacher');
+
+  /* Show continue button */
+  document.getElementById('continueBtn').classList.add('show');
+}
+
+function goToRole() {
+  if (!selectedRole) return;
+
+  /* Save role */
+  localStorage.setItem(ROLE_KEY, selectedRole);
+
+  /* Navigate */
+  window.location.href = ROUTES[selectedRole];
+}
+</script>
+
+<!-- Service Worker -->
+<script>
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('firebase-messaging-sw.js').catch(() => {});
+}
+</script>
+</body>
+</html>
